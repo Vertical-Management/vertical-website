@@ -7,11 +7,11 @@ import projects from '../data/projects.json';
   <Header />
   <section class="projects vm-container">
     <h1>Proyectos</h1>
-    <div className="project-grid">
+    <div class="project-grid">
       {projects.projects.map((p) => (
-        <article className="project-card" key={p.slug}>
+        <article class="project-card" key={p.slug}>
           <a href={`/proyectos/${p.slug}`}>
-            <img src={p.images?.[0] || '/assets/placeholder.png'} alt={p.title} />
+            <img src={p.images?.[0] || '/assets/placeholder.png'} alt={p.title} loading="eager" />
             <h2>{p.title}</h2>
             <p>{p.short}</p>
           </a>

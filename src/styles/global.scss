@@ -62,6 +62,20 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
 .contact-methods a{color:var(--vm-accent);text-decoration:none}
 .contact-methods a:hover{text-decoration:underline}
 
+.project-card{display:block;text-decoration:none;color:inherit;transition:transform 300ms ease}
+.project-card:hover{transform:translateY(-2px)}
+.project-card a{text-decoration:none;color:inherit;display:block}
+.project-card h2{color:var(--vm-accent);margin-top:0.75rem;margin-bottom:0.5rem}
+.project-card p{color:#666;margin:0;font-size:0.9rem}
+
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;margin-top:2rem}
+.gallery img{width:100%;height:auto;border-radius:8px;box-shadow:0 8px 24px rgba(11,11,11,0.15);opacity:0;animation:fadeIn 600ms ease-out forwards}
+.gallery img:nth-child(1){animation-delay:100ms}
+.gallery img:nth-child(2){animation-delay:200ms}
+.gallery img:nth-child(3){animation-delay:300ms}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
 @media (max-width:640px){
   .vm-container{padding:1rem}
   .vm-nav{display:none}

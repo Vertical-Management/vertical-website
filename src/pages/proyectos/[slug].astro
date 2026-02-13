@@ -17,9 +17,9 @@ const { project } = Astro.props;
   <section class="project-detail vm-container">
     <h1>{project.title}</h1>
     <p>{project.short}</p>
-    <div className="gallery">
+    <div class="gallery">
       {project.images?.map((img) => (
-        <img src={img} alt={project.title} />
+        <img src={img} alt={project.title} loading="eager" />
       ))}
     </div>
   </section>
