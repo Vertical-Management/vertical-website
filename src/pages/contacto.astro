@@ -4,9 +4,33 @@ import Header from '../components/Header.astro';
 ---
 <BaseLayout title="Contacto — Vertical Management">
   <Header />
-  <section className="contact vm-container">
+  <section class="contact vm-container">
     <h1>Contacto</h1>
-    <p>Escribe a: <a href="mailto:hello@vertical.example">hello@vertical.example</a></p>
-    <p>También puedes dejar un mensaje en las redes sociales.</p>
+    <p>
+      ¿Tienes un proyecto en mente? Me encantaría saber de ti. Ponte en contacto y conversemos
+      sobre cómo puedo ayudarte a llevar tu visión a la realidad.
+    </p>
+    
+    <div class="contact-methods">
+      <div>
+        <h3>Email</h3>
+        <p><a href="mailto:esteban@vertical-management.com">esteban@vertical-management.com</a></p>
+      </div>
+      
+      <div>
+        <h3>Redes Sociales</h3>
+        <p>
+          Encuéntrame en
+          <a href="#">Instagram</a> •
+          <a href="#">Linkedin</a> •
+          <a href="#">Twitter</a>
+        </p>
+      </div>
+      
+      <div>
+        <h3>Otra Forma</h3>
+        <p><a href="/servicios" class="btn-primary">Ver Servicios</a></p>
+      </div>
+    </div>
   </section>
 </BaseLayout>

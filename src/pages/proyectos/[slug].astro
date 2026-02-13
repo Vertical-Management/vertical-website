@@ -14,7 +14,7 @@ const { project } = Astro.props;
 ---
 <BaseLayout title={project ? `${project.title} — Vertical` : 'Proyecto'}>
   <Header />
-  <section className="project-detail vm-container">
+  <section class="project-detail vm-container">
     <h1>{project.title}</h1>
     <p>{project.short}</p>
     <div className="gallery">

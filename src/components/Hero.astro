@@ -5,8 +5,8 @@
   <div class="hero-media">
     <img 
       src="/assets/1. PAG DE ENTRADA/PORTFOLIO 2026.gif" 
-      alt="Impact portfolio"
-      loading="lazy"
+      alt="Impact portfolio Vertical Management"
+      loading="eager"
       decoding="async"
     />
   </div>
@@ -25,6 +25,13 @@
       heroImg.addEventListener('load', () => {
         heroImg.classList.add('loaded');
       });
+      
+      // Fallback timeout in case loading stalls
+      setTimeout(() => {
+        if (!heroImg.classList.contains('loaded')) {
+          heroImg.classList.add('loaded');
+        }
+      }, 3000);
     }
   }
 </script>
