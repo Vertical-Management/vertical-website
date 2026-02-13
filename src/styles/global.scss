@@ -3,7 +3,7 @@
 :root{
   --vm-bg: #ffffff;
   --vm-fg: #0b0b0b;
-  --vm-accent: #ff4d4f;
+  --vm-accent: #6b7280;
 }
 
 *{box-sizing:border-box}
@@ -31,7 +31,7 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
 .hero-media img{display:block;width:100%;height:auto;border-radius:8px;box-shadow:0 12px 40px rgba(11,11,11,0.08)}
 .hero-cta{margin-top:2rem;text-align:center}
 .btn-primary{display:inline-block;background:var(--vm-accent);color:#fff;padding:0.875rem 1.75rem;border-radius:8px;text-decoration:none;font-weight:600;transition:all 300ms ease}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,77,79,0.3)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(107,114,128,0.3)}
 
 .advice-block{background:#f7f7f7;padding:3rem 2rem;margin-top:3rem;text-align:center}
 .rotating-words{font-weight:700;font-size:1.5rem;color:var(--vm-accent);min-height:2.5rem;display:flex;align-items:center;justify-content:center}
