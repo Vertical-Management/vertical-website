@@ -1,0 +1,46 @@
+---
+export interface Props {
+  clasName?: string;
+}
+---
+<header class="vm-header">
+  <div class="vm-container vm-header-inner">
+    <a class="vm-logo" href="/">
+      <img src="/assets/logo/vertical.svg" alt="Vertical Management logo" />
+    </a>
+
+    <button
+      class="vm-hamburger"
+      aria-label="Toggle menu"
+      id="hamburger-menu"
+    >
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+
+    <nav class="vm-nav" id="nav-menu">
+      <a href="/">Inicio</a>
+      <a href="/servicios">Servicios</a>
+      <a href="/proyectos">Proyectos</a>
+      <a href="/contacto">Contacto</a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  // Mobile menu toggle
+  const hamburger = document.getElementById('hamburger-menu');
+  const nav = document.getElementById('nav-menu');
+  
+  hamburger?.addEventListener('click', () => {
+    nav?.classList.toggle('open');
+  });
+  
+  // Close menu when clicking a link
+  nav?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      nav?.classList.remove('open');
+    });
+  });
+</script>

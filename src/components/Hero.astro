@@ -1,0 +1,30 @@
+---
+// Hero component as pure Astro (static HTML)
+---
+<section class="hero">
+  <div class="hero-media">
+    <img 
+      src="/assets/1. PAG DE ENTRADA/PORTFOLIO 2026.gif" 
+      alt="Impact portfolio"
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+  <div class="hero-cta">
+    <a class="btn-primary" href="/servicios">Ver servicios</a>
+  </div>
+</section>
+
+<script>
+  // Add entrance animation to hero image on load
+  const heroImg = document.querySelector('.hero-media img');
+  if (heroImg) {
+    if (heroImg.complete) {
+      heroImg.classList.add('loaded');
+    } else {
+      heroImg.addEventListener('load', () => {
+        heroImg.classList.add('loaded');
+      });
+    }
+  }
+</script>
