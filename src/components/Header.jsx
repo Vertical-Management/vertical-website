@@ -6,9 +6,9 @@ export default function Header() {
   return (
     <header className="vm-header">
       <div className="vm-container vm-header-inner">
-        <div className="vm-brand">
+        <a className="vm-brand" href="/">
           <span className="vm-brand-text">Vertical Management</span>
-        </div>
+        </a>
 
         <a className="vm-logo" href="/">
           <img src="/assets/logo/VERTICAL-BLACK.png" alt="Vertical Management" />
