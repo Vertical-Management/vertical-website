@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.jsx';
+import Hero from '../components/Hero.jsx';
+import RotatingWords from '../components/RotatingWords.jsx';
+---
+<BaseLayout>
+  <Header />
+
+  <Hero />
+
+  <section className="advice-block">
+    <div className="vm-container">
+      <RotatingWords />
+    </div>
+  </section>
+
+</BaseLayout>

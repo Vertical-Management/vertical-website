@@ -1,0 +1,21 @@
+{
+  "name": "vertical-website",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "sync:assets": "mkdir -p public/assets && cp -R \"recursos\"/* public/assets/ || true",
+    "format": "prettier --write ."
+  },
+  "dependencies": {
+    "astro": "^5.17.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "sass": "^1.66.1",
+    "prettier": "^2.8.0"
+  }
+}

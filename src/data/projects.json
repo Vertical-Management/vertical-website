@@ -1,0 +1,46 @@
+{
+  "projects": [
+    {
+      "title": "FEP2026 — Animation",
+      "slug": "fep2026-animation",
+      "short": "Selección de animaciones y loop gifs para FEP2026.",
+      "images": [
+        "/assets/PAG ANIMATION FEP2026/FEP PORTADA.gif",
+        "/assets/PAG ANIMATION FEP2026/BUCLE GIRL.gif"
+      ],
+      "role": "Director creativo",
+      "year": 2026
+    },
+    {
+      "title": "Branding Cafeteros CO",
+      "slug": "branding-cafeteros",
+      "short": "Identidad visual y materiales para Cafeteros CO.",
+      "images": [
+        "/assets/PAG BRANDING CAFETEROS CO/CCDC1.webp"
+      ],
+      "role": "Brand Designer",
+      "year": 2025
+    }
+    ,
+    {
+      "title": "KOAJ 3D",
+      "slug": "koaj-3d",
+      "short": "Renderizados 3D y visuales del proyecto KOAJ.",
+      "images": [
+        "/assets/PAG KOAJ 3D /FEP KOAJ1.webp"
+      ],
+      "role": "3D Artist",
+      "year": 2024
+    },
+    {
+      "title": "UX / UI — Pedigree",
+      "slug": "ux-pedigree",
+      "short": "Diseño de interfaz y experiencia para la app University GB.",
+      "images": [
+        "/assets/PAG UX:UI PEDIGREE/UNIVERSITY GB APP.webp"
+      ],
+      "role": "Product Designer",
+      "year": 2023
+    }
+  ]
+}

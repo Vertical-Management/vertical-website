@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.jsx';
+import projects from '../data/projects.json';
+---
+<BaseLayout title="Proyectos — Vertical Management">
+  <Header />
+  <section className="projects vm-container">
+    <h1>Proyectos</h1>
+    <div className="project-grid">
+      {projects.projects.map((p) => (
+        <article className="project-card" key={p.slug}>
+          <a href={`/proyectos/${p.slug}`}>
+            <img src={p.images?.[0] || '/assets/placeholder.png'} alt={p.title} />
+            <h2>{p.title}</h2>
+            <p>{p.short}</p>
+          </a>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

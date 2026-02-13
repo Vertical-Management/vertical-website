@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.jsx';
+import projects from '../../data/projects.json';
+const { slug } = Astro.params;
+const project = projects.projects.find((p) => p.slug === slug);
+---
+<BaseLayout title={project ? `${project.title} — Vertical` : 'Proyecto'}>
+  <Header />
+  <section className="project-detail vm-container">
+    {project ? (
+      <>
+        <h1>{project.title}</h1>
+        <p>{project.short}</p>
+        <div className="gallery">
+          {project.images?.map((img) => (
+            <img src={img} alt={project.title} />
+          ))}
+        </div>
+      </>
+    ) : (
+      <p>Proyecto no encontrado.</p>
+    )}
+  </section>
+</BaseLayout>

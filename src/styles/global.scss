@@ -1,0 +1,48 @@
+@import './animations.scss';
+
+:root{
+  --vm-bg: #ffffff;
+  --vm-fg: #0b0b0b;
+  --vm-accent: #ff4d4f;
+}
+
+*{box-sizing:border-box}
+html,body,#root{height:100%}
+body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; background:var(--vm-bg); color:var(--vm-fg); margin:0}
+.vm-container{max-width:1100px;margin:0 auto;padding:2rem}
+
+.vm-header{padding:1rem 0}
+.vm-logo img{height:36px}
+.vm-header-inner{display:flex;align-items:center;justify-content:space-between}
+.vm-hamburger{display:none;background:transparent;border:0;padding:8px;cursor:pointer}
+.vm-hamburger .bar{display:block;width:22px;height:2px;background:var(--vm-fg);margin:4px 0;border-radius:2px}
+.vm-nav{display:flex;gap:1rem;align-items:center}
+.vm-nav a{color:var(--vm-fg);text-decoration:none}
+
+/* mobile nav */
+@media (max-width:640px){
+  .vm-hamburger{display:block}
+  .vm-nav{position:absolute;top:68px;right:1rem;background:#fff;padding:1rem;border-radius:8px;box-shadow:0 8px 24px rgba(11,11,11,0.08);flex-direction:column;display:none}
+  .vm-nav.open{display:flex}
+}
+
+.hero{display:flex;align-items:center;justify-content:center;flex-direction:column;padding:4rem 0}
+.hero-media img{max-width:960px;width:100%;height:auto;border-radius:8px}
+.hero-cta{margin-top:1.5rem}
+.btn-primary{background:var(--vm-accent);color:#fff;padding:0.75rem 1.25rem;border-radius:8px;text-decoration:none}
+
+.advice-block{background:#f7f7f7;padding:2rem 0;margin-top:2rem}
+.rotating-words{font-weight:700;font-size:1.25rem;text-align:center}
+.rotating-words .word{display:inline-block;transform-origin:50% 50%;transition:opacity 600ms ease, transform 600ms ease}
+
+/* hero subtle entrance */
+.hero-media img{opacity:0;transform:translateY(12px);transition:opacity 700ms ease, transform 700ms ease}
+.hero-media img.loaded{opacity:1;transform:none}
+
+.project-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
+.project-card img{width:100%;height:160px;object-fit:cover;border-radius:8px}
+
+@media (max-width:640px){
+  .vm-container{padding:1rem}
+  .vm-nav{display:none}
+}
