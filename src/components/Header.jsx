@@ -7,7 +7,7 @@ export default function Header() {
     <header className="vm-header">
       <div className="vm-container vm-header-inner">
         <a className="vm-logo" href="/">
-          <img src="/assets/logo/vertical.svg" alt="Vertical Management logo" />
+          <img src="/assets/logo/VERTICAL-BLACK.png" alt="Vertical Management" />
         </a>
 
         <button
