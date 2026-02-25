@@ -1,16 +1,20 @@
 ---
 import '../styles/global.scss';
-const { children, title = 'Vertical Management — Esteban Ferrer' } = Astro.props;
+const { children, title = 'Vertical Management — Esteban Ferrer', isFEP = false, isCafeteros = false } = Astro.props;
+const BASE_URL = import.meta.env.BASE_URL;
+const basePrefix = BASE_URL.endsWith('/') ? BASE_URL : `${BASE_URL}/`;
+
+const withBase = (path) => `${basePrefix}${path.replace(/^\/+/, '')}`;
 ---
 <!doctype html>
-<html lang="es">
+<html lang="es" class={`${isFEP ? 'is-fep-page' : ''} ${isCafeteros ? 'is-cafeteros-page' : ''}`}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content="Portfolio de Esteban Ferrer — Vertical Management" />
-    <link rel="icon" href="/favicon.svg" />
-    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <link rel="icon" href={withBase('favicon.svg')} />
+    <link rel="apple-touch-icon" href={withBase('favicon.svg')} />
   </head>
   <body>
     <main>

@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import CafeterosGallery from '../../components/CafeterosGallery.jsx';
+import projects from '../../data/projects.json';
+
+const project = projects.projects.find((item) => item.slug === 'branding-cafeteros');
+
+const BASE_URL = import.meta.env.BASE_URL;
+const basePrefix = BASE_URL.endsWith('/') ? BASE_URL : `${BASE_URL}/`;
+const withBase = (path) => `${basePrefix}${String(path || '').replace(/^\/+/, '')}`;
+
+const projectWithBase = project
+  ? {
+      ...project,
+      images: project.images?.map((img) => withBase(img)),
+      referenceImage: project.referenceImage ? withBase(project.referenceImage) : null,
+      videoUrl: project.videoUrl ? withBase(project.videoUrl) : null,
+    }
+  : null;
+---
+
+<BaseLayout title={project ? `${project.title} — Vertical` : 'Proyecto'} isCafeteros={true}>
+  <Header />
+  <section class="project-detail vm-container is-cafeteros">
+    <h1>{project?.title ?? 'Proyecto no encontrado'}</h1>
+    {project?.subtitle && <p class="project-subtitle">{project.subtitle}</p>}
+    {project?.short && <p>{project.short}</p>}
+
+    {project ? (
+      <CafeterosGallery
+        client:only="react"
+        images={projectWithBase.images}
+        description={project.description}
+        referenceImage={projectWithBase.referenceImage}
+        referenceText={project.referenceText}
+        creationText={project.creationText}
+        creationImagesText={project.creationImagesText}
+      />
+    ) : (
+      <p>No se encontró la información de este proyecto.</p>
+    )}
+  </section>
+</BaseLayout>

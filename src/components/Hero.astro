@@ -1,17 +1,21 @@
 ---
 // Hero component as pure Astro (static HTML)
+const BASE_URL = import.meta.env.BASE_URL;
+const basePrefix = BASE_URL.endsWith('/') ? BASE_URL : `${BASE_URL}/`;
+
+const withBase = (path) => `${basePrefix}${path.replace(/^\/+/, '')}`;
 ---
 <section class="hero">
   <div class="hero-media">
     <img 
-      src="/assets/1. PAG DE ENTRADA/PORTFOLIO 2026.gif" 
+      src={withBase('assets/1. PAG DE ENTRADA/PORTFOLIO 2026.gif')} 
       alt="Impact portfolio Vertical Management"
       loading="eager"
       decoding="async"
     />
   </div>
   <div class="hero-cta">
-    <a class="btn-primary" href="/servicios">Ver servicios</a>
+    <a class="btn-primary" href={withBase('servicios')}>Ver servicios</a>
   </div>
 </section>
 

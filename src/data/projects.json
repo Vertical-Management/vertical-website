@@ -1,18 +1,25 @@
 {
   "projects": [
     {
-      "title": "FEP2026 — Animation",
+      "title": "Festival Esterero Picnic 2026",
+      "subtitle": "Proyect motion graphics",
       "slug": "fep2026-animation",
-      "short": "Selección de animaciones y loop gifs para FEP2026.",
+      "short": "Selección de animaciones y loops GIFs para FEP2026 con paleta de colores sincronizada.",
+      "description": "Sobre Estéreo Picnic\n\nEstéreo Picnic es mucho más que un festival: es un universo sonoro y visual donde la música, el arte y las emociones se encuentran. Miles de personas se reúnen para disfrutar de experiencias únicas junto a artistas de todo el mundo. Este proyecto busca capturar la magia del FEP a través del movimiento, la creatividad y la emoción.",
+      "referenceImage": "/assets/PAG ANIMATION FEP2026/IMG REFERENCES .webp",
+      "referenceText": "Motion Graphics es la disciplina que fusiona diseño, animación y tecnología para contar historias visuales impactantes. En este proyecto, cada frame ha sido meticulosamente diseñado para capturar la esencia del Festival Estéreo Picnic: energía, movimiento y emoción. Las animaciones funcionan como puentes visuales que conectan al público con la experiencia única del evento, creando una identidad visual coherente y memorable que perduran en la mente de cada asistente.",
+      "creationText": "La creación de estos bucles de animación fue un proceso cuidadoso de experimentación y refinamiento visual. Cada movimiento fue calculado para transmitir energía sin perder elegancia. Utilizamos una paleta de colores coordinada que refuerza la identidad visual del festival, combinando técnicas de motion graphics modernas con narrativa visual que cuenta la historia única de cada artista y momento del evento.",
+      "videoUrl": "/assets/PAG ANIMATION FEP2026/fep_2026 (1080p).mp4",
+      "creationImagesText": "Cada bucle representa la energía única de los artistas, capturando su esencia visual en movimiento continuo.",
+      "accentColor": "#A855F7",
       "images": [
         "/assets/PAG ANIMATION FEP2026/FEP PORTADA.gif",
-        "/assets/PAG ANIMATION FEP2026/BUCLE GIRL.gif",
-        "/assets/PAG ANIMATION FEP2026/BUCLE ESTEREO PICNIC.gif",
-        "/assets/PAG ANIMATION FEP2026/BUCLE SABRINA CARPENTER.gif",
         "/assets/PAG ANIMATION FEP2026/BUCLE TYLER THE CREATOR.gif",
         "/assets/PAG ANIMATION FEP2026/BUCLE UN MUNDO DISTINTO.gif",
+        "/assets/PAG ANIMATION FEP2026/BUCLE SABRINA CARPENTER.gif",
+        "/assets/PAG ANIMATION FEP2026/BUCLE GIRL.gif",
         "/assets/PAG ANIMATION FEP2026/BEFORE CREATE PROYECT.gif",
-        "/assets/PAG ANIMATION FEP2026/IMG REFERENCES .webp"
+        "/assets/PAG ANIMATION FEP2026/BUCLE ESTEREO PICNIC.gif"
       ],
       "role": "Director creativo",
       "year": 2026
@@ -21,13 +28,25 @@
       "title": "Branding Cafeteros CO",
       "slug": "branding-cafeteros",
       "short": "Identidad visual y materiales para Cafeteros CO.",
+      "subtitle": "Diseño de marca integral",
+      "description": "Sobre Cafeteros CO\n\nCafeteros CO es una marca que celebra la excelencia del café colombiano, combinando tradición, calidad y diseño contemporáneo. Este proyecto branding integral busca transmitir la pasión, autenticidad y dedicación de los productores de café a través de una identidad visual coherente y memorable.",
+      "referenceImage": "/assets/PAG BRANDING CAFETEROS CO/PNG COFFE/PACK COFFE.webp",
+      "referenceText": "El branding de Cafeteros CO fusiona elementos tradicionales del café colombiano con un diseño moderno y accesible. Cada elemento visual, desde la tipografía hasta los materiales de empaque, ha sido cuidadosamente seleccionado para reflejar la identidad única de la marca, creando una experiencia visual coherente que conecta con el consumidor en cada punto de contacto.",
+      "creationText": "El proceso creativo detrás de Cafeteros CO fue una exploración profunda de la identidad visual del café. Trabajamos con una paleta de colores inspirada en los tonos naturales del café, desde los granos verdes hasta el marrón chocolate oscuro. Cada diseño fue pensado para resaltar la naturaleza premium del producto, combinando técnicas de diseño gráfico estratégico con una comprensión profunda de la narrativa de marca.",
+      "creationImagesText": "Cada aplicación de marca representa un aspecto diferente de la identidad visual, desde el empaque del producto hasta materiales de marketing, todos cohesivos y alineados con la misión de celebrar la excelencia del café colombiano.",
+      "accentColor": "#8B6F47",
       "images": [
         "/assets/PAG BRANDING CAFETEROS CO/CCDC1.webp",
         "/assets/PAG BRANDING CAFETEROS CO/CCDC2.webp",
         "/assets/PAG BRANDING CAFETEROS CO/CCDC3.webp",
         "/assets/PAG BRANDING CAFETEROS CO/CCDC4.webp",
         "/assets/PAG BRANDING CAFETEROS CO/CCDC5.webp",
-        "/assets/PAG BRANDING CAFETEROS CO/CCDC6.webp"
+        "/assets/PAG BRANDING CAFETEROS CO/CCDC6.webp",
+        "/assets/PAG BRANDING CAFETEROS CO/PNG COFFE/100COFFE.webp",
+        "/assets/PAG BRANDING CAFETEROS CO/PNG COFFE/2COFFE.webp",
+        "/assets/PAG BRANDING CAFETEROS CO/PNG COFFE/CUP COFFE.webp",
+        "/assets/PAG BRANDING CAFETEROS CO/PNG COFFE/GREEN COFFE.webp",
+        "/assets/PAG BRANDING CAFETEROS CO/PNG COFFE/PACK COFFE.webp"
       ],
       "role": "Brand Designer",
       "year": 2025

@@ -2,15 +2,20 @@
 export interface Props {
   clasName?: string;
 }
+
+const BASE_URL = import.meta.env.BASE_URL;
+const basePrefix = BASE_URL.endsWith('/') ? BASE_URL : `${BASE_URL}/`;
+
+const withBase = (path) => `${basePrefix}${path.replace(/^\/+/, '')}`;
 ---
 <header class="vm-header">
   <div class="vm-container vm-header-inner">
-    <a class="vm-brand" href="/">
+    <a class="vm-brand" href={BASE_URL}>
       <span class="vm-brand-text">Vertical Management</span>
     </a>
 
-    <a class="vm-logo" href="/">
-      <img src="/assets/logo/VERTICAL-BLACK.png" alt="Vertical Management" />
+    <a class="vm-logo" href={BASE_URL}>
+      <img src={withBase('assets/logo/VERTICAL-BLACK.png')} alt="Vertical Management" />
     </a>
 
     <button
@@ -24,10 +29,10 @@ export interface Props {
     </button>
 
     <nav class="vm-nav" id="nav-menu">
-      <a href="/">Inicio</a>
-      <a href="/servicios">Servicios</a>
-      <a href="/proyectos">Proyectos</a>
-      <a href="/contacto">Contacto</a>
+      <a href={BASE_URL}>Inicio</a>
+      <a href={withBase('servicios')}>Servicios</a>
+      <a href={withBase('proyectos')}>Proyectos</a>
+      <a href={withBase('contacto')}>Contacto</a>
     </nav>
   </div>
 </header>

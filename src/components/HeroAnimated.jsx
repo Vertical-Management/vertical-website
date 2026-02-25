@@ -1,5 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 
+const BASE_URL = import.meta.env.BASE_URL;
+const basePrefix = BASE_URL.endsWith('/') ? BASE_URL : `${BASE_URL}/`;
+const withBase = (path) => `${basePrefix}${path.replace(/^\/+/, '')}`;
+
 export default function HeroAnimated() {
   const imgRef = useRef(null);
   const svgRef = useRef(null);
@@ -39,14 +43,14 @@ export default function HeroAnimated() {
       <div className="hero-media hero-media-masked">
         <img
           ref={imgRef}
-          src="/assets/1. PAG DE ENTRADA/PORTFOLIO 2026.gif"
+          src={withBase('assets/1.%20PAG%20DE%20ENTRADA/PORTFOLIO%202026.gif')}
           alt="Impact portfolio"
           className="hero-img"
         />
       </div>
 
       <div className="hero-cta">
-        <a className="btn-primary" href="/servicios">
+        <a className="btn-primary" href={withBase('servicios')}>
           Ver servicios
         </a>
       </div>

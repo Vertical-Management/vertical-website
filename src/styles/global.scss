@@ -6,6 +6,58 @@
   --vm-accent: #6b7280;
 }
 
+html.is-fep-page{
+  background:#ed462f;
+}
+
+html.is-fep-page body{
+  background:#ed462f;
+}
+
+html.is-fep-page .vm-header{
+  background:#ed462f;
+  color:#fff;
+}
+
+html.is-fep-page .vm-brand-text{
+  color:#fff;
+}
+
+html.is-fep-page .vm-nav a{
+  color:#fff;
+}
+
+html.is-fep-page .vm-hamburger .bar{
+  background:#fff;
+}
+
+html.is-cafeteros-page{
+  background:#ffffff;
+}
+
+html.is-cafeteros-page body{
+  background:#ffffff;
+  color:#2B1F17;
+}
+
+html.is-cafeteros-page .vm-header{
+  background:#ffffff;
+  color:#2B1F17;
+  border-bottom:1px solid #E8DED2;
+}
+
+html.is-cafeteros-page .vm-brand-text{
+  color:#2B1F17;
+}
+
+html.is-cafeteros-page .vm-nav a{
+  color:#2B1F17;
+}
+
+html.is-cafeteros-page .vm-hamburger .bar{
+  background:#2B1F17;
+}
+
 *{box-sizing:border-box}
 html,body,#root{height:100%}
 body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; background:var(--vm-bg); color:var(--vm-fg); margin:0}
@@ -73,15 +125,458 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
 .project-card h2{color:var(--vm-accent);margin-top:0.75rem;margin-bottom:0.5rem}
 .project-card p{color:#666;margin:0;font-size:0.9rem}
 
+/* Cafeteros Layout */
+.project-detail.is-cafeteros{
+  padding:0;
+  background:#ffffff !important;
+  min-height:auto;
+}
+
+.cafeteros-hero{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:3rem;
+  align-items:center;
+  padding:3rem 2rem 4rem 2rem;
+  margin-bottom:2rem;
+}
+
+.cafeteros-hero-image{
+  overflow:hidden;
+  border-radius:4px;
+  max-height:500px;
+}
+
+.cafeteros-hero-image img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.cafeteros-hero-products{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:2rem;
+  justify-items:center;
+  align-items:center;
+}
+
+.cafeteros-hero-products img{
+  max-width:280px;
+  height:auto;
+  display:block;
+}
+
+.project-description{
+  padding:0 2rem;
+  max-width:900px;
+  line-height:1.8;
+  color:#555;
+  margin-bottom:4rem;
+}
+
+.cafeteros-gallery{
+  display:grid;
+  grid-template-columns:repeat(2, 1fr);
+  gap:2rem;
+  padding:0 2rem 3rem 2rem;
+  grid-auto-rows:auto;
+}
+
+.gallery-item{
+  overflow:hidden;
+  border-radius:4px;
+}
+
+.gallery-item img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.project-subtitle{font-size:0.95rem;color:rgba(255,255,255,0.85);font-weight:500;margin:0.5rem auto 1rem auto;text-align:center;display:block}
+
+.project-detail.is-cafeteros .project-subtitle{
+  color:#2B1F17;
+}
+
 .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;margin-top:2rem}
 .gallery img{width:100%;height:auto;border-radius:8px;box-shadow:0 8px 24px rgba(11,11,11,0.15);opacity:0;animation:fadeIn 600ms ease-out forwards}
 .gallery img:nth-child(1){animation-delay:100ms}
 .gallery img:nth-child(2){animation-delay:200ms}
 .gallery img:nth-child(3){animation-delay:300ms}
 
+/* FEP Project Detail Styles */
+.project-detail{background:linear-gradient(135deg,#ed462f 0%,#ed462f 100%);min-height:100vh;padding-bottom:4rem;text-align:center;color:#2B1F17}
+
+.project-detail.is-cafeteros{
+  background:#ffffff !important;
+  color:#2B1F17;
+}
+
+.project-detail.is-cafeteros h1{
+  color:#2B1F17;
+}
+
+.project-detail.is-cafeteros p{
+  color:#2B1F17;
+}
+
+.project-detail.is-fep{background:linear-gradient(135deg,#ed462f 0%,#ed462f 100%)}
+
+.project-detail.is-fep ~ *{background:#ed462f}
+
+.project-detail h1{color:#fff;font-size:2.5rem;margin-bottom:0.5rem;text-align:center}
+
+.project-detail.is-cafeteros h1{
+  color:#2B1F17;
+}
+
+.project-detail>p{color:rgba(255,255,255,0.95);font-size:1.1rem;max-width:800px;line-height:1.6;margin-left:auto;margin-right:auto}
+
+.project-detail.is-cafeteros>p{
+  color:#2B1F17;
+}
+
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
+/* FEP Gallery Styles - Professional Motion Graphics Showcase */
+
+/* Gallery Container */
+.fep-gallery-container{width:100%;display:flex;flex-direction:column}
+
+/* Hero Section */
+.fep-hero{width:100%;height:auto;max-height:600px;overflow:visible;position:relative}
+
+.fep-hero-wrapper{position:relative;width:100%;height:auto;min-height:300px;max-height:600px;overflow:hidden;background:#ed462f;display:flex;align-items:center;justify-content:center}
+
+.fep-hero-image{width:100%;height:auto;max-height:600px;object-fit:contain;display:block;opacity:0;animation:fadeIn 1000ms ease-out 200ms forwards;background:#ed462f;will-change:opacity}
+
+.fep-hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:transparent;pointer-events:none}
+
+.fep-info-header{padding:1.5rem 2rem;background:transparent;border-bottom:none}
+
+.fep-info-content{max-width:1100px;margin:0 auto}
+
+.fep-description{padding:1.5rem 2rem;background:#ed462f;color:#fff}
+
+.fep-description-content{max-width:900px;margin:0 auto}
+
+.fep-description-text{font-size:1rem;line-height:1.8;margin:0.5rem 0;color:rgba(255,255,255,0.95)}
+
+.fep-description-text:first-child{font-size:1.2rem;font-weight:700;margin-bottom:0.75rem;color:#fff}
+
+.fep-reference-image{padding:3rem 2rem;background:#ed462f}
+
+.fep-reference-wrapper{max-width:900px;margin:0 auto}
+
+.fep-reference-wrapper img{width:100%;height:auto;border-radius:8px;display:block}
+
+/* Reference Section - Side by Side Layout */
+.fep-reference-section{padding:1.5rem 2rem;background:transparent;color:#0b0b0b}
+
+.fep-reference-container{display:grid;grid-template-columns:1fr 1fr;gap:2rem;max-width:1200px;margin:0 auto;align-items:center;background:#fff;padding:2rem;border-radius:16px}
+
+.fep-reference-image-wrapper img{width:100%;height:auto;border-radius:12px;display:block}
+
+.fep-reference-text-wrapper h2{font-size:1.8rem;font-weight:700;margin:0 0 1.5rem 0;color:#0b0b0b}
+
+.fep-reference-text-wrapper p{font-size:1rem;line-height:1.8;color:#555;margin:0}
+
+@media (max-width:768px){
+  .fep-reference-container{grid-template-columns:1fr;gap:2rem}
+}
+
+.fep-project-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(216px,1fr));gap:1rem;margin-bottom:0}
+
+.fep-stat{display:flex;flex-direction:column;gap:0.5rem;color:rgba(255,255,255,0.85);font-size:0.95rem;line-height:1.4}
+
+.fep-stat strong{display:block;font-size:1.1rem;color:#fff;font-weight:700}
+
+/* Main Gallery */
+.fep-gallery-main{padding:0;background:transparent;width:100vw;margin-left:calc(-50vw + 50%);margin-right:calc(-50vw + 50%)}
+
+.fep-gallery-grid{display:grid;grid-template-columns:repeat(3, 1fr);gap:0.3rem;gap:0px;width:100%;margin:0;--accent-color:#ed462f;padding:0}
+
+.fep-gallery-item:nth-child(1),
+.fep-gallery-item:nth-child(2),
+.fep-gallery-item:nth-child(3),
+.fep-gallery-item:nth-child(4){grid-column:auto}
+
+.fep-gallery-item:last-child{grid-column:2}
+
+.fep-gallery-item{position:relative;cursor:pointer;overflow:hidden;aspect-ratio:1;border-radius:12px}
+
+.fep-item-inner{position:relative;width:100%;height:100%;overflow:hidden;background:transparent;border-radius:12px}
+
+.fep-item-inner img{width:100%;height:100%;object-fit:contain;display:block;border-radius:12px}
+
+.fep-gallery-item:hover img{transform:scale(1)}
+
+.fep-item-overlay{display:none}
+
+.fep-item-icon{display:none}
+
+/* Lightbox */
+.fep-lightbox{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.92);display:flex;align-items:center;justify-content:center;z-index:1000;padding:2rem;animation:fadeIn 300ms ease;-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
+
+.fep-lightbox-content{position:relative;width:100%;max-width:90vw;max-height:90vh;overflow:hidden;border-radius:16px}
+
+.fep-lightbox-content img{width:100%;height:100%;object-fit:contain}
+
+.fep-lightbox-close{position:absolute;top:1rem;right:1rem;width:48px;height:48px;background:rgba(255,255,255,0.95);border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:#000;transition:all 300ms ease;z-index:10}
+
+.fep-lightbox-close:hover{background:#fff;transform:scale(1.1)}
+
+/* Footer */
+.fep-footer{padding:2rem 2rem;background:#ed462f;color:#fff;text-align:center;max-width:1100px;margin:1.5rem auto 0;border-radius:0}
+
+.fep-footer h3{font-size:1.5rem;margin:0 0 1rem 0;font-weight:700}
+
+.fep-footer p{margin:0;line-height:1.6;font-size:0.95rem;opacity:0.95}
+
+/* Animations */
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+.fep-gallery-item{animation:slideUp 600ms ease-out backwards;will-change:opacity,transform}
+.fep-gallery-item:nth-child(1){animation-delay:0ms}
+.fep-gallery-item:nth-child(2){animation-delay:30ms}
+.fep-gallery-item:nth-child(3){animation-delay:60ms}
+.fep-gallery-item:nth-child(4){animation-delay:90ms}
+.fep-gallery-item:nth-child(5){animation-delay:120ms}
+.fep-gallery-item:nth-child(n+6){animation-delay:0ms}
+
+.fep-gallery-item:not(:nth-child(n+7)) {
+  animation:slideUp 600ms ease-out backwards;
+}
+
+/* Responsive */
+@media (max-width:768px){
+  .fep-hero{max-height:400px}
+  .fep-info-header{padding:2rem 1rem}
+  .fep-project-stats{grid-template-columns:1fr;gap:1.5rem}
+  .fep-gallery-grid{grid-template-columns:repeat(3, 1fr);gap:0.3rem;padding:0}
+  .fep-gallery-main{padding:0;background:transparent}
+  .fep-footer{padding:2rem 1rem;margin:2rem 1rem 0 1rem}
+  .fep-creation-container{grid-template-columns:1fr;gap:2rem}
+}
+
+/* Creation Section */
+.fep-creation-section{padding:1.5rem 2rem;background:transparent;color:#0b0b0b}
+
+.fep-creation-container{display:grid;grid-template-columns:1fr 1fr;gap:2rem;max-width:1200px;margin:0 auto;align-items:flex-start}
+
+.fep-creation-text-wrapper{background:#fff;padding:2rem;border-radius:16px}
+
+.fep-creation-text-wrapper h2{font-size:1.8rem;font-weight:700;margin:0 0 1.5rem 0;color:#0b0b0b}
+
+.fep-creation-text-wrapper p{font-size:1rem;line-height:1.8;color:#555;margin:0}
+
+.fep-creation-images-wrapper{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+
+.fep-creation-images-wrapper img{width:100%;height:auto;border-radius:12px;display:block;object-fit:cover;aspect-ratio:1}
+
+.fep-creation-images-text{grid-column:1 / -1;font-size:1rem;color:#fff;line-height:1.8}
+
+/* Final Gallery Section */
+.fep-final-gallery{padding:1.5rem 2rem;background:transparent}
+
+.fep-final-gallery-wrapper{max-width:600px;margin:0 auto}
+
+.fep-final-gallery-wrapper img{width:100%;height:auto;border-radius:12px;display:block}
+
+/* Video Section */
+.fep-video-section{padding:1.5rem 2rem;background:transparent}
+
+.fep-video-wrapper{max-width:1200px;margin:0 auto;border-radius:16px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.1)}
+
+.fep-video-wrapper video{width:100%;height:auto;display:block;background:#000}
+
+/* Cafeteros Gallery Styles - Innovative Branding Showcase */
+
+/* Gallery Container */
+.cafeteros-gallery-container{width:100%;display:flex;flex-direction:column;background:#ffffff}
+
+/* Main Hero - Featured Product */
+.cafeteros-main-hero{position:relative;width:100vw;height:clamp(320px, 42vw, 500px);overflow:hidden;display:flex;align-items:center;justify-content:flex-start;background:#ffffff;padding:0;margin-left:calc(-50vw + 50%);margin-right:calc(-50vw + 50%)}
+
+.cafeteros-main-hero-editor{display:block}
+
+.cafeteros-main-hero-editor canvas{display:block}
+
+.cafeteros-editor-controls{max-width:1100px;margin:1rem auto 2rem auto;padding:1rem;border:1px solid #e8ded2;border-radius:12px;background:#fffaf3}
+
+.cafeteros-editor-head h4{margin:0 0 0.35rem 0;color:#2B1F17;font-size:1rem}
+
+.cafeteros-editor-head p{margin:0 0 0.75rem 0;color:#6d5a45;font-size:0.88rem}
+
+.cafeteros-editor-actions{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.75rem}
+
+.cafeteros-editor-actions button{border:1px solid #d8c8b3;background:#fff;color:#2B1F17;border-radius:8px;padding:0.45rem 0.7rem;cursor:pointer;font-size:0.85rem}
+
+.cafeteros-editor-actions button:hover{background:#f7efe4}
+
+.cafeteros-editor-layers{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0.5rem;margin-bottom:0.75rem}
+
+.cafeteros-editor-layers button{display:flex;flex-direction:column;align-items:flex-start;gap:0.15rem;border:1px solid #e2d4c1;background:#fff;border-radius:8px;padding:0.55rem;cursor:pointer;color:#2B1F17}
+
+.cafeteros-editor-layers button.active{border-color:#8B6F47;background:#f5eee2}
+
+.cafeteros-editor-layers button strong{font-size:0.85rem}
+
+.cafeteros-editor-layers button span{font-size:0.75rem;color:#6d5a45}
+
+.cafeteros-editor-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0.5rem;margin-bottom:0.75rem}
+
+.cafeteros-editor-form label{display:flex;flex-direction:column;gap:0.2rem;font-size:0.75rem;color:#6d5a45}
+
+.cafeteros-editor-form input{border:1px solid #d9ccba;border-radius:6px;padding:0.38rem 0.45rem;font-size:0.8rem;color:#2B1F17;background:#fff}
+
+.cafeteros-editor-selected{margin:0;background:#ffffff;border:1px solid #e9ddcf;border-radius:8px;padding:0.6rem;font-size:0.75rem;max-height:180px;overflow:auto;color:#2B1F17}
+
+.cafeteros-hero-pack-backdrop,
+.cafeteros-hero-featured,
+.cafeteros-hero-background{display:none}
+
+.cafeteros-hero-layer{position:absolute;display:block;pointer-events:none;will-change:transform}
+
+.cafeteros-hero-layer.is-coffee-bck{object-fit:cover;object-position:center}
+
+.cafeteros-hero-layer.is-pack-backdrop{object-fit:contain;object-position:center}
+
+.cafeteros-cup-bridge{padding:0;background:transparent;display:flex;justify-content:center;align-items:flex-end;margin-top:-100px;margin-bottom:-100px;overflow:hidden}
+
+.cafeteros-bridge-cup{display:block;width:min(36vw, 460px);height:auto;object-fit:contain;object-position:center top;clip-path:inset(34% 0 0 0);transform:translateY(-22%);pointer-events:none}
+
+/* Section Headers */
+.cafeteros-section-header{text-align:center;margin-bottom:3rem}
+
+.cafeteros-section-header h2{font-size:2rem;font-weight:700;color:#2B1F17;margin:0 0 0.5rem 0}
+
+.cafeteros-section-header p{font-size:0.95rem;color:#8B6F47;margin:0}
+
+/* Description Section */
+.cafeteros-description-section{padding:3rem 2rem;background:#ffffff}
+
+.cafeteros-cup-bridge + .cafeteros-description-section{padding-top:clamp(0.35rem, 1vw, 0.9rem)}
+
+.cafeteros-description-wrapper{max-width:900px;margin:0 auto}
+
+.cafeteros-description-text{font-size:1rem;line-height:1.8;color:#555;margin:1rem 0}
+
+.cafeteros-description-text:first-child{font-size:1.1rem;font-weight:700;color:#2B1F17;margin-bottom:1.5rem}
+
+/* Products Section - PNG COFFE */
+.cafeteros-products-section{padding:3rem 2rem;background:#ffffff}
+
+.cafeteros-products-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));gap:2rem;max-width:1200px;margin:0 auto}
+
+.cafeteros-product-card{position:relative;background:#f8f5f0;border-radius:16px;overflow:hidden;cursor:pointer;transition:all 300ms ease;aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;border:2px solid transparent}
+
+.cafeteros-product-card:hover{transform:translateY(-8px);border-color:#8B6F47;box-shadow:0 12px 32px rgba(0,0,0,0.1)}
+
+.cafeteros-product-image{width:100%;height:100%;display:flex;align-items:center;justify-content:center;padding:1.5rem}
+
+.cafeteros-product-image img{width:90%;height:90%;object-fit:contain}
+
+.cafeteros-product-info{position:absolute;bottom:1rem;left:1rem;z-index:10}
+
+.product-number{font-size:0.85rem;font-weight:700;color:#8B6F47;letter-spacing:1px;text-transform:uppercase}
+
+/* Reference Section */
+.cafeteros-reference-section{padding:3rem 2rem;background:#ffffff}
+
+.cafeteros-reference-content{display:grid;grid-template-columns:1fr 1fr;gap:3rem;max-width:1200px;margin:0 auto;align-items:center;background:#f8f5f0;padding:2.5rem;border-radius:16px}
+
+.cafeteros-reference-image img{width:100%;height:auto;border-radius:12px;display:block}
+
+.cafeteros-reference-text h3{font-size:1.8rem;font-weight:700;color:#2B1F17;margin:0 0 1.5rem 0}
+
+.cafeteros-reference-text p{font-size:1rem;line-height:1.8;color:#555;margin:0}
+
+/* Creation Section */
+.cafeteros-creation-section{padding:4rem 2rem;background:linear-gradient(135deg, #f8f5f0 0%, #ffffff 100%)}
+
+.cafeteros-creation-wrapper{max-width:800px;margin:0 auto;text-align:center}
+
+.cafeteros-creation-text h2{font-size:2rem;font-weight:700;color:#2B1F17;margin:0 0 1.5rem 0}
+
+.cafeteros-creation-text p{font-size:1rem;line-height:1.8;color:#555;margin:0}
+
+/* Identity Section */
+.cafeteros-identity-section{padding:3rem 2rem;background:#ffffff}
+
+.cafeteros-identity-grid{display:grid;grid-template-columns:repeat(3, 1fr);gap:1.5rem;max-width:1200px;margin:0 auto;width:100vw;margin-left:calc(-50vw + 50%);margin-right:calc(-50vw + 50%)}
+
+.cafeteros-item{position:relative;cursor:pointer;overflow:hidden;aspect-ratio:1;border-radius:12px;background:#f8f5f0;transition:all 300ms ease}
+
+.cafeteros-item img{width:100%;height:100%;object-fit:contain;padding:1rem;display:block}
+
+.cafeteros-item:hover{transform:scale(1.05);box-shadow:0 8px 24px rgba(0,0,0,0.1)}
+
+
+/* Lightbox */
+.cafeteros-lightbox{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.92);display:flex;align-items:center;justify-content:center;z-index:1000;padding:2rem;animation:fadeIn 300ms ease;-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
+
+.cafeteros-lightbox-content{position:relative;width:100%;max-width:90vw;max-height:90vh;overflow:hidden;border-radius:16px}
+
+.cafeteros-lightbox-content img{width:100%;height:100%;object-fit:contain}
+
+.cafeteros-lightbox-close{position:absolute;top:1rem;right:1rem;width:48px;height:48px;background:rgba(255,255,255,0.95);border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:#000;transition:all 300ms ease;z-index:10}
+
+.cafeteros-lightbox-close:hover{background:#fff;transform:scale(1.1)}
+
+/* Footer */
+.cafeteros-footer{padding:3rem 2rem;background:#2B1F17;color:#ffffff;text-align:center;margin-top:2rem}
+
+.cafeteros-footer h3{font-size:1.5rem;margin:0 0 1rem 0;font-weight:700;color:#ffffff}
+
+.cafeteros-footer p{margin:0;line-height:1.6;font-size:0.95rem;opacity:0.9}
+
+/* Responsive */
+@media (max-width:768px){
+  .cafeteros-main-hero{height:clamp(260px, 70vw, 420px)}
+  .cafeteros-editor-controls{margin:0.75rem 0 1.5rem 0;padding:0.75rem}
+  .cafeteros-editor-layers{grid-template-columns:1fr 1fr}
+  .cafeteros-editor-form{grid-template-columns:1fr 1fr}
+  .cafeteros-section-header h2{font-size:1.5rem}
+  .cafeteros-reference-content{grid-template-columns:1fr;gap:2rem;padding:1.5rem}
+  .cafeteros-products-grid{grid-template-columns:repeat(2, 1fr);gap:1.5rem}
+  .cafeteros-identity-grid{grid-template-columns:repeat(2, 1fr);gap:1rem}
+}
+
 @media (max-width:640px){
+  .fep-hero{max-height:300px}
+  .fep-info-header{padding:1.5rem 1rem}
+  .fep-gallery-grid{grid-template-columns:repeat(3, 1fr);gap:0.3rem;padding:0}
+  .fep-gallery-main{padding:0;background:transparent}
+  .fep-gallery-item{aspect-ratio:square}
+  .fep-lightbox{padding:1rem}
+  .fep-lightbox-content{border-radius:12px}
+  .fep-lightbox-close{width:40px;height:40px;top:0.5rem;right:0.5rem}
   .vm-container{padding:1rem}
   .vm-nav{display:none}
+  .fep-creation-container{grid-template-columns:1fr;gap:1.5rem}
+  .fep-creation-text-wrapper{padding:1.5rem}
+  .fep-creation-images-wrapper{gap:0.5rem}
+  .fep-video-wrapper{border-radius:8px}
+  
+  .cafeteros-hero{max-height:300px}
+  .cafeteros-info-header{padding:1.5rem 1rem}
+  .cafeteros-gallery-grid{grid-template-columns:repeat(3, 1fr);gap:0.3rem;padding:0}
+  .cafeteros-gallery-main{padding:0;background:transparent}
+  .cafeteros-gallery-item{aspect-ratio:square}
+  .cafeteros-lightbox{padding:1rem}
+  .cafeteros-lightbox-content{border-radius:12px}
+  .cafeteros-lightbox-close{width:40px;height:40px;top:0.5rem;right:0.5rem}
+  .cafeteros-creation-container{grid-template-columns:1fr;gap:1.5rem}
+  .cafeteros-creation-text-wrapper{padding:1.5rem}
+  .cafeteros-creation-images-wrapper{gap:0.5rem}
+  
+  .cafeteros-hero{grid-template-columns:1fr;gap:2rem;padding:2rem}
+  .cafeteros-hero-products{grid-template-columns:repeat(2, 1fr)}
+  .cafeteros-hero-products img{max-width:100%}
+  .cafeteros-gallery{grid-template-columns:1fr;padding:0 2rem}
 }
