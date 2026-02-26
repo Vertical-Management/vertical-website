@@ -483,7 +483,7 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
 .cafeteros-description-text:first-child{font-size:1.1rem;font-weight:700;color:#2B1F17;margin-bottom:1.5rem}
 
 /* Products Section - PNG COFFE */
-.cafeteros-products-section{padding:3rem 2rem;background:transparent}
+.cafeteros-products-section{padding:1.2rem 2rem 3rem 2rem;background:transparent;margin-top:-92px}
 
 .cafeteros-products-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));gap:2rem;max-width:1200px;margin:0 auto}
 
@@ -493,7 +493,7 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
 
 .cafeteros-product-image{width:100%;height:100%;display:flex;align-items:center;justify-content:center;padding:1.5rem}
 
-.cafeteros-product-image img{width:90%;height:90%;object-fit:contain}
+.cafeteros-product-image img{width:90%;height:90%;object-fit:contain;transform:translateY(14px)}
 
 .cafeteros-product-info{position:absolute;bottom:1rem;left:1rem;z-index:10}
 
@@ -555,6 +555,8 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
   .cafeteros-editor-controls{margin:0.75rem 0 1.5rem 0;padding:0.75rem}
   .cafeteros-editor-layers{grid-template-columns:1fr 1fr}
   .cafeteros-editor-form{grid-template-columns:1fr 1fr}
+  .cafeteros-products-section{margin-top:-60px;padding-top:0.9rem}
+  .cafeteros-product-image img{transform:translateY(10px)}
   .cafeteros-section-header h2{font-size:1.5rem}
   .cafeteros-reference-content{grid-template-columns:1fr;gap:2rem;padding:1.5rem}
   .cafeteros-products-grid{grid-template-columns:repeat(2, 1fr);gap:1.5rem}

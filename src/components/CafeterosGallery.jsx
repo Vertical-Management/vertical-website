@@ -616,6 +616,7 @@ const CafeterosGallery = ({ images = [], description = null, referenceImage = nu
           Identidad visual que celebra la excelencia del café colombiano en cada aplicación.
         </p>
       </section>
+
     </div>
   );
 };
