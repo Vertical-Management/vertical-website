@@ -128,8 +128,9 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
 /* Cafeteros Layout */
 .project-detail.is-cafeteros{
   padding:0;
-  background:#ffffff !important;
+  background:transparent !important;
   min-height:auto;
+  overflow:visible;
 }
 
 .cafeteros-hero{
@@ -212,7 +213,7 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
 .project-detail{background:linear-gradient(135deg,#ed462f 0%,#ed462f 100%);min-height:100vh;padding-bottom:4rem;text-align:center;color:#2B1F17}
 
 .project-detail.is-cafeteros{
-  background:#ffffff !important;
+  background:transparent !important;
   color:#2B1F17;
 }
 
@@ -238,6 +239,7 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
 
 .project-detail.is-cafeteros>p{
   color:#2B1F17;
+  background:transparent;
 }
 
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
@@ -397,10 +399,12 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
 /* Cafeteros Gallery Styles - Innovative Branding Showcase */
 
 /* Gallery Container */
-.cafeteros-gallery-container{width:100%;display:flex;flex-direction:column;background:#ffffff}
+.cafeteros-gallery-container{width:100%;display:flex;flex-direction:column;background:transparent}
 
 /* Main Hero - Featured Product */
-.cafeteros-main-hero{position:relative;width:100vw;height:clamp(320px, 42vw, 500px);overflow:hidden;display:flex;align-items:center;justify-content:flex-start;background:#ffffff;padding:0;margin-left:calc(-50vw + 50%);margin-right:calc(-50vw + 50%)}
+.cafeteros-main-hero{position:relative;width:100vw;height:auto;min-height:0;overflow:visible;display:flex;align-items:center;justify-content:center;background:transparent;padding:0;margin-left:calc(-50vw + 50%);margin-right:calc(-50vw + 50%)}
+
+.cafeteros-hero-main-image{display:block;width:100%;max-width:none;height:auto;object-fit:contain;object-position:center top;pointer-events:none}
 
 .cafeteros-main-hero-editor{display:block}
 
@@ -439,16 +443,16 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
 .cafeteros-hero-pack-backdrop,
 .cafeteros-hero-featured,
 .cafeteros-hero-background{display:none}
-
+ 
 .cafeteros-hero-layer{position:absolute;display:block;pointer-events:none;will-change:transform}
 
-.cafeteros-hero-layer.is-coffee-bck{object-fit:cover;object-position:center}
+.cafeteros-hero-layer.is-coffee-back{object-fit:cover;object-position:center center}
 
 .cafeteros-hero-layer.is-pack-backdrop{object-fit:contain;object-position:center}
 
-.cafeteros-cup-bridge{padding:0;background:transparent;display:flex;justify-content:center;align-items:flex-end;margin-top:-100px;margin-bottom:-100px;overflow:hidden}
+.cafeteros-cup-bridge{padding:0;background:transparent;display:flex;justify-content:center;align-items:center;margin-top:-248px;margin-bottom:0;overflow:visible}
 
-.cafeteros-bridge-cup{display:block;width:min(36vw, 460px);height:auto;object-fit:contain;object-position:center top;clip-path:inset(34% 0 0 0);transform:translateY(-22%);pointer-events:none}
+.cafeteros-bridge-cup{display:block;width:min(90vw, 1150px);height:auto;object-fit:contain;object-position:center;clip-path:inset(16% 10% 6% 10%);margin-top:-30%;margin-bottom:-6%;transform:none;pointer-events:none}
 
 /* Section Headers */
 .cafeteros-section-header{text-align:center;margin-bottom:3rem}
@@ -457,19 +461,29 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
 
 .cafeteros-section-header p{font-size:0.95rem;color:#8B6F47;margin:0}
 
+.cafeteros-expression-images{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;width:100vw;max-width:none;margin:1.25rem 0 0 0;margin-left:calc(-50vw + 50%);margin-right:calc(-50vw + 50%)}
+
+.cafeteros-expression-images img{width:100%;height:auto;display:block;border-radius:0;object-fit:cover}
+
 /* Description Section */
-.cafeteros-description-section{padding:3rem 2rem;background:#ffffff}
+.cafeteros-description-section{padding:0.75rem 2rem 1.25rem 2rem;background:transparent !important;margin-top:0;position:relative;z-index:2}
 
-.cafeteros-cup-bridge + .cafeteros-description-section{padding-top:clamp(0.35rem, 1vw, 0.9rem)}
+.cafeteros-description-section + .cafeteros-cup-bridge{margin-top:0}
 
-.cafeteros-description-wrapper{max-width:900px;margin:0 auto}
+@media (max-width:768px){
+  .cafeteros-bridge-cup{width:min(95vw, 760px)}
+  .cafeteros-cup-bridge{margin-top:-162px}
+  .cafeteros-expression-images{grid-template-columns:1fr;max-width:520px}
+}
 
-.cafeteros-description-text{font-size:1rem;line-height:1.8;color:#555;margin:1rem 0}
+.cafeteros-description-wrapper{max-width:900px;margin:0 auto;background:transparent !important}
+
+.cafeteros-description-text{font-size:1rem;line-height:1.8;color:#555;margin:1rem 0;background:transparent !important}
 
 .cafeteros-description-text:first-child{font-size:1.1rem;font-weight:700;color:#2B1F17;margin-bottom:1.5rem}
 
 /* Products Section - PNG COFFE */
-.cafeteros-products-section{padding:3rem 2rem;background:#ffffff}
+.cafeteros-products-section{padding:3rem 2rem;background:transparent}
 
 .cafeteros-products-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));gap:2rem;max-width:1200px;margin:0 auto}
 
@@ -486,9 +500,9 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
 .product-number{font-size:0.85rem;font-weight:700;color:#8B6F47;letter-spacing:1px;text-transform:uppercase}
 
 /* Reference Section */
-.cafeteros-reference-section{padding:3rem 2rem;background:#ffffff}
+.cafeteros-reference-section{padding:3rem 2rem;background:transparent}
 
-.cafeteros-reference-content{display:grid;grid-template-columns:1fr 1fr;gap:3rem;max-width:1200px;margin:0 auto;align-items:center;background:#f8f5f0;padding:2.5rem;border-radius:16px}
+.cafeteros-reference-content{display:grid;grid-template-columns:1fr 1fr;gap:3rem;max-width:1200px;margin:0 auto;align-items:center;background:transparent;padding:2.5rem;border-radius:16px}
 
 .cafeteros-reference-image img{width:100%;height:auto;border-radius:12px;display:block}
 
@@ -497,7 +511,7 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
 .cafeteros-reference-text p{font-size:1rem;line-height:1.8;color:#555;margin:0}
 
 /* Creation Section */
-.cafeteros-creation-section{padding:4rem 2rem;background:linear-gradient(135deg, #f8f5f0 0%, #ffffff 100%)}
+.cafeteros-creation-section{padding:4rem 2rem;background:transparent}
 
 .cafeteros-creation-wrapper{max-width:800px;margin:0 auto;text-align:center}
 
@@ -506,7 +520,7 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
 .cafeteros-creation-text p{font-size:1rem;line-height:1.8;color:#555;margin:0}
 
 /* Identity Section */
-.cafeteros-identity-section{padding:3rem 2rem;background:#ffffff}
+.cafeteros-identity-section{padding:3rem 2rem;background:transparent}
 
 .cafeteros-identity-grid{display:grid;grid-template-columns:repeat(3, 1fr);gap:1.5rem;max-width:1200px;margin:0 auto;width:100vw;margin-left:calc(-50vw + 50%);margin-right:calc(-50vw + 50%)}
 
@@ -537,7 +551,7 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
 
 /* Responsive */
 @media (max-width:768px){
-  .cafeteros-main-hero{height:clamp(260px, 70vw, 420px)}
+  .cafeteros-main-hero{height:auto}
   .cafeteros-editor-controls{margin:0.75rem 0 1.5rem 0;padding:0.75rem}
   .cafeteros-editor-layers{grid-template-columns:1fr 1fr}
   .cafeteros-editor-form{grid-template-columns:1fr 1fr}

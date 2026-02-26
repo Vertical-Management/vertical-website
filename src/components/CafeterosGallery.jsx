@@ -4,24 +4,49 @@ import { Stage, Layer, Image as KonvaImage, Rect } from 'react-konva';
 const BASE_URL = import.meta.env.BASE_URL;
 const basePrefix = BASE_URL.endsWith('/') ? BASE_URL : `${BASE_URL}/`;
 const withBase = (path) => `${basePrefix}${path.replace(/^\/+/, '')}`;
+const COFFE_BACK_SRC = withBase('assets/PAG BRANDING CAFETEROS CO/PNG COFFE/COFFE BCP.png?v=20260226c');
 
 const HERO_HEIGHT_DESKTOP = 500;
 const HERO_HEIGHT_MOBILE = 350;
-const HERO_LAYERS_STORAGE_KEY = 'cafeteros-hero-layers-v1';
-const PACK_VERTICAL_OFFSET = -24;
+const HERO_LAYERS_STORAGE_KEY = 'cafeteros-hero-layers-v5';
+const REFERENCE_STAGE_WIDTH = 609;
+const REFERENCE_STAGE_HEIGHT = 420;
+const COFFEE_FRAME = {
+  x: 0,
+  y: 0,
+  width: 609,
+  height: 420,
+  anchorX: 0.5,
+  anchorY: 0,
+  scaleX: 1,
+  scaleY: 1,
+  opacity: 1,
+};
 const DISPLAY_LAYER_ORDER = {
-  'pack-backdrop': 0,
-  'coffee-bck': 1,
+  'coffee-back': 0,
+  'coffee-bck': 0,
 };
 
-const getPackDimensions = (viewportWidth) => {
-  const isMobile = viewportWidth <= 768;
-  const width = Math.min(viewportWidth * (isMobile ? 0.92 : 0.82), isMobile ? 560 : 1043);
+const getResponsiveFrame = (frame, stageWidth, stageHeight) => {
+  const viewportScaleX = stageWidth / REFERENCE_STAGE_WIDTH;
+  const viewportScaleY = stageHeight / REFERENCE_STAGE_HEIGHT;
+
+  const anchorGlobalX = (frame.x + (frame.width * frame.anchorX)) * viewportScaleX;
+  const anchorGlobalY = (frame.y + (frame.height * frame.anchorY)) * viewportScaleY;
+
+  const width = frame.width * viewportScaleX * frame.scaleX;
+  const height = frame.height * viewportScaleY * frame.scaleY;
+
   return {
+    x: anchorGlobalX - (width * frame.anchorX),
+    y: anchorGlobalY - (height * frame.anchorY),
     width,
-    height: width * 1.2,
+    height,
+    opacity: frame.opacity,
   };
 };
+
+const getCoffeeFrame = (stageWidth, stageHeight) => getResponsiveFrame(COFFEE_FRAME, stageWidth, stageHeight);
 
 const getHeroHeight = (viewportWidth) => {
   if (viewportWidth <= 768) {
@@ -31,28 +56,18 @@ const getHeroHeight = (viewportWidth) => {
 };
 
 const buildInitialLayers = (stageWidth, stageHeight) => {
-  const { width: packBackdropWidth, height: packBackdropHeight } = getPackDimensions(stageWidth);
+  const coffeeFrame = getCoffeeFrame(stageWidth, stageHeight);
 
   return [
     {
-      id: 'pack-backdrop',
-      name: 'PACK (Fondo)',
-      src: withBase('assets/PAG BRANDING CAFETEROS CO/PNG COFFE/PACK COFFE.webp'),
-      x: (stageWidth - packBackdropWidth) / 2,
-      y: (stageHeight - packBackdropHeight) / 2 + PACK_VERTICAL_OFFSET,
-      width: packBackdropWidth,
-      height: packBackdropHeight,
-      opacity: 1,
-    },
-    {
-      id: 'coffee-bck',
-      name: 'COFFE BCK',
-      src: withBase('assets/PAG BRANDING CAFETEROS CO/COFFE BCK.png'),
-      x: 0,
-      y: -9,
-      width: stageWidth,
-      height: stageHeight,
-      opacity: 1,
+      id: 'coffee-back',
+      name: 'COFFE BACK',
+      src: COFFE_BACK_SRC,
+      x: coffeeFrame.x,
+      y: coffeeFrame.y,
+      width: coffeeFrame.width,
+      height: coffeeFrame.height,
+      opacity: coffeeFrame.opacity,
     },
   ];
 };
@@ -79,31 +94,25 @@ const getStoredLayers = (stageWidth, stageHeight) => {
 
     if (!valid) return null;
 
-    const { width: packBackdropWidth, height: packBackdropHeight } = getPackDimensions(stageWidth);
-
+    const coffeeFrame = getCoffeeFrame(stageWidth, stageHeight);
     return parsed.map((layer) => {
-      if (layer.id === 'coffee-bck') {
+      const migratedId = layer.id === 'coffee-bck' ? 'coffee-back' : layer.id;
+
+      if (migratedId === 'coffee-back') {
         return {
           ...layer,
-          x: 0,
-          y: 0,
-          width: stageWidth,
-          height: stageHeight,
+          id: 'coffee-back',
+          src: COFFE_BACK_SRC,
+          x: coffeeFrame.x,
+          y: coffeeFrame.y,
+          width: coffeeFrame.width,
+          height: coffeeFrame.height,
+          opacity: coffeeFrame.opacity,
         };
       }
 
-      if (layer.id === 'pack-backdrop') {
-        return {
-          ...layer,
-          x: (stageWidth - packBackdropWidth) / 2,
-          y: (stageHeight - packBackdropHeight) / 2 + PACK_VERTICAL_OFFSET,
-          width: packBackdropWidth,
-          height: packBackdropHeight,
-        };
-      }
-
-      return layer;
-    });
+      return null;
+    }).filter(Boolean);
   } catch {
     return buildInitialLayers(stageWidth, stageHeight);
   }
@@ -153,7 +162,7 @@ GalleryItem.displayName = 'GalleryItem';
 const CafeterosGallery = ({ images = [], description = null, referenceImage = null, referenceText = null, creationText = null, creationImagesText = null }) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [isEditor, setIsEditor] = useState(false);
-  const [selectedLayerId, setSelectedLayerId] = useState('pack-backdrop');
+  const [selectedLayerId, setSelectedLayerId] = useState('coffee-back');
   const [stageSize, setStageSize] = useState({ width: 1200, height: HERO_HEIGHT_DESKTOP });
   const [layers, setLayers] = useState([]);
   const [copiedConfig, setCopiedConfig] = useState(false);
@@ -217,14 +226,12 @@ const CafeterosGallery = ({ images = [], description = null, referenceImage = nu
     setLayers(buildInitialLayers(stageSize.width, stageSize.height));
   }, [isEditor, stageSize.width, stageSize.height]);
 
-  const bckImage = useLoadedImage(withBase('assets/PAG BRANDING CAFETEROS CO/COFFE BCK.png'));
-  const packBackdropImage = useLoadedImage(withBase('assets/PAG BRANDING CAFETEROS CO/PNG COFFE/PACK COFFE.webp'));
+  const bckImage = useLoadedImage(COFFE_BACK_SRC);
 
   const getImageByLayer = useCallback((layerId) => {
-    if (layerId === 'coffee-bck') return bckImage;
-    if (layerId === 'pack-backdrop') return packBackdropImage;
+    if (layerId === 'coffee-back' || layerId === 'coffee-bck') return bckImage;
     return null;
-  }, [bckImage, packBackdropImage]);
+  }, [bckImage]);
 
   const updateLayerPosition = useCallback((layerId, x, y) => {
     setLayers((prevLayers) =>
@@ -287,7 +294,7 @@ const CafeterosGallery = ({ images = [], description = null, referenceImage = nu
 
   const resetLayers = useCallback(() => {
     setLayers(buildInitialLayers(stageSize.width, stageSize.height));
-    setSelectedLayerId('pack-backdrop');
+    setSelectedLayerId('coffee-back');
     if (typeof window !== 'undefined') {
       window.localStorage.removeItem(HERO_LAYERS_STORAGE_KEY);
     }
@@ -309,7 +316,7 @@ const CafeterosGallery = ({ images = [], description = null, referenceImage = nu
 
   const restorePublicView = useCallback(() => {
     setLayers(buildInitialLayers(stageSize.width, stageSize.height));
-    setSelectedLayerId('pack-backdrop');
+    setSelectedLayerId('coffee-back');
     if (typeof window !== 'undefined') {
       window.localStorage.removeItem(HERO_LAYERS_STORAGE_KEY);
     }
@@ -327,6 +334,7 @@ const CafeterosGallery = ({ images = [], description = null, referenceImage = nu
     : [...resolvedLayers].sort(
       (a, b) => (DISPLAY_LAYER_ORDER[a.id] ?? 99) - (DISPLAY_LAYER_ORDER[b.id] ?? 99)
     );
+  const mainHeroLayer = displayedLayers.find((layer) => layer.id === 'coffee-back') || displayedLayers[0];
 
   return (
     <div className="cafeteros-gallery-container">
@@ -454,37 +462,17 @@ const CafeterosGallery = ({ images = [], description = null, referenceImage = nu
         </>
       ) : (
         <section className="cafeteros-main-hero">
-          {displayedLayers.map((layer, index) => (
+          {mainHeroLayer && (
             <img
-              key={layer.id}
-              src={layer.src}
+              src={mainHeroLayer.src}
               alt=""
               aria-hidden="true"
-              className={`cafeteros-hero-layer ${layer.id === 'coffee-bck' ? 'is-coffee-bck' : 'is-pack-backdrop'}`}
+              className="cafeteros-hero-main-image"
               loading="eager"
               decoding="async"
-              style={{
-                left: `${layer.x}px`,
-                top: `${layer.y}px`,
-                width: `${layer.width}px`,
-                height: `${layer.height}px`,
-                opacity: layer.opacity,
-                zIndex: index + 1,
-              }}
+              style={{ opacity: mainHeroLayer.opacity }}
             />
-          ))}
-        </section>
-      )}
-
-      {cupCoffeeImage && (
-        <section className="cafeteros-cup-bridge" aria-label="Tazas de café">
-          <img
-            src={cupCoffeeImage}
-            alt="Tazas de café"
-            className="cafeteros-bridge-cup"
-            loading="lazy"
-            decoding="async"
-          />
+          )}
         </section>
       )}
 
@@ -503,11 +491,34 @@ const CafeterosGallery = ({ images = [], description = null, referenceImage = nu
         </section>
       )}
 
+      {cupCoffeeImage && (
+        <section className="cafeteros-cup-bridge" aria-label="Tazas de café">
+          <img
+            src={cupCoffeeImage}
+            alt="Tazas de café"
+            className="cafeteros-bridge-cup"
+            loading="lazy"
+            decoding="async"
+          />
+        </section>
+      )}
+
       {/* Products Showcase - PNG COFFE */}
       <section className="cafeteros-products-section">
         <div className="cafeteros-section-header">
           <h2>Línea de Productos</h2>
           <p>Expresiones visuales del café</p>
+          <div className="cafeteros-expression-images">
+            {[brandingImages[4], brandingImages[3]].filter(Boolean).map((img, idx) => (
+              <img
+                key={img}
+                src={img}
+                alt={`Expresión visual ${idx + 1}`}
+                loading="lazy"
+                decoding="async"
+              />
+            ))}
+          </div>
         </div>
         <div className="cafeteros-products-grid">
           {visibleProductImages.map((img, idx) => (
