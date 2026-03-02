@@ -561,16 +561,27 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
 .koaj-lightbox-close{position:absolute;top:1rem;right:1rem;width:46px;height:46px;border-radius:50%;border:none;background:rgba(255,255,255,0.95);cursor:pointer;font-size:1.4rem;color:#000}
 
 /* UX Pedigree Gallery */
-.project-detail.is-pedigree{background:#f5f7ff;color:#141d3a}
+.project-detail.is-pedigree{background:#f5f7ff;color:#141d3a;max-width:none;width:100%;padding:0 0 4rem 0}
 
-.project-detail.is-pedigree h1,
-.project-detail.is-pedigree > p,
-.project-detail.is-pedigree .project-subtitle{
-  color:#141d3a;
+.project-detail.is-pedigree .pedigree-title-block{
   background:#ffc901;
-  display:inline-block;
-  padding:0.45rem 0.7rem;
-  border-radius:10px;
+  color:#141d3a;
+  border-radius:0;
+  padding:0.95rem 1.1rem;
+  width:100vw;
+  max-width:none;
+  margin:0;
+  margin-left:calc(-50vw + 50%);
+  margin-right:calc(-50vw + 50%);
+}
+
+.project-detail.is-pedigree .pedigree-title-block h1,
+.project-detail.is-pedigree .pedigree-title-block .project-subtitle,
+.project-detail.is-pedigree .pedigree-title-block > p{
+  color:#141d3a;
+  background:transparent;
+  margin-left:0;
+  margin-right:0;
 }
 
 .pedigree-gallery-container{display:flex;flex-direction:column;gap:1.4rem}
