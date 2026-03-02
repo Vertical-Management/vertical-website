@@ -1,26 +1,32 @@
-import React, { useMemo, useState, useCallback, memo } from 'react';
+import React, { useMemo, useState, useCallback, useEffect, memo } from 'react';
 
-const KoajTile = memo(({ img, idx, onClick }) => (
+const KoajSequenceThumb = memo(({ img, idx, isActive, onSelect }) => (
   <button
     type="button"
-    className={`koaj-tile koaj-tile-${(idx % 6) + 1}`}
-    onClick={() => onClick(img)}
-    aria-label={`Abrir render ${idx + 1}`}
+    className={`koaj-sequence-thumb ${isActive ? 'is-active' : ''}`}
+    onClick={() => onSelect(idx)}
+    aria-label={`Ver render ${idx + 1}`}
   >
-    <img src={img} alt={`KOAJ 3D render ${idx + 1}`} loading="lazy" decoding="async" />
+    <img src={img} alt={`Secuencia render ${idx + 1}`} loading="lazy" decoding="async" />
+    <span>0{idx + 1}</span>
   </button>
 ));
 
-KoajTile.displayName = 'KoajTile';
+KoajSequenceThumb.displayName = 'KoajSequenceThumb';
 
 const KoajGallery = ({ images = [], short = '', description = null }) => {
   const [selectedImage, setSelectedImage] = useState(null);
+  const [activeSequenceIndex, setActiveSequenceIndex] = useState(0);
 
   const handleOpen = useCallback((img) => setSelectedImage(img), []);
   const handleClose = useCallback((event) => {
     if (event.target === event.currentTarget) {
       setSelectedImage(null);
     }
+  }, []);
+
+  const selectSequence = useCallback((index) => {
+    setActiveSequenceIndex(index);
   }, []);
 
   const data = useMemo(() => {
@@ -30,12 +36,27 @@ const KoajGallery = ({ images = [], short = '', description = null }) => {
       hero: images[0],
       spotlight: images[1] || images[0],
       strip: images.slice(2, 5),
-      renders: images.slice(5),
+      finalSequence: images.slice(-7),
       total: images.length,
     };
   }, [images]);
 
   if (!data) return null;
+
+  useEffect(() => {
+    if (!data.finalSequence.length) return;
+
+    const timer = window.setInterval(() => {
+      setActiveSequenceIndex((prev) => (prev + 1) % data.finalSequence.length);
+    }, 2800);
+
+    return () => window.clearInterval(timer);
+  }, [data.finalSequence.length]);
+
+  const activeSequenceImage = data.finalSequence[activeSequenceIndex] || data.finalSequence[0];
+  const sequenceProgress = data.finalSequence.length
+    ? ((activeSequenceIndex + 1) / data.finalSequence.length) * 100
+    : 0;
 
   return (
     <div className="koaj-gallery-container">
@@ -97,10 +118,55 @@ const KoajGallery = ({ images = [], short = '', description = null }) => {
         </section>
       )}
 
-      <section className="koaj-mosaic">
-        {data.renders.map((img, idx) => (
-          <KoajTile key={img} img={img} idx={idx} onClick={handleOpen} />
-        ))}
+      <section className="koaj-final-sequence">
+        <div className="koaj-final-sequence-head">
+          <p>SECUENCIA FINAL</p>
+          <h3>Los 7 renders que cierran el proyecto</h3>
+          <div className="koaj-sequence-controls">
+            <button
+              type="button"
+              onClick={() => setActiveSequenceIndex((prev) => (prev - 1 + data.finalSequence.length) % data.finalSequence.length)}
+              aria-label="Render anterior"
+            >
+              Anterior
+            </button>
+            <button
+              type="button"
+              onClick={() => setActiveSequenceIndex((prev) => (prev + 1) % data.finalSequence.length)}
+              aria-label="Siguiente render"
+            >
+              Siguiente
+            </button>
+          </div>
+        </div>
+
+        <div className="koaj-sequence-shell">
+          <button
+            type="button"
+            className="koaj-sequence-stage"
+            onClick={() => handleOpen(activeSequenceImage)}
+            aria-label="Abrir imagen activa"
+          >
+            <img src={activeSequenceImage} alt={`Render destacado ${activeSequenceIndex + 1}`} loading="lazy" decoding="async" />
+            <span className="koaj-sequence-index">0{activeSequenceIndex + 1}</span>
+          </button>
+
+          <div className="koaj-sequence-track" aria-hidden="true">
+            <span style={{ width: `${sequenceProgress}%` }} />
+          </div>
+
+          <div className="koaj-sequence-thumbs">
+            {data.finalSequence.map((img, idx) => (
+              <KoajSequenceThumb
+                key={img}
+                img={img}
+                idx={idx}
+                isActive={idx === activeSequenceIndex}
+                onSelect={selectSequence}
+              />
+            ))}
+          </div>
+        </div>
       </section>
 
       {selectedImage && (

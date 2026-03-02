@@ -58,6 +58,33 @@ html.is-cafeteros-page .vm-hamburger .bar{
   background:#2B1F17;
 }
 
+html.is-koaj-page{
+  background:#000000;
+}
+
+html.is-koaj-page body{
+  background:#000000;
+  color:#ffffff;
+}
+
+html.is-koaj-page .vm-header{
+  background:#000000;
+  color:#ffffff;
+  border-bottom:1px solid #1f1f1f;
+}
+
+html.is-koaj-page .vm-brand-text{
+  color:#ffffff;
+}
+
+html.is-koaj-page .vm-nav a{
+  color:#ffffff;
+}
+
+html.is-koaj-page .vm-hamburger .bar{
+  background:#ffffff;
+}
+
 *{box-sizing:border-box}
 html,body,#root{height:100%}
 body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; background:var(--vm-bg); color:var(--vm-fg); margin:0}
@@ -372,8 +399,10 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
   .koaj-spotlight{grid-template-columns:1fr;padding:0 1rem}
   .koaj-strip{grid-template-columns:1fr}
   .koaj-strip img{height:auto;max-height:52vh}
-  .koaj-mosaic{padding:0 1rem;grid-template-columns:1fr;gap:0.8rem}
-  .koaj-tile,.koaj-tile-1,.koaj-tile-2,.koaj-tile-3,.koaj-tile-4,.koaj-tile-5,.koaj-tile-6{grid-column:span 1;min-height:auto}
+  .koaj-final-sequence-head{padding:0 1rem}
+  .koaj-sequence-shell{padding:0 1rem}
+  .koaj-sequence-stage img{height:auto;max-height:56vh}
+  .koaj-sequence-thumbs{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
 
 /* Creation Section */
@@ -454,17 +483,43 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
 
 .koaj-strip img{display:block;width:100%;height:36vh;object-fit:cover;cursor:pointer}
 
-.koaj-mosaic{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:0.7rem;max-width:1200px;padding:0 2rem;margin:0 auto;width:100%}
+.koaj-final-sequence{display:flex;flex-direction:column;gap:1rem;max-width:1200px;margin:0 auto;width:100%}
 
-.koaj-tile{border:none;padding:0;background:#0f0f0f;cursor:pointer;overflow:hidden;border-radius:12px;grid-column:span 4}
+.koaj-final-sequence-head{padding:0 2rem}
 
-.koaj-tile img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 300ms ease}
+.koaj-final-sequence-head p{margin:0 0 0.35rem 0;font-size:0.82rem;letter-spacing:0.18rem;text-transform:uppercase;color:#a3a3a3}
 
-.koaj-tile:hover img{transform:scale(1.04)}
+.koaj-final-sequence-head h3{margin:0;color:#ffffff;font-size:clamp(1.2rem, 2.6vw, 2rem)}
 
-.koaj-tile-1,.koaj-tile-5{grid-column:span 8;min-height:360px}
-.koaj-tile-2,.koaj-tile-4{grid-column:span 4;min-height:360px}
-.koaj-tile-3,.koaj-tile-6{grid-column:span 6;min-height:260px}
+.koaj-sequence-controls{display:flex;gap:0.55rem;margin-top:0.9rem}
+
+.koaj-sequence-controls button{border:1px solid #2c2c2c;background:#131313;color:#f2f2f2;padding:0.45rem 0.7rem;border-radius:999px;font-size:0.78rem;cursor:pointer}
+
+.koaj-sequence-controls button:hover{background:#1d1d1d}
+
+.koaj-sequence-shell{display:flex;flex-direction:column;gap:0.8rem;padding:0 2rem}
+
+.koaj-sequence-stage{border:none;background:#101010;padding:0;border-radius:14px;overflow:hidden;cursor:pointer;position:relative}
+
+.koaj-sequence-stage img{width:100%;height:min(70vh, 760px);object-fit:cover;display:block}
+
+.koaj-sequence-index{position:absolute;left:1rem;bottom:1rem;font-size:0.84rem;font-weight:700;letter-spacing:0.08rem;color:#fff;background:rgba(0,0,0,0.55);padding:0.35rem 0.55rem;border-radius:999px}
+
+.koaj-sequence-track{height:4px;background:#242424;border-radius:999px;overflow:hidden}
+
+.koaj-sequence-track span{display:block;height:100%;background:#ffffff;transition:width 320ms ease}
+
+.koaj-sequence-thumbs{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:0.55rem}
+
+.koaj-sequence-thumb{border:1px solid #2a2a2a;background:#111111;padding:0;display:flex;flex-direction:column;cursor:pointer;border-radius:10px;overflow:hidden;transition:all 220ms ease}
+
+.koaj-sequence-thumb img{width:100%;height:92px;object-fit:cover;display:block}
+
+.koaj-sequence-thumb span{padding:0.35rem 0;font-size:0.72rem;color:#bdbdbd;letter-spacing:0.06rem}
+
+.koaj-sequence-thumb.is-active{border-color:#f4f4f4;transform:translateY(-2px)}
+
+.koaj-sequence-thumb.is-active span{color:#ffffff}
 
 .koaj-lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.92);display:flex;align-items:center;justify-content:center;z-index:1000;padding:2rem}
 

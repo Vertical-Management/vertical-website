@@ -30,7 +30,7 @@ const isFEP = project?.slug === 'fep2026-animation';
 const isCafeteros = project?.slug === 'branding-cafeteros';
 const isKoaj = project?.slug === 'koaj-3d';
 ---
-<BaseLayout title={project ? `${project.title} — Vertical` : 'Proyecto'} isFEP={isFEP} isCafeteros={isCafeteros}>
+<BaseLayout title={project ? `${project.title} — Vertical` : 'Proyecto'} isFEP={isFEP} isCafeteros={isCafeteros} isKoaj={isKoaj}>
   <Header />
   <section class={`project-detail vm-container ${isFEP ? 'is-fep' : ''} ${isCafeteros ? 'is-cafeteros' : ''} ${isKoaj ? 'is-koaj' : ''}`}>
     <h1>{project.title}</h1>
