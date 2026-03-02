@@ -363,6 +363,17 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
   .fep-gallery-main{padding:0;background:transparent}
   .fep-footer{padding:2rem 1rem;margin:2rem 1rem 0 1rem}
   .fep-creation-container{grid-template-columns:1fr;gap:2rem}
+
+  .koaj-hero{max-height:none}
+  .koaj-hero-image{height:58vh}
+  .koaj-hero-overlay{left:1rem;right:1rem;bottom:1rem}
+  .koaj-stats{grid-template-columns:1fr;padding:0 1rem}
+  .koaj-description{padding:0 1rem}
+  .koaj-spotlight{grid-template-columns:1fr;padding:0 1rem}
+  .koaj-strip{grid-template-columns:1fr}
+  .koaj-strip img{height:auto;max-height:52vh}
+  .koaj-mosaic{padding:0 1rem;grid-template-columns:1fr;gap:0.8rem}
+  .koaj-tile,.koaj-tile-1,.koaj-tile-2,.koaj-tile-3,.koaj-tile-4,.koaj-tile-5,.koaj-tile-6{grid-column:span 1;min-height:auto}
 }
 
 /* Creation Section */
@@ -395,6 +406,73 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
 .fep-video-wrapper{max-width:1200px;margin:0 auto;border-radius:16px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.1)}
 
 .fep-video-wrapper video{width:100%;height:auto;display:block;background:#000}
+
+/* KOAJ 3D Gallery */
+.project-detail.is-koaj{background:#0b0b0b;color:#ffffff;padding-bottom:4rem}
+
+.project-detail.is-koaj h1,
+.project-detail.is-koaj > p,
+.project-detail.is-koaj .project-subtitle{color:#ffffff}
+
+.koaj-gallery-container{display:flex;flex-direction:column;gap:1.5rem}
+
+.koaj-hero{position:relative;width:100vw;max-height:74vh;overflow:hidden;margin-left:calc(-50vw + 50%);margin-right:calc(-50vw + 50%)}
+
+.koaj-hero-image{width:100%;height:74vh;object-fit:cover;display:block;filter:contrast(1.08) saturate(1.06)}
+
+.koaj-hero-overlay{position:absolute;left:6vw;bottom:8vh;color:#fff;text-align:left}
+
+.koaj-hero-overlay p{margin:0 0 0.4rem 0;font-size:0.9rem;letter-spacing:0.2rem;text-transform:uppercase;opacity:0.85}
+
+.koaj-hero-overlay h2{margin:0;font-size:clamp(1.7rem, 4vw, 3.4rem);line-height:1.05;max-width:12ch}
+
+.koaj-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:1200px;margin:0 auto;padding:0 2rem}
+
+.koaj-stats span{display:flex;flex-direction:column;background:#151515;border:1px solid #2a2a2a;padding:1rem;border-radius:10px;color:#d9d9d9}
+
+.koaj-stats strong{font-size:1.15rem;color:#ffffff;margin-bottom:0.2rem}
+
+.koaj-description{max-width:980px;margin:0 auto;padding:0 2rem;color:#d7d7d7}
+
+.koaj-description p{margin:0.45rem 0;line-height:1.8}
+
+.koaj-description p:first-child{font-size:1.1rem;font-weight:700;color:#fff}
+
+.koaj-spotlight{display:grid;grid-template-columns:1.15fr 0.85fr;gap:1.5rem;max-width:1200px;margin:0 auto;padding:0 2rem;align-items:stretch}
+
+.koaj-spotlight-image-wrap{background:#121212;border:1px solid #2b2b2b;border-radius:14px;overflow:hidden}
+
+.koaj-spotlight-image{width:100%;height:100%;display:block;object-fit:cover;cursor:pointer;min-height:430px}
+
+.koaj-spotlight-copy{background:#131313;border:1px solid #2b2b2b;border-radius:14px;padding:1.5rem}
+
+.koaj-spotlight-copy h3{margin:0 0 1rem 0;font-size:1.6rem;color:#ffffff}
+
+.koaj-spotlight-copy p{margin:0 0 1rem 0;line-height:1.7;color:#d6d6d6}
+
+.koaj-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:0.6rem;width:100vw;max-width:none;margin:0 auto;margin-left:calc(-50vw + 50%);margin-right:calc(-50vw + 50%)}
+
+.koaj-strip img{display:block;width:100%;height:36vh;object-fit:cover;cursor:pointer}
+
+.koaj-mosaic{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:0.7rem;max-width:1200px;padding:0 2rem;margin:0 auto;width:100%}
+
+.koaj-tile{border:none;padding:0;background:#0f0f0f;cursor:pointer;overflow:hidden;border-radius:12px;grid-column:span 4}
+
+.koaj-tile img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 300ms ease}
+
+.koaj-tile:hover img{transform:scale(1.04)}
+
+.koaj-tile-1,.koaj-tile-5{grid-column:span 8;min-height:360px}
+.koaj-tile-2,.koaj-tile-4{grid-column:span 4;min-height:360px}
+.koaj-tile-3,.koaj-tile-6{grid-column:span 6;min-height:260px}
+
+.koaj-lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.92);display:flex;align-items:center;justify-content:center;z-index:1000;padding:2rem}
+
+.koaj-lightbox-content{position:relative;width:100%;max-width:90vw;max-height:90vh}
+
+.koaj-lightbox-content img{width:100%;height:100%;object-fit:contain}
+
+.koaj-lightbox-close{position:absolute;top:1rem;right:1rem;width:46px;height:46px;border-radius:50%;border:none;background:rgba(255,255,255,0.95);cursor:pointer;font-size:1.4rem;color:#000}
 
 /* Cafeteros Gallery Styles - Innovative Branding Showcase */
 
@@ -500,7 +578,7 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
 .product-number{font-size:0.85rem;font-weight:700;color:#8B6F47;letter-spacing:1px;text-transform:uppercase}
 
 /* Reference Section */
-.cafeteros-reference-section{padding:3rem 2rem;background:transparent}
+.cafeteros-reference-section{padding:1.6rem 2rem 3rem 2rem;background:transparent;margin-top:-42px}
 
 .cafeteros-reference-content{display:grid;grid-template-columns:1fr 1fr;gap:3rem;max-width:1200px;margin:0 auto;align-items:center;background:transparent;padding:2.5rem;border-radius:16px}
 
@@ -558,6 +636,7 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
   .cafeteros-products-section{margin-top:-60px;padding-top:0.9rem}
   .cafeteros-product-image img{transform:translateY(10px)}
   .cafeteros-section-header h2{font-size:1.5rem}
+  .cafeteros-reference-section{margin-top:-26px;padding-top:1.2rem}
   .cafeteros-reference-content{grid-template-columns:1fr;gap:2rem;padding:1.5rem}
   .cafeteros-products-grid{grid-template-columns:repeat(2, 1fr);gap:1.5rem}
   .cafeteros-identity-grid{grid-template-columns:repeat(2, 1fr);gap:1rem}
@@ -578,6 +657,11 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
   .fep-creation-text-wrapper{padding:1.5rem}
   .fep-creation-images-wrapper{gap:0.5rem}
   .fep-video-wrapper{border-radius:8px}
+
+  .koaj-hero-image{height:50vh}
+  .koaj-hero-overlay h2{font-size:1.8rem}
+  .koaj-lightbox{padding:1rem}
+  .koaj-lightbox-close{width:40px;height:40px;top:0.5rem;right:0.5rem}
   
   .cafeteros-hero{max-height:300px}
   .cafeteros-info-header{padding:1.5rem 1rem}

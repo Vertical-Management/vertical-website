@@ -54,7 +54,9 @@
     {
       "title": "KOAJ 3D",
       "slug": "koaj-3d",
+      "subtitle": "Dirección visual y renderización 3D",
       "short": "Renderizados 3D y visuales del proyecto KOAJ.",
+      "description": "KOAJ 3D\n\nExploración visual enfocada en moda contemporánea, volumen y composición editorial. Cada render fue diseñado para proyectar carácter de marca con una lectura clara de producto y una atmósfera digital de alto impacto.",
       "images": [
         "/assets/PAG KOAJ 3D/FEP KOAJ1.webp",
         "/assets/PAG KOAJ 3D/FEP KOAJ2.webp",
