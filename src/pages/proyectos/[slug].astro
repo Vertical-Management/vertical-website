@@ -4,6 +4,7 @@ import Header from '../../components/Header.astro';
 import FEPGallery from '../../components/FEPGallery.jsx';
 import CafeterosGallery from '../../components/CafeterosGallery.jsx';
 import KoajGallery from '../../components/KoajGallery.jsx';
+import UxPedigreeGallery from '../../components/UxPedigreeGallery.jsx';
 import projects from '../../data/projects.json';
 
 export async function getStaticPaths() {
@@ -29,10 +30,11 @@ const projectWithBase = project
 const isFEP = project?.slug === 'fep2026-animation';
 const isCafeteros = project?.slug === 'branding-cafeteros';
 const isKoaj = project?.slug === 'koaj-3d';
+const isPedigree = project?.slug === 'ux-pedigree';
 ---
-<BaseLayout title={project ? `${project.title} — Vertical` : 'Proyecto'} isFEP={isFEP} isCafeteros={isCafeteros} isKoaj={isKoaj}>
+<BaseLayout title={project ? `${project.title} — Vertical` : 'Proyecto'} isFEP={isFEP} isCafeteros={isCafeteros} isKoaj={isKoaj} isPedigree={isPedigree}>
   <Header />
-  <section class={`project-detail vm-container ${isFEP ? 'is-fep' : ''} ${isCafeteros ? 'is-cafeteros' : ''} ${isKoaj ? 'is-koaj' : ''}`}>
+  <section class={`project-detail vm-container ${isFEP ? 'is-fep' : ''} ${isCafeteros ? 'is-cafeteros' : ''} ${isKoaj ? 'is-koaj' : ''} ${isPedigree ? 'is-pedigree' : ''}`}>
     <h1>{project.title}</h1>
     {project.subtitle && <p class="project-subtitle">{project.subtitle}</p>}
     <p>{project.short}</p>
@@ -41,6 +43,8 @@ const isKoaj = project?.slug === 'koaj-3d';
       <CafeterosGallery client:only="react" images={projectWithBase.images} description={project.description} referenceImage={projectWithBase.referenceImage} referenceText={project.referenceText} creationText={project.creationText} creationImagesText={project.creationImagesText} />
     ) : isKoaj ? (
       <KoajGallery client:idle images={projectWithBase.images} short={project.short} description={project.description} />
+    ) : isPedigree ? (
+      <UxPedigreeGallery client:idle images={projectWithBase.images} short={project.short} />
     ) : isFEP ? (
       <FEPGallery client:idle images={projectWithBase.images} description={project.description} referenceImage={projectWithBase.referenceImage} referenceText={project.referenceText} creationText={project.creationText} creationImagesText={project.creationImagesText} videoUrl={projectWithBase.videoUrl} />
     ) : (

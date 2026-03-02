@@ -85,6 +85,28 @@ html.is-koaj-page .vm-hamburger .bar{
   background:#ffffff;
 }
 
+html.is-pedigree-page .vm-header{
+  background:#ffc901;
+  color:#141d3a;
+  border-bottom:1px solid #d8ab00;
+}
+
+html.is-pedigree-page .vm-brand-text{
+  color:#141d3a;
+}
+
+html.is-pedigree-page .vm-nav a{
+  color:#141d3a;
+  background:#ffc901;
+  border:1px solid #d8ab00;
+  padding:0.35rem 0.7rem;
+  border-radius:999px;
+}
+
+html.is-pedigree-page .vm-hamburger .bar{
+  background:#141d3a;
+}
+
 *{box-sizing:border-box}
 html,body,#root{height:100%}
 body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; background:var(--vm-bg); color:var(--vm-fg); margin:0}
@@ -403,6 +425,15 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
   .koaj-sequence-shell{padding:0 1rem}
   .koaj-sequence-stage img{height:auto;max-height:56vh}
   .koaj-sequence-thumbs{grid-template-columns:repeat(3,minmax(0,1fr))}
+
+  .pedigree-hero-copy{left:1rem;right:1rem;bottom:1rem;max-width:none}
+  .pedigree-hero{grid-template-columns:12px 1fr 12px}
+  .pedigree-stats{grid-template-columns:1fr;padding:0 1rem}
+  .pedigree-story{grid-template-columns:1fr;padding:0 1rem}
+  .pedigree-app-carousel{padding:0 1rem}
+  .pedigree-walkthrough{grid-template-columns:repeat(2,minmax(0,1fr));padding:0 1rem}
+  .pedigree-system{grid-template-columns:1fr;padding:0 1rem}
+  .pedigree-feature-grid{grid-template-columns:1fr;padding:0 1rem}
 }
 
 /* Creation Section */
@@ -528,6 +559,107 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
 .koaj-lightbox-content img{width:100%;height:100%;object-fit:contain}
 
 .koaj-lightbox-close{position:absolute;top:1rem;right:1rem;width:46px;height:46px;border-radius:50%;border:none;background:rgba(255,255,255,0.95);cursor:pointer;font-size:1.4rem;color:#000}
+
+/* UX Pedigree Gallery */
+.project-detail.is-pedigree{background:#f5f7ff;color:#141d3a}
+
+.project-detail.is-pedigree h1,
+.project-detail.is-pedigree > p,
+.project-detail.is-pedigree .project-subtitle{
+  color:#141d3a;
+  background:#ffc901;
+  display:inline-block;
+  padding:0.45rem 0.7rem;
+  border-radius:10px;
+}
+
+.pedigree-gallery-container{display:flex;flex-direction:column;gap:1.4rem}
+
+.pedigree-hero{position:relative;width:100vw;overflow:hidden;margin-left:calc(-50vw + 50%);margin-right:calc(-50vw + 50%);display:grid;grid-template-columns:clamp(12px, 2.8vw, 42px) 1fr clamp(12px, 2.8vw, 42px);align-items:stretch;background:transparent}
+
+.pedigree-hero-side{display:block;background:#ffc901}
+
+.pedigree-hero-image-wrap{overflow:hidden;background:#ffc901}
+
+.pedigree-hero-image{display:block;width:calc(100% + 20px);margin-left:-10px;height:auto;max-height:none;object-fit:contain;image-rendering:auto;position:relative;z-index:0}
+
+.pedigree-hero-copy{position:absolute;left:6vw;bottom:8vh;background:rgba(20,29,58,0.78);color:#fff;padding:1rem 1.2rem;border-radius:12px;max-width:460px}
+
+.pedigree-hero-copy p{margin:0 0 0.2rem 0;font-size:0.8rem;letter-spacing:0.15rem;text-transform:uppercase;opacity:0.9}
+
+.pedigree-hero-copy h2{margin:0 0 0.35rem 0;font-size:clamp(1.4rem,3.2vw,2.4rem)}
+
+.pedigree-hero-copy span{font-size:0.95rem;line-height:1.5;color:#e5ebff}
+
+.pedigree-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:0.8rem;max-width:1180px;margin:0 auto;padding:0 2rem}
+
+.pedigree-stats span{background:#ffffff;border:1px solid #dfe6ff;border-radius:10px;padding:0.95rem;display:flex;flex-direction:column;color:#48527a}
+
+.pedigree-stats strong{color:#1f2d65;font-size:1.08rem}
+
+.pedigree-story{display:grid;grid-template-columns:1fr 1fr;gap:1rem;max-width:1180px;margin:0 auto;padding:0 2rem;align-items:stretch}
+
+.pedigree-story-copy{background:#ffffff;border:1px solid #dfe6ff;border-radius:14px;padding:1.3rem}
+
+.pedigree-story-copy h3{margin:0 0 0.85rem 0;font-size:1.45rem;color:#1f2d65}
+
+.pedigree-story-copy p{margin:0 0 0.8rem 0;line-height:1.7;color:#4d5578}
+
+.pedigree-story-image{border:none;padding:0;background:#fff;border-radius:14px;overflow:hidden;cursor:pointer;border:1px solid #dfe6ff}
+
+.pedigree-story-image img{width:100%;height:100%;object-fit:cover;display:block}
+
+.pedigree-walkthrough{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0.55rem;max-width:1180px;padding:0 2rem;margin:0 auto}
+
+.pedigree-app-carousel{max-width:1180px;padding:0 2rem;margin:0 auto;overflow:hidden}
+
+.pedigree-app-carousel-track{display:flex;transition:transform 650ms ease}
+
+.pedigree-app-slide{flex:0 0 100%;padding:0;border:none;background:#fff;border-radius:12px;overflow:hidden;cursor:pointer;border:1px solid #dfe6ff}
+
+.pedigree-app-slide img{display:block;width:100%;height:min(62vh, 560px);object-fit:cover}
+
+.pedigree-app-carousel-dots{display:flex;justify-content:center;gap:0.35rem;margin-top:0.55rem}
+
+.pedigree-app-carousel-dots span{width:8px;height:8px;border-radius:50%;background:#cbd5ff;display:block}
+
+.pedigree-app-carousel-dots span.is-active{background:#1f2d65}
+
+.pedigree-walkthrough button{padding:0;border:none;background:#fff;border-radius:10px;overflow:hidden;cursor:pointer;border:1px solid #dfe6ff}
+
+.pedigree-walkthrough img{display:block;width:100%;height:230px;object-fit:cover}
+
+.pedigree-system{display:grid;grid-template-columns:1.15fr 0.85fr;gap:1rem;max-width:1180px;margin:0 auto;padding:0 2rem;align-items:stretch}
+
+.pedigree-system-preview{padding:0;border:none;background:#fff;border-radius:12px;overflow:hidden;cursor:pointer;border:1px solid #dfe6ff}
+
+.pedigree-system-preview img{display:block;width:100%;height:100%;object-fit:cover}
+
+.pedigree-system-copy{background:#ffffff;border:1px solid #dfe6ff;border-radius:12px;padding:1.2rem}
+
+.pedigree-system-copy .label{margin:0 0 0.45rem 0;font-size:0.78rem;letter-spacing:0.14rem;text-transform:uppercase;color:#6a78a8}
+
+.pedigree-system-copy h3{margin:0 0 0.75rem 0;color:#1f2d65;font-size:1.4rem}
+
+.pedigree-system-copy p{margin:0;line-height:1.7;color:#4d5578}
+
+.pedigree-feature-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0.8rem;max-width:1180px;padding:0 2rem;margin:0 auto}
+
+.pedigree-feature-card{position:relative;padding:0;border:none;background:#fff;border-radius:12px;overflow:hidden;cursor:pointer;border:1px solid #dfe6ff}
+
+.pedigree-feature-card img{display:block;width:100%;height:320px;object-fit:cover}
+
+.pedigree-feature-index{position:absolute;left:0.8rem;bottom:0.8rem;background:rgba(20,29,58,0.72);color:#fff;padding:0.25rem 0.5rem;border-radius:999px;font-size:0.75rem;font-weight:700;letter-spacing:0.06rem}
+
+.pedigree-closing-hero{margin-top:0.4rem}
+
+.pedigree-lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.9);display:flex;align-items:center;justify-content:center;z-index:1000;padding:2rem}
+
+.pedigree-lightbox-content{position:relative;width:100%;max-width:90vw;max-height:90vh}
+
+.pedigree-lightbox-content img{width:100%;height:100%;object-fit:contain}
+
+.pedigree-lightbox-close{position:absolute;top:1rem;right:1rem;width:46px;height:46px;border:none;border-radius:50%;background:rgba(255,255,255,0.95);cursor:pointer;font-size:1.4rem}
 
 /* Cafeteros Gallery Styles - Innovative Branding Showcase */
 
@@ -717,6 +849,15 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
   .koaj-hero-overlay h2{font-size:1.8rem}
   .koaj-lightbox{padding:1rem}
   .koaj-lightbox-close{width:40px;height:40px;top:0.5rem;right:0.5rem}
+
+  .pedigree-hero{grid-template-columns:10px 1fr 10px}
+  .pedigree-hero-image{height:auto;max-height:none}
+  .pedigree-app-slide img{height:auto;max-height:58vh}
+  .pedigree-walkthrough{grid-template-columns:1fr}
+  .pedigree-walkthrough img{height:auto;max-height:55vh}
+  .pedigree-feature-card img{height:auto;max-height:56vh}
+  .pedigree-lightbox{padding:1rem}
+  .pedigree-lightbox-close{width:40px;height:40px;top:0.5rem;right:0.5rem}
   
   .cafeteros-hero{max-height:300px}
   .cafeteros-info-header{padding:1.5rem 1rem}
