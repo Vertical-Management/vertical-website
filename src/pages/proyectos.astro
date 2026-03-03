@@ -1,83 +1,428 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Header from '../components/Header.astro';
+import Minesweeper from '../components/Minesweeper.jsx';
 import projects from '../data/projects.json';
 
 const BASE_URL = import.meta.env.BASE_URL;
 const basePrefix = BASE_URL.endsWith('/') ? BASE_URL : `${BASE_URL}/`;
 const withBase = (path) => `${basePrefix}${path.replace(/^\/+/, '')}`;
-const XP_FUN_ICONS = [
-  'https://win98icons.alexmeub.com/icons/png/computer_explorer-5.png',
-  'https://win98icons.alexmeub.com/icons/png/game_solitaire-0.png',
-  'https://win98icons.alexmeub.com/icons/png/msie2-2.png',
-  'https://win98icons.alexmeub.com/icons/png/world-0.png',
+
+const XP_PROJECT_ICONS = {
+  'fep2026-animation': withBase('assets/xp/calendar.png'),
+  'branding-cafeteros': withBase('assets/xp/internet.png'),
+  'koaj-3d': withBase('assets/xp/notepad.png'),
+  'ux-pedigree': withBase('assets/xp/minesweeper.svg'),
+};
+const getProjectIcon = (slug) => XP_PROJECT_ICONS[slug] ?? withBase('assets/xp/notepad.png');
+const XP_SHORTCUTS = [
+  { label: 'Inicio', icon: withBase('assets/xp/internet.png'), type: 'link', href: withBase('') },
+  { label: 'Servicios', icon: withBase('assets/xp/notepad.png'), type: 'link', href: withBase('servicios') },
+  { label: 'Proyectos', icon: withBase('assets/xp/folder.png'), type: 'link', href: withBase('proyectos') },
+  { label: 'Contacto', icon: withBase('assets/xp/internet.png'), type: 'link', href: withBase('contacto') },
 ];
-const XP_TITLE_ICON = 'https://upload.wikimedia.org/wikipedia/commons/5/59/OneDrive_Folder_Icon.png';
-const XP_CLICK_SOUND = 'https://bit.ly/xp-click-sound';
 ---
 
-<style is:global>
-  html:has(.xp98-desktop),
-  html:has(.xp98-desktop) body,
-  html:has(.xp98-desktop) main {
-    background: url('https://winxp.vercel.app/assets/bliss.jpg') center / cover no-repeat fixed;
-  }
-</style>
-
-<BaseLayout title="Proyectos — Vertical Management">
-  <div class="xp-desktop xp98-desktop">
-    <Header />
-    <div class="xp-window xp98-window">
-      <div class="xp-title-bar xp98-title-bar">
-        <div class="xp98-title-left">
-          <img src={XP_TITLE_ICON} alt="" class="xp98-title-icon" />
-          <span>Mis Proyectos</span>
-        </div>
-        <div class="xp-title-controls xp98-title-controls" aria-hidden="true">
-          <button type="button" class="xp-btn xp98-btn xp98-btn-min" tabindex="-1">_</button>
-          <button type="button" class="xp-btn xp98-btn xp98-btn-max" tabindex="-1">□</button>
-          <button type="button" class="xp-btn xp98-btn xp98-btn-close" tabindex="-1">✕</button>
-        </div>
+<BaseLayout title="Proyectos — Windows XP Luna">
+  <div class="xp-shell">
+    <section class="xp-desktop-area" aria-label="Escritorio Windows XP">
+      <div class="xp-desktop-icons" role="list">
+        <button type="button" class="xp-desktop-icon" role="listitem" data-open-window="mines" data-desktop-icon>
+          <img src={withBase('assets/xp/minesweeper.svg')} alt="Icono Buscaminas" loading="lazy" />
+          <span>Buscaminas</span>
+        </button>
       </div>
-      <section class="projects vm-container xp98-content">
-        <div class="project-grid xp98-grid">
-          {projects.projects.map((p, idx) => (
-            <div class="project-card xp98-item" key={p.slug}>
-              <a href={withBase(`proyectos/${p.slug}`)}>
-                <img
-                  src={XP_FUN_ICONS[idx % XP_FUN_ICONS.length]}
-                  alt={`Icono del proyecto ${p.title}`}
-                  loading="lazy"
-                  class="xp-folder-icon xp98-icon"
-                />
-                <h2 class="xp98-label">{p.title}</h2>
-              </a>
-            </div>
-          ))}
+
+      <div class="xp-top-shortcuts" aria-label="Accesos rápidos">
+        {XP_SHORTCUTS.map((shortcut) => (
+          shortcut.type === 'window' ? (
+            <button
+              type="button"
+              class="xp-top-shortcut"
+              data-open-window={shortcut.target}
+              aria-label={shortcut.label}
+            >
+              <img src={shortcut.icon} alt="" loading="lazy" />
+              <span>{shortcut.label}</span>
+            </button>
+          ) : (
+            <a class="xp-top-shortcut" href={shortcut.href} aria-label={shortcut.label}>
+              <img src={shortcut.icon} alt="" loading="lazy" />
+              <span>{shortcut.label}</span>
+            </a>
+          )
+        ))}
+      </div>
+
+      <section class="xp-window" data-window="projects" aria-label="Ventana Mis Proyectos" data-task-label="Mis Proyectos">
+        <header class="xp-titlebar">
+          <div class="xp-title-left">
+            <img class="xp-title-icon" src={withBase('assets/xp/folder.png')} alt="" />
+            <span class="xp-title-text">Mis Proyectos</span>
+          </div>
+          <div class="xp-title-buttons" aria-hidden="true">
+            <button type="button" class="xp-btn xp-btn-min" data-win-action="min">_</button>
+            <button type="button" class="xp-btn xp-btn-max" data-win-action="max">□</button>
+            <button type="button" class="xp-btn xp-btn-close" data-win-action="close">✕</button>
+          </div>
+        </header>
+
+        <div class="xp-window-content">
+          <div class="project-grid xp-window-grid">
+            {projects.projects.map((p) => (
+              <article class="project-card xp-window-item" key={p.slug}>
+                <a href={withBase(`proyectos/${p.slug}`)}>
+                  <img src={getProjectIcon(p.slug)} alt={`Icono del proyecto ${p.title}`} loading="lazy" />
+                  <h2>{p.title}</h2>
+                </a>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="xp-window" data-window="mines" aria-label="Ventana Buscaminas" data-task-label="Buscaminas">
+        <header class="xp-titlebar">
+          <div class="xp-title-left">
+            <img class="xp-title-icon" src={withBase('assets/xp/minesweeper.svg')} alt="" />
+            <span class="xp-title-text">Buscaminas</span>
+          </div>
+          <div class="xp-title-buttons" aria-hidden="true">
+            <button type="button" class="xp-btn xp-btn-min" data-win-action="min">_</button>
+            <button type="button" class="xp-btn xp-btn-max" data-win-action="max">□</button>
+            <button type="button" class="xp-btn xp-btn-close" data-win-action="close">✕</button>
+          </div>
+        </header>
+
+        <div class="xp-window-content xp-window-content-mines">
+          <Minesweeper client:load />
+        </div>
+      </section>
+    </section>
+
+    <footer class="taskbar" aria-label="Barra de tareas">
+      <button type="button" class="start-btn" id="start-button" aria-controls="xp-start-ad" aria-expanded="false">
+        <span class="start-logo"></span>
+        <span>Start</span>
+      </button>
+      <button type="button" class="taskbar-app" data-taskbar-app="projects">Mis Proyectos</button>
+      <button type="button" class="taskbar-app" data-taskbar-app="mines">Buscaminas</button>
+      <div class="taskbar-clock" id="taskbar-clock">12:00 PM</div>
+    </footer>
+
+    <div class="xp-ad-backdrop" id="xp-start-ad" hidden>
+      <section class="xp-ad-modal" role="dialog" aria-modal="true" aria-labelledby="xp-ad-title">
+        <header class="xp-ad-titlebar">
+          <span id="xp-ad-title">Oferta de Internet Explorer</span>
+          <button type="button" class="xp-ad-close" id="xp-ad-close" aria-label="Cerrar anuncio">✕</button>
+        </header>
+        <div class="xp-ad-body">
+          <p>¡Has tenido suerte! ✨</p>
+          <p>Ahora puedes contratarme y subir de nivel tus proyectos.</p>
+        </div>
+        <div class="xp-ad-actions">
+          <a href={withBase('contacto')} class="xp-ad-cta">Contratar ahora</a>
+          <button type="button" class="xp-ad-ok" id="xp-ad-ok">Cerrar</button>
         </div>
       </section>
     </div>
-    <audio id="xp-click-audio" preload="auto" src={XP_CLICK_SOUND}></audio>
   </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const cards = Array.from(document.querySelectorAll('.xp98-item'));
-      const audio = document.getElementById('xp-click-audio');
+      const desktopArea = document.querySelector('.xp-desktop-area');
+      const windowEls = Array.from(document.querySelectorAll('.xp-window'));
+      const desktopIcons = Array.from(document.querySelectorAll('[data-desktop-icon]'));
+      const openWindowButtons = Array.from(document.querySelectorAll('[data-open-window]'));
+      const taskbarButtons = Array.from(document.querySelectorAll('[data-taskbar-app]'));
+      const clock = document.getElementById('taskbar-clock');
+      const startButton = document.getElementById('start-button');
+      const startAd = document.getElementById('xp-start-ad');
+      const closeAdButton = document.getElementById('xp-ad-close');
+      const closeAdOkButton = document.getElementById('xp-ad-ok');
 
-      cards.forEach((card) => {
-        const link = card.querySelector('a');
-        if (!link) return;
+      let zCounter = 50;
+      const dragState = {
+        active: false,
+        windowId: null,
+        pointerId: null,
+        offsetX: 0,
+        offsetY: 0,
+      };
 
-        link.addEventListener('pointerdown', () => {
-          cards.forEach((item) => item.classList.remove('is-selected'));
-          card.classList.add('is-selected');
-          if (audio) {
-            audio.currentTime = 0;
-            audio.play().catch(() => {});
+      const getWindowById = (windowId) => windowEls.find((windowEl) => windowEl.dataset.window === windowId);
+
+      const getWindowBounds = () => {
+        const taskbarHeight = document.querySelector('.taskbar')?.offsetHeight || 0;
+        const topInset = 8;
+        const leftInset = 8;
+        const rightInset = 8;
+        const bottomInset = 8 + taskbarHeight;
+        return { topInset, leftInset, rightInset, bottomInset };
+      };
+
+      const setWindowPosition = (windowEl, left, top) => {
+        if (!windowEl || !desktopArea) return;
+        const areaRect = desktopArea.getBoundingClientRect();
+        const bounds = getWindowBounds();
+
+        const minLeft = bounds.leftInset;
+        const minTop = bounds.topInset;
+        const maxLeft = Math.max(minLeft, areaRect.width - windowEl.offsetWidth - bounds.rightInset);
+        const maxTop = Math.max(minTop, areaRect.height - windowEl.offsetHeight - bounds.bottomInset);
+
+        const clampedLeft = Math.min(Math.max(minLeft, left), maxLeft);
+        const clampedTop = Math.min(Math.max(minTop, top), maxTop);
+
+        windowEl.style.left = `${clampedLeft}px`;
+        windowEl.style.top = `${clampedTop}px`;
+      };
+
+      const centerWindow = (windowEl, offset = 0) => {
+        if (!windowEl || !desktopArea) return;
+        const areaRect = desktopArea.getBoundingClientRect();
+        const bounds = getWindowBounds();
+        const safeWidth = areaRect.width - bounds.leftInset - bounds.rightInset;
+        const safeHeight = areaRect.height - bounds.topInset - bounds.bottomInset;
+
+        const left = bounds.leftInset + Math.max(0, (safeWidth - windowEl.offsetWidth) / 2) + offset;
+        const top = bounds.topInset + Math.max(0, (safeHeight - windowEl.offsetHeight) / 2) + offset;
+        setWindowPosition(windowEl, left, top);
+      };
+
+      const focusWindow = (windowId) => {
+        const windowEl = getWindowById(windowId);
+        if (!windowEl) return;
+
+        zCounter += 1;
+        windowEl.style.zIndex = String(zCounter);
+
+        taskbarButtons.forEach((button) => {
+          button.classList.toggle('is-active', button.getAttribute('data-taskbar-app') === windowId && !windowEl.classList.contains('is-minimized'));
+        });
+      };
+
+      const showWindow = (windowId) => {
+        const windowEl = getWindowById(windowId);
+        if (!windowEl) return;
+        windowEl.classList.remove('is-minimized');
+        focusWindow(windowId);
+        if (windowId === 'mines') {
+          window.setTimeout(syncMinesWindowSize, 0);
+        }
+      };
+
+      const hideWindow = (windowId) => {
+        const windowEl = getWindowById(windowId);
+        if (!windowEl) return;
+        windowEl.classList.add('is-minimized');
+        taskbarButtons.forEach((button) => {
+          if (button.getAttribute('data-taskbar-app') === windowId) {
+            button.classList.remove('is-active');
           }
         });
+      };
+
+      const syncMinesWindowSize = () => {
+        const minesWindow = getWindowById('mines');
+        const minesApp = minesWindow?.querySelector('.mine-app');
+        if (!minesWindow || !minesApp || !desktopArea) return;
+        if (minesWindow.classList.contains('is-maximized')) return;
+
+        const appRect = minesApp.getBoundingClientRect();
+        const targetWidth = Math.ceil(appRect.width + 28);
+        const targetHeight = Math.ceil(appRect.height + 64);
+        minesWindow.style.width = `${targetWidth}px`;
+        minesWindow.style.maxWidth = 'calc(100vw - 1rem)';
+        minesWindow.style.minHeight = `${targetHeight}px`;
+
+        const left = parseFloat(minesWindow.style.left || '0');
+        const top = parseFloat(minesWindow.style.top || '0');
+        setWindowPosition(minesWindow, left, top);
+      };
+
+      const showStartAd = () => {
+        if (!startAd || !startButton) return;
+        startAd.hidden = false;
+        startButton.setAttribute('aria-expanded', 'true');
+      };
+
+      const hideStartAd = () => {
+        if (!startAd || !startButton) return;
+        startAd.hidden = true;
+        startButton.setAttribute('aria-expanded', 'false');
+      };
+
+      const setSelectedIcon = (selected) => {
+        desktopIcons.forEach((icon) => icon.classList.remove('is-selected'));
+        if (selected) selected.classList.add('is-selected');
+      };
+
+      windowEls.forEach((windowEl, index) => {
+        windowEl.style.position = 'absolute';
+        centerWindow(windowEl, index * 20);
       });
+
+      showWindow('projects');
+      hideWindow('mines');
+
+      window.addEventListener('resize', () => {
+        windowEls.forEach((windowEl) => {
+          if (windowEl.classList.contains('is-maximized')) return;
+          const left = parseFloat(windowEl.style.left || '0');
+          const top = parseFloat(windowEl.style.top || '0');
+          setWindowPosition(windowEl, left, top);
+        });
+        syncMinesWindowSize();
+      });
+
+      window.addEventListener('minesweeper:resize', () => {
+        syncMinesWindowSize();
+      });
+
+      windowEls.forEach((windowEl) => {
+        const titleBar = windowEl.querySelector('.xp-titlebar');
+        const windowId = windowEl.dataset.window;
+
+        if (!titleBar || !windowId) return;
+
+        titleBar.addEventListener('pointerdown', (event) => {
+          if (!(event.target instanceof Element)) return;
+          if (event.target.closest('.xp-title-buttons')) return;
+          if (windowEl.classList.contains('is-minimized') || windowEl.classList.contains('is-maximized')) return;
+
+          focusWindow(windowId);
+          dragState.active = true;
+          dragState.windowId = windowId;
+          dragState.pointerId = event.pointerId;
+
+          const rect = windowEl.getBoundingClientRect();
+          dragState.offsetX = event.clientX - rect.left;
+          dragState.offsetY = event.clientY - rect.top;
+
+          titleBar.setPointerCapture(event.pointerId);
+          document.body.style.userSelect = 'none';
+        });
+      });
+
+      window.addEventListener('pointermove', (event) => {
+        if (!dragState.active || !dragState.windowId || !desktopArea) return;
+        const windowEl = getWindowById(dragState.windowId);
+        if (!windowEl || windowEl.classList.contains('is-maximized')) return;
+
+        const areaRect = desktopArea.getBoundingClientRect();
+        const left = event.clientX - areaRect.left - dragState.offsetX;
+        const top = event.clientY - areaRect.top - dragState.offsetY;
+        setWindowPosition(windowEl, left, top);
+      });
+
+      window.addEventListener('pointerup', () => {
+        dragState.active = false;
+        dragState.windowId = null;
+        dragState.pointerId = null;
+        document.body.style.userSelect = '';
+      });
+
+      windowEls.forEach((windowEl) => {
+        const windowId = windowEl.dataset.window;
+        if (!windowId) return;
+
+        windowEl.addEventListener('pointerdown', () => {
+          focusWindow(windowId);
+        });
+
+        const windowButtons = Array.from(windowEl.querySelectorAll('[data-win-action]'));
+
+        windowButtons.forEach((button) => {
+          button.addEventListener('click', () => {
+            const action = button.getAttribute('data-win-action');
+
+            if (action === 'min') {
+              hideWindow(windowId);
+              return;
+            }
+
+            if (action === 'max') {
+              windowEl.classList.remove('is-minimized');
+              windowEl.classList.toggle('is-maximized');
+
+              if (!windowEl.classList.contains('is-maximized')) {
+                centerWindow(windowEl);
+              }
+
+              focusWindow(windowId);
+              return;
+            }
+
+            if (action === 'close') {
+              hideWindow(windowId);
+            }
+          });
+        });
+      });
+
+      openWindowButtons.forEach((button) => {
+        button.addEventListener('click', (event) => {
+          const targetWindow = button.getAttribute('data-open-window');
+          if (!targetWindow) return;
+          if (button.tagName === 'A') return;
+          event.preventDefault();
+          showWindow(targetWindow);
+        });
+      });
+
+      desktopIcons.forEach((icon) => {
+        icon.addEventListener('pointerdown', () => {
+          setSelectedIcon(icon);
+        });
+      });
+
+      taskbarButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+          const targetWindow = button.getAttribute('data-taskbar-app');
+          if (!targetWindow) return;
+          const windowEl = getWindowById(targetWindow);
+          if (!windowEl) return;
+
+          if (windowEl.classList.contains('is-minimized')) {
+            showWindow(targetWindow);
+            return;
+          }
+
+          hideWindow(targetWindow);
+        });
+      });
+
+      startButton?.addEventListener('click', () => {
+        showStartAd();
+      });
+
+      closeAdButton?.addEventListener('click', () => {
+        hideStartAd();
+      });
+
+      closeAdOkButton?.addEventListener('click', () => {
+        hideStartAd();
+      });
+
+      startAd?.addEventListener('click', (event) => {
+        if (event.target === startAd) {
+          hideStartAd();
+        }
+      });
+
+      const updateClock = () => {
+        if (!clock) return;
+        clock.textContent = new Date().toLocaleTimeString([], {
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: true,
+        });
+      };
+
+      updateClock();
+      window.setInterval(updateClock, 1000);
+      window.setTimeout(syncMinesWindowSize, 0);
     });
   </script>
 </BaseLayout>
