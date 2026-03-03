@@ -24,7 +24,7 @@ const UxPedigreeGallery = ({ images = [], short = '' }) => {
     if (!images || images.length === 0) return null;
 
     const appCarouselImages = images.filter((img) =>
-      /UNIVERSITY GB APP(?:2|3|4|7)?\.webp$/i.test(img)
+      /UNIVERSITY GB APP(?:2|3|4)?\.webp$/i.test(img)
     );
 
     const growBookImage = images.find((img) => img.includes('GROW BOOK'));
@@ -104,18 +104,20 @@ const UxPedigreeGallery = ({ images = [], short = '' }) => {
 
       {data.appCarousel.length > 0 && (
         <section className="pedigree-app-carousel" aria-label="Carrusel University GB App">
-          <div className="pedigree-app-carousel-track" style={{ transform: `translateX(-${carouselIndex * 100}%)` }}>
-            {data.appCarousel.map((img, idx) => (
-              <button
-                key={img}
-                type="button"
-                className="pedigree-app-slide"
-                onClick={() => openImage(img)}
-                aria-label={`Abrir APP ${idx + 1}`}
-              >
-                <img src={img} alt={`UNIVERSITY GB APP ${idx + 1}`} loading="lazy" decoding="async" />
-              </button>
-            ))}
+          <div className="pedigree-app-carousel-viewport">
+            <div className="pedigree-app-carousel-track" style={{ transform: `translateX(-${carouselIndex * 100}%)` }}>
+              {data.appCarousel.map((img, idx) => (
+                <button
+                  key={img}
+                  type="button"
+                  className="pedigree-app-slide"
+                  onClick={() => openImage(img)}
+                  aria-label={`Abrir APP ${idx + 1}`}
+                >
+                  <img src={img} alt={`UNIVERSITY GB APP ${idx + 1}`} loading="lazy" decoding="async" />
+                </button>
+              ))}
+            </div>
           </div>
           <div className="pedigree-app-carousel-dots" aria-hidden="true">
             {data.appCarousel.map((img, idx) => (
