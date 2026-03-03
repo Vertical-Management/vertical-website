@@ -6,21 +6,48 @@ import projects from '../data/projects.json';
 const BASE_URL = import.meta.env.BASE_URL;
 const basePrefix = BASE_URL.endsWith('/') ? BASE_URL : `${BASE_URL}/`;
 const withBase = (path) => `${basePrefix}${path.replace(/^\/+/, '')}`;
+const XP_FOLDER_ICON = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 52"><path fill="%23f6d34f" d="M2 10a6 6 0 0 1 6-6h16l6 6h26a6 6 0 0 1 6 6v6H2z"/><rect x="2" y="14" width="60" height="36" rx="6" fill="%23f1c232"/><rect x="6" y="18" width="52" height="28" rx="4" fill="%23ffd966"/><rect x="6" y="18" width="52" height="4" rx="2" fill="%23ffe599"/></svg>';
 ---
 <BaseLayout title="Proyectos — Vertical Management">
   <Header />
-  <section class="projects vm-container">
-    <h1>Proyectos</h1>
-    <div class="project-grid">
-      {projects.projects.map((p) => (
-        <article class="project-card" key={p.slug}>
-          <a href={withBase(`proyectos/${p.slug}`)}>
-            <img src={p.images?.[0] ? withBase(p.images[0]) : withBase('assets/placeholder.png')} alt={p.title} loading="eager" />
-            <h2>{p.title}</h2>
-            <p>{p.short}</p>
-          </a>
-        </article>
-      ))}
+  <div class="xp-desktop">
+    <div class="xp-window">
+      <div class="xp-title-bar">
+        <span>Mis Proyectos</span>
+        <div class="xp-title-controls" aria-hidden="true">
+          <button type="button" class="xp-btn xp-btn-min" tabindex="-1">_</button>
+          <button type="button" class="xp-btn xp-btn-max" tabindex="-1">□</button>
+          <button type="button" class="xp-btn xp-btn-close" tabindex="-1">X</button>
+        </div>
+      </div>
+      <section class="projects vm-container">
+        <div class="project-grid">
+          {projects.projects.map((p) => (
+            <article class="project-card" key={p.slug}>
+              <a href={withBase(`proyectos/${p.slug}`)}>
+                <img src={XP_FOLDER_ICON} alt={`Carpeta del proyecto ${p.title}`} loading="lazy" class="xp-folder-icon" />
+                <h2>{p.title}</h2>
+                <p>{p.short}</p>
+              </a>
+            </article>
+          ))}
+        </div>
+      </section>
     </div>
-  </section>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const cards = Array.from(document.querySelectorAll('.xp-window .project-card'));
+      cards.forEach((card) => {
+        const link = card.querySelector('a');
+        if (!link) return;
+
+        link.addEventListener('pointerdown', () => {
+          cards.forEach((item) => item.classList.remove('is-selected'));
+          card.classList.add('is-selected');
+        });
+      });
+    });
+  </script>
 </BaseLayout>
