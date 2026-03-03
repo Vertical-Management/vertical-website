@@ -9,32 +9,55 @@ const withBase = (path) => `${basePrefix}${path.replace(/^\/+/, '')}`;
 <BaseLayout title="Contacto — Vertical Management">
   <Header />
   <section class="contact vm-container">
-    <h1>Contacto</h1>
-    <p>
-      ¿Tienes un proyecto en mente? Me encantaría saber de ti. Ponte en contacto y conversemos
-      sobre cómo puedo ayudarte a llevar tu visión a la realidad.
-    </p>
-    
-    <div class="contact-methods">
-      <div>
-        <h3>Email</h3>
-        <p><a href="mailto:esteban@vertical-management.com" target="_blank">esteban@vertical-management.com</a></p>
+    <header class="contact-hero">
+      <p class="contact-kicker">Vertical Management</p>
+      <h1>Construyamos algo que se note.</h1>
+      <p class="contact-intro">
+        Si valoras las ideas con intención, ejecución cuidada y obsesión por el detalle, hablemos.
+        Estoy disponible para proyectos de branding, diseño digital y dirección creativa.
+      </p>
+      <div class="contact-hero-actions">
+        <a href="mailto:esteban@vertical-management.com" class="btn-primary">Enviar email</a>
+        <a href="tel:+376625303" class="contact-ghost-link">Llamar al +376 625 303</a>
       </div>
-      
-      <div>
-        <h3>Redes Sociales</h3>
-        <p>
-          Encuéntrame en
-          <a href="#">Instagram</a> •
-          <a href="#">Linkedin</a> •
-          <a href="#">Twitter</a>
-        </p>
-      </div>
-      
-      <div>
-        <h3>Otra Forma</h3>
-        <p><a href={withBase('servicios')} class="btn-primary">Ver Servicios</a></p>
-      </div>
+    </header>
+
+    <div class="contact-methods" aria-label="Canales de contacto">
+      <article class="contact-card contact-card-primary">
+        <p class="contact-card-label">Email</p>
+        <h2>Respuesta directa</h2>
+        <a href="mailto:esteban@vertical-management.com">esteban@vertical-management.com</a>
+      </article>
+
+      <article class="contact-card">
+        <p class="contact-card-label">Instagram</p>
+        <h2>Proceso & piezas</h2>
+        <a href="https://www.instagram.com/vertical_________/" target="_blank" rel="noopener noreferrer">@vertical_________</a>
+      </article>
+
+      <article class="contact-card">
+        <p class="contact-card-label">LinkedIn</p>
+        <h2>Perfil profesional</h2>
+        <a href="https://www.linkedin.com/in/esteban-ferrer-3777521a8/" target="_blank" rel="noopener noreferrer">Esteban Ferrer</a>
+      </article>
+
+      <article class="contact-card">
+        <p class="contact-card-label">X</p>
+        <h2>Visión breve</h2>
+        <a href="https://x.com/verticalmanagement" target="_blank" rel="noopener noreferrer">@verticalmanagement</a>
+      </article>
+
+      <article class="contact-card">
+        <p class="contact-card-label">Teléfono</p>
+        <h2>Andorra</h2>
+        <a href="tel:+376625303">+376 625 303</a>
+      </article>
+
+      <article class="contact-card contact-card-services">
+        <p class="contact-card-label">Servicios</p>
+        <h2>Cómo trabajo</h2>
+        <a href={withBase('servicios')} class="contact-inline-link">Ver servicios</a>
+      </article>
     </div>
   </section>
 </BaseLayout>
