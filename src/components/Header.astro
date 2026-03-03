@@ -1,14 +1,18 @@
 ---
 export interface Props {
+  className?: string;
   clasName?: string;
 }
+
+const { className = '', clasName = '' } = Astro.props;
+const headerClass = [className, clasName].filter(Boolean).join(' ');
 
 const BASE_URL = import.meta.env.BASE_URL;
 const basePrefix = BASE_URL.endsWith('/') ? BASE_URL : `${BASE_URL}/`;
 
 const withBase = (path) => `${basePrefix}${path.replace(/^\/+/, '')}`;
 ---
-<header class="vm-header">
+<header class={`vm-header ${headerClass}`}>
   <div class="vm-container vm-header-inner">
     <a class="vm-brand" href={BASE_URL}>
       <span class="vm-brand-text">Vertical Management</span>
