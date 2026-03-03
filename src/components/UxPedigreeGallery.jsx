@@ -29,11 +29,13 @@ const UxPedigreeGallery = ({ images = [], short = '' }) => {
 
     const growBookImage = images.find((img) => img.includes('GROW BOOK'));
     const app6Image = images.find((img) => img.includes('APP 6'));
+    const dogImage = images.find((img) => img.includes('DOG'));
+    const sourcesImage = images.find((img) => img.includes('SOURCES'));
 
     const orderedImages = (growBookImage
       ? [growBookImage, ...images.filter((img) => img !== growBookImage)]
       : images
-    ).filter((img) => img !== app6Image);
+    ).filter((img) => img !== app6Image && img !== dogImage);
 
     return {
       hero: orderedImages[0],
@@ -42,6 +44,8 @@ const UxPedigreeGallery = ({ images = [], short = '' }) => {
       login: orderedImages[6] || orderedImages[0],
       system: orderedImages[7] || orderedImages[1] || orderedImages[0],
       finalSet: orderedImages.slice(8),
+      dogHero: dogImage,
+      sourcesHero: sourcesImage,
       closingHero: app6Image || orderedImages[orderedImages.length - 1],
       total: images.length,
     };
@@ -150,20 +154,57 @@ const UxPedigreeGallery = ({ images = [], short = '' }) => {
         </section>
       )}
 
-      {data.closingHero && (
-        <section className="pedigree-hero pedigree-closing-hero">
-          <span className="pedigree-hero-side" aria-hidden="true" />
-          <div className="pedigree-hero-image-wrap">
-            <img
-              src={data.closingHero}
-              alt="UNIVERSITY GB APP 6"
-              className="pedigree-hero-image"
-              loading="lazy"
-              decoding="async"
-            />
-          </div>
-          <span className="pedigree-hero-side" aria-hidden="true" />
-        </section>
+      {(data.sourcesHero || data.dogHero || data.closingHero) && (
+        <div className="pedigree-closing-pair">
+          {data.sourcesHero && (
+            <section className="pedigree-hero pedigree-closing-hero">
+              <span className="pedigree-hero-side" aria-hidden="true" />
+              <div className="pedigree-hero-image-wrap">
+                <img
+                  src={data.sourcesHero}
+                  alt="UNIVERSITY GB SOURCES duplicada"
+                  className="pedigree-hero-image"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <span className="pedigree-hero-side" aria-hidden="true" />
+            </section>
+          )}
+
+          {data.dogHero && (
+            <section className="pedigree-hero pedigree-closing-hero pedigree-dog-hero">
+              <span className="pedigree-hero-side" aria-hidden="true" />
+              <div className="pedigree-hero-image-wrap">
+                <span className="pedigree-dog-top-rect" aria-hidden="true" />
+                <img
+                  src={data.dogHero}
+                  alt="UNIVERSITY GB DOG"
+                  className="pedigree-hero-image"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <span className="pedigree-hero-side" aria-hidden="true" />
+            </section>
+          )}
+
+          {data.closingHero && (
+            <section className="pedigree-hero pedigree-closing-hero">
+              <span className="pedigree-hero-side" aria-hidden="true" />
+              <div className="pedigree-hero-image-wrap">
+                <img
+                  src={data.closingHero}
+                  alt="UNIVERSITY GB APP 6"
+                  className="pedigree-hero-image"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <span className="pedigree-hero-side" aria-hidden="true" />
+            </section>
+          )}
+        </div>
       )}
 
       {selectedImage && (
