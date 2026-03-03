@@ -29,6 +29,7 @@ const UxPedigreeGallery = ({ images = [], short = '' }) => {
 
     const growBookImage = images.find((img) => img.includes('GROW BOOK'));
     const app6Image = images.find((img) => img.includes('APP 6'));
+    const app7Image = images.find((img) => img.includes('APP7'));
     const dogImage = images.find((img) => img.includes('DOG'));
     const sourcesImage = images.find((img) => img.includes('SOURCES'));
 
@@ -42,7 +43,7 @@ const UxPedigreeGallery = ({ images = [], short = '' }) => {
       walkthrough: orderedImages.slice(1, 6),
       appCarousel: appCarouselImages,
       login: orderedImages[6] || orderedImages[0],
-      system: orderedImages[7] || orderedImages[1] || orderedImages[0],
+      system: app7Image || orderedImages[7] || orderedImages[1] || orderedImages[0],
       finalSet: orderedImages.slice(8),
       dogHero: dogImage,
       sourcesHero: sourcesImage,
@@ -123,14 +124,6 @@ const UxPedigreeGallery = ({ images = [], short = '' }) => {
           </div>
         </section>
       )}
-
-      <section className="pedigree-walkthrough">
-        {data.walkthrough.map((img, idx) => (
-          <button key={img} type="button" onClick={() => openImage(img)} aria-label={`Abrir pantalla ${idx + 1}`}>
-            <img src={img} alt={`Flujo pantalla ${idx + 1}`} loading="lazy" decoding="async" />
-          </button>
-        ))}
-      </section>
 
       <section className="pedigree-system">
         <button type="button" className="pedigree-system-preview" onClick={() => openImage(data.system)} aria-label="Abrir design system">
