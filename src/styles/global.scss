@@ -178,7 +178,7 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
 .xp-desktop{
   min-height:calc(100vh - 72px);
   padding:1.5rem;
-  background-image:url('https://upload.wikimedia.org/wikipedia/commons/6/67/Bliss_%28Windows_XP%29.png');
+  background-image:url('https://winxp.vercel.app/assets/bliss.jpg');
   background-size:cover;
   background-position:center;
   background-repeat:no-repeat;
@@ -266,6 +266,8 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
   line-height:1.35;
   font-family:Tahoma, Verdana, sans-serif;
 }
+
+.xp-window .project-card p{display:none}
 
 .xp-window .project-card:hover,
 .xp-window .project-card:focus-within{background:rgba(49,106,197,0.16);border-color:#316ac5}
@@ -953,7 +955,7 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
   .xp-window .projects.vm-container{padding:0.85rem}
   .xp-window .project-grid{grid-template-columns:1fr;gap:1.4rem}
   .xp-window .project-card a{padding:0.9rem;gap:0.5rem}
-  .xp-window .project-card .xp-folder-icon{width:96px;height:74px}
+  .xp-window .project-card .xp-folder-icon{width:118px;height:92px}
   .xp-window .project-card h2{font-size:1.05rem;line-height:1.35}
   .xp-window .project-card p{font-size:0.9rem;line-height:1.55}
   .cafeteros-main-hero{height:auto}

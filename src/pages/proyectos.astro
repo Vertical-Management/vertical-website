@@ -6,7 +6,7 @@ import projects from '../data/projects.json';
 const BASE_URL = import.meta.env.BASE_URL;
 const basePrefix = BASE_URL.endsWith('/') ? BASE_URL : `${BASE_URL}/`;
 const withBase = (path) => `${basePrefix}${path.replace(/^\/+/, '')}`;
-const XP_FOLDER_ICON = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 52"><path fill="%23f6d34f" d="M2 10a6 6 0 0 1 6-6h16l6 6h26a6 6 0 0 1 6 6v6H2z"/><rect x="2" y="14" width="60" height="36" rx="6" fill="%23f1c232"/><rect x="6" y="18" width="52" height="28" rx="4" fill="%23ffd966"/><rect x="6" y="18" width="52" height="4" rx="2" fill="%23ffe599"/></svg>';
+const XP_FOLDER_ICON = 'https://upload.wikimedia.org/wikipedia/commons/5/59/OneDrive_Folder_Icon.png';
 ---
 <BaseLayout title="Proyectos — Vertical Management">
   <Header />
@@ -16,7 +16,6 @@ const XP_FOLDER_ICON = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/20
         <span>Mis Proyectos</span>
         <div class="xp-title-controls" aria-hidden="true">
           <button type="button" class="xp-btn xp-btn-min" tabindex="-1">_</button>
-          <button type="button" class="xp-btn xp-btn-max" tabindex="-1">□</button>
           <button type="button" class="xp-btn xp-btn-close" tabindex="-1">X</button>
         </div>
       </div>
@@ -27,7 +26,6 @@ const XP_FOLDER_ICON = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/20
               <a href={withBase(`proyectos/${p.slug}`)}>
                 <img src={XP_FOLDER_ICON} alt={`Carpeta del proyecto ${p.title}`} loading="lazy" class="xp-folder-icon" />
                 <h2>{p.title}</h2>
-                <p>{p.short}</p>
               </a>
             </article>
           ))}
