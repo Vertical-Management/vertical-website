@@ -177,24 +177,232 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
 /* Windows XP Projects */
 .xp-desktop{
   min-height:calc(100vh - 72px);
-  padding:1.5rem;
+  padding:1.25rem 1.25rem 3.9rem 1.25rem;
   background-image:url('https://winxp.vercel.app/assets/bliss.jpg');
   background-size:cover;
   background-position:center;
   background-repeat:no-repeat;
+  position:relative;
 }
+
+.xp-desktop .vm-header{padding:0.35rem 0 0.9rem 0}
+
+.xp-desktop .vm-header-inner{background:rgba(236,233,216,0.88);border:1px solid #8c8b80;border-top-color:#fff;border-left-color:#fff;padding:0.5rem 0.8rem;border-radius:4px}
+
+.xp-desktop .vm-nav a{font-family:Tahoma, Verdana, sans-serif;font-size:0.85rem}
+
+.xp-desktop-hint{position:absolute;left:1.5rem;top:6.5rem;display:flex;flex-direction:column;align-items:center;gap:0.3rem;width:92px;padding:0.45rem 0.35rem;border:1px solid transparent}
+
+.xp-desktop-hint img{width:54px;height:42px;object-fit:contain;display:block}
+
+.xp-desktop-hint span{font:700 0.76rem/1.2 Tahoma, Verdana, sans-serif;color:#fff;text-align:center;text-shadow:0 1px 2px rgba(0,0,0,0.7)}
 
 .xp-window{
   width:min(1100px, calc(100% - 1rem));
   margin:0 auto;
   background:#ECE9D8;
-  border:2px solid #b7b5a9;
+  border:3px solid #b7b5a9;
   border-top-color:#ffffff;
   border-left-color:#ffffff;
   border-right-color:#7f7c73;
   border-bottom-color:#7f7c73;
-  box-shadow:0 8px 24px rgba(0,0,0,0.28);
+  box-shadow:0 12px 30px rgba(0,0,0,0.34);
+  transition:width 260ms ease, max-height 260ms ease, opacity 220ms ease, transform 240ms ease;
+  transform-origin:center top;
 }
+
+.xp-window.is-maximized{
+  width:calc(100vw - 1rem);
+  max-width:none;
+}
+
+.xp-window.is-minimized{
+  max-height:0;
+  opacity:0;
+  overflow:hidden;
+  transform:scale(0.985) translateY(12px);
+  pointer-events:none;
+}
+
+@keyframes xpWindowShake{
+  0%,100%{transform:translateX(0)}
+  20%{transform:translateX(-6px)}
+  40%{transform:translateX(6px)}
+  60%{transform:translateX(-4px)}
+  80%{transform:translateX(4px)}
+}
+
+.xp-window.is-close-attempt{animation:xpWindowShake 320ms ease}
+
+.xp-window.is-close-attempt .xp-title-bar{filter:saturate(1.2) brightness(1.03)}
+
+.xp-btn-max{font-size:0.68rem}
+
+.xp-btn-min{padding-bottom:3px}
+
+.xp-btn-close{font-size:0.65rem}
+
+.xp-task-pill.is-active{filter:brightness(1.07);box-shadow:inset 0 1px 0 rgba(255,255,255,0.35)}
+
+.xp-task-pill:not(.is-active){opacity:0.92}
+
+.xp-task-pill{cursor:pointer}
+
+.xp-start{cursor:pointer}
+
+.xp-title-controls .xp-btn{cursor:pointer}
+
+.xp-window .project-card a{cursor:default}
+
+.xp-window .project-card a:active{transform:translateY(1px)}
+
+.xp-window .project-card h2::after{content:' (doble click)';font-weight:400;font-size:0.68rem;color:#184f9f;display:block;opacity:0;transition:opacity 160ms ease}
+
+.xp-window .project-card:hover h2::after,.xp-window .project-card.is-selected h2::after{opacity:1}
+
+.xp-window .project-card.is-selected h2::after{color:#0d3f84}
+
+.xp-window .project-card:hover h2::after{color:#2d62b1}
+
+.xp-window .project-card h2{user-select:none}
+
+.xp-window .project-card img{user-select:none}
+
+.xp-window .project-card a{outline:none}
+
+.xp-window .project-card a:focus-visible{box-shadow:0 0 0 2px rgba(49,106,197,0.4);border-radius:4px}
+
+.xp-window .project-grid{user-select:none}
+
+.xp-window .projects.vm-container{position:relative}
+
+.xp-window .projects.vm-container::before{content:'Tip: Doble click para abrir un proyecto';position:absolute;right:1rem;top:0.4rem;font:700 0.68rem/1 Tahoma, Verdana, sans-serif;color:#5e5a53;opacity:0.9}
+
+.xp-window .project-grid{padding-top:0.75rem}
+
+.xp-title-bar span{display:flex;align-items:center;gap:0.35rem}
+
+.xp-title-bar span::before{content:'';width:14px;height:14px;display:inline-block;background:url('https://upload.wikimedia.org/wikipedia/commons/5/59/OneDrive_Folder_Icon.png') center/contain no-repeat}
+
+.xp-window .project-card.is-selected{transform:translateY(-1px)}
+
+.xp-window .project-card{transition:border-color 200ms ease, background 200ms ease, transform 180ms ease}
+
+.xp-taskbar{backdrop-filter:saturate(1.15)}
+
+.xp-start:active,.xp-task-pill:active{transform:translateY(1px)}
+
+.xp-window.is-minimized + .xp-taskbar .xp-task-pill{opacity:0.78}
+
+.xp-window.is-maximized .projects.vm-container{min-height:calc(100vh - 160px)}
+
+.xp-window.is-maximized .project-grid{align-content:start}
+
+.xp-window.is-maximized .project-card .xp-folder-icon{width:76px;height:62px}
+
+.xp-window.is-maximized .project-card h2{font-size:0.9rem}
+
+.xp-window.is-close-attempt .xp-btn-close{filter:brightness(1.2)}
+
+.xp-window.is-close-attempt .project-grid{pointer-events:none}
+
+.xp-window.is-minimized .projects.vm-container::before{display:none}
+
+.xp-window.is-minimized .project-grid{padding-top:0}
+
+.xp-window.is-minimized + .xp-taskbar .xp-task-pill.is-active{filter:brightness(1)}
+
+.xp-window.is-minimized + .xp-taskbar .xp-task-pill{box-shadow:inset 0 1px 0 rgba(255,255,255,0.15)}
+
+.xp-window.is-minimized + .xp-taskbar .xp-task-pill::after{content:' (minimizado)';font-size:0.68rem;opacity:0.9}
+
+.xp-window.is-maximized + .xp-taskbar .xp-task-pill::after{content:' (maximizado)';font-size:0.68rem;opacity:0.9}
+
+.xp-window + .xp-taskbar .xp-task-pill::after{margin-left:0.2rem}
+
+.xp-window.is-minimized + .xp-taskbar .xp-task-pill.is-active::after{content:' (restaurar)'}
+
+.xp-window.is-minimized + .xp-taskbar .xp-task-pill.is-active{opacity:0.95}
+
+.xp-window.is-maximized .xp-btn-max{background:linear-gradient(180deg,#dce9ff 0%,#bfd6ff 100%)}
+
+.xp-window.is-maximized .xp-btn-max{color:#0a347d}
+
+.xp-window.is-maximized .xp-title-bar{box-shadow:inset 0 -1px 0 rgba(0,0,0,0.15)}
+
+.xp-window.is-maximized .project-grid{gap:1.05rem}
+
+.xp-window .project-card a[href]:hover .xp-folder-icon{filter:drop-shadow(0 2px 2px rgba(0,0,0,0.25))}
+
+.xp-window .project-card.is-selected .xp-folder-icon{filter:drop-shadow(0 3px 3px rgba(0,0,0,0.32))}
+
+.xp-window .project-card.is-selected a{background:rgba(255,255,255,0.2);border-radius:4px}
+
+.xp-window .project-card:hover a{background:rgba(255,255,255,0.16);border-radius:4px}
+
+.xp-window .project-card.is-selected:hover a{background:rgba(255,255,255,0.22)}
+
+.xp-window .project-card a{transition:background 160ms ease,border-radius 160ms ease}
+
+.xp-window .project-card .xp-folder-icon{transition:filter 180ms ease, transform 180ms ease}
+
+.xp-window .project-card:hover .xp-folder-icon{transform:translateY(-1px)}
+
+.xp-window .project-card.is-selected .xp-folder-icon{transform:translateY(-1px) scale(1.01)}
+
+.xp-window .project-card h2{transition:text-shadow 160ms ease,color 160ms ease}
+
+.xp-window .project-card.is-selected h2{color:#0b2d6f}
+
+.xp-window .project-card:hover h2{color:#143d8c}
+
+.xp-window .project-card.is-selected:hover h2{color:#0a2a66}
+
+.xp-window.is-minimized{margin-top:0}
+
+.xp-window.is-minimized + .xp-taskbar .xp-task-pill{min-width:190px}
+
+.xp-window.is-maximized + .xp-taskbar .xp-task-pill{min-width:196px}
+
+.xp-window + .xp-taskbar .xp-task-pill{transition:min-width 220ms ease, opacity 160ms ease}
+
+.xp-window + .xp-taskbar .xp-task-pill.is-active{opacity:1}
+
+.xp-window .project-grid .project-card:first-child{scroll-margin-top:1rem}
+
+.xp-window .project-grid{max-height:unset}
+
+.xp-window.is-maximized .project-grid{max-height:calc(100vh - 240px);overflow:auto;padding-right:0.3rem}
+
+.xp-window.is-maximized .project-grid::-webkit-scrollbar{width:10px}
+
+.xp-window.is-maximized .project-grid::-webkit-scrollbar-thumb{background:#9db2d8;border:2px solid #dbe6f7}
+
+.xp-window.is-maximized .project-grid::-webkit-scrollbar-track{background:#ecf2fc}
+
+.xp-window.is-minimized .project-grid{overflow:hidden}
+
+.xp-window .project-grid:focus{outline:none}
+
+.xp-window.is-maximized .projects.vm-container::before{right:1.25rem}
+
+.xp-window.is-maximized .projects.vm-container{padding-bottom:1.4rem}
+
+.xp-window .project-card:focus-within{outline:none}
+
+.xp-window.is-close-attempt .project-card.is-selected{filter:saturate(1.1)}
+
+.xp-window.is-close-attempt .xp-title-controls .xp-btn{pointer-events:none}
+
+.xp-window.is-close-attempt .xp-title-controls .xp-btn-close{pointer-events:auto}
+
+.xp-window .project-card a{touch-action:manipulation}
+
+.xp-window .project-card a{-webkit-tap-highlight-color:transparent}
+
+.xp-window .project-card a{-webkit-user-drag:none}
+
+.xp-window .project-card img{-webkit-user-drag:none}
 
 .xp-title-bar{
   height:34px;
@@ -270,15 +478,69 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
 .xp-window .project-card p{display:none}
 
 .xp-window .project-card:hover,
-.xp-window .project-card:focus-within{background:rgba(49,106,197,0.16);border-color:#316ac5}
+.xp-window .project-card:focus-within{background:rgba(49,106,197,0.20);border-color:#316ac5}
 
-.xp-window .project-card.is-selected{background:rgba(49,106,197,0.22);border-color:#316ac5}
+.xp-window .project-card.is-selected{background:rgba(49,106,197,0.28);border-color:#1f5db7}
 
 .xp-window .project-card:hover h2,
 .xp-window .project-card:focus-within h2{text-shadow:0 1px 2px rgba(255,255,255,0.8)}
 
 .xp-window .project-card.is-selected h2,
 .xp-window .project-card.is-selected p{text-shadow:0 1px 2px rgba(255,255,255,0.75)}
+
+.xp-taskbar{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  height:38px;
+  display:flex;
+  align-items:center;
+  gap:0.5rem;
+  padding:0 0.5rem;
+  background:linear-gradient(180deg, #3f8cff 0%, #2b6ddd 60%, #1e5cc8 100%);
+  border-top:1px solid #7fc0ff;
+  z-index:80;
+}
+
+.xp-start{
+  min-width:78px;
+  height:30px;
+  border-radius:999px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(180deg,#7bcf54 0%,#4ca83a 70%,#3e8f30 100%);
+  border:1px solid #2f6f25;
+  color:#fff;
+  font:700 0.9rem/1 Tahoma, Verdana, sans-serif;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.45);
+}
+
+.xp-task-pill{
+  height:28px;
+  min-width:170px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(180deg,#6fb0ff 0%,#4b8de9 100%);
+  border:1px solid #2f65b9;
+  color:#fff;
+  font:700 0.78rem/1 Tahoma, Verdana, sans-serif;
+}
+
+.xp-clock{
+  margin-left:auto;
+  min-width:88px;
+  height:28px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(180deg,#8dd1ff 0%,#6eb9ec 100%);
+  border:1px solid #4f96c8;
+  color:#053255;
+  font:700 0.74rem/1 Tahoma, Verdana, sans-serif;
+}
 
 /* Cafeteros Layout */
 .project-detail.is-cafeteros{
@@ -951,13 +1213,20 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
   .project-card h2{font-size:1.125rem;line-height:1.35;margin-top:0.7rem;margin-bottom:0.45rem;color:var(--vm-accent)}
   .project-card p{font-size:0.96rem;line-height:1.75}
   .xp-desktop{padding:0.5rem;min-height:calc(100vh - 64px)}
-  .xp-window{width:100%;margin:0;border-width:2px}
+  .xp-desktop .vm-header{padding:0.2rem 0 0.6rem 0}
+  .xp-desktop .vm-header-inner{padding:0.35rem 0.55rem}
+  .xp-desktop-hint{display:none}
+  .xp-window{width:95%;margin:0 auto;border-width:2px}
   .xp-window .projects.vm-container{padding:0.85rem}
   .xp-window .project-grid{grid-template-columns:1fr;gap:1.4rem}
-  .xp-window .project-card a{padding:0.9rem;gap:0.5rem}
+  .xp-window .project-card a{padding:1.1rem;gap:0.55rem}
   .xp-window .project-card .xp-folder-icon{width:118px;height:92px}
   .xp-window .project-card h2{font-size:1.05rem;line-height:1.35}
   .xp-window .project-card p{font-size:0.9rem;line-height:1.55}
+  .xp-taskbar{height:42px;padding:0 0.4rem}
+  .xp-start{min-width:72px;height:32px}
+  .xp-task-pill{min-width:132px;height:30px}
+  .xp-clock{min-width:80px;height:30px}
   .cafeteros-main-hero{height:auto}
   .cafeteros-editor-controls{margin:0.75rem 0 1.5rem 0;padding:0.75rem}
   .cafeteros-editor-layers{grid-template-columns:1fr 1fr}
