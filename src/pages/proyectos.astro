@@ -6,125 +6,64 @@ import projects from '../data/projects.json';
 const BASE_URL = import.meta.env.BASE_URL;
 const basePrefix = BASE_URL.endsWith('/') ? BASE_URL : `${BASE_URL}/`;
 const withBase = (path) => `${basePrefix}${path.replace(/^\/+/, '')}`;
-const XP_FOLDER_ICON = 'https://upload.wikimedia.org/wikipedia/commons/5/59/OneDrive_Folder_Icon.png';
+const XP_FUN_ICONS = [
+  'https://win98icons.alexmeub.com/icons/png/computer_explorer-5.png',
+  'https://win98icons.alexmeub.com/icons/png/game_solitaire-0.png',
+  'https://win98icons.alexmeub.com/icons/png/msie2-2.png',
+  'https://win98icons.alexmeub.com/icons/png/world-0.png',
+];
+const XP_TITLE_ICON = 'https://upload.wikimedia.org/wikipedia/commons/5/59/OneDrive_Folder_Icon.png';
+const XP_CLICK_SOUND = 'https://bit.ly/xp-click-sound';
 ---
-<BaseLayout title="Proyectos — Vertical Management">
-  <div class="xp-desktop">
-    <Header />
-    <div class="xp-desktop-hint" aria-hidden="true">
-      <img src={XP_FOLDER_ICON} alt="" />
-      <span>Mis Proyectos</span>
-    </div>
 
-    <div class="xp-window">
-      <div class="xp-title-bar">
-        <span>Mis Proyectos</span>
-        <div class="xp-title-controls" aria-hidden="true">
-          <button type="button" class="xp-btn xp-btn-min" tabindex="-1">_</button>
-          <button type="button" class="xp-btn xp-btn-max" tabindex="-1">□</button>
-          <button type="button" class="xp-btn xp-btn-close" tabindex="-1">X</button>
+<style is:global>
+  html:has(.xp98-desktop),
+  html:has(.xp98-desktop) body,
+  html:has(.xp98-desktop) main {
+    background: url('https://winxp.vercel.app/assets/bliss.jpg') center / cover no-repeat fixed;
+  }
+</style>
+
+<BaseLayout title="Proyectos — Vertical Management">
+  <div class="xp-desktop xp98-desktop">
+    <Header />
+    <div class="xp-window xp98-window">
+      <div class="xp-title-bar xp98-title-bar">
+        <div class="xp98-title-left">
+          <img src={XP_TITLE_ICON} alt="" class="xp98-title-icon" />
+          <span>Mis Proyectos</span>
+        </div>
+        <div class="xp-title-controls xp98-title-controls" aria-hidden="true">
+          <button type="button" class="xp-btn xp98-btn xp98-btn-min" tabindex="-1">_</button>
+          <button type="button" class="xp-btn xp98-btn xp98-btn-max" tabindex="-1">□</button>
+          <button type="button" class="xp-btn xp98-btn xp98-btn-close" tabindex="-1">✕</button>
         </div>
       </div>
-      <section class="projects vm-container">
-        <div class="project-grid">
-          {projects.projects.map((p) => (
-            <article class="project-card" key={p.slug}>
+      <section class="projects vm-container xp98-content">
+        <div class="project-grid xp98-grid">
+          {projects.projects.map((p, idx) => (
+            <div class="project-card xp98-item" key={p.slug}>
               <a href={withBase(`proyectos/${p.slug}`)}>
-                <img src={XP_FOLDER_ICON} alt={`Carpeta del proyecto ${p.title}`} loading="lazy" class="xp-folder-icon" />
-                <h2>{p.title}</h2>
+                <img
+                  src={XP_FUN_ICONS[idx % XP_FUN_ICONS.length]}
+                  alt={`Icono del proyecto ${p.title}`}
+                  loading="lazy"
+                  class="xp-folder-icon xp98-icon"
+                />
+                <h2 class="xp98-label">{p.title}</h2>
               </a>
-            </article>
+            </div>
           ))}
         </div>
       </section>
     </div>
-
-    <footer class="xp-taskbar" aria-hidden="true">
-      <div class="xp-start">Start</div>
-      <div class="xp-task-pill">Mis Proyectos</div>
-      <div class="xp-clock">12:00 PM</div>
-    </footer>
+    <audio id="xp-click-audio" preload="auto" src={XP_CLICK_SOUND}></audio>
   </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const cards = Array.from(document.querySelectorAll('.xp-window .project-card'));
-      const grid = document.querySelector('.xp-window .project-grid');
-      const windowShell = document.querySelector('.xp-window');
-      const minButton = document.querySelector('.xp-btn-min');
-      const maxButton = document.querySelector('.xp-btn-max');
-      const closeButton = document.querySelector('.xp-btn-close');
-      const startButton = document.querySelector('.xp-start');
-      const taskPill = document.querySelector('.xp-task-pill');
-      const clock = document.querySelector('.xp-clock');
-
-      const AudioCtx = window.AudioContext || window.webkitAudioContext;
-      const audioCtx = AudioCtx ? new AudioCtx() : null;
-
-      const ensureAudioReady = async () => {
-        if (!audioCtx) return;
-        if (audioCtx.state === 'suspended') {
-          try {
-            await audioCtx.resume();
-          } catch {
-          }
-        }
-      };
-
-      const playTone = ({ frequency = 700, duration = 0.06, type = 'square', gain = 0.025, delay = 0 }) => {
-        if (!audioCtx) return;
-
-        const startAt = audioCtx.currentTime + delay;
-        const osc = audioCtx.createOscillator();
-        const amp = audioCtx.createGain();
-
-        osc.type = type;
-        osc.frequency.setValueAtTime(frequency, startAt);
-
-        amp.gain.setValueAtTime(0.0001, startAt);
-        amp.gain.exponentialRampToValueAtTime(gain, startAt + 0.01);
-        amp.gain.exponentialRampToValueAtTime(0.0001, startAt + duration);
-
-        osc.connect(amp);
-        amp.connect(audioCtx.destination);
-        osc.start(startAt);
-        osc.stop(startAt + duration + 0.01);
-      };
-
-      const playSelectSound = async () => {
-        await ensureAudioReady();
-        playTone({ frequency: 980, duration: 0.045, type: 'square', gain: 0.018 });
-      };
-
-      const playOpenSound = async () => {
-        await ensureAudioReady();
-        playTone({ frequency: 620, duration: 0.06, type: 'triangle', gain: 0.02 });
-        playTone({ frequency: 980, duration: 0.08, type: 'triangle', gain: 0.02, delay: 0.055 });
-      };
-
-      const playWindowBeep = async () => {
-        await ensureAudioReady();
-        playTone({ frequency: 740, duration: 0.05, type: 'square', gain: 0.017 });
-      };
-
-      const playErrorSound = async () => {
-        await ensureAudioReady();
-        playTone({ frequency: 240, duration: 0.09, type: 'sawtooth', gain: 0.018 });
-        playTone({ frequency: 160, duration: 0.12, type: 'sawtooth', gain: 0.016, delay: 0.08 });
-      };
-
-      const updateClock = () => {
-        if (!clock) return;
-        const now = new Date();
-        const text = now.toLocaleTimeString([], {
-          hour: '2-digit',
-          minute: '2-digit',
-        });
-        clock.textContent = text;
-      };
-
-      updateClock();
-      window.setInterval(updateClock, 1000 * 30);
+      const cards = Array.from(document.querySelectorAll('.xp98-item'));
+      const audio = document.getElementById('xp-click-audio');
 
       cards.forEach((card) => {
         const link = card.querySelector('a');
@@ -133,61 +72,11 @@ const XP_FOLDER_ICON = 'https://upload.wikimedia.org/wikipedia/commons/5/59/OneD
         link.addEventListener('pointerdown', () => {
           cards.forEach((item) => item.classList.remove('is-selected'));
           card.classList.add('is-selected');
-          playSelectSound();
+          if (audio) {
+            audio.currentTime = 0;
+            audio.play().catch(() => {});
+          }
         });
-
-        link.addEventListener('click', (event) => {
-          event.preventDefault();
-        });
-
-        link.addEventListener('dblclick', (event) => {
-          event.preventDefault();
-          playOpenSound();
-          window.location.href = link.href;
-        });
-      });
-
-      minButton?.addEventListener('pointerdown', (event) => {
-        event.preventDefault();
-        playWindowBeep();
-        windowShell?.classList.add('is-minimized');
-        taskPill?.classList.remove('is-active');
-      });
-
-      maxButton?.addEventListener('pointerdown', (event) => {
-        event.preventDefault();
-        playWindowBeep();
-        windowShell?.classList.toggle('is-maximized');
-      });
-
-      closeButton?.addEventListener('pointerdown', (event) => {
-        event.preventDefault();
-        playErrorSound();
-        if (!windowShell) return;
-        windowShell.classList.remove('is-close-attempt');
-        window.requestAnimationFrame(() => {
-          windowShell.classList.add('is-close-attempt');
-        });
-        window.setTimeout(() => {
-          windowShell.classList.remove('is-close-attempt');
-        }, 380);
-      });
-
-      startButton?.addEventListener('pointerdown', () => {
-        playWindowBeep();
-      });
-
-      taskPill?.addEventListener('pointerdown', () => {
-        playWindowBeep();
-        if (!windowShell) return;
-        windowShell.classList.remove('is-minimized');
-        taskPill.classList.add('is-active');
-      });
-
-      grid?.addEventListener('pointerdown', (event) => {
-        const insideCard = event.target.closest('.project-card');
-        if (insideCard) return;
-        cards.forEach((item) => item.classList.remove('is-selected'));
       });
     });
   </script>
