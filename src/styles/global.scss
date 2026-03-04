@@ -4,6 +4,117 @@
   --vm-bg: #ffffff;
   --vm-fg: #0b0b0b;
   --vm-accent: #6b7280;
+
+  /* iOS 26 Spatial Glass (Neural Glass) */
+  --ng-surface: var(--vm-bg);
+  --ng-ink: var(--vm-fg);
+  /* requested glassmorphism baseline */
+  --ng-glass-alpha: 0.10;
+  --ng-border-alpha: 0.20;
+  --ng-border-alpha-hover: 0.20;
+
+  --ng-blur-min: 25px;
+  --ng-blur-max: 25px;
+  --ng-blur: var(--ng-blur-min);
+  --ng-saturate: 180%;
+
+  --ng-radius: 26px;
+  --ng-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.30);
+
+  /* pointer-driven refraction (0..1) */
+  --ng-px: 0.5;
+  --ng-py: 0.35;
+}
+
+/* Neural Glass primitives (scoped by class to avoid global regressions) */
+.ng-squircle{
+  border-radius: var(--ng-radius);
+  /* squircle mask (fallback is the radius above) */
+  -webkit-mask-image: url('../assets/ng-squircle.svg');
+  -webkit-mask-size: cover;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-image: url('../assets/ng-squircle.svg');
+  mask-size: cover;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  overflow: hidden;
+}
+
+.ng-glass{
+  position: relative;
+  background: color-mix(in srgb, var(--ng-surface) calc(var(--ng-glass-alpha) * 100%), transparent);
+  border: 1px solid transparent;
+  backdrop-filter: blur(var(--ng-blur)) saturate(var(--ng-saturate));
+  -webkit-backdrop-filter: blur(var(--ng-blur)) saturate(var(--ng-saturate));
+  box-shadow: var(--ng-shadow);
+  transform: translateZ(0);
+}
+
+.ng-glass::before{
+  content: '';
+  position: absolute;
+  inset: -1px;
+  pointer-events: none;
+  /* micro-glow 1px edge + refractive highlight */
+  background:
+    radial-gradient(
+      900px 520px at calc(var(--ng-px) * 100%) calc(var(--ng-py) * 100%),
+      color-mix(in srgb, var(--ng-surface) 26%, transparent) 0%,
+      transparent 55%
+    );
+  border-radius: inherit;
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--ng-surface) calc(var(--ng-border-alpha) * 100%), transparent),
+    0 0 0 1px rgba(255,255,255,0.04);
+  mix-blend-mode: screen;
+  opacity: 0.95;
+}
+
+.ng-glass:hover{
+  /* edge intensifies without a visible “border” */
+  --ng-border-alpha: var(--ng-border-alpha-hover);
+}
+
+.ng-skeleton{
+  position: relative;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--ng-surface) 12%, transparent);
+}
+
+.ng-skeleton::after{
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-60%);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255,255,255,0.16) 25%,
+    rgba(255,255,255,0.10) 55%,
+    transparent 100%
+  );
+  animation: ngShimmer 1.25s ease-in-out infinite;
+}
+
+@keyframes ngShimmer{
+  0%{transform:translateX(-60%)}
+  100%{transform:translateX(60%)}
+}
+
+.ng-hairline{
+  height: 1px;
+  background: color-mix(in srgb, var(--ng-surface) 22%, transparent);
+}
+
+.ng-text-title{
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  letter-spacing: -0.02em;
+}
+
+.ng-text-body{
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  letter-spacing: -0.01em;
 }
 
 html.is-fep-page{
@@ -147,7 +258,8 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
 .hero-media img{opacity:0;transform:translateY(12px);transition:opacity 700ms ease, transform 700ms ease}
 .hero-media img.loaded{opacity:1;transform:none}
 
-.project-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
+.project-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0.75rem}
+@media(max-width:640px){.project-grid{grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:0.5rem}}
 .project-card img{width:100%;height:160px;object-fit:cover;border-radius:8px}
 
 .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:2rem;margin-top:3rem}
@@ -163,7 +275,7 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
 .about p,.contact p{line-height:1.8;color:#555;max-width:800px}
 
 .vm-header-glass{background:transparent;position:relative;z-index:8}
-.vm-header-glass .vm-header-inner{background:color-mix(in srgb, var(--vm-bg) 22%, transparent);border:1px solid color-mix(in srgb, var(--vm-bg) 42%, transparent);backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);border-radius:22px;box-shadow:0 12px 32px rgba(11,11,11,0.12)}
+.vm-header-glass .vm-header-inner{background:color-mix(in srgb, var(--vm-bg) 22%, transparent);border:1px solid color-mix(in srgb, var(--vm-bg) 42%, transparent);backdrop-filter:blur(var(--ng-blur-min)) saturate(var(--ng-saturate));-webkit-backdrop-filter:blur(var(--ng-blur-min)) saturate(var(--ng-saturate));border-radius:22px;box-shadow:0 12px 32px rgba(11,11,11,0.12)}
 .vm-header-glass .vm-brand-text,.vm-header-glass .vm-nav a{color:rgba(255,255,255,0.95)}
 .vm-header-glass .vm-hamburger .bar{background:rgba(255,255,255,0.95)}
 .vm-header-glass .vm-logo img{filter:brightness(0) invert(1)}
@@ -171,9 +283,34 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
 .vm-header-glass .vm-nav a{transition:text-shadow 220ms ease, opacity 220ms ease}
 .vm-header-glass .vm-nav a:hover{opacity:1;text-shadow:0 0 10px rgba(255,255,255,0.65), 0 0 20px rgba(255,255,255,0.35)}
 
-.contact-lockscreen{position:relative;isolation:isolate;min-height:calc(100vh - 90px);padding-bottom:2rem}
+.contact-lockscreen{position:relative;isolation:isolate;min-height:100vh;padding-bottom:2rem}
 .contact-lockscreen-bg{position:absolute;inset:0;z-index:-3;background-size:cover;background-position:center}
 .contact-lockscreen-overlay{position:absolute;inset:0;z-index:-2;background:linear-gradient(180deg, color-mix(in srgb, var(--vm-fg) 46%, transparent) 0%, color-mix(in srgb, var(--vm-fg) 62%, transparent) 100%)}
+
+@media (min-width: 1024px){
+  .contact-lockscreen-bg{background-attachment:fixed}
+}
+
+.contact-ios26-shell{
+  display: grid;
+  place-items: center;
+  padding-top: 2.25rem;
+  padding-bottom: 2.75rem;
+}
+
+.contact-ios26-desktop-shell{
+  padding-top: 6.5rem;
+  padding-bottom: 3rem;
+  max-width: min(1460px, 100vw - 2rem);
+}
+
+.contact-island-shell{
+  background: rgba(0,0,0,0.72);
+  border: 1px solid rgba(255,255,255,0.2);
+  box-shadow: var(--ng-shadow);
+  backdrop-filter: blur(var(--ng-blur)) saturate(var(--ng-saturate));
+  -webkit-backdrop-filter: blur(var(--ng-blur)) saturate(var(--ng-saturate));
+}
 
 .contact{display:grid;align-content:start;gap:1.4rem;padding-top:0.85rem}
 .contact-status{display:flex;flex-direction:column;gap:0.35rem;color:color-mix(in srgb, var(--vm-bg) 97%, var(--vm-fg) 3%)}
@@ -182,8 +319,8 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
 .contact-status-subtitle{margin:0;font-size:clamp(1.02rem, 2.5vw, 1.2rem);line-height:1.38;color:#ffffff !important;font-weight:500;text-shadow:0 1px 10px rgba(0,0,0,0.28)}
 
 .contact-methods{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:0.8rem}
-.glass-widget{grid-column:span 6;display:grid;gap:0.55rem;padding:1rem 1rem 0.95rem 1rem;border-radius:22px;background:color-mix(in srgb, var(--vm-bg) 22%, transparent);border:1px solid color-mix(in srgb, var(--vm-bg) 42%, transparent);backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);box-shadow:0 12px 32px rgba(11,11,11,0.12);transition:transform 260ms ease, border-color 260ms ease}
-.glass-widget:hover{transform:translateY(-2px);border-color:color-mix(in srgb, var(--vm-bg) 58%, transparent)}
+.glass-widget{grid-column:span 6;display:grid;gap:0.55rem;padding:1rem 1rem 0.95rem 1rem;border-radius:22px;background:rgba(255,255,255,var(--ng-glass-alpha));border:1px solid rgba(255,255,255,var(--ng-border-alpha));backdrop-filter:blur(var(--ng-blur)) saturate(var(--ng-saturate));-webkit-backdrop-filter:blur(var(--ng-blur)) saturate(var(--ng-saturate));box-shadow:var(--ng-shadow);transition:transform 260ms ease, border-color 260ms ease}
+.glass-widget:hover{transform:translateY(-2px);border-color:rgba(255,255,255,var(--ng-border-alpha-hover))}
 .glass-widget-call{grid-column:span 12}
 .glass-widget-email{grid-column:span 12}
 
@@ -1848,7 +1985,7 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
 .xp-shell{
   min-height:100vh;
   padding:0;
-  background:url('/assets/xp/fondo-de-pantalla.jpg') center/cover no-repeat;
+  background:url('/assets/xp/windows.png') center/cover no-repeat;
   font-family:Tahoma, Verdana, sans-serif;
 }
 

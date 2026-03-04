@@ -1,0 +1,21 @@
+<svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+  <!-- Windows Paint icon - nostalgic XP style -->
+  <defs>
+    <linearGradient id="paintGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF6B9D;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#C41E3A;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="256" height="256" fill="url(#paintGrad)" rx="8"/>
+  <!-- Palette representation -->
+  <circle cx="80" cy="100" r="50" fill="rgba(255,255,255,0.2)"/>
+  <circle cx="90" cy="85" r="10" fill="#FFD700"/>
+  <circle cx="110" cy="90" r="10" fill="#00AA00"/>
+  <circle cx="105" cy="110" r="10" fill="#0066FF"/>
+  <circle cx="85" cy="115" r="10" fill="#FF3333"/>
+  <!-- Brush stroke -->
+  <path d="M 130 130 Q 160 120 190 145" stroke="#FFFFFF" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <!-- Shine -->
+  <ellipse cx="80" cy="50" rx="35" ry="25" fill="rgba(255,255,255,0.25)"/>
+</svg>

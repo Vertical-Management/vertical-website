@@ -2,18 +2,75 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Minesweeper from '../components/Minesweeper.jsx';
 import projects from '../data/projects.json';
+import fs from 'node:fs';
+import { fileURLToPath } from 'node:url';
 
 const BASE_URL = import.meta.env.BASE_URL;
 const basePrefix = BASE_URL.endsWith('/') ? BASE_URL : `${BASE_URL}/`;
 const withBase = (path) => `${basePrefix}${path.replace(/^\/+/, '')}`;
 
-const XP_PROJECT_ICONS = {
-  'fep2026-animation': withBase('assets/xp/calendar.png'),
-  'branding-cafeteros': withBase('assets/xp/internet.png'),
-  'koaj-3d': withBase('assets/xp/notepad.png'),
-  'ux-pedigree': withBase('assets/xp/minesweeper.svg'),
+// NOTE: Official Windows XP icons are copyrighted by Microsoft.
+// This page supports using *your* official icon files if you provide them under /public/assets/xp/official/.
+// If an official icon is missing, we gracefully fall back to existing assets.
+const publicAssetPath = (assetPath) => {
+  const normalized = assetPath.replace(/^\/+/, '');
+  return fileURLToPath(new URL(`../../public/${normalized}`, import.meta.url));
 };
-const getProjectIcon = (slug) => XP_PROJECT_ICONS[slug] ?? withBase('assets/xp/notepad.png');
+
+const publicAssetExists = (assetPath) => {
+  try {
+    return fs.existsSync(publicAssetPath(assetPath));
+  } catch {
+    return false;
+  }
+};
+
+const pickFirstExistingAsset = (assetPaths) => {
+  if (!Array.isArray(assetPaths)) return null;
+  for (const assetPath of assetPaths) {
+    if (assetPath && publicAssetExists(assetPath)) return assetPath;
+  }
+  return null;
+};
+
+const PROJECT_ICON_SOURCES = {
+  'fep2026-animation': {
+    official: ['assets/xp/official/wmplayer.ico', 'assets/xp/official/wmplayer.png'],
+    fallback: 'assets/xp/calendar.png',
+  },
+  'branding-cafeteros': {
+    official: ['assets/xp/official/mspaint.ico', 'assets/xp/official/mspaint.png'],
+    fallback: 'assets/xp/internet.png',
+  },
+  'koaj-3d': {
+    official: null,
+    fallback: 'assets/xp/linux-penguin.svg',
+  },
+  'ux-pedigree': {
+    official: ['assets/xp/official/minesweeper.ico', 'assets/xp/official/minesweeper.png'],
+    fallback: 'assets/xp/minesweeper.svg',
+  },
+};
+
+const getProjectIcon = (slug) => {
+  const source = PROJECT_ICON_SOURCES[slug];
+  if (!source) return withBase('assets/xp/notepad.png');
+  const officialAsset = pickFirstExistingAsset(source.official);
+  if (officialAsset) return withBase(officialAsset);
+  return withBase(source.fallback);
+};
+
+const getProjectIconFallback = (slug) => {
+  const source = PROJECT_ICON_SOURCES[slug];
+  if (!source) return withBase('assets/xp/notepad.png');
+  return withBase(source.fallback);
+};
+
+const OFFICIAL_MINESWEEPER_ICON_PATHS = ['assets/xp/official/minesweeper.ico', 'assets/xp/official/minesweeper.png'];
+const FALLBACK_MINESWEEPER_ICON_PATH = 'assets/xp/minesweeper.svg';
+const minesweeperOfficial = pickFirstExistingAsset(OFFICIAL_MINESWEEPER_ICON_PATHS);
+const MINESWEEPER_ICON = minesweeperOfficial ? withBase(minesweeperOfficial) : withBase(FALLBACK_MINESWEEPER_ICON_PATH);
+const FALLBACK_MINESWEEPER_ICON = withBase(FALLBACK_MINESWEEPER_ICON_PATH);
 const XP_SHORTCUTS = [
   { label: 'Inicio', icon: withBase('assets/xp/internet.png'), type: 'link', href: withBase('') },
   { label: 'Servicios', icon: withBase('assets/xp/notepad.png'), type: 'link', href: withBase('servicios') },
@@ -27,7 +84,13 @@ const XP_SHORTCUTS = [
     <section class="xp-desktop-area" aria-label="Escritorio Windows XP">
       <div class="xp-desktop-icons" role="list">
         <button type="button" class="xp-desktop-icon" role="listitem" data-open-window="mines" data-desktop-icon>
-          <img src={withBase('assets/xp/minesweeper.svg')} alt="Icono Buscaminas" loading="lazy" />
+          <img
+            src={MINESWEEPER_ICON}
+            data-fallback-src={FALLBACK_MINESWEEPER_ICON}
+            onerror="this.onerror=null;this.src=this.dataset.fallbackSrc;"
+            alt="Icono Buscaminas"
+            loading="lazy"
+          />
           <span>Buscaminas</span>
         </button>
       </div>
@@ -71,7 +134,13 @@ const XP_SHORTCUTS = [
             {projects.projects.map((p) => (
               <article class="project-card xp-window-item" key={p.slug}>
                 <a href={withBase(`proyectos/${p.slug}`)}>
-                  <img src={getProjectIcon(p.slug)} alt={`Icono del proyecto ${p.title}`} loading="lazy" />
+                  <img
+                    src={getProjectIcon(p.slug)}
+                    data-fallback-src={getProjectIconFallback(p.slug)}
+                    onerror="this.onerror=null;this.src=this.dataset.fallbackSrc;"
+                    alt={`Icono del proyecto ${p.title}`}
+                    loading="lazy"
+                  />
                   <h2>{p.title}</h2>
                 </a>
               </article>
@@ -83,7 +152,7 @@ const XP_SHORTCUTS = [
       <section class="xp-window" data-window="mines" aria-label="Ventana Buscaminas" data-task-label="Buscaminas">
         <header class="xp-titlebar">
           <div class="xp-title-left">
-            <img class="xp-title-icon" src={withBase('assets/xp/minesweeper.svg')} alt="" />
+            <img class="xp-title-icon" src={MINESWEEPER_ICON} data-fallback-src={FALLBACK_MINESWEEPER_ICON} onerror="this.onerror=null;this.src=this.dataset.fallbackSrc;" alt="" />
             <span class="xp-title-text">Buscaminas</span>
           </div>
           <div class="xp-title-buttons" aria-hidden="true">
@@ -139,6 +208,24 @@ const XP_SHORTCUTS = [
       const startAd = document.getElementById('xp-start-ad');
       const closeAdButton = document.getElementById('xp-ad-close');
       const closeAdOkButton = document.getElementById('xp-ad-ok');
+
+      const installImageFallbacks = () => {
+        const imgs = Array.from(document.querySelectorAll('img[data-fallback-src]'));
+        imgs.forEach((img) => {
+          img.addEventListener(
+            'error',
+            () => {
+              const fallback = img.getAttribute('data-fallback-src');
+              if (!fallback) return;
+              if (img.getAttribute('src') === fallback) return;
+              img.setAttribute('src', fallback);
+            },
+            { once: true }
+          );
+        });
+      };
+
+      installImageFallbacks();
 
       let zCounter = 50;
       const dragState = {

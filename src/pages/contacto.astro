@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Header from '../components/Header.astro';
+import ContactScene from '../components/ios26/ContactScene';
+import ContactDesktopScene from '../components/ios26/ContactDesktopScene';
+import DynamicIsland from '../components/ios26/DynamicIsland';
 
 const BASE_URL = import.meta.env.BASE_URL;
 const basePrefix = BASE_URL.endsWith('/') ? BASE_URL : `${BASE_URL}/`;
@@ -10,65 +12,16 @@ const withBase = (path) => `${basePrefix}${path.replace(/^\/+/, '')}`;
   <section class="contact-lockscreen">
     <div class="contact-lockscreen-bg" style={`background-image:url('${withBase('assets/xp/fondo-de-pantalla.jpg')}')`}></div>
     <div class="contact-lockscreen-overlay"></div>
-    <Header className="vm-header-glass" />
 
-    <div class="contact vm-container">
-      <header class="contact-status" aria-label="Estado de contacto">
-        <h1>Contacto</h1>
-        <p class="contact-status-subtitle">Disponible para nuevos proyectos</p>
-      </header>
+    <div class="contact-ios26-shell vm-container lg:hidden" aria-label="Experiencia iOS 26">
+      <ContactScene client:media="(max-width: 1023px)" assetBase={basePrefix} />
+    </div>
 
-      <div class="contact-methods" aria-label="Widgets de contacto">
-        <article class="glass-widget glass-widget-call">
-          <div class="glass-widget-head">
-            <span class="glass-widget-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M5 4.8c0-.44.36-.8.8-.8h2.56c.38 0 .7.27.78.64l.58 2.73a.8.8 0 0 1-.23.74l-1.5 1.46a13.18 13.18 0 0 0 5.44 5.44l1.46-1.5a.8.8 0 0 1 .74-.23l2.73.58c.37.08.64.4.64.78v2.56a.8.8 0 0 1-.8.8h-1.6C10.15 20 4 13.85 4 6.4V4.8H5Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </span>
-            <p>Teléfono</p>
-          </div>
-          <a class="glass-widget-main" href="tel:+376625303">+376 625 303</a>
-          <span class="glass-widget-meta">Andorra</span>
-        </article>
+    <div class="hidden lg:block" aria-label="Experiencia iOS 26 Desktop">
+      <DynamicIsland client:media="(min-width: 1024px)" baseUrl={basePrefix} currentSection="Contacto" />
 
-        <article class="glass-widget">
-          <div class="glass-widget-head">
-            <span class="glass-widget-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none"><rect x="3.2" y="3.2" width="17.6" height="17.6" rx="5" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.8"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor"/></svg>
-            </span>
-            <p>Instagram</p>
-          </div>
-          <a class="glass-widget-main" href="https://www.instagram.com/vertical_________/" target="_blank" rel="noopener noreferrer">@vertical_________</a>
-        </article>
-
-        <article class="glass-widget">
-          <div class="glass-widget-head">
-            <span class="glass-widget-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M7.4 8.2v7.6M7.4 6.4v.2M11 10.2v5.6M11 10.2c0-1.22.98-2.2 2.2-2.2 1.22 0 2.2.98 2.2 2.2v5.6M4 4h16v16H4z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </span>
-            <p>LinkedIn</p>
-          </div>
-          <a class="glass-widget-main" href="https://www.linkedin.com/in/esteban-ferrer-3777521a8/" target="_blank" rel="noopener noreferrer">Esteban Ferrer</a>
-        </article>
-
-        <article class="glass-widget">
-          <div class="glass-widget-head">
-            <span class="glass-widget-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M6 5.2 17.8 19M17.8 5.2 6 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-            </span>
-            <p>X</p>
-          </div>
-          <a class="glass-widget-main" href="https://x.com/verticalmanagement" target="_blank" rel="noopener noreferrer">@verticalmanagement</a>
-        </article>
-
-        <article class="glass-widget glass-widget-email">
-          <div class="glass-widget-head">
-            <span class="glass-widget-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none"><rect x="3.2" y="5.2" width="17.6" height="13.6" rx="2.8" stroke="currentColor" stroke-width="1.8"/><path d="M4.8 7.2 12 12.6l7.2-5.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </span>
-            <p>Email</p>
-          </div>
-          <a class="glass-widget-main" href="mailto:esteban@vertical-management.com">esteban@vertical-management.com</a>
-        </article>
+      <div class="vm-container contact-ios26-desktop-shell">
+        <ContactDesktopScene client:media="(min-width: 1024px)" assetBase={basePrefix} />
       </div>
     </div>
   </section>
