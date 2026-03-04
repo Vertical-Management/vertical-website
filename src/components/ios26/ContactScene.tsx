@@ -48,7 +48,7 @@ export default function ContactScene({ assetBase }: ContactSceneProps) {
   const transition = prefersReducedMotion ? { duration: 0.01 } : ({ type: 'spring', stiffness: 420, damping: 34 } as const);
 
   return (
-    <DeviceContainer baseUrl={assetBase} title="Contacto" subtitle="Disponible para nuevos proyectos">
+    <DeviceContainer baseUrl={assetBase} showNav={false} title="Contacto" subtitle="Disponible para nuevos proyectos">
       <div className="grid grid-cols-1 gap-3">
         <motion.div
           initial="hidden"
@@ -57,7 +57,7 @@ export default function ContactScene({ assetBase }: ContactSceneProps) {
           transition={transition}
           style={{ willChange: 'transform, filter, opacity' }}
         >
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 gap-3">
             <ContactWidget label="Teléfono" title="+376 625 303" href="tel:+376625303" icon={<PhoneIcon />} meta="Andorra" />
             <ContactWidget
               label="Email"

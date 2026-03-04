@@ -1,8 +1,11 @@
-Soy creativo y quiero que mi página web así lo refleje. También quiero transmitir la atención al detalle y calidad de mi trabajo. Quiero que hagas algo diferente y chulo, creativo en la página de contacto. Qué me recomiendas? dame opciones.
-
-La información que debe aparecer en todo caso, es la siguiente:
-- instagram - https://www.instagram.com/vertical_________/
-- linkedin - https://www.linkedin.com/in/esteban-ferrer-3777521a8/
-- X - verticalmanagement
-- email esteban@vertical-management.com
-- teléfono andorrano +376 625 303
+Sigamos mejorando la página de contacto:
+1. No uses inline css. usa clases con nombres y reutilizalas para todos los widgets, para generar uniformidad
+2. El widget que mejor estilo tiene es el central de contacto. Por ejemplo los widget laterales instagram o mapas tienen border-radius diferente y demasiado grande. unifica y usa el mismo estilo que el widget central de contacto. si necesitas un estilo específico para como funciona el widget de contacto por ejemplo, crea una clase css adicional, pero la base es uniforme.
+3. Algunos elementos como "Disponible" o "Abrir mapa" o "Trabajando en experiencias densas: claridad primero" o "XX Me gusta" tienen colores de teto diferentes al blanco. unifica y asegúrate que el texto en esta página siempre es blanco. Queremos que parezcan widgets en un ipad/iphone!
+4. El widget de reloj y los dos de la derecha de Actividad y "Ultimo Post" aparecen recortados por abajo. Revisa porqué y asegúrate que no ocurre. Parece un problema de layout.
+5. En pantalla grande, la disposición en 3 columnas puede resultar cuando la pantalla es ancha en mucha separación entre columnas. Por favor solucionalo limitando el ancho del contenedor de las columnas (incluyendo el menu superior contact-topbar para que tenga igual ancho) y asegurándote que quede centrado. Así se verá mejor.
+6. Cuando la pantalla es pequeña tamaño móvil, el menú superior (contact-topbar) hace overlap y tapa el widget de contacto. Eso queda mal. Además, el ancho del contact-topbar debe ser igual que el resto para que quede bien. A medida que el ancho de la página es más grande pero aun queda en disposición de 1 columna, el ancho del widget principal (astro-island ? ) debe mantenerse como ahora, con un máximo ancho y centrado, pero el contact-topbar debe tener el mismo ancho para que quede bien.
+7. Cuando el ancho de la página está como en 2 columna, queda bien el layout principal pero mantén que el ancho del contact-topbar sea igual al ancho del widget principal.
+8. Asegúrate que no hay doble scroll vertical - el scroll sólo debe estar a nivel de página y no dentro de divs/widgets. Por ejemplo he visto ocasiones donde el widget de contacto tiene scroll vertical dentro.
+9. Los enlaces deben de tener un mouseover que elimine el text-decoration: underline para indicar mediante interacción que es interactivo, que es un enlace. 
+10. El reloj se ve mal, antes mostraba dos relojes, uno digital y otro analógico pero ahora mismo solo aparece el título  "RELOJ" y el widget está vacío. Asegúrate que se arregla.

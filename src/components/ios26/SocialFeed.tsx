@@ -54,17 +54,23 @@ function LiveActivityCard({
   isLoading: boolean;
 }) {
   return (
-    <article className="ng-glass ng-squircle p-4">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <span className="inline-flex items-center justify-center h-8 w-8 rounded-full bg-white/10">
-            <MetallicIcon brand="instagram" />
+    <article className="ng-glass ng-squircle contact-unified-card aspect-square flex flex-col">
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center gap-2.5 min-w-0">
+          <span className="relative inline-flex items-center justify-center h-10 w-10 rounded-full border border-white/30 bg-white/10">
+            <span className="inline-flex items-center justify-center h-8 w-8 rounded-full bg-white/15">
+              <MetallicIcon brand="instagram" />
+            </span>
           </span>
+
           <div className="min-w-0">
-            <p className="ng-text-body m-0 text-white/75 text-[11px] tracking-[0.14em] font-[800] uppercase">
-              Live Activity
-            </p>
-            <p className="ng-text-body m-0 text-white/88 text-sm font-[650] truncate">@vertical_________</p>
+            <p className="ng-text-body m-0 text-white/75 text-[11px] tracking-[0.14em] font-[800] uppercase">Instagram</p>
+            <div className="flex items-center gap-1.5">
+              <p className="ng-text-body m-0 text-white text-sm font-[700] truncate">@vertical_________</p>
+              <span className="inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full border border-white/40 bg-white/10 text-[10px] leading-none text-white/90">
+                ✓
+              </span>
+            </div>
           </div>
         </div>
 
@@ -72,23 +78,29 @@ function LiveActivityCard({
           href={profileUrl}
           target="_blank"
           rel="noreferrer"
-          className="ng-text-body inline-flex items-center justify-center h-9 px-4 rounded-full bg-white/15 text-white/92 text-sm font-[700] hover:bg-white/20 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent active:scale-[0.98]"
+          className="ng-text-body inline-flex items-center justify-center h-9 px-4 rounded-full bg-white/15 text-white text-sm font-[700] hover:bg-white/20 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent active:scale-[0.98]"
         >
           Seguir
         </a>
       </div>
 
-      <div className="mt-3 flex items-center gap-3">
-        <div className={`h-12 w-12 rounded-[14px] bg-white/10 ${isLoading ? 'ng-skeleton' : ''} overflow-hidden`}>
-          {!isLoading ? <img src={imageUrl} alt="Última publicación" className="h-full w-full object-cover" /> : null}
-        </div>
+      <div className={`mt-3 ng-squircle w-full aspect-square border border-white/12 bg-white/8 ${isLoading ? 'ng-skeleton' : ''} overflow-hidden`}>
+        {!isLoading ? <img src={imageUrl} alt="Última publicación" className="h-full w-full object-cover object-center" loading="lazy" /> : null}
+      </div>
+
+      <div className="mt-3 flex items-center justify-between gap-3 min-h-[44px] mt-auto">
         <div className="min-w-0 flex-1">
-          <p className={`ng-text-body m-0 text-white/90 text-sm font-[700] ${isLoading ? 'ng-skeleton rounded-md h-4 w-[78%]' : ''}`}>
+          <p className={`ng-text-body m-0 text-white text-sm font-[700] ${isLoading ? 'ng-skeleton rounded-md h-4 w-[66%]' : ''}`}>
             {!isLoading ? 'Última publicación' : null}
           </p>
-          <p className={`ng-text-body mt-1 mb-0 text-white/70 text-sm font-[550] ${isLoading ? 'ng-skeleton rounded-md h-4 w-[56%]' : ''}`}>
-            {!isLoading ? `${likes.toLocaleString('es-ES')} likes` : null}
+          <p className={`ng-text-body mt-1 mb-0 text-white/78 text-sm font-[560] ${isLoading ? 'ng-skeleton rounded-md h-4 w-[48%]' : ''}`}>
+            {!isLoading ? `${likes.toLocaleString('es-ES')} Me gusta` : null}
           </p>
+        </div>
+        <div className="flex items-center gap-2 text-white/78">
+          <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/10">♡</span>
+          <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/10">💬</span>
+          <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/10">↗</span>
         </div>
       </div>
     </article>
@@ -109,7 +121,7 @@ function TextFeedCard({
   text: string;
 }) {
   return (
-    <article className="ng-glass ng-squircle p-4">
+    <article className="ng-glass ng-squircle contact-unified-card">
       <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-2 min-w-0">
           <span className="inline-flex items-center justify-center h-8 w-8 rounded-full bg-white/10">

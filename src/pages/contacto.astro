@@ -2,27 +2,97 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ContactScene from '../components/ios26/ContactScene';
 import ContactDesktopScene from '../components/ios26/ContactDesktopScene';
-import DynamicIsland from '../components/ios26/DynamicIsland';
 
 const BASE_URL = import.meta.env.BASE_URL;
 const basePrefix = BASE_URL.endsWith('/') ? BASE_URL : `${BASE_URL}/`;
 const withBase = (path) => `${basePrefix}${path.replace(/^\/+/, '')}`;
+const navLinks = [
+  { label: 'Inicio', href: BASE_URL },
+  { label: 'Servicios', href: withBase('servicios') },
+  { label: 'Proyectos', href: withBase('proyectos') },
+  { label: 'Contacto', href: withBase('contacto') },
+];
 ---
 <BaseLayout title="Contacto — Vertical Management">
   <section class="contact-lockscreen">
     <div class="contact-lockscreen-bg" style={`background-image:url('${withBase('assets/xp/fondo-de-pantalla.jpg')}')`}></div>
     <div class="contact-lockscreen-overlay"></div>
 
-    <div class="contact-ios26-shell vm-container lg:hidden" aria-label="Experiencia iOS 26">
+    <div class="contact-topbar-wrap vm-container contact-shell-container">
+      <div class="contact-topbar ng-glass ng-squircle" role="navigation" aria-label="Barra superior">
+        <div class="contact-topbar-spacer" aria-hidden="true"></div>
+
+        <a class="contact-topbar-logo" href={BASE_URL} aria-label="Vertical Management">
+          <img src={withBase('assets/logo/VERTICAL-BLACK.png')} alt="Vertical Management" loading="lazy" />
+        </a>
+
+        <div class="contact-topbar-actions">
+          <nav class="contact-topbar-nav" aria-label="Menú principal">
+            {navLinks.map((item) => (
+              <a href={item.href} class={item.label === 'Contacto' ? 'is-active' : ''}>{item.label}</a>
+            ))}
+          </nav>
+
+          <button
+            id="contact-menu-trigger"
+            class="contact-topbar-menu"
+            type="button"
+            aria-label="Abrir menú"
+            aria-expanded="false"
+            aria-controls="contact-mobile-menu"
+          >
+            ⋯
+          </button>
+        </div>
+      </div>
+
+      <div id="contact-mobile-menu" class="contact-mobile-menu ng-glass ng-squircle" hidden>
+        <nav aria-label="Menú móvil contacto">
+          {navLinks.map((item) => (
+            <a href={item.href} class={item.label === 'Contacto' ? 'is-active' : ''}>{item.label}</a>
+          ))}
+        </nav>
+      </div>
+    </div>
+
+    <div class="contact-top-fade" aria-hidden="true"></div>
+
+    <div class="contact-ios26-shell vm-container contact-shell-container lg:hidden" aria-label="Experiencia iOS 26">
       <ContactScene client:media="(max-width: 1023px)" assetBase={basePrefix} />
     </div>
 
     <div class="hidden lg:block" aria-label="Experiencia iOS 26 Desktop">
-      <DynamicIsland client:media="(min-width: 1024px)" baseUrl={basePrefix} currentSection="Contacto" />
-
-      <div class="vm-container contact-ios26-desktop-shell">
+      <div class="vm-container contact-shell-container contact-ios26-desktop-shell">
         <ContactDesktopScene client:media="(min-width: 1024px)" assetBase={basePrefix} />
       </div>
     </div>
   </section>
 </BaseLayout>
+
+<script>
+  const trigger = document.getElementById('contact-menu-trigger');
+  const menu = document.getElementById('contact-mobile-menu');
+
+  if (trigger && menu) {
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute('aria-expanded', 'false');
+    };
+
+    trigger.addEventListener('click', () => {
+      const open = menu.hidden;
+      menu.hidden = !open;
+      trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+
+    menu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', closeMenu);
+    });
+
+    document.addEventListener('click', (event) => {
+      const target = event.target;
+      if (!(target instanceof Node)) return;
+      if (!menu.contains(target) && !trigger.contains(target)) closeMenu();
+    });
+  }
+</script>

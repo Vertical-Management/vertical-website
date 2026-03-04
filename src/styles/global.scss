@@ -9,17 +9,17 @@
   --ng-surface: var(--vm-bg);
   --ng-ink: var(--vm-fg);
   /* requested glassmorphism baseline */
-  --ng-glass-alpha: 0.10;
-  --ng-border-alpha: 0.20;
-  --ng-border-alpha-hover: 0.20;
+  --ng-glass-alpha: 0.05;
+  --ng-border-alpha: 0.10;
+  --ng-border-alpha-hover: 0.10;
 
-  --ng-blur-min: 25px;
-  --ng-blur-max: 25px;
+  --ng-blur-min: 20px;
+  --ng-blur-max: 20px;
   --ng-blur: var(--ng-blur-min);
   --ng-saturate: 180%;
 
   --ng-radius: 26px;
-  --ng-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.30);
+  --ng-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 
   /* pointer-driven refraction (0..1) */
   --ng-px: 0.5;
@@ -43,8 +43,8 @@
 
 .ng-glass{
   position: relative;
-  background: color-mix(in srgb, var(--ng-surface) calc(var(--ng-glass-alpha) * 100%), transparent);
-  border: 1px solid transparent;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(var(--ng-blur)) saturate(var(--ng-saturate));
   -webkit-backdrop-filter: blur(var(--ng-blur)) saturate(var(--ng-saturate));
   box-shadow: var(--ng-shadow);
@@ -294,14 +294,220 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
 .contact-ios26-shell{
   display: grid;
   place-items: center;
-  padding-top: 2.25rem;
+  padding-top: 6.2rem;
   padding-bottom: 2.75rem;
 }
 
+.contact-shell-container{
+  width: min(1440px, 100vw - 2rem);
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .contact-ios26-desktop-shell{
-  padding-top: 6.5rem;
+  padding-top: 7.35rem;
   padding-bottom: 3rem;
-  max-width: min(1460px, 100vw - 2rem);
+  max-width: 1440px;
+}
+
+@media (min-width: 1280px){
+  .contact-ios26-desktop-shell{
+    padding-top: 7.65rem;
+    padding-bottom: 3.35rem;
+  }
+}
+
+.contact-topbar-wrap{
+  position: fixed;
+  top: 0.85rem;
+  left: 0;
+  right: 0;
+  z-index: 30;
+  pointer-events: none;
+}
+
+.contact-topbar{
+  min-height: 62px;
+  padding: 0.72rem 1rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 0.75rem;
+  pointer-events: auto;
+}
+
+.contact-topbar-spacer{
+  min-width: 0;
+}
+
+.contact-topbar-actions{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-width: 0;
+}
+
+.contact-topbar-logo{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  justify-self: center;
+  height: 38px;
+  width: 38px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.09);
+  overflow: hidden;
+}
+
+.contact-topbar-logo img{
+  height: 24px;
+  width: 24px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+.contact-topbar-nav{
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.contact-topbar-nav a{
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  font-size: 0.82rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  color: rgba(255,255,255,0.92);
+  text-decoration: none;
+  line-height: 1;
+  padding: 0.44rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  transition: background-color 220ms ease, border-color 220ms ease;
+}
+
+.contact-topbar-nav a:hover{
+  background: rgba(255,255,255,0.12);
+  border-color: rgba(255,255,255,0.2);
+}
+
+.contact-topbar-nav a.is-active{
+  background: rgba(255,255,255,0.16);
+  border-color: rgba(255,255,255,0.26);
+}
+
+.contact-topbar-menu{
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.24);
+  background: rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.95);
+  font-size: 1.5rem;
+  line-height: 1;
+  padding: 0;
+  cursor: pointer;
+}
+
+.contact-mobile-menu{
+  margin-top: 0.55rem;
+  margin-left: auto;
+  width: min(220px, calc(100vw - 2rem));
+  padding: 0.45rem;
+  pointer-events: auto;
+}
+
+.contact-mobile-menu nav{
+  display: grid;
+  gap: 0.2rem;
+}
+
+.contact-mobile-menu a{
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  color: rgba(255,255,255,0.92);
+  text-decoration: none;
+  font-size: 0.86rem;
+  font-weight: 640;
+  padding: 0.52rem 0.7rem;
+  border-radius: 12px;
+  border: 1px solid transparent;
+}
+
+.contact-mobile-menu a:hover,
+.contact-mobile-menu a.is-active{
+  background: rgba(255,255,255,0.12);
+  border-color: rgba(255,255,255,0.2);
+}
+
+.contact-top-fade{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 170px;
+  z-index: 25;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--vm-fg) 68%, transparent) 0%,
+    color-mix(in srgb, var(--vm-fg) 54%, transparent) 36%,
+    color-mix(in srgb, var(--vm-fg) 18%, transparent) 72%,
+    transparent 100%
+  );
+}
+
+.contact-unified-card{
+  padding: 1rem;
+  transition: transform 300ms ease;
+}
+
+.contact-unified-card:hover{
+  transform: translateY(-2px);
+}
+
+@media (max-width: 1023px){
+  .contact-topbar-nav{
+    display: none;
+  }
+
+  .contact-topbar-menu{
+    display: inline-flex;
+  }
+}
+
+@media (max-width: 376px){
+  .contact-ios26-shell,
+  .contact-ios26-shell > *{
+    width: 100%;
+  }
+
+  .contact-ios26-shell [aria-label='Ventana de dispositivo']{
+    width: calc(100vw - 1rem) !important;
+    max-width: calc(100vw - 1rem) !important;
+    height: auto !important;
+  }
+
+  .contact-ios26-shell .grid{
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+}
+
+@media (min-width: 1024px){
+  .contact-topbar-menu,
+  .contact-mobile-menu{
+    display: none !important;
+  }
+}
+
+@media (min-width: 1680px){
+  .contact-ios26-desktop-shell{
+    max-width: 1440px;
+  }
 }
 
 .contact-island-shell{
