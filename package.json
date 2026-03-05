@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "astro dev --port 4321 --strictPort",
+    "dev": "astro dev --host 0.0.0.0 --port 4321 --strict-port",
     "build": "astro build",
-    "preview": "astro preview --port 4321 --strictPort",
+    "preview": "astro preview --host 0.0.0.0 --port 4321 --strict-port",
     "sync:assets": "mkdir -p public/assets && cp -R \"recursos\"/* public/assets/ || true",
     "format": "prettier --write ."
   },
