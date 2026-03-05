@@ -15,27 +15,6 @@ const navItems = [
 const tickerTop = ['FURNITURE', 'TABLES', 'SEATS', 'BEDS', 'LIGHTS', 'OBJECTS'];
 const tickerBottom = ['BEDS', 'SEATS', 'TABLES', 'FURNITURE', 'GLASS', 'TEXTILES'];
 
-const topServices = [
-  {
-    title: 'Branding',
-    description:
-      'Identidad visual, estrategia de marca, y sistemas gráficos aplicables a digital e impresión.',
-  },
-  {
-    title: 'UX / UI',
-    description:
-      'Diseño de productos digitales, prototipado y pruebas de usabilidad para experiencias eficaces.',
-  },
-  {
-    title: 'Animación & Motion',
-    description: 'Loops, videoclips y piezas animadas para presentación y redes sociales.',
-  },
-  {
-    title: 'Consultoría Visual',
-    description: 'Asesoría estratégica para consolidar presencia visual y narrativa de marca.',
-  },
-];
-
 const socialLinks = [
   { label: 'NEWSLETTER', href: '/contacto', className: 'is-news' },
   { label: 'INSTAGRAM', href: 'https://instagram.com', className: 'is-instagram' },
@@ -62,15 +41,6 @@ const socialLinks = [
         <div class="sv-inner">
           <h1 id="sv-services-title">Servicios</h1>
           <p>Ofrecemos soluciones integrales de diseño para potenciar tu marca</p>
-
-          <div class="sv-top-intro-grid">
-            {topServices.map((service) => (
-              <article class="sv-top-intro-item">
-                <h2>{service.title}</h2>
-                <p>{service.description}</p>
-              </article>
-            ))}
-          </div>
         </div>
       </section>
 
