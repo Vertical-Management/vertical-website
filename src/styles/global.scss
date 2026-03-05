@@ -270,6 +270,299 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
 
 .section-intro{font-size:1.1rem;color:#666;margin:1rem 0 2rem 0}
 
+.services-retro{
+  position:relative;
+  min-height:100vh;
+  padding:2rem 0 3rem;
+  background:radial-gradient(circle at 50% -15%, #5131a5 0%, #2a0a57 46%, #080713 100%);
+  overflow:hidden;
+  isolation:isolate;
+}
+
+.services-retro-desktop{
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(180deg, rgba(10,12,24,0.8) 0%, rgba(8,8,14,0.7) 100%),
+    radial-gradient(circle at 20% 0%, rgba(0,240,255,0.2) 0%, transparent 50%),
+    radial-gradient(circle at 82% 4%, rgba(255,82,216,0.28) 0%, transparent 52%);
+  z-index:-2;
+}
+
+.chrome-window{
+  position:relative;
+  max-width:1320px;
+  padding:0;
+  border-radius:18px;
+  border:1px solid rgba(154,169,255,0.35);
+  background:#090f22;
+  box-shadow:0 32px 80px rgba(1,4,15,0.7), 0 0 0 1px rgba(126,236,255,0.28);
+  overflow:hidden;
+}
+
+.chrome-titlebar{
+  display:flex;
+  align-items:center;
+  gap:0.95rem;
+  min-height:40px;
+  padding:0.4rem 0.7rem;
+  background:linear-gradient(180deg, #1a2239 0%, #12192d 100%);
+  border-bottom:1px solid rgba(168,181,255,0.25);
+}
+
+.chrome-traffic-lights{display:flex;align-items:center;gap:0.36rem}
+.chrome-traffic-lights .dot{width:11px;height:11px;border-radius:999px;display:block;border:1px solid rgba(20,20,20,0.35)}
+.chrome-traffic-lights .close{background:#ff5f57}
+.chrome-traffic-lights .min{background:#ffbd2f}
+.chrome-traffic-lights .max{background:#28c840}
+
+.chrome-tabs{display:flex;align-items:center;gap:0.36rem;overflow:auto;padding-right:0.2rem}
+.chrome-tab{font-size:0.76rem;line-height:1;font-weight:600;color:#dbe2ff;padding:0.48rem 0.72rem;border-radius:8px;background:rgba(57,67,102,0.8);border:1px solid rgba(145,161,225,0.42);white-space:nowrap}
+.chrome-tab.active{background:linear-gradient(180deg, rgba(108,208,255,0.35) 0%, rgba(86,100,255,0.3) 100%);color:#fff}
+
+.chrome-urlbar{
+  margin:0.5rem;
+  border-radius:10px;
+  border:1px solid rgba(138,152,227,0.4);
+  background:linear-gradient(180deg, #0d1428 0%, #0a1121 100%);
+  color:#c9d4ff;
+  font-size:0.85rem;
+  font-family:'SF Mono', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  padding:0.58rem 0.8rem;
+}
+
+.chrome-content{
+  position:relative;
+  padding:1.4rem 1.2rem 2.35rem;
+  background:
+    radial-gradient(circle at 50% 58%, rgba(255, 134, 97, 0.5) 0%, rgba(255, 134, 97, 0) 37%),
+    linear-gradient(180deg, #3f148f 0%, #66217d 40%, #ff7e55 72%, #4f2e86 100%);
+}
+
+.chrome-content::before{
+  content:'';
+  position:absolute;
+  inset:auto 0 0;
+  height:55%;
+  background:
+    linear-gradient(0deg, rgba(3, 8, 22, 0.85) 0%, rgba(16, 30, 71, 0.58) 22%, rgba(16, 28, 66, 0) 100%),
+    repeating-linear-gradient(90deg, rgba(80, 236, 255, 0.72) 0 2px, transparent 2px 64px),
+    repeating-linear-gradient(0deg, rgba(80, 236, 255, 0.72) 0 2px, transparent 2px 64px);
+  transform:perspective(620px) rotateX(66deg) translateY(30%);
+  transform-origin:bottom center;
+  z-index:0;
+}
+
+.chrome-content::after{
+  content:'';
+  position:absolute;
+  top:22%;
+  left:50%;
+  width:min(700px, 78vw);
+  height:220px;
+  transform:translateX(-50%);
+  background:
+    radial-gradient(circle at 30% 62%, #ffd35a 0%, #ffd35a 48%, transparent 49%),
+    radial-gradient(circle at 70% 62%, #ffd35a 0%, #ffd35a 48%, transparent 49%);
+  opacity:0.9;
+  filter:drop-shadow(0 0 26px rgba(255, 180, 84, 0.48));
+  z-index:0;
+}
+
+.retro-header,
+.retro-hero,
+.services-retro .services-grid,
+.retro-floating-sprites{position:relative;z-index:2}
+
+.retro-header{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:0.8rem}
+
+.retro-brand{
+  justify-self:start;
+  position:relative;
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+  min-height:42px;
+  border-radius:10px;
+  padding:0.5rem 0.9rem;
+  border:1px solid rgba(173,230,255,0.68);
+  background:linear-gradient(135deg, rgba(255, 43, 206, 0.22) 0%, rgba(95, 232, 255, 0.22) 100%);
+  box-shadow:0 0 16px rgba(121, 223, 255, 0.4), inset 0 0 14px rgba(231, 97, 255, 0.25);
+  overflow:hidden;
+}
+
+.retro-brand-grid{
+  position:absolute;
+  inset:0;
+  background:
+    repeating-linear-gradient(90deg, rgba(150, 233, 255, 0.24) 0 1px, transparent 1px 18px),
+    repeating-linear-gradient(0deg, rgba(150, 233, 255, 0.24) 0 1px, transparent 1px 18px);
+  opacity:0.7;
+}
+
+.retro-brand-text{
+  position:relative;
+  color:#ebf9ff;
+  font-size:1.1rem;
+  font-weight:800;
+  letter-spacing:0.02em;
+  text-shadow:0 0 12px rgba(85, 231, 255, 0.82), 0 0 20px rgba(255, 103, 211, 0.65);
+}
+
+.retro-sculpture{position:relative;justify-self:center;width:86px;height:86px;filter:drop-shadow(0 0 16px rgba(120, 226, 255, 0.5));animation:spinSculpture 12s linear infinite}
+.retro-sculpture .ring{position:absolute;inset:0;border:4px solid rgba(186, 230, 255, 0.75);border-radius:999px;background:linear-gradient(135deg, rgba(255, 95, 218, 0.38) 0%, rgba(95, 238, 255, 0.32) 100%)}
+.retro-sculpture .ring-a{transform:rotate(22deg)}
+.retro-sculpture .ring-b{transform:rotate(77deg) scale(0.86)}
+.retro-sculpture .ring-c{transform:rotate(133deg) scale(0.72)}
+.retro-sculpture .core{position:absolute;top:50%;left:50%;width:14px;height:14px;border-radius:999px;transform:translate(-50%, -50%);background:#f4feff;box-shadow:0 0 20px rgba(160, 252, 255, 0.9)}
+
+.retro-nav{justify-self:end;display:flex;gap:0.5rem;flex-wrap:wrap;justify-content:flex-end}
+.retro-nav a{
+  text-decoration:none;
+  font-family:'SF Mono', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  font-size:0.88rem;
+  font-weight:700;
+  color:#d8f6ff;
+  letter-spacing:0.04em;
+  padding:0.52rem 0.75rem;
+  border-radius:8px;
+  border:1px solid rgba(160, 226, 255, 0.62);
+  background:linear-gradient(180deg, rgba(130, 80, 255, 0.24) 0%, rgba(76, 35, 141, 0.4) 100%);
+  box-shadow:0 0 12px rgba(94, 222, 255, 0.4), inset 0 0 14px rgba(255, 94, 225, 0.28);
+  transition:transform 180ms ease, box-shadow 180ms ease;
+}
+
+.retro-nav a:hover,
+.retro-nav a[aria-current='page']{transform:translateY(-2px);box-shadow:0 0 16px rgba(116, 236, 255, 0.72), inset 0 0 20px rgba(255, 109, 230, 0.38)}
+
+.retro-hero{margin-top:1rem;padding-bottom:1rem}
+
+.retro-hero h1{
+  margin:0;
+  font-size:clamp(3.1rem, 8vw, 6rem);
+  line-height:0.95;
+  font-weight:900;
+  letter-spacing:0.02em;
+  color:#ffecff;
+  text-shadow:0 0 18px rgba(255, 89, 221, 0.82), 0 0 36px rgba(76, 225, 255, 0.66), 0 8px 24px rgba(0,0,0,0.45);
+  transform:translateZ(0) skewX(-2deg);
+}
+
+.services-retro .section-intro{
+  margin:0.8rem 0 0;
+  max-width:760px;
+  color:#eff8ff;
+  font-family:'SF Mono', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  letter-spacing:0.04em;
+  padding:0.7rem 0.8rem;
+  border:1px solid rgba(173, 230, 255, 0.64);
+  border-radius:8px;
+  background:
+    repeating-linear-gradient(0deg, rgba(255,255,255,0.06) 0 1px, transparent 1px 4px),
+    linear-gradient(180deg, rgba(65, 30, 125, 0.55) 0%, rgba(17, 19, 47, 0.7) 100%);
+  text-shadow:0 0 8px rgba(132, 235, 255, 0.4);
+}
+
+.retro-cloud{
+  position:absolute;
+  top:-0.2rem;
+  width:160px;
+  height:58px;
+  border-radius:40px;
+  opacity:0.85;
+  background:radial-gradient(circle at 20% 50%, #f7f7ff 0%, #d7deff 38%, #9ea7d8 100%);
+  box-shadow:52px 10px 0 -8px #d7deff, 96px 0 0 -11px #f4f4ff;
+}
+
+.cloud-left{left:5%}
+.cloud-right{right:8%;transform:scale(0.92)}
+
+.services-retro .services-grid{
+  position:relative;
+  margin-top:2.2rem;
+  display:grid;
+  grid-template-columns:repeat(4, minmax(0, 1fr));
+  gap:1.25rem;
+}
+
+.services-retro .service-card{
+  position:relative;
+  min-height:412px;
+  border-radius:14px;
+  padding:0.9rem 0.9rem 1rem;
+  border:1px solid rgba(153, 233, 255, 0.5);
+  background:
+    linear-gradient(180deg, rgba(27, 32, 63, 0.75) 0%, rgba(18, 20, 43, 0.92) 66%, rgba(12, 16, 30, 0.98) 100%);
+  box-shadow:0 0 18px rgba(89, 217, 255, 0.4), 0 20px 32px rgba(0,0,0,0.45), inset 0 0 26px rgba(255, 108, 221, 0.14);
+  display:grid;
+  grid-template-rows:auto auto 1fr;
+  gap:0.7rem;
+}
+
+.services-retro .station-scene{
+  position:relative;
+  height:215px;
+  border-radius:12px;
+  border:1px solid rgba(150, 230, 255, 0.45);
+  background:linear-gradient(180deg, rgba(46, 67, 118, 0.52) 0%, rgba(24, 31, 64, 0.7) 100%);
+  overflow:hidden;
+}
+
+.services-retro .service-card h2{margin:0;color:#f8fdff;font-size:1.6rem;letter-spacing:0.01em;text-shadow:0 0 10px rgba(124, 238, 255, 0.48)}
+.services-retro .service-card p{margin:0;color:#f1f8ff;font-size:1rem;line-height:1.58;padding:0.72rem 0.78rem;border-radius:8px;border:1px solid rgba(171,225,255,0.48);background:rgba(7, 11, 28, 0.82)}
+
+.station-branding .lego-block{position:absolute;left:16px;bottom:24px;width:132px;height:108px;border-radius:6px;background:linear-gradient(180deg, #8898c6 0%, #6b78a1 100%);box-shadow:0 8px 18px rgba(0,0,0,0.4)}
+.station-branding .lego-block::before{content:'';position:absolute;top:10px;left:12px;width:16px;height:16px;border-radius:999px;background:#a8b6e0;box-shadow:22px 0 0 #a8b6e0, 44px 0 0 #a8b6e0, 66px 0 0 #a8b6e0}
+.station-branding .sprite{position:absolute;width:24px;height:42px;bottom:42px;background:linear-gradient(180deg, #ffe3ad 0%, #f5c680 33%, #545f8b 33%, #545f8b 75%, #2f3655 75%)}
+.station-branding .designer{left:38px}
+.station-branding .client{left:70px;background:linear-gradient(180deg, #f8dfaa 0%, #eec988 33%, #7a8dbe 33%, #7a8dbe 75%, #3d4b79 75%)}
+.station-branding .rubik{position:absolute;width:22px;height:22px;top:26px;border-radius:3px;border:1px solid rgba(20,25,45,0.8);background:conic-gradient(#f44336 0 25%, #ffeb3b 25% 50%, #2196f3 50% 75%, #4caf50 75% 100%)}
+.station-branding .rubik-a{right:26px}
+.station-branding .rubik-b{right:54px;top:54px;transform:rotate(18deg)}
+.station-branding .dot-matrix-roll{position:absolute;right:16px;bottom:18px;width:120px;height:54px;border-radius:0 0 14px 14px;background:repeating-linear-gradient(180deg, rgba(255,255,255,0.75) 0 2px, rgba(174,180,202,0.8) 2px 4px);transform:rotate(-11deg);box-shadow:0 8px 14px rgba(0,0,0,0.3)}
+
+.station-ux .acrylic-cube{position:absolute;inset:14px;border-radius:8px;border:1px solid rgba(184, 240, 255, 0.62);background:linear-gradient(145deg, rgba(126, 214, 255, 0.18) 0%, rgba(130, 96, 255, 0.12) 100%)}
+.station-ux .cartridge{position:absolute;display:grid;place-items:center;width:56px;height:66px;border-radius:3px;background:linear-gradient(180deg, #7d879b 0%, #596178 100%);font-size:0.72rem;font-weight:700;color:#f7fbff;letter-spacing:0.06em;border:1px solid rgba(16,20,34,0.65)}
+.station-ux .nes{left:26px;bottom:42px}
+.station-ux .snes{left:86px;bottom:54px}
+.station-ux .gb{left:146px;bottom:36px}
+.station-ux .holo-cursor{position:absolute;right:34px;top:42px;width:0;height:0;border-left:20px solid rgba(135, 250, 255, 0.95);border-top:12px solid transparent;border-bottom:12px solid transparent;filter:drop-shadow(0 0 12px rgba(135,250,255,0.75));animation:pulseCursor 1400ms ease-in-out infinite}
+.station-ux .amber-screen{position:absolute;right:16px;bottom:16px;padding:0.35rem 0.5rem;border-radius:5px;background:linear-gradient(180deg, #6d4e18 0%, #3f2b09 100%);border:1px solid rgba(255, 201, 108, 0.56);color:#ffd37b;font-family:'SF Mono', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;font-size:0.73rem;letter-spacing:0.1em;text-shadow:0 0 8px rgba(255, 194, 80, 0.55)}
+
+.station-motion .arcade-cabinet{position:absolute;left:22px;right:22px;top:24px;bottom:64px;border-radius:10px;background:linear-gradient(180deg, #2f375a 0%, #1b1f35 100%);border:1px solid rgba(163, 225, 255, 0.46)}
+.station-motion .arcade-cabinet::before{content:'';position:absolute;left:16px;right:16px;top:16px;bottom:16px;border-radius:8px;background:linear-gradient(180deg, #0b1d30 0%, #0f3a65 70%, #0f6aa8 100%);box-shadow:inset 0 0 16px rgba(100, 230, 255, 0.35)}
+.station-motion .duck{position:absolute;left:58%;top:44%;width:26px;height:18px;border-radius:50% 45% 40% 40%;background:#4cc3ff;transform:translate(-50%, -50%);box-shadow:10px -4px 0 -6px #f3d55f;animation:duckFlight 2600ms linear infinite}
+.station-motion .dog{position:absolute;left:30%;top:62%;width:18px;height:18px;border-radius:6px;background:#d09a6a;box-shadow:8px 4px 0 -6px #24170f}
+.station-motion .vhs-tape{position:absolute;left:18px;bottom:15px;width:132px;height:34px;border-radius:5px;background:linear-gradient(180deg, #222838 0%, #161a26 100%);border:1px solid rgba(164, 224, 255, 0.5)}
+.station-motion .vhs-tape::before{content:'VHS';position:absolute;right:9px;top:7px;font-size:0.68rem;font-weight:700;color:#d3e6ff;letter-spacing:0.08em}
+.station-motion .film-strip{position:absolute;right:16px;bottom:14px;width:72px;height:20px;border:1px solid rgba(169, 230, 255, 0.46);background:repeating-linear-gradient(90deg, #1a202f 0 6px, #d3dbef 6px 8px, #1a202f 8px 14px)}
+
+.station-consultoria .floppy-stack{position:absolute;left:18px;right:18px;bottom:36px;height:122px;background:linear-gradient(180deg, #6173a8 0%, #2a3354 100%);clip-path:polygon(50% 0, 100% 100%, 0 100%);box-shadow:0 0 20px rgba(118, 235, 255, 0.48)}
+.station-consultoria .walkman{position:absolute;left:50%;top:38px;width:66px;height:46px;border-radius:10px;transform:translateX(-50%);background:linear-gradient(180deg, #e2f0ff 0%, #9daed1 100%);border:1px solid rgba(20,28,45,0.55);animation:floatWalkman 2200ms ease-in-out infinite}
+.station-consultoria .walkman::before,.station-consultoria .walkman::after{content:'';position:absolute;top:-16px;width:24px;height:24px;border-radius:50%;border:3px solid rgba(192, 244, 255, 0.82)}
+.station-consultoria .walkman::before{left:-14px}
+.station-consultoria .walkman::after{right:-14px}
+.station-consultoria .metal-plate{position:absolute;left:14px;right:14px;bottom:8px;height:22px;border-radius:6px;background:linear-gradient(180deg, #c1d3e6 0%, #8292ac 100%);border:1px solid rgba(190,240,255,0.66);box-shadow:0 0 10px rgba(142, 230, 255, 0.4)}
+
+.retro-floating-sprites .sprite{position:absolute;font-size:1.65rem;text-shadow:0 0 14px rgba(108, 240, 255, 0.66)}
+.retro-floating-sprites .floppy{left:3%;top:52%;animation:floatSprite 3.2s ease-in-out infinite}
+.retro-floating-sprites .cursor{right:6%;top:61%;animation:floatSprite 2.7s ease-in-out infinite reverse}
+.retro-floating-sprites .gameboy{right:14%;top:34%;animation:floatSprite 3.6s ease-in-out infinite}
+
+@keyframes spinSculpture{to{transform:rotate(360deg)}}
+@keyframes pulseCursor{0%,100%{transform:scale(0.9)}50%{transform:scale(1.06)}}
+@keyframes duckFlight{0%{transform:translate(-36px, 8px)}50%{transform:translate(14px, -8px)}100%{transform:translate(-36px, 8px)}}
+@keyframes floatWalkman{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-8px)}}
+@keyframes floatSprite{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+@media (prefers-reduced-motion: reduce){
+  .retro-sculpture,
+  .station-ux .holo-cursor,
+  .station-motion .duck,
+  .station-consultoria .walkman,
+  .retro-floating-sprites .sprite{animation:none !important}
+}
+
 .about,.contact{padding:3rem 0}
 .about h2,.contact h2{color:var(--vm-accent);margin-top:2rem;margin-bottom:1rem}
 .about p,.contact p{line-height:1.8;color:#555;max-width:800px}
@@ -284,47 +577,48 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
 .vm-header-glass .vm-nav a:hover{opacity:1;text-shadow:0 0 10px rgba(255,255,255,0.65), 0 0 20px rgba(255,255,255,0.35)}
 
 .contact-lockscreen{position:relative;isolation:isolate;min-height:100vh;padding-bottom:2rem}
-.contact-lockscreen-bg{position:absolute;inset:0;z-index:-3;background-size:cover;background-position:center}
+.contact-lockscreen-bg{position:absolute;inset:0;z-index:-3;overflow:hidden}
+.contact-lockscreen-bg img{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
 .contact-lockscreen-overlay{position:absolute;inset:0;z-index:-2;background:linear-gradient(180deg, color-mix(in srgb, var(--vm-fg) 46%, transparent) 0%, color-mix(in srgb, var(--vm-fg) 62%, transparent) 100%)}
 
 @media (min-width: 1024px){
-  .contact-lockscreen-bg{background-attachment:fixed}
+  .contact-lockscreen-bg img{transform:translateZ(0)}
 }
 
 .contact-ios26-shell{
   display: grid;
   place-items: center;
-  padding-top: 6.2rem;
+  padding-top: 1.25rem;
   padding-bottom: 2.75rem;
 }
 
 .contact-shell-container{
-  width: min(1440px, 100vw - 2rem);
+  width: min(1320px, 100vw - 2rem);
   max-width: 1440px;
   margin-left: auto;
   margin-right: auto;
 }
 
 .contact-ios26-desktop-shell{
-  padding-top: 7.35rem;
+  padding-top: 1.4rem;
   padding-bottom: 3rem;
-  max-width: 1440px;
+  max-width: 1320px;
 }
 
 @media (min-width: 1280px){
   .contact-ios26-desktop-shell{
-    padding-top: 7.65rem;
+    padding-top: 1.7rem;
     padding-bottom: 3.35rem;
   }
 }
 
 .contact-topbar-wrap{
-  position: fixed;
+  position: sticky;
   top: 0.85rem;
-  left: 0;
-  right: 0;
   z-index: 30;
   pointer-events: none;
+  width: min(420px, calc(100vw - 2rem));
+  margin: 0.85rem auto 0;
 }
 
 .contact-topbar{
@@ -416,8 +710,7 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
 
 .contact-mobile-menu{
   margin-top: 0.55rem;
-  margin-left: auto;
-  width: min(220px, calc(100vw - 2rem));
+  width: 100%;
   padding: 0.45rem;
   pointer-events: auto;
 }
@@ -470,6 +763,26 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
   transform: translateY(-2px);
 }
 
+.contact-desktop-auto-grid{
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.contact-motion-layer{
+  will-change: transform, filter, opacity;
+}
+
+.contact-device-shell{
+  width: clamp(286px, min(88vw, 100%), 420px);
+  max-width: min(100%, calc(100vw - 1.25rem));
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-lockscreen a:hover{
+  text-decoration: none;
+}
+
 @media (max-width: 1023px){
   .contact-topbar-nav{
     display: none;
@@ -477,6 +790,10 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
 
   .contact-topbar-menu{
     display: inline-flex;
+  }
+
+  .contact-ios26-shell{
+    padding-top: 1.5rem;
   }
 }
 
@@ -502,11 +819,26 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
   .contact-mobile-menu{
     display: none !important;
   }
+
+  .contact-topbar-wrap{
+    width: min(430px, calc(100vw - 2rem));
+  }
+
+  .contact-device-shell{
+    width: 100%;
+    max-width: 430px;
+  }
+}
+
+@media (min-width: 1280px){
+  .contact-topbar-wrap{
+    width: min(1320px, calc(100vw - 2rem));
+  }
 }
 
 @media (min-width: 1680px){
   .contact-ios26-desktop-shell{
-    max-width: 1440px;
+    max-width: 1320px;
   }
 }
 
@@ -1563,6 +1895,20 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
 
 /* Responsive */
 @media (max-width:768px){
+  .services-retro{padding:1.2rem 0 2rem}
+  .chrome-window{border-radius:14px}
+  .chrome-tabs{gap:0.25rem}
+  .chrome-tab{font-size:0.68rem;padding:0.44rem 0.55rem}
+  .chrome-urlbar{font-size:0.76rem}
+  .chrome-content{padding:1rem 0.85rem 1.6rem}
+  .retro-header{grid-template-columns:1fr;justify-items:start;gap:0.75rem}
+  .retro-sculpture{display:none}
+  .retro-nav{justify-self:start;justify-content:flex-start}
+  .services-retro .services-grid{grid-template-columns:repeat(2, minmax(0, 1fr));gap:1rem}
+  .services-retro .service-card{min-height:390px}
+  .services-retro .service-card h2{font-size:1.3rem}
+  .services-retro .service-card p{font-size:0.92rem}
+  .retro-floating-sprites{display:none}
   .project-grid{grid-template-columns:1fr;gap:2.5rem}
   .project-card{padding:0.75rem;border-radius:12px;background:#fff}
   .project-card img{display:block;width:100%;aspect-ratio:16/9;height:auto;object-fit:cover}
@@ -1604,10 +1950,28 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
 }
 
 @media (max-width:640px){
-  .services-grid{grid-template-columns:1fr;gap:1rem}
-  .service-card{padding:1.25rem}
-  .service-card h2{font-size:1.05rem;line-height:1.35;margin-bottom:0.45rem;color:var(--vm-accent)}
-  .service-card p{font-size:0.92rem;line-height:1.6}
+  .services-retro{padding:0.7rem 0 1.25rem}
+  .chrome-window{border-radius:11px}
+  .chrome-titlebar{padding:0.35rem 0.45rem}
+  .chrome-tabs{display:grid;grid-template-columns:repeat(2, minmax(0,1fr));width:100%;overflow:visible}
+  .chrome-tab{text-align:center;font-size:0.62rem;padding:0.34rem 0.4rem}
+  .chrome-urlbar{margin:0.4rem;font-size:0.7rem;padding:0.45rem 0.6rem}
+  .chrome-content{padding:0.8rem 0.62rem 1.1rem}
+  .chrome-content::before,
+  .chrome-content::after,
+  .retro-cloud{display:none}
+  .retro-brand-text{font-size:0.92rem}
+  .retro-nav{gap:0.35rem}
+  .retro-nav a{font-size:0.71rem;padding:0.4rem 0.55rem}
+  .retro-hero h1{font-size:clamp(2.3rem, 14vw, 3rem)}
+  .services-retro .section-intro{font-size:0.72rem;line-height:1.6;padding:0.52rem 0.62rem}
+  .services-retro .services-grid{grid-template-columns:1fr;gap:0.85rem;margin-top:1.1rem}
+  .services-retro .service-card{min-height:unset;padding:0.65rem 0.65rem 0.78rem}
+  .services-retro .station-scene{height:178px}
+  .services-retro .service-card h2{font-size:1.15rem}
+  .services-retro .service-card p{font-size:0.86rem;line-height:1.55;padding:0.58rem 0.62rem}
+  .station-ux .amber-screen{font-size:0.64rem}
+  .station-motion .vhs-tape{width:108px}
   .vm-header-glass .vm-header-inner{border-radius:12px}
   .contact-lockscreen{min-height:calc(100vh - 68px);padding-bottom:1.2rem}
   .contact{gap:0.85rem}

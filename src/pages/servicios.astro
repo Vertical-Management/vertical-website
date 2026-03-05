@@ -1,29 +1,112 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Header from '../components/Header.astro';
 ---
 <BaseLayout title="Servicios — Vertical Management">
-  <Header />
-  <section class="services vm-container">
-    <h1>Servicios</h1>
-    <p class="section-intro">Ofrecemos soluciones integrales de diseño para potenciar tu marca</p>
-    <div class="services-grid">
-      <article class="service-card">
-        <h2>Branding</h2>
-        <p>Identidad visual, estrategia de marca, y sistemas gráficos aplicables a digital e impresión.</p>
-      </article>
-      <article class="service-card">
-        <h2>UX / UI</h2>
-        <p>Diseño de productos digitales, prototipado y pruebas de usabilidad para experiencias eficaces.</p>
-      </article>
-      <article class="service-card">
-        <h2>Animación & Motion</h2>
-        <p>Loops, videoclips y piezas animadas para presentación y redes sociales.</p>
-      </article>
-      <article class="service-card">
-        <h2>Consultoría Visual</h2>
-        <p>Asesoría estratégica para consolidar presencia visual y narrativa de marca.</p>
-      </article>
+  <section class="services-retro">
+    <div class="services-retro-desktop"></div>
+    <div class="chrome-window vm-container">
+      <div class="chrome-titlebar" aria-hidden="true">
+        <div class="chrome-traffic-lights">
+          <span class="dot close"></span>
+          <span class="dot min"></span>
+          <span class="dot max"></span>
+        </div>
+        <div class="chrome-tabs">
+          <span class="chrome-tab active">Vertical Management</span>
+          <span class="chrome-tab">GitHub</span>
+          <span class="chrome-tab">Gemini</span>
+          <span class="chrome-tab">Diseño web</span>
+        </div>
+      </div>
+
+      <div class="chrome-urlbar" aria-label="URL actual">localhost:4321/servicios</div>
+
+      <div class="chrome-content">
+        <header class="retro-header">
+          <a class="retro-brand" href="/">
+            <span class="retro-brand-grid"></span>
+            <span class="retro-brand-text">Vertical Management</span>
+          </a>
+
+          <div class="retro-sculpture" aria-hidden="true">
+            <span class="ring ring-a"></span>
+            <span class="ring ring-b"></span>
+            <span class="ring ring-c"></span>
+            <span class="core"></span>
+          </div>
+
+          <nav class="retro-nav" aria-label="Navegación principal">
+            <a href="/">Inicio</a>
+            <a href="/servicios" aria-current="page">Servicios</a>
+            <a href="/proyectos">Proyectos</a>
+            <a href="/contacto">Contacto</a>
+          </nav>
+        </header>
+
+        <section class="retro-hero" aria-labelledby="services-title">
+          <div class="retro-cloud cloud-left" aria-hidden="true"></div>
+          <div class="retro-cloud cloud-right" aria-hidden="true"></div>
+          <h1 id="services-title">Servicios</h1>
+          <p class="section-intro">Ofrecemos soluciones integrales de diseño para potenciar tu marca</p>
+        </section>
+
+        <div class="services-grid retro-grid-floor" role="list" aria-label="Estaciones de servicios">
+          <article class="service-card station station-branding" role="listitem">
+            <div class="station-scene" aria-hidden="true">
+              <span class="lego-block"></span>
+              <span class="sprite designer"></span>
+              <span class="sprite client"></span>
+              <span class="rubik rubik-a"></span>
+              <span class="rubik rubik-b"></span>
+              <span class="dot-matrix-roll"></span>
+            </div>
+            <h2>Branding</h2>
+            <p>Identidad visual, estrategia de marca, y sistemas gráficos aplicables a digital e impresión.</p>
+          </article>
+
+          <article class="service-card station station-ux" role="listitem">
+            <div class="station-scene" aria-hidden="true">
+              <span class="acrylic-cube"></span>
+              <span class="cartridge nes">NES</span>
+              <span class="cartridge snes">SNES</span>
+              <span class="cartridge gb">GB</span>
+              <span class="holo-cursor"></span>
+              <span class="amber-screen">[ CLICK ]</span>
+            </div>
+            <h2>UX / UI</h2>
+            <p>Diseño de productos digitales, prototipado y pruebas de usabilidad para experiencias eficaces.</p>
+          </article>
+
+          <article class="service-card station station-motion" role="listitem">
+            <div class="station-scene" aria-hidden="true">
+              <span class="arcade-cabinet">
+                <span class="duck"></span>
+                <span class="dog"></span>
+              </span>
+              <span class="vhs-tape"></span>
+              <span class="film-strip"></span>
+            </div>
+            <h2>Animación & Motion</h2>
+            <p>Loops, videoclips y piezas animadas para presentación y redes sociales.</p>
+          </article>
+
+          <article class="service-card station station-consultoria" role="listitem">
+            <div class="station-scene" aria-hidden="true">
+              <span class="floppy-stack"></span>
+              <span class="walkman"></span>
+              <span class="metal-plate"></span>
+            </div>
+            <h2>Consultoría Visual</h2>
+            <p>Asesoría estratégica para consolidar presencia visual y narrativa de marca.</p>
+          </article>
+        </div>
+
+        <div class="retro-floating-sprites" aria-hidden="true">
+          <span class="sprite floppy">💾</span>
+          <span class="sprite cursor">🖱️</span>
+          <span class="sprite gameboy">🎮</span>
+        </div>
+      </div>
     </div>
   </section>
 </BaseLayout>
