@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
 const DEFAULT_WORDS = [
-  'Diseño estratégico',
-  'Branding memorable',
-  'UX/UI pensado',
-  'Narrativa visual',
-  'Proyectos con impacto'
+  'La calle también diseña futuros',
+  'Pintamos ideas antes de que el mundo las entienda',
+  'Rompe la regla, pero con intención',
+  'El caos bien dirigido se vuelve identidad',
+  'Arte, ruido y estrategia en la misma pared'
 ];
 
 export default function RotatingWords({ words = DEFAULT_WORDS, interval = 10000 }) {

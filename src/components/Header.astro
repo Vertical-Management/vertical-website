@@ -25,6 +25,8 @@ const withBase = (path) => `${basePrefix}${path.replace(/^\/+/, '')}`;
     <button
       class="vm-hamburger"
       aria-label="Toggle menu"
+      aria-controls="nav-menu"
+      aria-expanded="false"
       id="hamburger-menu"
     >
       <span class="bar"></span>
@@ -45,15 +47,40 @@ const withBase = (path) => `${basePrefix}${path.replace(/^\/+/, '')}`;
   // Mobile menu toggle
   const hamburger = document.getElementById('hamburger-menu');
   const nav = document.getElementById('nav-menu');
+
+  const setMenuOpen = (isOpen) => {
+    nav?.classList.toggle('open', isOpen);
+    hamburger?.setAttribute('aria-expanded', String(isOpen));
+  };
+
+  const toggleMenu = () => {
+    const isOpen = nav?.classList.contains('open') ?? false;
+    setMenuOpen(!isOpen);
+  };
   
-  hamburger?.addEventListener('click', () => {
-    nav?.classList.toggle('open');
-  });
+  hamburger?.addEventListener('click', toggleMenu);
   
   // Close menu when clicking a link
   nav?.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', () => {
-      nav?.classList.remove('open');
+      setMenuOpen(false);
     });
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!nav || !hamburger) return;
+    const target = event.target;
+    if (!(target instanceof Node)) return;
+
+    const clickedInsideMenu = nav.contains(target) || hamburger.contains(target);
+    if (!clickedInsideMenu) {
+      setMenuOpen(false);
+    }
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      setMenuOpen(false);
+    }
   });
 </script>

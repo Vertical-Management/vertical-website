@@ -6,7 +6,7 @@ const basePrefix = BASE_URL.endsWith('/') ? BASE_URL : `${BASE_URL}/`;
 const withBase = (path) => `${basePrefix}${path.replace(/^\/+/, '')}`;
 ---
 <section class="hero">
-  <div class="hero-media">
+  <div class="hero-media hero-media-magic">
     <img 
       src={withBase('assets/1. PAG DE ENTRADA/PORTFOLIO 2026.gif')} 
       alt="Impact portfolio Vertical Management"
@@ -15,7 +15,7 @@ const withBase = (path) => `${basePrefix}${path.replace(/^\/+/, '')}`;
     />
   </div>
   <div class="hero-cta">
-    <a class="btn-primary" href={withBase('servicios')}>Ver servicios</a>
+    <a class="btn-insert-coin" href={withBase('servicios')}>INSERTE COIN</a>
   </div>
 </section>
 

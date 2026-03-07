@@ -12,8 +12,8 @@ const navItems = [
   { label: 'Proyectos', href: '/proyectos' },
   { label: 'Contacto', href: '/contacto' },
 ];
-const tickerTop = ['FURNITURE', 'TABLES', 'SEATS', 'BEDS', 'LIGHTS', 'OBJECTS'];
-const tickerBottom = ['BEDS', 'SEATS', 'TABLES', 'FURNITURE', 'GLASS', 'TEXTILES'];
+const tickerTop = ['BRANDING', 'ESTRATEGIA', 'DISEÑO', 'CONTENIDO', 'SOCIAL MEDIA', 'CAMPAÑAS'];
+const tickerBottom = ['MARKETING', 'IDENTIDAD', 'UX/UI', 'STORYTELLING', 'CREATIVIDAD', 'ANÁLISIS'];
 
 const socialLinks = [
   { label: 'NEWSLETTER', href: '/contacto', className: 'is-news' },
@@ -39,8 +39,16 @@ const socialLinks = [
     <main>
       <section class="sv-top-intro" aria-labelledby="sv-services-title">
         <div class="sv-inner">
-          <h1 id="sv-services-title">Servicios</h1>
-          <p>Ofrecemos soluciones integrales de diseño para potenciar tu marca</p>
+          <div class="sv-top-intro-head">
+            <div class="sv-top-intro-copy">
+              <h1 id="sv-services-title">Servicios</h1>
+              <p>Atrae más clientes, aumenta tu visibilidad y convierte cada punto de contacto en una oportunidad real de venta con diseño estratégico y marketing creativo pensado para impulsar tu marca y posicionarla mejor.</p>
+            </div>
+
+            <figure class="sv-top-intro-logo" aria-hidden="true">
+              <img src={withBase('assets/logo/VERTICAL-BLACK.png')} alt="" loading="lazy" />
+            </figure>
+          </div>
         </div>
       </section>
 
@@ -56,22 +64,25 @@ const socialLinks = [
       <section class="sv-split is-yellow">
         <div class="sv-split-grid">
           <figure class="sv-media">
-            <img src={withBase('assets/PAG BRANDING CAFETEROS CO/CCDC5.webp')} alt="Grupo creativo" loading="lazy" />
+            <img src={withBase('assets/NIKE RENDER.webp')} alt="Render 3D de zapatilla Nike" loading="lazy" />
           </figure>
 
           <article class="sv-panel is-yellow">
-            <h2>THE MEMPHIS GROUP</h2>
+            <h2 class="sv-panel-title-sm">INGENIERÍA VISUAL PARA MARCAS QUE NO QUIEREN PASAR DESAPERCIBIDAS</h2>
             <p>
-              Un enfoque visual que mezcla disrupción, cultura y negocio para construir sistemas con identidad real.
+              Transformamos conceptos abstractos en realidades tangibles. Desde VFX de alto impacto hasta el diseño de
+              stands para eventos que dominan el entorno, nuestra metodología combina estética disruptiva y estrategia
+              de negocio. Elevamos tu identidad visual a la tercera dimensión para asegurar que el primer contacto con
+              tu cliente sea inolvidable.
             </p>
-            <a href="/contacto">Scopri di più</a>
+            <a href="/proyectos/koaj-3d">Ver proyecto</a>
           </article>
         </div>
       </section>
 
       <section class="sv-quote is-red">
         <div class="sv-inner">
-          <p>"DESIGN IS A WAY OF DISCUSSING LIFE."</p>
+          <p class="sv-quote-fix-left sv-quote-marquee"><span>"DESIGN IS A WAY OF DISCUSSING LIFE."</span></p>
         </div>
       </section>
 
@@ -80,22 +91,25 @@ const socialLinks = [
       <section class="sv-split is-pink">
         <div class="sv-split-grid">
           <article class="sv-panel is-pink">
-            <h2>MILANO<br />1981-1985</h2>
+            <h2>CAOS CONTROLADO<br />MOVIMIENTO PURA ESTRATEGIA</h2>
             <p>
-              Creamos interfaces y relatos visuales con actitud histórica y una ejecución digital contemporánea.
+              Gráficos que vibran. Tipografías que explotan. Motion Graphics con actitud para marcas que se atreven a ser diferentes. Olvida las transiciones genéricas; creamos lenguaje visual en movimiento que define tu identidad y domina cualquier plataforma digital. El impacto es inevitable.
             </p>
-            <a href="/contacto">Scopri di più</a>
+            <a href="/proyectos/fep2026-animation">Ver proyecto</a>
           </article>
 
           <figure class="sv-media">
-            <img src={withBase('assets/PAG ANIMATION FEP2026/BUCLE SABRINA CARPENTER.gif')} alt="Retrato pop" loading="lazy" />
+            <img src={withBase('assets/REPEAT.gif')} alt="Retrato pop" loading="lazy" />
           </figure>
         </div>
       </section>
 
       <section class="sv-quote is-cream">
         <div class="sv-inner">
-          <p>"THERE IS NO SUCH THING AS A MEMPHIS STYLE."</p>
+          <p class="sv-quote-fix-left sv-quote-marquee-right">
+            <span>"NO SEGUIMOS TENDENCIAS: LAS DISEÑAMOS"</span>
+            <span aria-hidden="true">"NO SEGUIMOS TENDENCIAS: LAS DISEÑAMOS"</span>
+          </p>
         </div>
       </section>
 
@@ -104,16 +118,15 @@ const socialLinks = [
       <section class="sv-split is-red">
         <div class="sv-split-grid">
           <figure class="sv-media">
-            <img src={withBase('assets/PAG KOAJ 3D/FEP KOAJ13.webp')} alt="Espacio expositivo" loading="lazy" />
+            <img src={withBase('assets/PAG KOAJ 3D/PEP7UX.webp')} alt="Espacio expositivo" loading="lazy" />
           </figure>
 
           <article class="sv-panel is-red">
-            <h2>EXHIBITIONS</h2>
+            <h2 class="sv-panel-title-sm">INTERFACES HUMANAS<br />PARA UN MUNDO SIN FILTROS</h2>
             <p>
-              Diseñamos presencia de marca para espacios y lanzamientos donde la narrativa visual debe impactar en
-              segundos.
+              El diseño es el embajador silencioso de tu marca. Creamos experiencias UI/UX que eliminan el ruido y guían al usuario hacia la acción. Desde el primer clic hasta la conversión final, diseñamos diálogos visuales que se sienten naturales, fluidos y, sobre todo, humanos. Si el usuario no tiene que pensar para navegar, hemos ganado.
             </p>
-            <a href="/contacto">Scopri di più</a>
+            <a href="/proyectos/ux-pedigree">Ver proyecto</a>
           </article>
         </div>
       </section>
@@ -129,27 +142,27 @@ const socialLinks = [
       <section class="sv-split is-orange">
         <div class="sv-split-grid">
           <figure class="sv-media">
-            <img src={withBase('assets/PAG BRANDING CAFETEROS CO/CCDC6.webp')} alt="Espacio interior" loading="lazy" />
+            <img src={withBase('assets/PAG BRANDING CAFETEROS CO/LOOPLER.png')} alt="Espacio interior" loading="lazy" />
           </figure>
 
           <article class="sv-panel is-orange">
-            <h2>THE IDEA<br />OF HOME</h2>
+            <h2 class="sv-panel-title-sm">SISTEMAS DE IDENTIDAD REAL.<br />SIN RELLENO.</h2>
             <p>
-              Construimos ecosistemas visuales que conectan producto, entorno y mensaje en una experiencia coherente.
+              Branding es el arte de ser relevante. Creamos herramientas visuales —desde la tipografía hasta la paleta cromática— que funcionan en sincronía para construir una percepción de poder. No decoramos empresas; estructuramos marcas. Diseño inteligente, comunicación cruda y una estética que se queda grabada en la retina.
             </p>
-            <a href="/contacto">Discover more</a>
+            <a href="/proyectos/branding-cafeteros">Ver proyecto</a>
           </article>
         </div>
       </section>
 
       <section class="sv-split is-green">
         <div class="sv-split-grid">
-          <article class="sv-panel is-green">
-            <h2>MORE COLORFUL<br />MORE JOYFUL</h2>
+          <article class="sv-panel is-green is-copy-centered">
+            <h2 class="sv-panel-title-sm">MENOS DISCURSO,<br />MÁS IMPACTO. JUZGA POR TI MISMO.</h2>
             <p>
-              Dirección visual integral para marcas que necesitan diferenciarse con estructura y una estética valiente.
+              Quien diria que un click te teletransporta a un lugar retro algo conocido.
             </p>
-            <a href="/contacto">Scopri di più</a>
+            <a href="/proyectos">Ver proyectos</a>
           </article>
 
           <figure class="sv-media is-white-stage">
