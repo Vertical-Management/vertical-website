@@ -7,16 +7,16 @@ const basePrefix = BASE_URL.endsWith('/') ? BASE_URL : `${BASE_URL}/`;
 const withBase = (path) => `${basePrefix}${path.replace(/^\/+/, '')}`;
 
 const navItems = [
-  { label: 'Inicio', href: '/' },
-  { label: 'Servicios', href: '/servicios' },
-  { label: 'Proyectos', href: '/proyectos' },
-  { label: 'Contacto', href: '/contacto' },
+  { label: 'Inicio', path: '' },
+  { label: 'Servicios', path: 'servicios' },
+  { label: 'Proyectos', path: 'proyectos' },
+  { label: 'Contacto', path: 'contacto' },
 ];
 const tickerTop = ['BRANDING', 'ESTRATEGIA', 'DISEÑO', 'CONTENIDO', 'SOCIAL MEDIA', 'CAMPAÑAS'];
 const tickerBottom = ['MARKETING', 'IDENTIDAD', 'UX/UI', 'STORYTELLING', 'CREATIVIDAD', 'ANÁLISIS'];
 
 const socialLinks = [
-  { label: 'NEWSLETTER', href: '/contacto', className: 'is-news' },
+  { label: 'NEWSLETTER', href: withBase('contacto'), className: 'is-news' },
   { label: 'INSTAGRAM', href: 'https://instagram.com', className: 'is-instagram' },
   { label: 'FACEBOOK', href: 'https://facebook.com', className: 'is-facebook' },
   { label: 'LINKEDIN', href: 'https://linkedin.com', className: 'is-linkedin' },
@@ -26,11 +26,11 @@ const socialLinks = [
   <section class="sv-services">
     <header class="sv-topbar">
       <div class="sv-inner">
-        <a class="sv-brand" href="/" aria-label="Ir a inicio">Vertical Management</a>
+        <a class="sv-brand" href={BASE_URL} aria-label="Ir a inicio">Vertical Management</a>
 
         <nav class="sv-nav" aria-label="Navegación principal">
           {navItems.map((item) => (
-            <a href={item.href} aria-current={item.href === '/servicios' ? 'page' : undefined}>{item.label}</a>
+            <a href={withBase(item.path)} aria-current={item.path === 'servicios' ? 'page' : undefined}>{item.label}</a>
           ))}
         </nav>
       </div>
@@ -75,7 +75,7 @@ const socialLinks = [
               de negocio. Elevamos tu identidad visual a la tercera dimensión para asegurar que el primer contacto con
               tu cliente sea inolvidable.
             </p>
-            <a href="/proyectos/koaj-3d">Ver proyecto</a>
+            <a href={withBase('proyectos/koaj-3d')}>Ver proyecto</a>
           </article>
         </div>
       </section>
@@ -95,7 +95,7 @@ const socialLinks = [
             <p>
               Gráficos que vibran. Tipografías que explotan. Motion Graphics con actitud para marcas que se atreven a ser diferentes. Olvida las transiciones genéricas; creamos lenguaje visual en movimiento que define tu identidad y domina cualquier plataforma digital. El impacto es inevitable.
             </p>
-            <a href="/proyectos/fep2026-animation">Ver proyecto</a>
+            <a href={withBase('proyectos/fep2026-animation')}>Ver proyecto</a>
           </article>
 
           <figure class="sv-media">
@@ -126,7 +126,7 @@ const socialLinks = [
             <p>
               El diseño es el embajador silencioso de tu marca. Creamos experiencias UI/UX que eliminan el ruido y guían al usuario hacia la acción. Desde el primer clic hasta la conversión final, diseñamos diálogos visuales que se sienten naturales, fluidos y, sobre todo, humanos. Si el usuario no tiene que pensar para navegar, hemos ganado.
             </p>
-            <a href="/proyectos/ux-pedigree">Ver proyecto</a>
+            <a href={withBase('proyectos/ux-pedigree')}>Ver proyecto</a>
           </article>
         </div>
       </section>
@@ -150,7 +150,7 @@ const socialLinks = [
             <p>
               Branding es el arte de ser relevante. Creamos herramientas visuales —desde la tipografía hasta la paleta cromática— que funcionan en sincronía para construir una percepción de poder. No decoramos empresas; estructuramos marcas. Diseño inteligente, comunicación cruda y una estética que se queda grabada en la retina.
             </p>
-            <a href="/proyectos/branding-cafeteros">Ver proyecto</a>
+            <a href={withBase('proyectos/branding-cafeteros')}>Ver proyecto</a>
           </article>
         </div>
       </section>
@@ -162,11 +162,11 @@ const socialLinks = [
             <p>
               Quien diria que un click te teletransporta a un lugar retro algo conocido.
             </p>
-            <a href="/proyectos">Ver proyectos</a>
+            <a href={withBase('proyectos')}>Ver proyectos</a>
           </article>
 
-          <figure class="sv-media is-white-stage">
-            <img src={withBase('assets/PAG BRANDING CAFETEROS CO/PNG COFFE/CUP COFFE.webp')} alt="Producto destacado" loading="lazy" />
+          <figure class="sv-media is-white-stage is-vertical-sol">
+            <img src={withBase('assets/VERTICALSOL.png')} alt="Vertical Sol" loading="lazy" />
           </figure>
         </div>
       </section>
@@ -182,7 +182,7 @@ const socialLinks = [
 
       <section class="sv-contact-cta">
         <div class="sv-inner">
-          <a href="/contacto">Contact us →</a>
+          <a href={withBase('contacto')}>Contact us →</a>
         </div>
       </section>
 

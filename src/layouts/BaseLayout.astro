@@ -17,7 +17,7 @@ const withBase = (path) => `${basePrefix}${path.replace(/^\/+/, '')}`;
     <link rel="icon" href={withBase('favicon.svg')} />
     <link rel="apple-touch-icon" href={withBase('favicon.svg')} />
   </head>
-  <body>
+  <body style={`--xp-wallpaper-image:url('${withBase('assets/xp/windows.png')}')`}>
     <main>
       <slot />
     </main>

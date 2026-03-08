@@ -239,6 +239,14 @@
 	background: #efefef;
 }
 
+.sv-media.is-vertical-sol img {
+	height: 118%;
+	object-position: center top;
+	clip-path: inset(0 0 16% 0);
+	transform: scale(1.06);
+	transform-origin: top center;
+}
+
 .sv-band-blue {
 	background: var(--sv-blue);
 	padding: 0.25rem 0 0.35rem;

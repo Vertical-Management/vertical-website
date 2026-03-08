@@ -2671,7 +2671,7 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
 .xp-shell{
   min-height:100vh;
   padding:0;
-  background:url('/assets/xp/windows.png') center/cover no-repeat;
+  background:var(--xp-wallpaper-image, url('/assets/xp/windows.png')) center/cover no-repeat;
   font-family:Tahoma, Verdana, sans-serif;
 }
 
