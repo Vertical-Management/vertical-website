@@ -44,7 +44,7 @@
 	color: var(--sv-white);
 	text-decoration: none;
 	font-weight: 900;
-	font-size: 0.8rem;
+	font-size: 0.86rem;
 	letter-spacing: 0.04em;
 	text-transform: uppercase;
 }
@@ -59,7 +59,7 @@
 .sv-nav a {
 	color: var(--sv-white);
 	text-decoration: none;
-	font-size: 0.62rem;
+	font-size: 0.86rem;
 	font-weight: 700;
 	text-transform: capitalize;
 }
@@ -240,11 +240,11 @@
 }
 
 .sv-media.is-vertical-sol img {
-	height: 118%;
-	object-position: center top;
-	clip-path: inset(0 0 16% 0);
-	transform: scale(1.06);
-	transform-origin: top center;
+	height: 100%;
+	object-fit: contain;
+	object-position: center;
+	clip-path: none;
+	transform: none;
 }
 
 .sv-band-blue {
@@ -391,6 +391,11 @@
 
 .sv-panel.is-orange {
 	background: var(--sv-orange);
+}
+
+.sv-panel.is-copy-centered {
+	align-items: center;
+	justify-content: center;
 }
 
 .sv-panel.is-copy-centered h2,
@@ -548,7 +553,7 @@
 	}
 
 	.sv-nav a {
-		font-size: 0.56rem;
+		font-size: 0.86rem;
 	}
 
 	.sv-top-intro-grid {

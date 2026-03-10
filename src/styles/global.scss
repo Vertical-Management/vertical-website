@@ -2667,6 +2667,20 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
   }
 }
 
+  .vm-global-legal{
+    border-top: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+    background: transparent;
+    color: inherit;
+    text-align: center;
+    padding: 1rem 1rem 1.25rem;
+  }
+
+  .vm-global-legal p{
+    margin: 0;
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+
 /* ===== Proyectos: Windows XP Desktop ===== */
 .xp-shell{
   min-height:100vh;

@@ -4,10 +4,10 @@
   "private": true,
   "scripts": {
     "predev": "lsof -ti tcp:4321 | xargs kill -9 2>/dev/null || true",
-    "dev": "astro dev --host localhost --port 4321 --strict-port",
+    "dev": "astro dev --host --port 4321 --strict-port",
     "prepreview": "lsof -ti tcp:4321 | xargs kill -9 2>/dev/null || true",
     "build": "astro build",
-    "preview": "astro preview --host localhost --port 4321 --strict-port",
+    "preview": "astro preview --host --port 4321 --strict-port",
     "sync:assets": "mkdir -p public/assets && cp -R \"recursos\"/* public/assets/ || true",
     "format": "prettier --write ."
   },

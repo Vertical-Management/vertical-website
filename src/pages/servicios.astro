@@ -22,7 +22,7 @@ const socialLinks = [
   { label: 'LINKEDIN', href: 'https://linkedin.com', className: 'is-linkedin' },
 ];
 ---
-<BaseLayout title="Servicios — Vertical Management">
+<BaseLayout title="Servicios — Vertical Management" showGlobalLegal={false}>
   <section class="sv-services">
     <header class="sv-topbar">
       <div class="sv-inner">
@@ -133,7 +133,10 @@ const socialLinks = [
 
       <section class="sv-quote is-pink">
         <div class="sv-inner">
-          <p>"I HAVE ALWAYS HAD THE SAME OBSESSION."</p>
+          <p class="sv-quote-fix-left sv-quote-marquee-right">
+            <span>"DISEÑAMOS MARCAS QUE CONECTAN, IMPACTAN Y VENDEN"</span>
+            <span aria-hidden="true">"DISEÑAMOS MARCAS QUE CONECTAN, IMPACTAN Y VENDEN"</span>
+          </p>
         </div>
       </section>
 
@@ -166,23 +169,23 @@ const socialLinks = [
           </article>
 
           <figure class="sv-media is-white-stage is-vertical-sol">
-            <img src={withBase('assets/VERTICALSOL.png')} alt="Vertical Sol" loading="lazy" />
+            <img src={withBase('assets/FERRER.png')} alt="Ferrer" loading="lazy" />
           </figure>
         </div>
       </section>
 
       <section class="sv-contact">
         <div class="sv-inner">
-          <h2>MEMPHIS<br />S.R.L.</h2>
-          <p>Località Batasiolo 85/A, 12064, La Morra, Italy</p>
+          <h2>ESTEBAN<br />FERRER</h2>
+          <p>Andorra La Vella, Santa Coloma AD500</p>
           <p>info@vertical.management</p>
-          <p>+39 0173 56102</p>
+          <p>+376 325303</p>
         </div>
       </section>
 
       <section class="sv-contact-cta">
         <div class="sv-inner">
-          <a href={withBase('contacto')}>Contact us →</a>
+          <a href="https://api.whatsapp.com/send?phone=376625303" target="_blank" rel="noreferrer">CONTACTAME →</a>
         </div>
       </section>
 
@@ -202,6 +205,7 @@ const socialLinks = [
           <p>Privacy Policy • Cookie Policy</p>
         </div>
       </footer>
+
     </main>
   </section>
 </BaseLayout>
