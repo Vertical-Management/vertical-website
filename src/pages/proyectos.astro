@@ -422,6 +422,11 @@ const XP_SHORTCUTS = [
         }
 
         focusWindow(windowId);
+        if (windowId === 'projects') {
+          window.requestAnimationFrame(() => {
+            syncProjectsWindowSize();
+          });
+        }
         if (windowId === 'mines') {
           window.setTimeout(syncMinesWindowSize, 0);
         }
@@ -472,6 +477,47 @@ const XP_SHORTCUTS = [
         setWindowPosition(minesWindow, left, top);
       };
 
+      const syncProjectsWindowSize = () => {
+        const projectsWindow = getWindowById('projects');
+        const projectsContent = projectsWindow?.querySelector('.xp-window-content-projects');
+        const projectsGrid = projectsWindow?.querySelector('.xp-window-grid');
+        if (!projectsWindow || !projectsContent || !projectsGrid || !desktopArea) return;
+        if (projectsWindow.classList.contains('is-closed') || projectsWindow.classList.contains('is-minimized')) return;
+
+        if (projectsWindow.classList.contains('is-maximized')) {
+          projectsWindow.style.height = '';
+          projectsWindow.style.maxHeight = '';
+          projectsContent.style.height = '';
+          projectsContent.style.maxHeight = '';
+          projectsContent.style.overflowX = 'hidden';
+          projectsContent.style.overflowY = 'auto';
+          return;
+        }
+
+        const areaRect = desktopArea.getBoundingClientRect();
+        const bounds = getWindowBounds();
+        const windowChromeHeight = projectsWindow.offsetHeight - projectsContent.offsetHeight;
+        const contentStyles = window.getComputedStyle(projectsContent);
+        const contentPaddingTop = parseFloat(contentStyles.paddingTop || '0');
+        const contentPaddingBottom = parseFloat(contentStyles.paddingBottom || '0');
+        const desiredContentHeight = Math.ceil(projectsGrid.scrollHeight + contentPaddingTop + contentPaddingBottom);
+        const maxWindowHeight = Math.max(200, areaRect.height - bounds.topInset - bounds.bottomInset);
+        const desiredWindowHeight = Math.min(maxWindowHeight, desiredContentHeight + windowChromeHeight);
+        const resolvedContentHeight = Math.max(0, desiredWindowHeight - windowChromeHeight);
+        const needsVerticalScroll = desiredContentHeight + windowChromeHeight > maxWindowHeight;
+
+        projectsWindow.style.height = `${desiredWindowHeight}px`;
+        projectsWindow.style.maxHeight = `${maxWindowHeight}px`;
+        projectsContent.style.height = `${resolvedContentHeight}px`;
+        projectsContent.style.maxHeight = `${resolvedContentHeight}px`;
+        projectsContent.style.overflowX = 'hidden';
+        projectsContent.style.overflowY = needsVerticalScroll ? 'auto' : 'visible';
+
+        const left = parseFloat(projectsWindow.style.left || '0');
+        const top = parseFloat(projectsWindow.style.top || '0');
+        setWindowPosition(projectsWindow, left, top);
+      };
+
       const showStartAd = () => {
         if (!startAd || !startButton || !adModal) return;
         startAd.hidden = false;
@@ -507,8 +553,12 @@ const XP_SHORTCUTS = [
 
       showWindow('projects');
       closeWindow('mines');
+      window.requestAnimationFrame(() => {
+        syncProjectsWindowSize();
+      });
 
       window.addEventListener('resize', () => {
+        syncProjectsWindowSize();
         windowEls.forEach((windowEl) => {
           if (windowEl.classList.contains('is-maximized')) return;
           const left = parseFloat(windowEl.style.left || '0');
@@ -625,6 +675,12 @@ const XP_SHORTCUTS = [
                 centerWindow(windowEl);
               }
 
+              if (windowId === 'projects') {
+                window.requestAnimationFrame(() => {
+                  syncProjectsWindowSize();
+                });
+              }
+
               focusWindow(windowId);
               return;
             }
@@ -730,6 +786,7 @@ const XP_SHORTCUTS = [
       updateClock();
       window.setInterval(updateClock, 1000);
       window.setTimeout(syncMinesWindowSize, 0);
+      window.setTimeout(syncProjectsWindowSize, 0);
     });
   </script>
 </BaseLayout>

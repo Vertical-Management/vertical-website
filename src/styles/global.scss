@@ -2894,6 +2894,29 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
 
 .xp-window-content-projects{
   display:block;
+  overflow-x:hidden;
+  overflow-y:visible;
+  overscroll-behavior:contain;
+  scrollbar-width:auto;
+  scrollbar-color:#8ea4cb #dfe9f7;
+}
+
+.xp-window-content-projects::-webkit-scrollbar{
+  width:12px;
+}
+
+.xp-window-content-projects::-webkit-scrollbar-track{
+  background:#dfe9f7;
+  border-left:1px solid #b2c3df;
+}
+
+.xp-window-content-projects::-webkit-scrollbar-thumb{
+  background:linear-gradient(180deg, #c0d0ea 0%, #8ea4cb 100%);
+  border:1px solid #6d88b5;
+}
+
+.xp-window-content-projects::-webkit-scrollbar-thumb:hover{
+  background:linear-gradient(180deg, #cad8ee 0%, #98add1 100%);
 }
 
 .xp-projects-sidebar{
@@ -2959,9 +2982,17 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
   overflow-wrap:anywhere;
 }
 
-.xp-window-grid{
+.xp-window .project-grid.xp-window-grid{
+  display:flex;
+  flex-direction:row;
+  flex-wrap:wrap;
+  justify-content:center;
+  align-items:flex-start;
+  align-content:start;
+  width:100%;
+  max-width:100%;
+  margin:0 auto;
   padding:0.68rem;
-  grid-template-columns:repeat(auto-fill, minmax(94px, 1fr));
   gap:0.5rem;
 }
 
@@ -2970,6 +3001,12 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
   background:transparent;
   padding:0.18rem;
   border-radius:3px;
+}
+
+.xp-window .project-grid.xp-window-grid > .project-card.xp-window-item{
+  flex:0 1 110px;
+  min-width:120px;
+  max-width:140px;
 }
 
 .xp-window-item a{
@@ -2995,6 +3032,10 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
   white-space:normal;
   overflow-wrap:anywhere;
   max-width:90px;
+}
+
+.xp-window-content-projects .xp-window-grid{
+  min-width:0;
 }
 
 .xp-window-item:hover,
@@ -3213,8 +3254,96 @@ body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetic
     width:calc(100vw - 1rem);
   }
 
+  .xp-window[data-window='projects']{
+    max-height:calc(100dvh - 64px);
+    display:flex;
+    flex-direction:column;
+  }
+
+  .xp-window-content-projects{
+    flex:1 1 auto;
+    max-height:none;
+    overflow-x:hidden;
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+
+  .xp-window .project-grid.xp-window-grid{
+    display:flex !important;
+    flex-direction:row;
+    flex-wrap:wrap !important;
+    justify-content:center;
+    align-items:flex-start;
+    width:100%;
+    max-width:100%;
+    min-width:0;
+    gap:0.65rem;
+    align-content:start;
+    overflow-x:hidden;
+    margin:0 auto;
+  }
+
+  .xp-window .project-grid.xp-window-grid > .project-card.xp-window-item{
+    flex:0 1 132px;
+    min-width:124px;
+    max-width:calc(50% - 0.4rem);
+  }
+
+  .xp-window .project-grid.xp-window-grid > .project-card.xp-window-item a{
+    width:100%;
+    min-width:0;
+    min-height:112px;
+    justify-content:flex-start;
+    padding:0.38rem 0.35rem;
+  }
+
+  .xp-window .project-grid.xp-window-grid > .project-card.xp-window-item img{
+    width:44px;
+    height:44px;
+  }
+
+  .xp-window .project-grid.xp-window-grid > .project-card.xp-window-item h2{
+    width:100%;
+    max-width:none;
+    line-height:1.2;
+    overflow:visible;
+    text-wrap:pretty;
+    overflow-wrap:break-word;
+    word-break:normal;
+  }
+
   .xp-sidebar-group li a{
     font-size:0.62rem;
+  }
+}
+
+@media (max-width: 540px){
+  .xp-window-content-projects{
+    max-height:none;
+    overflow-x:hidden;
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+
+  .xp-window .project-grid.xp-window-grid{
+    gap:0.55rem;
+  }
+
+  .xp-window .project-grid.xp-window-grid > .project-card.xp-window-item{
+    flex-basis:132px;
+    min-width:132px;
+    max-width:100%;
+  }
+
+  .xp-window .project-grid.xp-window-grid > .project-card.xp-window-item a{
+    width:100%;
+    min-width:0;
+    min-height:116px;
+    gap:0.55rem;
+  }
+
+  .xp-window .project-grid.xp-window-grid > .project-card.xp-window-item h2{
+    max-width:none;
   }
 }
 
