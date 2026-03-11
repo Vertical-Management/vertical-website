@@ -86,6 +86,7 @@ const FALLBACK_TASKBAR_GIRL_GIF_PATH = 'assets/xp/windows.png';
 const taskbarGirlGifOfficial = pickFirstExistingAsset(TASKBAR_GIRL_GIF_PATHS);
 const TASKBAR_GIRL_GIF = taskbarGirlGifOfficial ? withBase(taskbarGirlGifOfficial) : withBase(FALLBACK_TASKBAR_GIRL_GIF_PATH);
 const FALLBACK_TASKBAR_GIRL_GIF = withBase(FALLBACK_TASKBAR_GIRL_GIF_PATH);
+const VERTICAL_AD_IMAGE = withBase('assets/xp/vertical-ad.png');
 const XP_SHORTCUTS = [
   { label: 'Inicio', icon: withBase('assets/xp/internet.png'), type: 'link', href: withBase('') },
   { label: 'Servicios', icon: withBase('assets/xp/official/shortcut-servicios.png'), type: 'link', href: withBase('servicios') },
@@ -197,18 +198,32 @@ const XP_SHORTCUTS = [
     </footer>
 
     <div class="xp-ad-backdrop" id="xp-start-ad" hidden>
-      <section class="xp-ad-modal" role="dialog" aria-modal="true" aria-labelledby="xp-ad-title">
-        <header class="xp-ad-titlebar">
-          <span id="xp-ad-title">Oferta de Internet Explorer</span>
-          <button type="button" class="xp-ad-close" id="xp-ad-close" aria-label="Cerrar anuncio">✕</button>
+      <section class="xp-window xp-ad-modal" role="dialog" aria-modal="true" aria-labelledby="xp-ad-title">
+        <header class="xp-titlebar">
+          <div class="xp-title-left">
+            <img
+              class="xp-title-icon"
+              src={START_BUTTON_ICON}
+              data-fallback-src={FALLBACK_START_BUTTON_ICON}
+              onerror="this.onerror=null;this.src=this.dataset.fallbackSrc;"
+              alt=""
+              loading="lazy"
+            />
+            <span class="xp-title-text" id="xp-ad-title">Oferta de Internet Explorer</span>
+          </div>
+          <div class="xp-title-buttons">
+            <button type="button" class="xp-btn xp-btn-close" id="xp-ad-close" aria-label="Cerrar anuncio">✕</button>
+          </div>
         </header>
-        <div class="xp-ad-body">
+        <div class="xp-window-content xp-ad-body">
+          <img class="xp-ad-image" src={VERTICAL_AD_IMAGE} alt="Banner publicitario de Vertical Management" loading="lazy" />
+          <p class="xp-ad-kicker">!!! NUEVO !!!</p>
           <p>¡Has tenido suerte! ✨</p>
           <p>Ahora puedes contratarme y subir de nivel tus proyectos.</p>
         </div>
         <div class="xp-ad-actions">
-          <a href={withBase('contacto')} class="xp-ad-cta">Contratar ahora</a>
-          <button type="button" class="xp-ad-ok" id="xp-ad-ok">Cerrar</button>
+          <a href={withBase('contacto')} class="xp-ad-action">Contratar ahora</a>
+          <button type="button" class="xp-ad-action" id="xp-ad-ok">Cerrar</button>
         </div>
       </section>
     </div>
@@ -224,6 +239,9 @@ const XP_SHORTCUTS = [
       const clock = document.getElementById('taskbar-clock');
       const startButton = document.getElementById('start-button');
       const startAd = document.getElementById('xp-start-ad');
+      const adModal = startAd?.querySelector('.xp-ad-modal');
+      const adTitleBar = adModal?.querySelector('.xp-titlebar');
+      const adImage = adModal?.querySelector('.xp-ad-image');
       const closeAdButton = document.getElementById('xp-ad-close');
       const closeAdOkButton = document.getElementById('xp-ad-ok');
 
@@ -249,6 +267,12 @@ const XP_SHORTCUTS = [
       const dragState = {
         active: false,
         windowId: null,
+        pointerId: null,
+        offsetX: 0,
+        offsetY: 0,
+      };
+      const adDragState = {
+        active: false,
         pointerId: null,
         offsetX: 0,
         offsetY: 0,
@@ -292,6 +316,30 @@ const XP_SHORTCUTS = [
         const left = bounds.leftInset + Math.max(0, (safeWidth - windowEl.offsetWidth) / 2) + offset;
         const top = bounds.topInset + Math.max(0, (safeHeight - windowEl.offsetHeight) / 2) + offset;
         setWindowPosition(windowEl, left, top);
+      };
+
+      const setAdModalPosition = (left, top) => {
+        if (!adModal) return;
+        const bounds = getWindowBounds();
+        const minLeft = bounds.leftInset;
+        const minTop = bounds.topInset;
+        const maxLeft = Math.max(minLeft, window.innerWidth - adModal.offsetWidth - bounds.rightInset);
+        const maxTop = Math.max(minTop, window.innerHeight - adModal.offsetHeight - bounds.bottomInset);
+        const clampedLeft = Math.min(Math.max(minLeft, left), maxLeft);
+        const clampedTop = Math.min(Math.max(minTop, top), maxTop);
+
+        adModal.style.left = `${clampedLeft}px`;
+        adModal.style.top = `${clampedTop}px`;
+      };
+
+      const centerAdModal = () => {
+        if (!adModal) return;
+        const bounds = getWindowBounds();
+        const safeWidth = window.innerWidth - bounds.leftInset - bounds.rightInset;
+        const safeHeight = window.innerHeight - bounds.topInset - bounds.bottomInset;
+        const left = bounds.leftInset + Math.max(0, (safeWidth - adModal.offsetWidth) / 2);
+        const top = bounds.topInset + Math.max(0, (safeHeight - adModal.offsetHeight) / 2);
+        setAdModalPosition(left, top);
       };
 
       const focusWindow = (windowId) => {
@@ -346,9 +394,12 @@ const XP_SHORTCUTS = [
       };
 
       const showStartAd = () => {
-        if (!startAd || !startButton) return;
+        if (!startAd || !startButton || !adModal) return;
         startAd.hidden = false;
         startButton.setAttribute('aria-expanded', 'true');
+        window.requestAnimationFrame(() => {
+          centerAdModal();
+        });
       };
 
       const hideStartAd = () => {
@@ -377,6 +428,11 @@ const XP_SHORTCUTS = [
           const top = parseFloat(windowEl.style.top || '0');
           setWindowPosition(windowEl, left, top);
         });
+        if (startAd && !startAd.hidden && adModal) {
+          const left = parseFloat(adModal.style.left || '0');
+          const top = parseFloat(adModal.style.top || '0');
+          setAdModalPosition(left, top);
+        }
         syncMinesWindowSize();
       });
 
@@ -420,11 +476,37 @@ const XP_SHORTCUTS = [
         setWindowPosition(windowEl, left, top);
       });
 
+      window.addEventListener('pointermove', (event) => {
+        if (!adDragState.active || !adModal) return;
+
+        const left = event.clientX - adDragState.offsetX;
+        const top = event.clientY - adDragState.offsetY;
+        setAdModalPosition(left, top);
+      });
+
       window.addEventListener('pointerup', () => {
         dragState.active = false;
         dragState.windowId = null;
         dragState.pointerId = null;
+        adDragState.active = false;
+        adDragState.pointerId = null;
         document.body.style.userSelect = '';
+      });
+
+      adTitleBar?.addEventListener('pointerdown', (event) => {
+        if (!adModal) return;
+        if (!(event.target instanceof Element)) return;
+        if (event.target.closest('.xp-title-buttons')) return;
+
+        adDragState.active = true;
+        adDragState.pointerId = event.pointerId;
+
+        const rect = adModal.getBoundingClientRect();
+        adDragState.offsetX = event.clientX - rect.left;
+        adDragState.offsetY = event.clientY - rect.top;
+
+        adTitleBar.setPointerCapture(event.pointerId);
+        document.body.style.userSelect = 'none';
       });
 
       windowEls.forEach((windowEl) => {
@@ -512,6 +594,12 @@ const XP_SHORTCUTS = [
       startAd?.addEventListener('click', (event) => {
         if (event.target === startAd) {
           hideStartAd();
+        }
+      });
+
+      adImage?.addEventListener('load', () => {
+        if (startAd && !startAd.hidden && !adDragState.active) {
+          centerAdModal();
         }
       });
 
