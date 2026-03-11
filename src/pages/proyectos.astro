@@ -7,7 +7,7 @@ import { fileURLToPath } from 'node:url';
 
 const BASE_URL = import.meta.env.BASE_URL;
 const basePrefix = BASE_URL.endsWith('/') ? BASE_URL : `${BASE_URL}/`;
-const withBase = (path) => `${basePrefix}${path.replace(/^\/+/, '')}`;
+const withBase = (path) => `${basePrefix}${encodeURI(String(path ?? '').replace(/^\/+/, ''))}`;
 
 // NOTE: Official Windows XP icons are copyrighted by Microsoft.
 // This page supports using *your* official icon files if you provide them under /public/assets/xp/official/.
@@ -35,19 +35,19 @@ const pickFirstExistingAsset = (assetPaths) => {
 
 const PROJECT_ICON_SOURCES = {
   'fep2026-animation': {
-    official: ['assets/xp/official/wmplayer.ico', 'assets/xp/official/wmplayer.png'],
+    official: ['assets/xp/official/fep-media-player.png', 'assets/xp/official/wmplayer.ico', 'assets/xp/official/wmplayer.png'],
     fallback: 'assets/xp/calendar.png',
   },
   'branding-cafeteros': {
-    official: ['assets/xp/official/mspaint.ico', 'assets/xp/official/mspaint.png'],
+    official: ['assets/xp/official/branding-cafeteros.png', 'assets/xp/official/mspaint.ico', 'assets/xp/official/mspaint.png'],
     fallback: 'assets/xp/internet.png',
   },
   'koaj-3d': {
-    official: null,
+    official: ['assets/xp/official/koaj-3d.png'],
     fallback: 'assets/xp/linux-penguin.svg',
   },
   'ux-pedigree': {
-    official: ['assets/xp/official/minesweeper.ico', 'assets/xp/official/minesweeper.png'],
+    official: ['assets/xp/official/ux-pedigree.png', 'assets/xp/official/minesweeper.ico', 'assets/xp/official/minesweeper.png'],
     fallback: 'assets/xp/minesweeper.svg',
   },
 };
@@ -66,17 +66,33 @@ const getProjectIconFallback = (slug) => {
   return withBase(source.fallback);
 };
 
-const OFFICIAL_MINESWEEPER_ICON_PATHS = ['assets/xp/official/minesweeper.ico', 'assets/xp/official/minesweeper.png'];
+const OFFICIAL_MINESWEEPER_ICON_PATHS = ['assets/xp/official/mina.png', 'assets/xp/official/minesweeper.ico', 'assets/xp/official/minesweeper.png'];
 const FALLBACK_MINESWEEPER_ICON_PATH = 'assets/xp/minesweeper.svg';
 const minesweeperOfficial = pickFirstExistingAsset(OFFICIAL_MINESWEEPER_ICON_PATHS);
 const MINESWEEPER_ICON = minesweeperOfficial ? withBase(minesweeperOfficial) : withBase(FALLBACK_MINESWEEPER_ICON_PATH);
 const FALLBACK_MINESWEEPER_ICON = withBase(FALLBACK_MINESWEEPER_ICON_PATH);
+const PROJECTS_WINDOW_ICON_PATHS = ['assets/xp/official/proyectos-banner.png'];
+const FALLBACK_PROJECTS_WINDOW_ICON_PATH = 'assets/xp/folder.png';
+const projectsWindowOfficial = pickFirstExistingAsset(PROJECTS_WINDOW_ICON_PATHS);
+const PROJECTS_WINDOW_ICON = projectsWindowOfficial ? withBase(projectsWindowOfficial) : withBase(FALLBACK_PROJECTS_WINDOW_ICON_PATH);
+const FALLBACK_PROJECTS_WINDOW_ICON = withBase(FALLBACK_PROJECTS_WINDOW_ICON_PATH);
+const START_BUTTON_ICON_PATHS = ['assets/xp/official/proyectos-banner.png'];
+const FALLBACK_START_BUTTON_ICON_PATH = 'assets/xp/windows.png';
+const startButtonOfficial = pickFirstExistingAsset(START_BUTTON_ICON_PATHS);
+const START_BUTTON_ICON = startButtonOfficial ? withBase(startButtonOfficial) : withBase(FALLBACK_START_BUTTON_ICON_PATH);
+const FALLBACK_START_BUTTON_ICON = withBase(FALLBACK_START_BUTTON_ICON_PATH);
+const TASKBAR_GIRL_GIF_PATHS = ['assets/xp/official/GIRL.gif'];
+const FALLBACK_TASKBAR_GIRL_GIF_PATH = 'assets/xp/windows.png';
+const taskbarGirlGifOfficial = pickFirstExistingAsset(TASKBAR_GIRL_GIF_PATHS);
+const TASKBAR_GIRL_GIF = taskbarGirlGifOfficial ? withBase(taskbarGirlGifOfficial) : withBase(FALLBACK_TASKBAR_GIRL_GIF_PATH);
+const FALLBACK_TASKBAR_GIRL_GIF = withBase(FALLBACK_TASKBAR_GIRL_GIF_PATH);
 const XP_SHORTCUTS = [
   { label: 'Inicio', icon: withBase('assets/xp/internet.png'), type: 'link', href: withBase('') },
-  { label: 'Servicios', icon: withBase('assets/xp/notepad.png'), type: 'link', href: withBase('servicios') },
-  { label: 'Proyectos', icon: withBase('assets/xp/folder.png'), type: 'link', href: withBase('proyectos') },
-  { label: 'Contacto', icon: withBase('assets/xp/internet.png'), type: 'link', href: withBase('contacto') },
+  { label: 'Servicios', icon: withBase('assets/xp/official/shortcut-servicios.png'), type: 'link', href: withBase('servicios') },
+  { label: 'Proyectos', icon: withBase('assets/xp/official/shortcut-proyectos.png'), type: 'link', href: withBase('proyectos') },
+  { label: 'Contacto', icon: withBase('assets/xp/official/shortcut-contacto.png'), type: 'link', href: withBase('contacto') },
 ];
+
 ---
 
 <BaseLayout title="Proyectos — Windows XP Luna">
@@ -119,7 +135,7 @@ const XP_SHORTCUTS = [
       <section class="xp-window" data-window="projects" aria-label="Ventana Mis Proyectos" data-task-label="Mis Proyectos">
         <header class="xp-titlebar">
           <div class="xp-title-left">
-            <img class="xp-title-icon" src={withBase('assets/xp/folder.png')} alt="" />
+            <img class="xp-title-icon" src={PROJECTS_WINDOW_ICON} data-fallback-src={FALLBACK_PROJECTS_WINDOW_ICON} onerror="this.onerror=null;this.src=this.dataset.fallbackSrc;" alt="" />
             <span class="xp-title-text">Mis Proyectos</span>
           </div>
           <div class="xp-title-buttons" aria-hidden="true">
@@ -129,7 +145,7 @@ const XP_SHORTCUTS = [
           </div>
         </header>
 
-        <div class="xp-window-content">
+        <div class="xp-window-content xp-window-content-projects">
           <div class="project-grid xp-window-grid">
             {projects.projects.map((p) => (
               <article class="project-card xp-window-item" key={p.slug}>
@@ -170,12 +186,14 @@ const XP_SHORTCUTS = [
 
     <footer class="taskbar" aria-label="Barra de tareas">
       <button type="button" class="start-btn" id="start-button" aria-controls="xp-start-ad" aria-expanded="false">
-        <span class="start-logo"></span>
-        <span>Start</span>
+        <img class="start-logo" src={START_BUTTON_ICON} data-fallback-src={FALLBACK_START_BUTTON_ICON} onerror="this.onerror=null;this.src=this.dataset.fallbackSrc;" alt="" loading="lazy" />
       </button>
       <button type="button" class="taskbar-app" data-taskbar-app="projects">Mis Proyectos</button>
       <button type="button" class="taskbar-app" data-taskbar-app="mines">Buscaminas</button>
-      <div class="taskbar-clock" id="taskbar-clock">12:00 PM</div>
+      <div class="taskbar-clock-wrap">
+        <img class="taskbar-girl-gif" src={TASKBAR_GIRL_GIF} data-fallback-src={FALLBACK_TASKBAR_GIRL_GIF} onerror="this.onerror=null;this.src=this.dataset.fallbackSrc;" alt="Girl dancing" loading="lazy" />
+        <div class="taskbar-clock" id="taskbar-clock">12:00 PM</div>
+      </div>
     </footer>
 
     <div class="xp-ad-backdrop" id="xp-start-ad" hidden>
