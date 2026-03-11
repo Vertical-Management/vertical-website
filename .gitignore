@@ -1,7 +1,0 @@
-node_modules/
-dist/
-.cache/
-.vite/
-/.idea
-.DS_Store
-public/assets/**/.DS_Store

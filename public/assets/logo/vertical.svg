@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="240" height="60" viewBox="0 0 240 60" role="img" aria-label="Vertical Management logo">
-  <defs>
-    <style> .f{font-family:Inter, Arial, Helvetica, sans-serif; font-weight:700; font-size:28px} </style>
-  </defs>
-  <rect width="240" height="60" fill="transparent"/>
-  <text x="8" y="38" class="f" fill="#0b0b0b">Vertical</text>
-  <text x="150" y="38" class="f" fill="#ff4d4f">Management</text>
-</svg>
