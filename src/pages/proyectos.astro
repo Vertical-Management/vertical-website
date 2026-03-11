@@ -90,7 +90,7 @@ const VERTICAL_AD_IMAGE = withBase('assets/xp/vertical-ad.png');
 const XP_SHORTCUTS = [
   { label: 'Inicio', icon: withBase('assets/xp/internet.png'), type: 'link', href: withBase('') },
   { label: 'Servicios', icon: withBase('assets/xp/official/shortcut-servicios.png'), type: 'link', href: withBase('servicios') },
-  { label: 'Proyectos', icon: withBase('assets/xp/official/shortcut-proyectos.png'), type: 'link', href: withBase('proyectos') },
+  { label: 'Proyectos', icon: withBase('assets/xp/official/shortcut-proyectos.png'), type: 'window', target: 'projects' },
   { label: 'Contacto', icon: withBase('assets/xp/official/shortcut-contacto.png'), type: 'link', href: withBase('contacto') },
 ];
 
@@ -189,8 +189,7 @@ const XP_SHORTCUTS = [
       <button type="button" class="start-btn" id="start-button" aria-controls="xp-start-ad" aria-expanded="false">
         <img class="start-logo" src={START_BUTTON_ICON} data-fallback-src={FALLBACK_START_BUTTON_ICON} onerror="this.onerror=null;this.src=this.dataset.fallbackSrc;" alt="" loading="lazy" />
       </button>
-      <button type="button" class="taskbar-app" data-taskbar-app="projects">Mis Proyectos</button>
-      <button type="button" class="taskbar-app" data-taskbar-app="mines">Buscaminas</button>
+      <div class="taskbar-windows" id="taskbar-windows" aria-label="Ventanas abiertas"></div>
       <div class="taskbar-clock-wrap">
         <img class="taskbar-girl-gif" src={TASKBAR_GIRL_GIF} data-fallback-src={FALLBACK_TASKBAR_GIRL_GIF} onerror="this.onerror=null;this.src=this.dataset.fallbackSrc;" alt="Girl dancing" loading="lazy" />
         <div class="taskbar-clock" id="taskbar-clock">12:00 PM</div>
@@ -232,10 +231,10 @@ const XP_SHORTCUTS = [
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const desktopArea = document.querySelector('.xp-desktop-area');
-      const windowEls = Array.from(document.querySelectorAll('.xp-window'));
+      const windowEls = Array.from(document.querySelectorAll('.xp-window[data-window]'));
       const desktopIcons = Array.from(document.querySelectorAll('[data-desktop-icon]'));
       const openWindowButtons = Array.from(document.querySelectorAll('[data-open-window]'));
-      const taskbarButtons = Array.from(document.querySelectorAll('[data-taskbar-app]'));
+      const taskbarWindows = document.getElementById('taskbar-windows');
       const clock = document.getElementById('taskbar-clock');
       const startButton = document.getElementById('start-button');
       const startAd = document.getElementById('xp-start-ad');
@@ -264,6 +263,7 @@ const XP_SHORTCUTS = [
       installImageFallbacks();
 
       let zCounter = 50;
+      let activeWindowId = null;
       const dragState = {
         active: false,
         windowId: null,
@@ -279,6 +279,10 @@ const XP_SHORTCUTS = [
       };
 
       const getWindowById = (windowId) => windowEls.find((windowEl) => windowEl.dataset.window === windowId);
+        const isStartAdOpen = () => Boolean(startAd && !startAd.hidden);
+        const getOpenWindows = () => windowEls.filter((windowEl) => !windowEl.classList.contains('is-closed'));
+        const getVisibleWindows = () => getOpenWindows().filter((windowEl) => !windowEl.classList.contains('is-minimized'));
+        const getTopVisibleWindow = () => getVisibleWindows().sort((leftWindow, rightWindow) => Number(rightWindow.style.zIndex || '0') - Number(leftWindow.style.zIndex || '0'))[0] ?? null;
 
       const getWindowBounds = () => {
         const taskbarHeight = document.querySelector('.taskbar')?.offsetHeight || 0;
@@ -342,22 +346,81 @@ const XP_SHORTCUTS = [
         setAdModalPosition(left, top);
       };
 
+      const renderTaskbarButtons = () => {
+        if (!taskbarWindows) return;
+
+        const taskbarEntries = getOpenWindows().map((windowEl) => ({
+          windowId: windowEl.dataset.window || '',
+          taskLabel: windowEl.dataset.taskLabel || windowEl.getAttribute('aria-label') || windowEl.dataset.window || 'Ventana',
+          isMinimized: windowEl.classList.contains('is-minimized'),
+        }));
+
+        if (isStartAdOpen()) {
+          taskbarEntries.push({
+            windowId: 'start-ad',
+            taskLabel: 'Oferta',
+            isMinimized: false,
+          });
+        }
+
+        taskbarWindows.replaceChildren(
+          ...taskbarEntries.map((entry) => {
+            const button = document.createElement('button');
+
+            button.type = 'button';
+            button.className = 'taskbar-app';
+            button.setAttribute('data-taskbar-app', entry.windowId);
+            button.textContent = entry.taskLabel;
+
+            if (entry.windowId === activeWindowId && !entry.isMinimized) {
+              button.classList.add('is-active');
+            }
+
+            return button;
+          })
+        );
+      };
+
+      const focusTopVisibleWindow = () => {
+        const topWindow = getTopVisibleWindow();
+        if (!topWindow) {
+          if (isStartAdOpen()) {
+            activeWindowId = 'start-ad';
+            renderTaskbarButtons();
+            return;
+          }
+
+          activeWindowId = null;
+          renderTaskbarButtons();
+          return;
+        }
+
+        focusWindow(topWindow.dataset.window);
+      };
+
       const focusWindow = (windowId) => {
         const windowEl = getWindowById(windowId);
         if (!windowEl) return;
 
         zCounter += 1;
         windowEl.style.zIndex = String(zCounter);
-
-        taskbarButtons.forEach((button) => {
-          button.classList.toggle('is-active', button.getAttribute('data-taskbar-app') === windowId && !windowEl.classList.contains('is-minimized'));
-        });
+        activeWindowId = windowId;
+        renderTaskbarButtons();
       };
 
       const showWindow = (windowId) => {
         const windowEl = getWindowById(windowId);
         if (!windowEl) return;
+        const wasClosed = windowEl.classList.contains('is-closed');
+
+        windowEl.classList.remove('is-closed');
         windowEl.classList.remove('is-minimized');
+
+        if (wasClosed) {
+          windowEl.classList.remove('is-maximized');
+          centerWindow(windowEl);
+        }
+
         focusWindow(windowId);
         if (windowId === 'mines') {
           window.setTimeout(syncMinesWindowSize, 0);
@@ -368,11 +431,27 @@ const XP_SHORTCUTS = [
         const windowEl = getWindowById(windowId);
         if (!windowEl) return;
         windowEl.classList.add('is-minimized');
-        taskbarButtons.forEach((button) => {
-          if (button.getAttribute('data-taskbar-app') === windowId) {
-            button.classList.remove('is-active');
-          }
-        });
+
+        if (activeWindowId === windowId) {
+          focusTopVisibleWindow();
+        } else {
+          renderTaskbarButtons();
+        }
+      };
+
+      const closeWindow = (windowId) => {
+        const windowEl = getWindowById(windowId);
+        if (!windowEl) return;
+
+        windowEl.classList.add('is-closed');
+        windowEl.classList.remove('is-minimized');
+        windowEl.classList.remove('is-maximized');
+
+        if (activeWindowId === windowId) {
+          focusTopVisibleWindow();
+        } else {
+          renderTaskbarButtons();
+        }
       };
 
       const syncMinesWindowSize = () => {
@@ -397,6 +476,8 @@ const XP_SHORTCUTS = [
         if (!startAd || !startButton || !adModal) return;
         startAd.hidden = false;
         startButton.setAttribute('aria-expanded', 'true');
+        activeWindowId = 'start-ad';
+        renderTaskbarButtons();
         window.requestAnimationFrame(() => {
           centerAdModal();
         });
@@ -406,6 +487,12 @@ const XP_SHORTCUTS = [
         if (!startAd || !startButton) return;
         startAd.hidden = true;
         startButton.setAttribute('aria-expanded', 'false');
+
+        if (activeWindowId === 'start-ad') {
+          focusTopVisibleWindow();
+        } else {
+          renderTaskbarButtons();
+        }
       };
 
       const setSelectedIcon = (selected) => {
@@ -419,7 +506,7 @@ const XP_SHORTCUTS = [
       });
 
       showWindow('projects');
-      hideWindow('mines');
+      closeWindow('mines');
 
       window.addEventListener('resize', () => {
         windowEls.forEach((windowEl) => {
@@ -498,6 +585,8 @@ const XP_SHORTCUTS = [
         if (!(event.target instanceof Element)) return;
         if (event.target.closest('.xp-title-buttons')) return;
 
+        activeWindowId = 'start-ad';
+        renderTaskbarButtons();
         adDragState.active = true;
         adDragState.pointerId = event.pointerId;
 
@@ -541,7 +630,7 @@ const XP_SHORTCUTS = [
             }
 
             if (action === 'close') {
-              hideWindow(windowId);
+              closeWindow(windowId);
             }
           });
         });
@@ -563,21 +652,46 @@ const XP_SHORTCUTS = [
         });
       });
 
-      taskbarButtons.forEach((button) => {
-        button.addEventListener('click', () => {
-          const targetWindow = button.getAttribute('data-taskbar-app');
-          if (!targetWindow) return;
-          const windowEl = getWindowById(targetWindow);
-          if (!windowEl) return;
+      taskbarWindows?.addEventListener('click', (event) => {
+        const button = event.target instanceof Element ? event.target.closest('[data-taskbar-app]') : null;
+        if (!button) return;
 
-          if (windowEl.classList.contains('is-minimized')) {
-            showWindow(targetWindow);
+        const targetWindow = button.getAttribute('data-taskbar-app');
+        if (!targetWindow) return;
+
+        if (targetWindow === 'start-ad') {
+          if (!isStartAdOpen()) {
+            showStartAd();
             return;
           }
 
+          if (activeWindowId === 'start-ad') {
+            hideStartAd();
+            return;
+          }
+
+          activeWindowId = 'start-ad';
+          renderTaskbarButtons();
+          return;
+        }
+
+        const windowEl = getWindowById(targetWindow);
+        if (!windowEl || windowEl.classList.contains('is-closed')) return;
+
+        if (windowEl.classList.contains('is-minimized')) {
+          showWindow(targetWindow);
+          return;
+        }
+
+        if (activeWindowId === targetWindow) {
           hideWindow(targetWindow);
-        });
+          return;
+        }
+
+        focusWindow(targetWindow);
       });
+
+      renderTaskbarButtons();
 
       startButton?.addEventListener('click', () => {
         showStartAd();
