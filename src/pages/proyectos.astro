@@ -96,7 +96,7 @@ const XP_SHORTCUTS = [
 
 ---
 
-<BaseLayout title="Proyectos — Windows XP Luna">
+<BaseLayout title="Proyectos — Windows XP Luna" showGlobalLegal={false}>
   <div class="xp-shell">
     <section class="xp-desktop-area" aria-label="Escritorio Windows XP">
       <div class="xp-desktop-icons" role="list">
@@ -276,6 +276,24 @@ const XP_SHORTCUTS = [
         pointerId: null,
         offsetX: 0,
         offsetY: 0,
+      };
+
+      const endWindowDrag = () => {
+        dragState.active = false;
+        dragState.windowId = null;
+        dragState.pointerId = null;
+      };
+
+      const endAdDrag = () => {
+        adDragState.active = false;
+        adDragState.pointerId = null;
+      };
+
+      const endAllDragging = () => {
+        endWindowDrag();
+        endAdDrag();
+        document.body.style.userSelect = '';
+        document.body.style.touchAction = '';
       };
 
       const getWindowById = (windowId) => windowEls.find((windowEl) => windowEl.dataset.window === windowId);
@@ -588,6 +606,7 @@ const XP_SHORTCUTS = [
           if (event.target.closest('.xp-title-buttons')) return;
           if (windowEl.classList.contains('is-minimized') || windowEl.classList.contains('is-maximized')) return;
 
+          event.preventDefault();
           focusWindow(windowId);
           dragState.active = true;
           dragState.windowId = windowId;
@@ -599,6 +618,7 @@ const XP_SHORTCUTS = [
 
           titleBar.setPointerCapture(event.pointerId);
           document.body.style.userSelect = 'none';
+          document.body.style.touchAction = 'none';
         });
       });
 
@@ -610,6 +630,7 @@ const XP_SHORTCUTS = [
         const areaRect = desktopArea.getBoundingClientRect();
         const left = event.clientX - areaRect.left - dragState.offsetX;
         const top = event.clientY - areaRect.top - dragState.offsetY;
+        event.preventDefault();
         setWindowPosition(windowEl, left, top);
       });
 
@@ -618,16 +639,16 @@ const XP_SHORTCUTS = [
 
         const left = event.clientX - adDragState.offsetX;
         const top = event.clientY - adDragState.offsetY;
+        event.preventDefault();
         setAdModalPosition(left, top);
       });
 
       window.addEventListener('pointerup', () => {
-        dragState.active = false;
-        dragState.windowId = null;
-        dragState.pointerId = null;
-        adDragState.active = false;
-        adDragState.pointerId = null;
-        document.body.style.userSelect = '';
+        endAllDragging();
+      });
+
+      window.addEventListener('pointercancel', () => {
+        endAllDragging();
       });
 
       adTitleBar?.addEventListener('pointerdown', (event) => {
@@ -635,6 +656,7 @@ const XP_SHORTCUTS = [
         if (!(event.target instanceof Element)) return;
         if (event.target.closest('.xp-title-buttons')) return;
 
+        event.preventDefault();
         activeWindowId = 'start-ad';
         renderTaskbarButtons();
         adDragState.active = true;
@@ -646,6 +668,7 @@ const XP_SHORTCUTS = [
 
         adTitleBar.setPointerCapture(event.pointerId);
         document.body.style.userSelect = 'none';
+        document.body.style.touchAction = 'none';
       });
 
       windowEls.forEach((windowEl) => {
