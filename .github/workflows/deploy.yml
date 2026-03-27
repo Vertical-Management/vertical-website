@@ -36,11 +36,15 @@ jobs:
       - name: Sync assets
         run: npm run sync:assets || true
 
-      - name: Build site
-        run: npm run build
-
       - name: Configure GitHub Pages
+        id: pages
         uses: actions/configure-pages@v5
+
+      - name: Build site
+        run: |
+          npm run build \
+            --site "${{ steps.pages.outputs.origin }}" \
+            --base "${{ steps.pages.outputs.base_path }}"
 
       - name: Upload artifact for GitHub Pages
         uses: actions/upload-pages-artifact@v4
