@@ -1,276 +1,147 @@
-# Deployment Guide — Vertical Management Portfolio
+# Deploy — Vertical Management (Vercel + Resend)
 
-This guide covers deployment to GitHub Pages, custom domains, and performance optimization.
-
----
-
-## GitHub Pages Setup (Automatic via GitHub Actions)
-
-### Prerequisites
-
-1. Repository on GitHub (public or private)
-2. Repository settings:
-   - Go to **Settings** → **Pages**
-   - Source: **Deploy from a branch** or **GitHub Actions** (modern)
-   - The workflow `.github/workflows/deploy.yml` handles this automatically
-
-### How It Works
-
-1. Push to `main` branch
-2. GitHub Actions runs the workflow:
-   - Checkouts code
-   - Installs Node 18+
-   - Runs `npm ci` and `npm run build`
-   - Uploads `dist/` artifact
-   - Deploys to GitHub Pages
-
-3. Site is live at: `https://<username>.github.io/<repo-name>/`
-
-### Configuration
-
-If using a **project repository** (not user/org repo):
-
-1. Set repo name in `package.json`:
-   ```json
-   {
-     "homepage": "https://estebanferrer.github.io/vertical-website"
-   }
-   ```
-
-2. Update `astro.config.mjs`:
-   ```mjs
-   export default defineConfig({
-     site: "https://estebanferrer.github.io",
-     base: "/vertical-website",
-     output: 'static',
-   });
-   ```
-
-3. Update internal links in components to use `base` if needed.
-
-If using a **user repository** (`<username>.github.io`):
-- No base path needed.
-- Site is live at: `https://<username>.github.io/`
+Guía corta para producción en **Vercel** con formulario real vía **Resend**.
 
 ---
 
-## Custom Domain Setup
+## 1. Requisitos
 
-1. Purchase a domain (e.g., `estebanferrer.design`)
-2. In GitHub repository settings (**Settings** → **Pages**):
-   - Add custom domain: `estebanferrer.design`
-   - Check "Enforce HTTPS"
-
-3. Configure DNS with your registrar:
-   ```
-   CNAME record:
-   estebanferrer.design → <username>.github.io
-   
-   Or use A records (GitHub IPs):
-   185.199.108.153
-   185.199.109.153
-   185.199.110.153
-   185.199.111.153
-   ```
-
-4. Wait for DNS propagation (5–48 hours)
-5. GitHub automatically generates HTTPS cert (Let's Encrypt)
+- Cuenta [Vercel](https://vercel.com)
+- Repo en GitHub (recomendado) **o** deploy por CLI
+- (Opcional pero recomendado) cuenta [Resend](https://resend.com) para emails del form
 
 ---
 
-## Local Testing
+## 2. Deploy con GitHub (recomendado)
 
-Before pushing to GitHub:
-
-```bash
-# Install dependencies
-npm install
-
-# Sync assets from recursos/
-npm run sync:assets
-
-# Run local dev server
-npm run dev
-# Open http://localhost:3000
-
-# Build production (generates dist/)
-npm run build
-
-# Preview production build
-npm run preview
-# Open http://localhost:3000 (or see terminal)
-```
-
----
-
-## Performance Optimization
-
-### 1. Image Optimization
-
-Run the provided script to optimize and convert images:
+### A. Sube el código
 
 ```bash
-# Make scripts executable
-chmod +x scripts/optimize-images.sh scripts/generate-favicon.sh
-
-# Optimize all images in recursos/ and copy to public/assets/
-scripts/optimize-images.sh
-
-# Generate favicons from SVG
-scripts/generate-favicon.sh
-```
-
-This will:
-- Compress PNG/JPEG/WebP
-- Convert images to WebP where beneficial
-- Generate favicon.ico and apple-touch-icons
-- Create backups in `.backup-images-*` if needed
-
-### 2. Lazy Load Images
-
-Update `src/components/ProjectGrid.jsx` to add lazy loading:
-
-```jsx
-<img
-  src={imageSrc}
-  alt={alt}
-  loading="lazy"
-  decoding="async"
-/>
-```
-
-### 3. Compression
-
-Astro automatically minimizes CSS/JS in production. Verify with:
-
-```bash
-npm run build
-# Check dist/ folder size
-du -sh dist/
-```
-
-### 4. Lighthouse Audit
-
-After deployment, test performance:
-
-1. Open site in Chrome
-2. Right-click → **Inspect** → **Lighthouse** tab
-3. Run audit and address issues
-
----
-
-## Rollback & Updates
-
-### Rolling Back to Previous Version
-
-If something breaks after deployment:
-
-```bash
-# View recent commits
-git log --oneline
-
-# Revert to previous commit
-git revert <commit-hash>
-git push origin main
-# GitHub Actions redeploys automatically
-```
-
-### Updating Dependencies
-
-```bash
-# Check for updates
-npm outdated
-
-# Update all (safe)
-npm update
-
-# Update specific package
-npm install astro@latest
-
-# Commit changes
-git add package.json package-lock.json
-git commit -m "chore(deps): Update dependencies"
+git add .
+git commit -m "Vertical high-craft redesign — production ready"
 git push origin main
 ```
 
----
+### B. Importa en Vercel
 
-## Troubleshooting
+1. [vercel.com/new](https://vercel.com/new)
+2. **Import** el repositorio
+3. Framework: **Next.js** (auto)
+4. Root: `.` (este proyecto)
+5. **Deploy**
 
-### Workflow Fails to Run
+### C. Variables de entorno (Vercel → Project → Settings → Environment Variables)
 
-1. Check `.github/workflows/deploy.yml` permissions:
-   - GitHub settings → Actions → Permissions
-   - Ensure "Allow all actions and reusable workflows" is selected
+| Name | Value | Environments |
+|------|--------|--------------|
+| `NEXT_PUBLIC_SITE_URL` | `https://somvertical.ad` (o la URL `.vercel.app` temporal) | Production, Preview |
+| `RESEND_API_KEY` | `re_xxxxxxxx` | Production (y Preview si quieres) |
+| `CONTACT_TO_EMAIL` | `hola@somvertical.ad` | Production |
+| `CONTACT_FROM_EMAIL` | `Vertical <hola@somvertical.ad>` | Production |
 
-2. Check runner logs:
-   - Go to repo → Actions → Recent workflow run
-   - Review error logs
+Luego **Redeploy** (Deployments → ⋮ → Redeploy).
 
-### Site Shows 404
+### D. Dominio custom (`somvertical.ad`)
 
-- Confirm base path in `astro.config.mjs` matches your repo structure
-- Verify all links use correct paths (e.g., `/vertical-website/...` if using base)
+1. Vercel → Project → **Settings → Domains** → add `somvertical.ad` (+ `www` si aplica)
+2. En tu DNS (registrar):
 
-### Assets Not Loading
+| Type | Name | Value |
+|------|------|--------|
+| A | `@` | `76.76.21.21` |
+| CNAME | `www` | `cname.vercel-dns.com` |
 
-- Ensure `npm run sync:assets` was run before build
-- Check that recursos/ folder has files
-- Verify paths in components match public/assets/ structure
+(Vercel muestra los records exactos al añadir el dominio.)
 
-### Slow Performance
-
-1. Optimize images using `scripts/optimize-images.sh`
-2. Enable Astro precompression:
-   ```bash
-   npm install --save-dev astro-compress
-   ```
-
-3. Reduce WebP file sizes:
-   ```bash
-   cwebp -q 80 image.png -o image.webp
-   ```
+3. Actualiza `NEXT_PUBLIC_SITE_URL=https://somvertical.ad` y redeploy.
 
 ---
 
-## Monitoring & Analytics
+## 3. Deploy por CLI (esta máquina)
 
-### Site Traffic (optional)
+```bash
+# Login (abre el navegador)
+npx vercel login
 
-1. Add Google Analytics (or similar):
-   ```html
-   <!-- In src/layouts/BaseLayout.astro -->
-   <script async src="https://www.googletagmanager.com/gtag/js?id=GA_ID"></script>
-   <script>
-     window.dataLayer = window.dataLayer || [];
-     function gtag(){dataLayer.push(arguments);}
-     gtag('js', new Date());
-     gtag('config', 'GA_ID');
-   </script>
-   ```
+# Preview
+npx vercel
 
-2. Monitor build performance in GitHub Actions logs
+# Production
+npx vercel --prod
+```
 
----
+Añade envs:
 
-## Maintenance Checklist
+```bash
+npx vercel env add RESEND_API_KEY
+npx vercel env add CONTACT_TO_EMAIL
+npx vercel env add CONTACT_FROM_EMAIL
+npx vercel env add NEXT_PUBLIC_SITE_URL
+npx vercel --prod
+```
 
-- [ ] Weekly: Review GitHub Actions logs for failed builds
-- [ ] Monthly: Update dependencies (`npm update`)
-- [ ] Quarterly: Test on multiple devices and browsers
-- [ ] Yearly: Review Lighthouse scores and optimize
+O usa el dashboard de Vercel (más cómodo).
 
 ---
 
-## Next Steps
+## 4. Resend (emails del formulario)
 
-1. Configure custom domain (if desired)
-2. Run image optimization script
-3. Push to GitHub and verify automatic deployment
-4. Test site in browser at GitHub Pages URL
-5. Share portfolio link with clients/collaborators
+1. [resend.com/api-keys](https://resend.com/api-keys) → Create API Key  
+2. [resend.com/domains](https://resend.com/domains) → Add `somvertical.ad`  
+3. Añade los DNS que indique Resend (SPF/DKIM)  
+4. Cuando el dominio esté **Verified**:
 
-For more info, see:
-- [Astro Deployment Docs](https://docs.astro.build/en/guides/deploy/)
-- [GitHub Pages Docs](https://docs.github.com/en/pages)
-- [Web Vitals Guide](https://web.dev/vitals/)
+```env
+RESEND_API_KEY=re_xxx
+CONTACT_TO_EMAIL=hola@somvertical.ad
+CONTACT_FROM_EMAIL=Vertical <hola@somvertical.ad>
+```
+
+### Prueba sin dominio verificado
+
+Puedes usar el sender de onboarding de Resend (solo para tests, con límites):
+
+```env
+CONTACT_FROM_EMAIL=Vertical <onboarding@resend.dev>
+```
+
+Sin `RESEND_API_KEY`, el form **sigue funcionando**: la API loguea el mensaje en los logs de Vercel (Functions → `/api/contact`).
+
+---
+
+## 5. Checklist post-deploy
+
+- [ ] Home carga en la URL de producción  
+- [ ] `/servicios`, `/proyectos`, `/contacto` OK  
+- [ ] `/sitemap.xml` y `/robots.txt` accesibles  
+- [ ] Formulario de contacto → 200 y mail (o log)  
+- [ ] OG: compartir un link y ver `/og.svg`  
+- [ ] Dominio custom + HTTPS  
+- [ ] `NEXT_PUBLIC_SITE_URL` = dominio final  
+
+### Probar form en prod
+
+```bash
+curl -X POST https://TU-DOMINIO/api/contact \
+  -H "Content-Type: application/json" \
+  -d "{\"name\":\"Test\",\"email\":\"tu@email.com\",\"message\":\"Hola desde deploy checklist — coin insert.\"}"
+```
+
+---
+
+## 6. Scripts locales
+
+```bash
+npm run build        # build producción
+npm run start        # servir .next
+npx vercel           # preview
+npx vercel --prod    # production
+```
+
+---
+
+## Notas
+
+- Región por defecto en `vercel.json`: **cdg1** (París) — cercana a Andorra/ES.  
+- El workflow antiguo de GitHub Pages (Astro) no aplica a este stack Next.js; usa Vercel.  
+- Nunca commitees `.env.local` (ya está en `.gitignore`).

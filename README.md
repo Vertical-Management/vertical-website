@@ -1,154 +1,135 @@
-# Vertical Management — Portfolio (Esteban Ferrer)
+# Vertical Management — Rediseño High-Craft
 
-Proyecto estático generado con **Astro** + **React**. Portfolio profesional con landing minimalista y páginas de proyectos expresivas.
+Experiencia digital para **Vertical Management** (Esteban Ferrer).  
+Stack: **Next.js 14 · TypeScript · Tailwind · GSAP · Lenis · Framer Motion · R3F**.
 
-## ✨ Features
+Estética: **Editorial Digital Disruptivo + Playful High-Craft**.
 
-- **Astro + React**: Componentes estáticos con dinámicos en React donde sea necesario.
-- **Responsive**: Diseño adaptable para móvil, tablet y desktop con menú hamburguesa.
-- **Animaciones**: Transiciones suaves, entrada CSS, y rotación de palabras.
-- **Optimizado**: SCSS modular, lazy loading, prefers-reduced-motion.
-- **CI/CD**: GitHub Actions deploy automático a Pages en cada push.
-- **Accesible**: ARIA labels, alt text, navegación clara.
+---
 
-## 🚀 Quick Start
-
-### Prerequisites
-
-- Node.js 18+ ([nodejs.org](https://nodejs.org) o [nvm](https://github.com/nvm-sh/nvm))
-- Git
-
-### Setup
+## Desarrollo
 
 ```bash
-# Clonar y entrar
-cd vertical-website
-
-# Instalar dependencias
 npm install
-
-# Sincronizar recursos a public/assets/
-npm run sync:assets
-
-# Iniciar servidor de desarrollo
 npm run dev
-# Abre http://localhost:3000
 ```
 
-### Comandos principales
+Abre [http://localhost:3000](http://localhost:3000).
+
+| Script | Descripción |
+|--------|-------------|
+| `npm run dev` | Servidor de desarrollo |
+| `npm run build` | Build de producción |
+| `npm run start` | Servir build |
+| `npm run lint` | ESLint |
+| `npm run typecheck` | TypeScript strict |
+| `npm run deploy:preview` | Deploy preview (Vercel CLI) |
+| `npm run deploy:prod` | Deploy production (Vercel CLI) |
+
+## Deploy (Vercel + Resend)
+
+Guía completa: **[DEPLOYMENT.md](./DEPLOYMENT.md)**
+
+Resumen:
+
+1. Push a GitHub → Import en [vercel.com/new](https://vercel.com/new)  
+2. Env vars: `NEXT_PUBLIC_SITE_URL`, `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL`  
+3. Dominio `somvertical.ad` en Vercel → DNS  
+4. Verifica dominio en Resend para mails reales  
 
 ```bash
-npm run dev       # Servidor de desarrollo (hot reload)
-npm run build     # Build para producción (genera dist/)
-npm run preview   # Previsualizar build
-npm run format    # Formatear código con Prettier
+npx vercel login
+npx vercel --prod
 ```
 
-## 📁 Project Structure
+---
+
+## Rutas
+
+| Ruta | Descripción |
+|------|-------------|
+| `/` | Home inmersiva |
+| `/servicios` | Bloques de color + proceso |
+| `/proyectos` | Vertical OS (desktop) |
+| `/proyectos/[slug]` | Caso de estudio |
+| `/contacto` | Form + neo-iOS device |
+| `/design-system` | Spec visual (noindex) |
+| `/sitemap.xml` | Sitemap |
+| `/robots.txt` | Robots |
+| `/manifest.webmanifest` | PWA manifest |
+
+---
+
+## Estructura
 
 ```
 src/
-  pages/              # Routes (Astro auto-routing)
-    index.astro       # Landing page
-    about.astro
-    servicios.astro
-    proyectos.astro
-    contacto.astro
-    proyectos/[slug].astro
-  components/         # React & Astro components
-    Header.jsx        # Nav + Mobile menu
-    Hero.jsx          # Hero section
-    RotatingWords.jsx
-  layouts/
-    BaseLayout.astro  # Main wrapper
-  styles/
-    global.scss       # Global styles
-    animations.scss   # Advanced animations
-  data/
-    projects.json     # Portfolio data
-
-public/
-  favicon.svg
-  assets/             # Synced from recursos/
-
-.github/workflows/
-  deploy.yml          # GitHub Actions CI/CD
+├── app/                 # App Router + SEO (sitemap, robots, manifest)
+├── components/
+│   ├── layout/          # Header, Footer, Nav
+│   ├── ui/              # Design system
+│   ├── home/ servicios/ proyectos/ contacto/
+│   ├── transitions/     # Page wipe, intro, loaders
+│   ├── seo/             # JSON-LD
+│   └── providers/
+├── data/ hooks/ lib/ styles/ types/
+public/assets/           # Marca + portfolio
 ```
 
-## 📦 Despliegue (GitHub Pages)
+---
 
-El repo incluye GitHub Actions que automáticamente:
-1. Detecta push en `main`
-2. Instala dependencias
-3. Compila el sitio (`npm run build`)
-4. Publica en GitHub Pages
-
-**Tu sitio estará en**: `https://<username>.github.io/<repo-name/`
-
-Para usar **dominio personalizado**, ver [DEPLOYMENT.md](DEPLOYMENT.md).
-
-## ✏️ Para desarrollo y features
-
-→ Consulta [DEVELOPMENT.md](DEVELOPMENT.md) para:
-- Agregar nuevas páginas
-- Añadir componentes
-- Estructurar datos
-- Estilos y animaciones
-
-## 🔄 Para commits y versioning
-
-→ Consulta [COMMITS.md](COMMITS.md) para:
-- Mensajes de commit sugeridos
-- Estrategia de versioning (semver)
-- Ejemplos de ramas y tags
-
-## 📊 Optimización
-
-### Optimizar imágenes
-
-```bash
-chmod +x scripts/*.sh
-scripts/optimize-images.sh   # Compress to WebP
-scripts/generate-favicon.sh  # Generate favicons
-```
+## Performance · A11y · SEO
 
 ### Performance
+- `next/font` (Syne, Manrope, JetBrains) con `display: swap`
+- Imágenes AVIF/WebP + cache largo en `/assets`
+- Code-split del desktop OS (`dynamic` + `ssr: false`)
+- `optimizePackageImports` para GSAP / Framer / Three
+- Headers de seguridad + compresión
+- Transiciones desactivadas con `prefers-reduced-motion`
 
-- Lazy load en imágenes
-- Minificación automática (Astro)
-- SCSS modular
-- Animations respetan `prefers-reduced-motion`
+### Accesibilidad
+- Skip link → `#main-content`
+- Landmarks: `banner`, `contentinfo`, `main`, diálogos con `aria-*`
+- Focus visible, forced-colors
+- Cursor custom solo en `(pointer: fine)`; inputs con cursor nativo
+- Menú: Escape, `aria-expanded`, scroll lock
+- Reduced motion en Lenis, GSAP, intro y page transitions
 
-## 🎨 Personalización
+### SEO
+- Metadata + Open Graph + Twitter por ruta
+- **OG image** branded en `/og.svg` (1200×630); proyectos usan cover + fallback
+- Canonicals
+- `sitemap.ts` / `robots.ts` / `manifest.ts`
+- JSON-LD: Organization, WebSite, Person, ContactPage, CreativeWork, Breadcrumbs
+- `/design-system` noindex
 
-**Colores** (en `src/styles/global.scss`):
-```scss
-:root {
-  --vm-bg: #ffffff;
-  --vm-fg: #0b0b0b;
-  --vm-accent: #ff4d4f;
-}
+### Contacto (API)
+```bash
+# .env.local
+RESEND_API_KEY=re_xxx
+CONTACT_TO_EMAIL=hola@somvertical.ad
+CONTACT_FROM_EMAIL=Vertical <hola@somvertical.ad>
 ```
+- `POST /api/contact` — validación, honeypot, rate limit
+- Con Resend: email real · Sin key: log en servidor (dev-friendly)
 
-**Logo**: Reemplaza `public/assets/logo/vertical.svg` con tu SVG oficial.
+---
 
-**Contenido**: Edita `src/pages/*.astro` y `src/data/projects.json`.
+## Roadmap
 
-## 📝 TODO
+1. ✅ Proyecto limpio + estructura + deps  
+2. ✅ Design System completo  
+3. ✅ Header + Footer + navegación  
+4. ✅ Home inmersiva  
+5. ✅ Servicios  
+6. ✅ Proyectos (desktop modernizado)  
+7. ✅ Contacto  
+8. ✅ Page transitions + loading  
+9. ✅ Performance, a11y, SEO  
 
-- [ ] Instalar Node.js (si falta)
-- [ ] Ejecutar `npm install && npm run sync:assets`
-- [ ] Reemplazar logo SVG con oficial
-- [ ] Añadir textos reales (About, Services, Contact)
-- [ ] Ampliar `projects.json` con tus proyectos
-- [ ] Optimizar imágenes: `scripts/optimize-images.sh`
-- [ ] Configurar dominio personalizado (opcional)
-- [ ] Verificar deploy en GitHub Pages
+---
 
-## 📚 Recursos
+## Assets
 
-- [Astro Docs](https://docs.astro.build)
-- [GitHub Pages Docs](https://docs.github.com/en/pages)
-- [DEVELOPMENT.md](DEVELOPMENT.md) — Local dev guide
-- [DEPLOYMENT.md](DEPLOYMENT.md) — Deploy & Pages setup
-- [COMMITS.md](COMMITS.md) — Commit messages & versioning
+Recursos de marca y proyectos en `public/assets/` (fuente en `recursos/`).

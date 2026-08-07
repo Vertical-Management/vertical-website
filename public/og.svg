@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Vertical Management">
+  <rect width="1200" height="630" fill="#0a0a0a"/>
+  <rect x="-20" y="80" width="180" height="180" fill="#c8ff00" transform="rotate(12 70 170)"/>
+  <rect x="980" y="140" width="120" height="120" fill="#ff3d00" transform="rotate(-8 1040 200)"/>
+  <rect x="980" y="480" width="260" height="80" fill="#00c2ff"/>
+  <text x="72" y="120" fill="#c8ff00" font-family="ui-monospace, monospace" font-size="22" letter-spacing="6">ANDORRA · INSERT COIN</text>
+  <text x="72" y="280" fill="#f4f1ea" font-family="Arial Black, Helvetica, sans-serif" font-size="96" font-weight="800" letter-spacing="-4">VERTICAL</text>
+  <text x="72" y="350" fill="#f4f1ea" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="600" opacity="0.85">Editorial Digital Disruptivo</text>
+  <text x="72" y="520" fill="#f4f1ea" font-family="Arial, Helvetica, sans-serif" font-size="24" opacity="0.65">Branding · Digital · Motion · Estrategia</text>
+  <text x="72" y="560" fill="#f4f1ea" font-family="Arial, Helvetica, sans-serif" font-size="22" opacity="0.65">Esteban Ferrer</text>
+  <rect x="900" y="520" width="220" height="48" rx="24" fill="none" stroke="#c8ff00" stroke-width="2"/>
+  <text x="1010" y="550" fill="#c8ff00" font-family="ui-monospace, monospace" font-size="16" letter-spacing="2" text-anchor="middle">SOMVERTICAL.AD</text>
+</svg>

@@ -1,0 +1,453 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═══════════════════════════════════════════
+   DESIGN TOKENS
+   ═══════════════════════════════════════════ */
+:root {
+  /* ── Color: ink (text / dark) ── */
+  --color-ink: #0a0a0a;
+  --color-ink-soft: #1f1f1f;
+  --color-ink-muted: #6b6b6b;
+  --color-ink-faint: #a3a3a3;
+
+  /* ── Color: paper (grounds) ── */
+  --color-paper: #f4f1ea;
+  --color-paper-warm: #ebe4d6;
+  --color-paper-cool: #e6e9e8;
+  --color-paper-dim: #ddd6c8;
+
+  /* ── Color: accents ── */
+  --color-accent: #ff3d00;
+  --color-accent-hot: #ff1a5c;
+  --color-accent-cool: #00c2ff;
+  --color-accent-lime: #c8ff00;
+  --color-accent-soft: color-mix(in srgb, var(--color-accent) 12%, transparent);
+
+  /* ── Color: surfaces ── */
+  --color-surface: #ffffff;
+  --color-surface-elevated: #faf8f4;
+  --color-surface-sunken: #ebe6dc;
+  --color-surface-inverse: #0a0a0a;
+  --color-border: color-mix(in srgb, var(--color-ink) 12%, transparent);
+  --color-border-strong: color-mix(in srgb, var(--color-ink) 22%, transparent);
+
+  /* ── Color: semantic ── */
+  --color-success: #1f9d55;
+  --color-warning: #e6a700;
+  --color-danger: #e11d48;
+
+  /* ── Typography (next/font injects --font-display|body|mono) ── */
+  --font-display-fallback: "Arial Black", "Helvetica Neue", system-ui, sans-serif;
+  --font-body-fallback: "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+  --font-mono-fallback: ui-monospace, "SF Mono", "Cascadia Code", monospace;
+
+  /* ── Type scale extras ── */
+  --text-lead: clamp(1.125rem, 1.5vw, 1.375rem);
+  --text-caption: 0.75rem;
+  --tracking-label: 0.18em;
+  --tracking-display: -0.035em;
+
+  /* ── Layout ── */
+  --header-height: 4.5rem;
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+  --section-y: clamp(5rem, 12vw, 10rem);
+  --max-width-site: 1440px;
+  --max-width-narrow: 720px;
+  --max-width-wide: 1680px;
+  --radius-card: 1.25rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.875rem;
+
+  /* ── Elevation ── */
+  --shadow-sm: 0 1px 2px rgb(10 10 10 / 0.04);
+  --shadow-md: 0 8px 24px rgb(10 10 10 / 0.08);
+  --shadow-lg: 0 24px 64px rgb(10 10 10 / 0.12);
+  --shadow-glow-accent: 0 0 40px color-mix(in srgb, var(--color-accent) 35%, transparent);
+
+  /* ── Motion ── */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-expo: cubic-bezier(0.87, 0, 0.13, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --duration-instant: 120ms;
+  --duration-fast: 200ms;
+  --duration-base: 400ms;
+  --duration-slow: 700ms;
+  --duration-cinematic: 1100ms;
+
+  /* ── Grain opacity ── */
+  --grain-opacity: 0.045;
+
+  /* ── Z-index scale ── */
+  --z-header: 50;
+  --z-overlay: 60;
+  --z-cursor: 70;
+  --z-transition: 80;
+  --z-loader: 90;
+}
+
+/* Dark surface utility context (sections, desktop, overlays) */
+[data-theme="inverse"] {
+  --color-ink: #f4f1ea;
+  --color-ink-soft: #e8e4da;
+  --color-ink-muted: #9a958c;
+  --color-ink-faint: #6b6760;
+  --color-paper: #0a0a0a;
+  --color-paper-warm: #121212;
+  --color-surface: #141414;
+  --color-surface-elevated: #1a1a1a;
+  --color-surface-sunken: #050505;
+  --color-border: color-mix(in srgb, #f4f1ea 14%, transparent);
+  --color-border-strong: color-mix(in srgb, #f4f1ea 24%, transparent);
+  color: var(--color-ink);
+  background-color: var(--color-paper);
+}
+
+/* ═══════════════════════════════════════════
+   BASE
+   ═══════════════════════════════════════════ */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  /* Fullscreen nav open — prevent background interaction */
+  html.nav-menu-open {
+    overflow: hidden;
+  }
+
+  html.nav-menu-open body {
+    overflow: hidden;
+  }
+
+  /* Page transition / intro — lock interaction under overlay */
+  html.is-page-transitioning,
+  html.is-intro-loading {
+    cursor: wait;
+  }
+
+  html.is-page-transitioning body,
+  html.is-intro-loading body {
+    overflow: hidden;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100dvh;
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-body), var(--font-body-fallback);
+    font-size: 1rem;
+    line-height: 1.6;
+    overflow-x: clip;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display), var(--font-display-fallback);
+    font-weight: 700;
+    line-height: 0.95;
+    letter-spacing: var(--tracking-display);
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  button {
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: var(--color-paper);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+
+  img,
+  video,
+  svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Remove number input spinners where used */
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    appearance: none;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   COMPONENTS (design-system primitives)
+   ═══════════════════════════════════════════ */
+@layer components {
+  .container-site {
+    width: 100%;
+    max-width: var(--max-width-site);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+
+  .container-narrow {
+    width: 100%;
+    max-width: var(--max-width-narrow);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+
+  .container-wide {
+    width: 100%;
+    max-width: var(--max-width-wide);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+
+  .section-y {
+    padding-block: var(--section-y);
+  }
+
+  /* Mono editorial label */
+  .eyebrow {
+    font-family: var(--font-mono), var(--font-mono-fallback);
+    font-size: var(--text-caption);
+    font-weight: 500;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--color-ink-muted);
+    line-height: 1.4;
+  }
+
+  /* Animated underline for text links */
+  .link-underline {
+    position: relative;
+    display: inline-block;
+  }
+
+  .link-underline::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -0.1em;
+    width: 100%;
+    height: 1.5px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right center;
+    transition: transform var(--duration-base) var(--ease-out-expo);
+  }
+
+  .link-underline:hover::after,
+  .link-underline:focus-visible::after {
+    transform: scaleX(1);
+    transform-origin: left center;
+  }
+
+  /* Film grain overlay helper */
+  .grain {
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    opacity: var(--grain-opacity);
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 180px 180px;
+  }
+
+  [data-theme="inverse"] .grain {
+    mix-blend-mode: soft-light;
+    opacity: 0.07;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   UTILITIES
+   ═══════════════════════════════════════════ */
+@layer utilities {
+  .skip-link {
+    position: absolute;
+    left: var(--gutter);
+    top: -100%;
+    z-index: 100;
+    border-radius: 9999px;
+    background: var(--color-ink);
+    color: var(--color-paper);
+    padding: 0.75rem 1.25rem;
+    font-family: var(--font-mono), var(--font-mono-fallback);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: top var(--duration-fast) var(--ease-out-expo);
+  }
+
+  .skip-link:focus {
+    top: 1rem;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  .px-gutter {
+    padding-left: var(--gutter);
+    padding-right: var(--gutter);
+  }
+
+  .py-section {
+    padding-top: var(--section-y);
+    padding-bottom: var(--section-y);
+  }
+
+  .text-lead {
+    font-size: var(--text-lead);
+    line-height: 1.55;
+  }
+
+  .tracking-label {
+    letter-spacing: var(--tracking-label);
+  }
+
+  .tracking-display {
+    letter-spacing: var(--tracking-display);
+  }
+
+  /* Mask helpers for text reveals */
+  .mask-reveal {
+    overflow: hidden;
+  }
+
+  .will-change-transform {
+    will-change: transform;
+  }
+
+  .will-change-opacity {
+    will-change: opacity;
+  }
+
+  /* Hide scrollbar but keep scroll */
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Interactive press feedback */
+  .pressable {
+    transition: transform var(--duration-fast) var(--ease-out-expo);
+  }
+
+  .pressable:active {
+    transform: scale(0.97);
+  }
+
+  /* Custom cursor (Cursor.tsx) — keep native cursor on form fields & text */
+  @media (pointer: fine) {
+    html.has-custom-cursor,
+    html.has-custom-cursor * {
+      cursor: none !important;
+    }
+
+    html.has-custom-cursor input,
+    html.has-custom-cursor textarea,
+    html.has-custom-cursor select,
+    html.has-custom-cursor [contenteditable="true"],
+    html.has-custom-cursor input *,
+    html.has-custom-cursor textarea * {
+      cursor: text !important;
+    }
+  }
+
+  /* High contrast / forced colors support */
+  @media (forced-colors: active) {
+    .skip-link:focus {
+      outline: 2px solid CanvasText;
+    }
+
+    :focus-visible {
+      outline: 2px solid CanvasText;
+    }
+  }
+
+  /* Screen-reader only (if not using Tailwind sr-only in all contexts) */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+
+    .pressable:active {
+      transform: none;
+    }
+  }
+}

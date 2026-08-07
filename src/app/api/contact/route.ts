@@ -1,0 +1,130 @@
+import { NextResponse } from "next/server";
+import { SITE } from "@/lib/constants";
+import {
+  formatContactEmail,
+  validateContactPayload,
+  type ContactPayload,
+} from "@/lib/contact";
+
+export const runtime = "nodejs";
+
+/** Simple in-memory rate limit (per instance). */
+const hits = new Map<string, { count: number; reset: number }>();
+const WINDOW_MS = 60_000;
+const MAX_HITS = 8;
+
+function clientIp(req: Request): string {
+  const xf = req.headers.get("x-forwarded-for");
+  if (xf) return xf.split(",")[0]?.trim() || "unknown";
+  return req.headers.get("x-real-ip") || "unknown";
+}
+
+function rateLimit(ip: string): boolean {
+  const now = Date.now();
+  const row = hits.get(ip);
+  if (!row || now > row.reset) {
+    hits.set(ip, { count: 1, reset: now + WINDOW_MS });
+    return true;
+  }
+  if (row.count >= MAX_HITS) return false;
+  row.count += 1;
+  return true;
+}
+
+async function deliverEmail(data: ContactPayload): Promise<{
+  mode: "resend" | "logged" | "honeypot";
+}> {
+  // Honeypot bots: silent accept
+  if (data.website) return { mode: "honeypot" };
+
+  const { subject, text, html } = formatContactEmail(data);
+  const to = process.env.CONTACT_TO_EMAIL || SITE.email;
+  const from =
+    process.env.CONTACT_FROM_EMAIL ||
+    `Vertical <onboarding@resend.dev>`;
+  const apiKey = process.env.RESEND_API_KEY;
+
+  if (apiKey) {
+    const res = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from,
+        to: [to],
+        reply_to: data.email,
+        subject,
+        text,
+        html,
+      }),
+    });
+
+    if (!res.ok) {
+      const errText = await res.text().catch(() => "");
+      console.error("[contact] Resend error", res.status, errText);
+      throw new Error("No se pudo enviar el email.");
+    }
+
+    return { mode: "resend" };
+  }
+
+  // Dev / no provider: log payload (never crash the form)
+  console.info("[contact] message received (no RESEND_API_KEY)", {
+    to,
+    subject,
+    from: data.email,
+    name: data.name,
+    company: data.company,
+    budget: data.budget,
+    preview: data.message.slice(0, 160),
+  });
+
+  return { mode: "logged" };
+}
+
+export async function POST(req: Request) {
+  try {
+    const ip = clientIp(req);
+    if (!rateLimit(ip)) {
+      return NextResponse.json(
+        { ok: false, error: "Demasiados intentos. Prueba en un minuto." },
+        { status: 429 },
+      );
+    }
+
+    const json = await req.json().catch(() => null);
+    const parsed = validateContactPayload(json);
+
+    if (!parsed.ok) {
+      return NextResponse.json(
+        { ok: false, errors: parsed.errors },
+        { status: 400 },
+      );
+    }
+
+    const result = await deliverEmail(parsed.data);
+
+    return NextResponse.json({
+      ok: true,
+      mode: result.mode,
+      message:
+        result.mode === "resend"
+          ? "Mensaje enviado. Te respondemos pronto."
+          : "Mensaje recibido. Te respondemos pronto.",
+    });
+  } catch (err) {
+    console.error("[contact] failure", err);
+    return NextResponse.json(
+      {
+        ok: false,
+        error:
+          err instanceof Error
+            ? err.message
+            : "Algo se rompió. Escríbenos a " + SITE.email,
+      },
+      { status: 500 },
+    );
+  }
+}
