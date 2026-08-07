@@ -242,7 +242,7 @@ export default function DesignSystemPage() {
               label="Email"
               name="email"
               type="email"
-              placeholder="hola@somvertical.ad"
+              placeholder="sales@somvertical.ad"
             />
             <TextArea
               label="Mensaje"

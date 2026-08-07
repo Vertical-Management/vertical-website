@@ -108,8 +108,8 @@ public/assets/           # Marca + portfolio
 ```bash
 # .env.local
 RESEND_API_KEY=re_xxx
-CONTACT_TO_EMAIL=hola@somvertical.ad
-CONTACT_FROM_EMAIL=Vertical <hola@somvertical.ad>
+CONTACT_TO_EMAIL=sales@somvertical.ad
+CONTACT_FROM_EMAIL=Vertical <sales@somvertical.ad>
 ```
 - `POST /api/contact` — validación, honeypot, rate limit
 - Con Resend: email real · Sin key: log en servidor (dev-friendly)

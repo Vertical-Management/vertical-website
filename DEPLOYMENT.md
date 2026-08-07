@@ -36,8 +36,8 @@ git push origin main
 |------|--------|--------------|
 | `NEXT_PUBLIC_SITE_URL` | `https://somvertical.ad` (o la URL `.vercel.app` temporal) | Production, Preview |
 | `RESEND_API_KEY` | `re_xxxxxxxx` | Production (y Preview si quieres) |
-| `CONTACT_TO_EMAIL` | `hola@somvertical.ad` | Production |
-| `CONTACT_FROM_EMAIL` | `Vertical <hola@somvertical.ad>` | Production |
+| `CONTACT_TO_EMAIL` | `sales@somvertical.ad` | Production |
+| `CONTACT_FROM_EMAIL` | `Vertical <sales@somvertical.ad>` | Production |
 
 Luego **Redeploy** (Deployments → ⋮ → Redeploy).
 
@@ -93,8 +93,8 @@ O usa el dashboard de Vercel (más cómodo).
 
 ```env
 RESEND_API_KEY=re_xxx
-CONTACT_TO_EMAIL=hola@somvertical.ad
-CONTACT_FROM_EMAIL=Vertical <hola@somvertical.ad>
+CONTACT_TO_EMAIL=sales@somvertical.ad
+CONTACT_FROM_EMAIL=Vertical <sales@somvertical.ad>
 ```
 
 ### Prueba sin dominio verificado
