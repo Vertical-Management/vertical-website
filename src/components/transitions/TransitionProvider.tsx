@@ -32,8 +32,8 @@ type TransitionContextValue = {
 
 const TransitionContext = createContext<TransitionContextValue | null>(null);
 
-const LEAVE_MS = 720;
-const ENTER_MS = 560;
+const LEAVE_MS = 420;
+const ENTER_MS = 360;
 
 /**
  * Cinematic page transitions via cover overlay + App Router navigation.

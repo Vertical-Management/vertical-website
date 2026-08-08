@@ -197,6 +197,7 @@ export function ContactForm() {
                 onChange={set("name")}
                 error={errors.name}
                 required
+                maxLength={80}
               />
               <Input
                 label="Email"
@@ -208,6 +209,7 @@ export function ContactForm() {
                 onChange={set("email")}
                 error={errors.email}
                 required
+                maxLength={120}
               />
             </div>
 
@@ -219,6 +221,8 @@ export function ContactForm() {
                 placeholder="Marca / Studio"
                 value={data.company}
                 onChange={set("company")}
+                error={errors.company}
+                maxLength={120}
               />
               <label className="group flex w-full flex-col gap-2">
                 <span className="font-mono text-caption uppercase tracking-label text-ink-muted transition-colors duration-base group-focus-within:text-ink">
@@ -253,6 +257,7 @@ export function ContactForm() {
               onChange={set("message")}
               error={errors.message}
               required
+              maxLength={5000}
             />
 
             {status === "error" && serverMessage ? (
@@ -266,8 +271,15 @@ export function ContactForm() {
 
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <p className="max-w-xs text-xs leading-relaxed text-ink-muted">
-                Envío seguro a {SITE.email}. Respuesta humana, sin autoresponder
-                de 2012.
+                Envío a {SITE.email}. Respuesta humana, sin autoresponder de
+                2012. Al enviar aceptas la{" "}
+                <a
+                  href="/privacidad"
+                  className="underline decoration-ink/30 underline-offset-2 hover:decoration-ink"
+                >
+                  política de privacidad
+                </a>
+                .
               </p>
               <Button
                 type="submit"

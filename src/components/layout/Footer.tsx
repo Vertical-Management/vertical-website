@@ -176,9 +176,24 @@ export function Footer() {
           <p className="font-mono text-[0.65rem] uppercase tracking-label text-ink-faint">
             © {year} {SITE.name}. Todos los coins reservados.
           </p>
-          <p className="font-mono text-[0.65rem] uppercase tracking-label text-ink-faint">
-            Hecho con craft · sin plantillas · con humor
-          </p>
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-[0.65rem] uppercase tracking-label text-ink-faint">
+            <NextLink
+              href="/privacidad"
+              data-cursor="hover"
+              className="transition-colors hover:text-ink"
+            >
+              Privacidad
+            </NextLink>
+            <a
+              href={`mailto:${SITE.email}`}
+              data-cursor="hover"
+              className="transition-colors hover:text-ink"
+            >
+              {SITE.email}
+            </a>
+            <span className="hidden sm:inline">·</span>
+            <span>Hecho con craft · sin plantillas</span>
+          </div>
         </div>
       </div>
     </footer>

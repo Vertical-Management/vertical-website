@@ -8,10 +8,22 @@ import {
 
 export const runtime = "nodejs";
 
-/** Simple in-memory rate limit (per instance). */
+/**
+ * In-memory rate limit (best-effort per instance).
+ * On multi-instance serverless this is soft protection;
+ * honeypot + payload limits + Resend still apply.
+ */
 const hits = new Map<string, { count: number; reset: number }>();
 const WINDOW_MS = 60_000;
-const MAX_HITS = 8;
+const MAX_HITS = 5;
+
+/** Periodic prune to avoid unbounded growth on long-lived instances */
+function pruneHits(now: number) {
+  if (hits.size < 200) return;
+  for (const [ip, row] of hits) {
+    if (now > row.reset) hits.delete(ip);
+  }
+}
 
 function clientIp(req: Request): string {
   const xf = req.headers.get("x-forwarded-for");
@@ -21,6 +33,7 @@ function clientIp(req: Request): string {
 
 function rateLimit(ip: string): boolean {
   const now = Date.now();
+  pruneHits(now);
   const row = hits.get(ip);
   if (!row || now > row.reset) {
     hits.set(ip, { count: 1, reset: now + WINDOW_MS });
@@ -31,17 +44,19 @@ function rateLimit(ip: string): boolean {
   return true;
 }
 
+function isProduction() {
+  return process.env.NODE_ENV === "production" || process.env.VERCEL_ENV === "production";
+}
+
 async function deliverEmail(data: ContactPayload): Promise<{
   mode: "resend" | "logged" | "honeypot";
 }> {
-  // Honeypot bots: silent accept
   if (data.website) return { mode: "honeypot" };
 
   const { subject, text, html } = formatContactEmail(data);
   const to = process.env.CONTACT_TO_EMAIL || SITE.email;
   const from =
-    process.env.CONTACT_FROM_EMAIL ||
-    `Vertical <onboarding@resend.dev>`;
+    process.env.CONTACT_FROM_EMAIL || `Vertical <onboarding@resend.dev>`;
   const apiKey = process.env.RESEND_API_KEY;
 
   if (apiKey) {
@@ -70,7 +85,15 @@ async function deliverEmail(data: ContactPayload): Promise<{
     return { mode: "resend" };
   }
 
-  // Dev / no provider: log payload (never crash the form)
+  // Production without provider: hard fail — never fake success
+  if (isProduction()) {
+    console.error("[contact] RESEND_API_KEY missing in production");
+    throw new Error(
+      `Envío no configurado. Escríbenos a ${SITE.email} mientras lo reparamos.`,
+    );
+  }
+
+  // Local / preview without key: log only
   console.info("[contact] message received (no RESEND_API_KEY)", {
     to,
     subject,
@@ -94,6 +117,15 @@ export async function POST(req: Request) {
       );
     }
 
+    // Reject oversized bodies early (~32KB JSON is plenty for contact)
+    const contentLength = Number(req.headers.get("content-length") || 0);
+    if (contentLength > 32_768) {
+      return NextResponse.json(
+        { ok: false, error: "Payload demasiado grande." },
+        { status: 413 },
+      );
+    }
+
     const json = await req.json().catch(() => null);
     const parsed = validateContactPayload(json);
 
@@ -112,7 +144,9 @@ export async function POST(req: Request) {
       message:
         result.mode === "resend"
           ? "Mensaje enviado. Te respondemos pronto."
-          : "Mensaje recibido. Te respondemos pronto.",
+          : result.mode === "honeypot"
+            ? "Mensaje recibido. Te respondemos pronto."
+            : "Mensaje recibido (modo local). En producción se envía por email.",
     });
   } catch (err) {
     console.error("[contact] failure", err);

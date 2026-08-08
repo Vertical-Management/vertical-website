@@ -1,13 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import { useDesktop } from "@/components/proyectos/DesktopContext";
-import { asset } from "@/lib/assets";
 import { cn } from "@/lib/utils";
 
 /**
  * Bottom taskbar — Start, open windows, clock.
+ * Uses a lightweight CSS mark instead of the multi-MB windows.png.
  */
 export function Taskbar() {
   const {
@@ -49,14 +48,12 @@ export function Taskbar() {
         aria-expanded={startOpen}
         aria-haspopup="menu"
       >
-        <Image
-          src={asset("/assets/xp/windows.png")}
-          alt=""
-          width={18}
-          height={18}
-          className="h-4 w-4 object-contain"
-          unoptimized
-        />
+        <span
+          className="relative flex h-4 w-4 items-center justify-center rounded-[2px] bg-ink"
+          aria-hidden
+        >
+          <span className="h-1.5 w-1.5 rounded-[1px] bg-accent-lime" />
+        </span>
         <span className="hidden sm:inline">Start</span>
       </button>
 

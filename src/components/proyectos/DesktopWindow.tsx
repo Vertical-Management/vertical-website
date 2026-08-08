@@ -2,6 +2,7 @@
 
 import {
   useCallback,
+  useEffect,
   useRef,
   type PointerEvent as ReactPointerEvent,
   type ReactNode,
@@ -20,11 +21,19 @@ type DesktopWindowProps = {
 
 /**
  * Neo-retro window chrome — drag titlebar, focus, min/close.
+ * Position is relative to the desktop container (not the viewport).
  */
 export function DesktopWindow({ win, children, accent }: DesktopWindowProps) {
-  const { focusedId, focusWindow, closeWindow, minimizeWindow, moveWindow } =
-    useDesktop();
+  const {
+    focusedId,
+    focusWindow,
+    closeWindow,
+    minimizeWindow,
+    moveWindow,
+    getBounds,
+  } = useDesktop();
   const reduced = useReducedMotion();
+  const panelRef = useRef<HTMLDivElement>(null);
   const drag = useRef<{
     ox: number;
     oy: number;
@@ -32,6 +41,9 @@ export function DesktopWindow({ win, children, accent }: DesktopWindowProps) {
     sy: number;
   } | null>(null);
   const focused = focusedId === win.id;
+
+  const bounds = getBounds();
+  const width = Math.min(win.width, Math.max(260, bounds.width - 16));
 
   const onPointerDownTitle = useCallback(
     (e: ReactPointerEvent<HTMLDivElement>) => {
@@ -53,9 +65,7 @@ export function DesktopWindow({ win, children, accent }: DesktopWindowProps) {
       if (!drag.current) return;
       const dx = e.clientX - drag.current.ox;
       const dy = e.clientY - drag.current.oy;
-      const nx = Math.max(0, drag.current.sx + dx);
-      const ny = Math.max(0, drag.current.sy + dy);
-      moveWindow(win.id, nx, ny);
+      moveWindow(win.id, drag.current.sx + dx, drag.current.sy + dy);
     },
     [moveWindow, win.id],
   );
@@ -69,12 +79,34 @@ export function DesktopWindow({ win, children, accent }: DesktopWindowProps) {
     }
   }, []);
 
+  // Escape closes focused window; basic focus when opened
+  useEffect(() => {
+    if (!focused || win.minimized) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        e.stopPropagation();
+        closeWindow(win.id);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    // Focus first actionable control if focus is outside
+    const root = panelRef.current;
+    if (root && !root.contains(document.activeElement)) {
+      const btn = root.querySelector<HTMLElement>("[data-win-action] button");
+      btn?.focus({ preventScroll: true });
+    }
+    return () => window.removeEventListener("keydown", onKey);
+  }, [focused, win.minimized, win.id, closeWindow]);
+
   if (win.minimized) return null;
 
   return (
     <motion.div
+      ref={panelRef}
       role="dialog"
+      aria-modal="false"
       aria-label={win.title}
+      tabIndex={-1}
       className={cn(
         "absolute flex flex-col overflow-hidden rounded-xl border border-white/20 bg-[#1a1a1c]/95 shadow-lg backdrop-blur-xl",
         focused ? "ring-1 ring-accent-lime/40" : "opacity-95",
@@ -82,10 +114,10 @@ export function DesktopWindow({ win, children, accent }: DesktopWindowProps) {
       style={{
         left: win.x,
         top: win.y,
-        width: Math.min(win.width, typeof window !== "undefined" ? window.innerWidth - 16 : win.width),
+        width,
         height: win.height,
         zIndex: win.z,
-        maxWidth: "calc(100vw - 1rem)",
+        maxWidth: "calc(100% - 0.5rem)",
       }}
       initial={reduced ? false : { opacity: 0, scale: 0.96, y: 12 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -98,9 +130,7 @@ export function DesktopWindow({ win, children, accent }: DesktopWindowProps) {
         className="flex h-10 shrink-0 cursor-grab items-center gap-2 border-b border-white/10 bg-gradient-to-r from-white/10 to-transparent px-2 active:cursor-grabbing"
         style={
           accent
-            ? {
-                borderTop: `2px solid ${accent}`,
-              }
+            ? { borderTop: `2px solid ${accent}` }
             : { borderTop: "2px solid var(--color-accent-lime)" }
         }
         onPointerDown={onPointerDownTitle}
@@ -112,20 +142,21 @@ export function DesktopWindow({ win, children, accent }: DesktopWindowProps) {
           <button
             type="button"
             data-win-action
-            aria-label="Cerrar"
-            className="h-3 w-3 rounded-full bg-[#ff5f57] transition-transform hover:scale-110"
+            aria-label={`Cerrar ${win.title}`}
+            className="h-3 w-3 rounded-full bg-[#ff5f57] transition-transform hover:scale-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             onClick={() => closeWindow(win.id)}
           />
           <button
             type="button"
             data-win-action
-            aria-label="Minimizar"
-            className="h-3 w-3 rounded-full bg-[#febc2e] transition-transform hover:scale-110"
+            aria-label={`Minimizar ${win.title}`}
+            className="h-3 w-3 rounded-full bg-[#febc2e] transition-transform hover:scale-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             onClick={() => minimizeWindow(win.id)}
           />
           <span
             className="h-3 w-3 rounded-full bg-[#28c840] opacity-60"
             aria-hidden
+            title="Maximizar no disponible"
           />
         </div>
         <p className="min-w-0 flex-1 truncate text-center font-mono text-[11px] uppercase tracking-label text-white/70">

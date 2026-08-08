@@ -57,6 +57,8 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: SEO.title,
     description: SEO.description,
+    site: SEO.twitterHandle,
+    creator: SEO.twitterHandle,
     images: [SEO.ogImage],
   },
   robots: {

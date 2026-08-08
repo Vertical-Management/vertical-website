@@ -1,11 +1,15 @@
 import { SITE } from "@/lib/constants";
 import { projects } from "@/data/projects";
+import { asset } from "@/lib/assets";
 
 export const SEO = {
   title: `${SITE.name} — ${SITE.founder}`,
   description:
     "Creatividad, branding, digital, motion y estrategia con craft y humor. Vertical Management · Andorra.",
-  /** Static branded share card (SVG — wide platform support via absolute URL) */
+  /**
+   * Fallback static card. App Router also serves `opengraph-image.tsx` (PNG)
+   * which most social platforms prefer over SVG.
+   */
   ogImage: "/og.svg",
   locale: "es_AD",
   twitterHandle: "@somvertical",
@@ -89,7 +93,7 @@ export function projectJsonLd(slug: string) {
       name: SITE.name,
     },
     url: absoluteUrl(`/proyectos/${project.slug}`),
-    image: absoluteUrl(project.cover.replace(/ /g, "%20")),
+    image: absoluteUrl(asset(project.cover)),
   };
 }
 

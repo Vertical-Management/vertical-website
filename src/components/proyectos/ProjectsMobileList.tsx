@@ -11,7 +11,7 @@ import { Stagger, StaggerItem } from "@/components/ui/Reveal";
  */
 export function ProjectsMobileList() {
   return (
-    <section className="border-t border-border bg-paper py-12 md:hidden">
+    <section className="border-t border-border bg-paper py-12">
       <div className="px-gutter">
         <p className="font-mono text-caption uppercase tracking-label text-ink-muted">
           Vista lista

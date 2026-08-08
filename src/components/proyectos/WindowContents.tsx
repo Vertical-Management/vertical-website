@@ -70,7 +70,7 @@ export function ReadmeWindowBody() {
       <p className="text-accent-lime">{"// vertical_os.txt"}</p>
       <p>Bienvenido al escritorio de proyectos de {SITE.name}.</p>
       <ul className="list-inside list-disc space-y-1 text-white/60">
-        <li>Doble clic en un icono para abrir (clic en móvil).</li>
+        <li>Clic en un icono para abrir la ventana.</li>
         <li>Arrastra las ventanas por la barra de título.</li>
         <li>Rojo cierra · amarillo minimiza · taskbar restaura.</li>
         <li>Cada carpeta es un caso real. Sin plantillas.</li>

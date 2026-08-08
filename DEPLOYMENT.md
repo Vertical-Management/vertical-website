@@ -35,9 +35,11 @@ git push origin main
 | Name | Value | Environments |
 |------|--------|--------------|
 | `NEXT_PUBLIC_SITE_URL` | `https://somvertical.ad` (o la URL `.vercel.app` temporal) | Production, Preview |
-| `RESEND_API_KEY` | `re_xxxxxxxx` | Production (y Preview si quieres) |
+| `RESEND_API_KEY` | `re_xxxxxxxx` | **Production (obligatorio)** — sin esta key el form devuelve error 500 en prod |
 | `CONTACT_TO_EMAIL` | `sales@somvertical.ad` | Production |
 | `CONTACT_FROM_EMAIL` | `Vertical <sales@somvertical.ad>` | Production |
+
+> En producción el formulario **no finge éxito** si falta `RESEND_API_KEY`. En local/dev sin key solo loguea el mensaje.
 
 Luego **Redeploy** (Deployments → ⋮ → Redeploy).
 

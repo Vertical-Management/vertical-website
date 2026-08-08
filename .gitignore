@@ -7,6 +7,9 @@
 # nested / accidental scaffolds
 /viewer
 
+# source design assets (duplicates of public/assets — do not deploy)
+/recursos
+
 # testing
 /coverage
 

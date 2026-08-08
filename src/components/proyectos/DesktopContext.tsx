@@ -5,16 +5,21 @@ import {
   useCallback,
   useContext,
   useMemo,
+  useRef,
   useState,
   type ReactNode,
+  type RefObject,
 } from "react";
 import type { DesktopWindowId, DesktopWindowState } from "@/types";
 import { getProjectBySlug } from "@/data/projects";
+
+type DesktopBounds = { width: number; height: number };
 
 type DesktopContextValue = {
   windows: DesktopWindowState[];
   focusedId: DesktopWindowId | null;
   startOpen: boolean;
+  desktopRef: RefObject<HTMLDivElement>;
   openWindow: (id: DesktopWindowId, title?: string) => void;
   closeWindow: (id: DesktopWindowId) => void;
   minimizeWindow: (id: DesktopWindowId) => void;
@@ -23,33 +28,65 @@ type DesktopContextValue = {
   moveWindow: (id: DesktopWindowId, x: number, y: number) => void;
   toggleStart: () => void;
   setStartOpen: (open: boolean) => void;
+  getBounds: () => DesktopBounds;
 };
 
 const DesktopContext = createContext<DesktopContextValue | null>(null);
 
 let zCounter = 10;
 
-function defaultSize(id: DesktopWindowId) {
+const TASKBAR_H = 48;
+const TITLEBAR_H = 40;
+
+function defaultSize(id: DesktopWindowId, bounds: DesktopBounds) {
+  let width = 380;
+  let height = 300;
   if (id.startsWith("project:")) {
-    return { width: 520, height: 420 };
+    width = 520;
+    height = 420;
+  } else if (id === "readme" || id === "about") {
+    width = 440;
+    height = 360;
   }
-  if (id === "readme" || id === "about") {
-    return { width: 440, height: 360 };
-  }
-  return { width: 380, height: 300 };
+
+  const maxW = Math.max(260, bounds.width - 16);
+  const maxH = Math.max(200, bounds.height - TASKBAR_H - 16);
+  return {
+    width: Math.min(width, maxW),
+    height: Math.min(height, maxH),
+  };
 }
 
-function defaultPos(id: DesktopWindowId, openCount: number) {
-  const offset = (openCount % 5) * 28;
-  if (typeof window === "undefined") {
-    return { x: 80 + offset, y: 60 + offset };
-  }
-  const size = defaultSize(id);
-  const maxX = Math.max(24, window.innerWidth - size.width - 24);
-  const maxY = Math.max(24, window.innerHeight - size.height - 100);
+function defaultPos(
+  id: DesktopWindowId,
+  openCount: number,
+  bounds: DesktopBounds,
+  size: { width: number; height: number },
+) {
+  const offset = (openCount % 5) * 24;
+  const maxX = Math.max(8, bounds.width - size.width - 8);
+  const maxY = Math.max(8, bounds.height - size.height - TASKBAR_H - 8);
   return {
-    x: Math.min(72 + offset, maxX),
-    y: Math.min(48 + offset, maxY),
+    x: Math.min(48 + offset, maxX),
+    y: Math.min(32 + offset, maxY),
+  };
+}
+
+function clampPos(
+  x: number,
+  y: number,
+  width: number,
+  height: number,
+  bounds: DesktopBounds,
+) {
+  const maxX = Math.max(0, bounds.width - Math.min(width, bounds.width));
+  const maxY = Math.max(
+    0,
+    bounds.height - TASKBAR_H - Math.min(TITLEBAR_H + 24, height),
+  );
+  return {
+    x: Math.min(Math.max(0, x), maxX),
+    y: Math.min(Math.max(0, y), maxY),
   };
 }
 
@@ -70,30 +107,48 @@ export function DesktopProvider({ children }: { children: ReactNode }) {
   const [windows, setWindows] = useState<DesktopWindowState[]>([]);
   const [focusedId, setFocusedId] = useState<DesktopWindowId | null>(null);
   const [startOpen, setStartOpen] = useState(false);
+  const desktopRef = useRef<HTMLDivElement>(null!);
+
+  const getBounds = useCallback((): DesktopBounds => {
+    const el = desktopRef.current;
+    if (el) {
+      const r = el.getBoundingClientRect();
+      return { width: r.width, height: r.height };
+    }
+    if (typeof window !== "undefined") {
+      return {
+        width: Math.min(window.innerWidth - 32, 1200),
+        height: Math.min(window.innerHeight - 120, 820),
+      };
+    }
+    return { width: 960, height: 640 };
+  }, []);
 
   const focusWindow = useCallback((id: DesktopWindowId) => {
     zCounter += 1;
     setFocusedId(id);
     setWindows((prev) =>
-      prev.map((w) => (w.id === id ? { ...w, z: zCounter, minimized: false } : w)),
+      prev.map((w) =>
+        w.id === id ? { ...w, z: zCounter, minimized: false } : w,
+      ),
     );
   }, []);
 
   const openWindow = useCallback(
     (id: DesktopWindowId, title?: string) => {
       setStartOpen(false);
+      const bounds = getBounds();
+
       setWindows((prev) => {
         const existing = prev.find((w) => w.id === id);
+        zCounter += 1;
         if (existing) {
-          zCounter += 1;
-          setFocusedId(id);
           return prev.map((w) =>
             w.id === id ? { ...w, minimized: false, z: zCounter } : w,
           );
         }
-        zCounter += 1;
-        const pos = defaultPos(id, prev.length);
-        const size = defaultSize(id);
+        const size = defaultSize(id, bounds);
+        const pos = defaultPos(id, prev.length, bounds, size);
         const next: DesktopWindowState = {
           id,
           title: resolveTitle(id, title),
@@ -104,11 +159,11 @@ export function DesktopProvider({ children }: { children: ReactNode }) {
           minimized: false,
           z: zCounter,
         };
-        setFocusedId(id);
         return [...prev, next];
       });
+      setFocusedId(id);
     },
-    [],
+    [getBounds],
   );
 
   const closeWindow = useCallback((id: DesktopWindowId) => {
@@ -130,11 +185,19 @@ export function DesktopProvider({ children }: { children: ReactNode }) {
     [focusWindow],
   );
 
-  const moveWindow = useCallback((id: DesktopWindowId, x: number, y: number) => {
-    setWindows((prev) =>
-      prev.map((w) => (w.id === id ? { ...w, x, y } : w)),
-    );
-  }, []);
+  const moveWindow = useCallback(
+    (id: DesktopWindowId, x: number, y: number) => {
+      const bounds = getBounds();
+      setWindows((prev) =>
+        prev.map((w) => {
+          if (w.id !== id) return w;
+          const pos = clampPos(x, y, w.width, w.height, bounds);
+          return { ...w, ...pos };
+        }),
+      );
+    },
+    [getBounds],
+  );
 
   const toggleStart = useCallback(() => {
     setStartOpen((v) => !v);
@@ -145,6 +208,7 @@ export function DesktopProvider({ children }: { children: ReactNode }) {
       windows,
       focusedId,
       startOpen,
+      desktopRef,
       openWindow,
       closeWindow,
       minimizeWindow,
@@ -153,6 +217,7 @@ export function DesktopProvider({ children }: { children: ReactNode }) {
       moveWindow,
       toggleStart,
       setStartOpen,
+      getBounds,
     }),
     [
       windows,
@@ -165,6 +230,7 @@ export function DesktopProvider({ children }: { children: ReactNode }) {
       focusWindow,
       moveWindow,
       toggleStart,
+      getBounds,
     ],
   );
 

@@ -25,10 +25,10 @@ import { Grain } from "@/components/ui/Grain";
 import type { DesktopWindowId } from "@/types";
 
 function DesktopInner() {
-  const { windows, openWindow, setStartOpen } = useDesktop();
+  const { windows, openWindow, setStartOpen, desktopRef } = useDesktop();
   const [selected, setSelected] = useState<string | null>(null);
 
-  // Boot: open readme lightly after mount (skip if reduced motion preference — still OK)
+  // Boot: open readme lightly after mount
   useEffect(() => {
     const t = window.setTimeout(() => {
       openWindow("readme");
@@ -67,6 +67,7 @@ function DesktopInner() {
 
   return (
     <div
+      ref={desktopRef}
       className="relative h-[min(820px,calc(100dvh-var(--header-height)-2rem))] min-h-[560px] w-full overflow-hidden rounded-card border border-ink/20 shadow-lg md:h-[calc(100dvh-var(--header-height)-3rem)]"
       onClick={() => {
         setSelected(null);
@@ -144,11 +145,7 @@ function DesktopInner() {
         <div className="pointer-events-auto relative h-full w-full">
           <AnimatePresence>
             {windows.map((w) => (
-              <DesktopWindow
-                key={w.id}
-                win={w}
-                accent={accentFor(w.id)}
-              >
+              <DesktopWindow key={w.id} win={w} accent={accentFor(w.id)}>
                 {renderBody(w.id)}
               </DesktopWindow>
             ))}

@@ -18,9 +18,6 @@ const nextConfig = {
       "gsap",
       "@gsap/react",
       "framer-motion",
-      "three",
-      "@react-three/fiber",
-      "@react-three/drei",
     ],
   },
   async headers() {

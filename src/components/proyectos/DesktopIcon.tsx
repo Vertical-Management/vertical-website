@@ -15,7 +15,7 @@ type DesktopIconProps = {
 };
 
 /**
- * Desktop shortcut — single click select, double click / Enter open.
+ * Desktop shortcut — click to open (select on secondary click / focus).
  */
 export function DesktopIcon({
   label,
@@ -30,6 +30,7 @@ export function DesktopIcon({
     <button
       type="button"
       data-cursor="hover"
+      title={`${label} — clic para abrir`}
       className={cn(
         "group flex w-[88px] flex-col items-center gap-1.5 rounded-md p-2 text-center",
         "outline-none transition-colors duration-fast",
@@ -40,8 +41,7 @@ export function DesktopIcon({
       onClick={(e) => {
         e.stopPropagation();
         onSelect?.();
-        // Touch / single-click open on coarse pointers
-        if (window.matchMedia("(pointer: coarse)").matches) onOpen();
+        onOpen();
       }}
       onDoubleClick={(e) => {
         e.stopPropagation();

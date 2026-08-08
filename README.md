@@ -111,8 +111,11 @@ RESEND_API_KEY=re_xxx
 CONTACT_TO_EMAIL=sales@somvertical.ad
 CONTACT_FROM_EMAIL=Vertical <sales@somvertical.ad>
 ```
-- `POST /api/contact` — validación, honeypot, rate limit
-- Con Resend: email real · Sin key: log en servidor (dev-friendly)
+- `POST /api/contact` — validación, honeypot, rate limit, límites de payload
+- Con Resend: email real
+- **Producción sin `RESEND_API_KEY`:** error (no finge éxito)
+- Dev sin key: log en servidor
+- Política de privacidad: `/privacidad`
 
 ---
 
@@ -132,4 +135,11 @@ CONTACT_FROM_EMAIL=Vertical <sales@somvertical.ad>
 
 ## Assets
 
-Recursos de marca y proyectos en `public/assets/` (fuente en `recursos/`).
+Recursos de marca y proyectos en `public/assets/`.
+
+Los loops de FEP se sirven como **MP4 H.264** en `public/assets/PAG ANIMATION FEP2026/loops/` (no GIFs).  
+Para regenerar desde GIF (requiere `ffmpeg`):
+
+```bash
+bash scripts/convert-fep-gifs.sh
+```

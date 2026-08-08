@@ -96,7 +96,7 @@ export function ContactDevice({ className }: { className?: string }) {
               <div className="flex items-center gap-3 border-b border-white/10 p-4">
                 <div className="relative h-14 w-14 overflow-hidden rounded-full border border-white/20 bg-paper-dim">
                   <Image
-                    src={asset("/assets/FERRER.png")}
+                    src={asset("/assets/FERRER.webp")}
                     alt={SITE.founder}
                     fill
                     className="object-cover object-top"

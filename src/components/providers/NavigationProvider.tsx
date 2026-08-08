@@ -57,6 +57,8 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
     return () => {
       root.classList.remove("nav-menu-open");
       document.body.style.overflow = "";
+      // Ensure scroll is not left stopped if provider unmounts with menu open
+      lenis?.start();
     };
   }, [menuOpen, lenis]);
 

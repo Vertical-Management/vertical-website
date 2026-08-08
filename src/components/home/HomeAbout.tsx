@@ -72,7 +72,7 @@ export function HomeAbout() {
               <Grain />
               <Image
                 data-about-img
-                src={asset("/assets/FERRER.png")}
+                src={asset("/assets/FERRER.webp")}
                 alt={SITE.founder}
                 fill
                 className="object-cover object-top"

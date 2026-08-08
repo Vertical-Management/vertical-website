@@ -9,10 +9,28 @@ export type ContactPayload = {
 };
 
 export type ContactFieldErrors = Partial<
-  Record<"name" | "email" | "message" | "form", string>
+  Record<"name" | "email" | "message" | "company" | "form", string>
 >;
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+const LIMITS = {
+  name: 80,
+  email: 120,
+  company: 120,
+  budget: 40,
+  message: 5000,
+  messageMin: 12,
+} as const;
+
+function clip(s: string, max: number) {
+  return s.length > max ? s.slice(0, max) : s;
+}
+
+/** Strip CR/LF and control chars from header-sensitive fields */
+function sanitizeHeader(s: string) {
+  return s.replace(/[\r\n\u0000-\u001f\u007f]/g, " ").trim();
+}
 
 export function validateContactPayload(
   raw: unknown,
@@ -22,30 +40,49 @@ export function validateContactPayload(
   }
 
   const body = raw as Record<string, unknown>;
-  const name = String(body.name ?? "").trim();
+  const name = sanitizeHeader(String(body.name ?? "").trim());
   const email = String(body.email ?? "").trim().toLowerCase();
-  const company = String(body.company ?? "").trim();
-  const budget = String(body.budget ?? "").trim();
+  const company = sanitizeHeader(String(body.company ?? "").trim());
+  const budget = sanitizeHeader(String(body.budget ?? "").trim());
   const message = String(body.message ?? "").trim();
   const website = String(body.website ?? "").trim();
 
-  // Honeypot trip — pretend success upstream
+  // Honeypot trip — pretend success upstream (no validation noise for bots)
   if (website) {
     return {
       ok: true,
-      data: { name, email, company, budget, message, website },
+      data: {
+        name: clip(name, LIMITS.name),
+        email: clip(email, LIMITS.email),
+        company: clip(company, LIMITS.company),
+        budget: clip(budget, LIMITS.budget),
+        message: clip(message, LIMITS.message),
+        website,
+      },
     };
   }
 
   const errors: ContactFieldErrors = {};
   if (!name) errors.name = "Pon un nombre (o un alias épico).";
-  if (!email) errors.email = "Necesitamos un email para responder.";
-  else if (!EMAIL_RE.test(email)) errors.email = "Ese email no parece válido.";
-  if (!message || message.length < 12) {
-    errors.message = "Cuéntanos un poco más del lío creativo.";
+  else if (name.length > LIMITS.name) {
+    errors.name = `Nombre demasiado largo (máx. ${LIMITS.name}).`;
   }
-  if (message.length > 5000) {
-    errors.message = "Mensaje demasiado largo (máx. 5000).";
+
+  if (!email) errors.email = "Necesitamos un email para responder.";
+  else if (email.length > LIMITS.email) {
+    errors.email = `Email demasiado largo (máx. ${LIMITS.email}).`;
+  } else if (!EMAIL_RE.test(email)) {
+    errors.email = "Ese email no parece válido.";
+  }
+
+  if (company.length > LIMITS.company) {
+    errors.company = `Empresa demasiado larga (máx. ${LIMITS.company}).`;
+  }
+
+  if (!message || message.length < LIMITS.messageMin) {
+    errors.message = "Cuéntanos un poco más del lío creativo.";
+  } else if (message.length > LIMITS.message) {
+    errors.message = `Mensaje demasiado largo (máx. ${LIMITS.message}).`;
   }
 
   if (Object.keys(errors).length) return { ok: false, errors };
@@ -53,11 +90,11 @@ export function validateContactPayload(
   return {
     ok: true,
     data: {
-      name,
-      email,
-      company: company || undefined,
-      budget: budget || undefined,
-      message,
+      name: clip(name, LIMITS.name),
+      email: clip(email, LIMITS.email),
+      company: company ? clip(company, LIMITS.company) : undefined,
+      budget: budget ? clip(budget, LIMITS.budget) : undefined,
+      message: clip(message, LIMITS.message),
     },
   };
 }
@@ -67,7 +104,10 @@ export function formatContactEmail(data: ContactPayload): {
   text: string;
   html: string;
 } {
-  const subject = `Coin insert · ${data.name}${data.company ? ` (${data.company})` : ""}`;
+  const safeName = sanitizeHeader(data.name);
+  const safeCompany = data.company ? sanitizeHeader(data.company) : "";
+  const subject = `Coin insert · ${safeName}${safeCompany ? ` (${safeCompany})` : ""}`;
+
   const text = [
     data.message,
     "",

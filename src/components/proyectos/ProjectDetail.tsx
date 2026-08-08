@@ -7,9 +7,11 @@ import { asset } from "@/lib/assets";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Badge } from "@/components/ui/Badge";
-import { Reveal, Stagger, StaggerItem } from "@/components/ui/Reveal";
+import { Reveal } from "@/components/ui/Reveal";
 import { CoinButton } from "@/components/home/CoinButton";
 import { Grain } from "@/components/ui/Grain";
+import { LazyGallery } from "@/components/proyectos/LazyGallery";
+import { isGifSrc } from "@/lib/media";
 
 type ProjectDetailProps = {
   project: Project;
@@ -20,6 +22,10 @@ type ProjectDetailProps = {
  */
 export function ProjectDetail({ project }: ProjectDetailProps) {
   const gallery = project.gallery?.length ? project.gallery : [project.cover];
+  const coverIsGif = isGifSrc(project.cover);
+  const hasVideoLoops = gallery.some(
+    (src) => src.endsWith(".mp4") || src.endsWith(".webm"),
+  );
 
   return (
     <main id="main-content" className="relative pt-header">
@@ -33,7 +39,7 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
             className="object-cover opacity-90"
             sizes="100vw"
             priority
-            unoptimized={project.cover.endsWith(".gif")}
+            unoptimized={coverIsGif}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-transparent" />
           <Grain className="opacity-30" strong />
@@ -50,7 +56,11 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
             ) : null}
             <div className="mt-5 flex flex-wrap gap-2">
               {project.categories.map((c) => (
-                <Badge key={c} variant="outline" className="border-white/25 text-paper">
+                <Badge
+                  key={c}
+                  variant="outline"
+                  className="border-white/25 text-paper"
+                >
                   {c}
                 </Badge>
               ))}
@@ -98,7 +108,7 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
             </Reveal>
 
             <Reveal className="lg:col-span-8" delay={0.1}>
-              <p className="text-lead text-ink-soft">
+              <p className="whitespace-pre-line text-lead text-ink-soft">
                 {project.description ?? project.excerpt}
               </p>
             </Reveal>
@@ -115,7 +125,7 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
                 className="aspect-video w-full"
                 controls
                 playsInline
-                preload="metadata"
+                preload="none"
                 poster={asset(project.cover)}
               >
                 <source src={asset(project.videoUrl)} type="video/mp4" />
@@ -125,31 +135,17 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
         </section>
       ) : null}
 
-      {/* Gallery */}
+      {/* Gallery — progressive load */}
       <section className="border-t border-border bg-paper-warm py-section">
         <Container>
           <Eyebrow index="01" className="mb-8">
             Gallery
           </Eyebrow>
-          <Stagger className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" stagger={0.06}>
-            {gallery.map((src, i) => (
-              <StaggerItem
-                key={`${src}-${i}`}
-                className={i % 5 === 0 ? "sm:col-span-2 lg:col-span-2" : ""}
-              >
-                <div className="relative aspect-[4/3] overflow-hidden rounded-card border border-border bg-paper-dim">
-                  <Image
-                    src={asset(src)}
-                    alt={`${project.title} — frame ${i + 1}`}
-                    fill
-                    className="object-cover transition-transform duration-cinematic ease-out-expo hover:scale-105"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    unoptimized={src.endsWith(".gif")}
-                  />
-                </div>
-              </StaggerItem>
-            ))}
-          </Stagger>
+          <LazyGallery
+            images={gallery}
+            title={project.title}
+            initialCount={hasVideoLoops ? 3 : 4}
+          />
         </Container>
       </section>
 

@@ -31,7 +31,7 @@ export function InitialLoader() {
 
     let raf = 0;
     const start = performance.now();
-    const total = 1400;
+    const total = 900;
 
     const tick = (now: number) => {
       const t = Math.min(1, (now - start) / total);
