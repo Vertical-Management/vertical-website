@@ -13,19 +13,19 @@
 }
 
 .hero-wall-track {
-  animation: hero-wall-marquee var(--wall-duration, 40s) linear infinite;
-  will-change: transform;
-  transform: translateZ(0);
+  transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
 }
 
-.hero-wall-track--paused {
-  animation-play-state: paused;
+.hero-wall-track--running {
+  animation: hero-wall-marquee var(--wall-duration, 40s) linear infinite;
+  will-change: transform;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-wall-track {
+  .hero-wall-track--running {
     animation: none !important;
+    will-change: auto;
   }
 }
 
