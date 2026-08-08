@@ -28,7 +28,7 @@ export const metadata: Metadata = {
 
 /**
  * Home — immersive narrative experience.
- * Editorial Digital Disruptivo + Playful High-Craft.
+ * Critical path: Hero wall (budgeted media) + marquee + editorial sections.
  */
 export default function HomePage() {
   return (

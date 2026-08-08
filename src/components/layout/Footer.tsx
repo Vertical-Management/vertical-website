@@ -24,6 +24,7 @@ const MARQUEE = [
  * Site footer — editorial wordmark, nav, social, irreverent meta.
  */
 export function Footer() {
+  // Fixed at build-ish render; suppressHydrationWarning avoids year-boundary flicker
   const year = new Date().getFullYear();
 
   return (
@@ -93,7 +94,7 @@ export function Footer() {
         {/* Columns */}
         <div className="mt-12 grid gap-10 border-t border-border pt-12 sm:grid-cols-2 lg:grid-cols-4">
           <div className="sm:col-span-2 lg:col-span-1">
-            <Logo magnetic={false} />
+            <Logo magnetic={false} size="md" />
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-ink-soft">
               {SITE.pitch}
               <br />
@@ -173,7 +174,10 @@ export function Footer() {
 
         {/* Legal row */}
         <div className="mt-14 flex flex-col gap-3 border-t border-border pt-6 sm:flex-row sm:items-center sm:justify-between">
-          <p className="font-mono text-[0.65rem] uppercase tracking-label text-ink-faint">
+          <p
+            className="font-mono text-[0.65rem] uppercase tracking-label text-ink-faint"
+            suppressHydrationWarning
+          >
             © {year} {SITE.name}. Todos los coins reservados.
           </p>
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-[0.65rem] uppercase tracking-label text-ink-faint">

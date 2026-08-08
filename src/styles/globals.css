@@ -2,6 +2,33 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Hero resource wall — continuous left marquee (translate -50% of doubled track) */
+@keyframes hero-wall-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.hero-wall-track {
+  animation: hero-wall-marquee var(--wall-duration, 40s) linear infinite;
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.hero-wall-track--paused {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-wall-track {
+    animation: none !important;
+  }
+}
+
 /* ═══════════════════════════════════════════
    DESIGN TOKENS
    ═══════════════════════════════════════════ */

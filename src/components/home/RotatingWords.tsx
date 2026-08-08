@@ -51,10 +51,15 @@ export function RotatingWords({
         className,
       )}
     >
+      {/* Screen-reader friendly: announce current word without spam */}
+      <span className="sr-only" aria-live="polite" aria-atomic="true">
+        {words[index]}
+      </span>
       <AnimatePresence mode="wait">
         <motion.span
           key={words[index]}
           className="inline-block text-accent"
+          aria-hidden
           initial={{ y: "100%", opacity: 0 }}
           animate={{ y: "0%", opacity: 1 }}
           exit={{ y: "-100%", opacity: 0 }}

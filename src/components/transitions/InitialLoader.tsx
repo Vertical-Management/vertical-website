@@ -1,7 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { asset } from "@/lib/assets";
 import { EASE_IN_OUT_EXPO, EASE_OUT_EXPO, duration } from "@/lib/motion";
 
 const SESSION_KEY = "vertical-intro-seen";
@@ -89,8 +91,8 @@ export function InitialLoader() {
             Insert coin
           </motion.p>
 
-          <motion.h1
-            className="mt-4 font-display text-display-lg tracking-display md:text-display-xl"
+          <motion.div
+            className="mt-6 flex flex-col items-center gap-4"
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
@@ -99,8 +101,18 @@ export function InitialLoader() {
               ease: EASE_OUT_EXPO,
             }}
           >
-            VERTICAL
-          </motion.h1>
+            <Image
+              src={asset("/assets/logo/VERTICAL-WHITE.png")}
+              alt=""
+              width={72}
+              height={102}
+              priority
+              className="h-20 w-auto object-contain md:h-24"
+            />
+            <h1 className="font-display text-display-lg tracking-display md:text-display-xl">
+              VERTICAL
+            </h1>
+          </motion.div>
 
           <div className="mt-10 w-48 md:w-64">
             <div className="h-px w-full overflow-hidden bg-white/15">

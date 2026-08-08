@@ -7,6 +7,7 @@ export const ROUTE_LABELS: Record<string, string> = {
   "/contacto": "Contacto",
   "/privacidad": "Privacidad",
   "/design-system": "Design System",
+  "/propuestas-hero": "Propuestas hero",
 };
 
 export function getRouteLabel(pathname: string): string {

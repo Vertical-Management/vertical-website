@@ -1,13 +1,15 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { usePageTransition } from "@/components/transitions/TransitionProvider";
+import { asset } from "@/lib/assets";
 import { EASE_IN_OUT_EXPO, EASE_OUT_EXPO, duration } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 /**
- * Full-viewport cinematic cover — ink panels + route label + VERTICAL mark.
+ * Full-viewport cinematic cover — ink panels + brand lockup + route label.
  */
 export function PageTransitionOverlay() {
   const { phase, label, isTransitioning } = usePageTransition();
@@ -99,20 +101,56 @@ export function PageTransitionOverlay() {
               exit={{ scaleY: 0, transition: { duration: duration.fast } }}
             />
 
-            {/* Center brand + label */}
-            <div className="relative z-[1] flex flex-1 flex-col items-center justify-center gap-4 px-gutter text-center">
+            {/* Center brand lockup + route label */}
+            <div className="relative z-[1] flex flex-1 flex-col items-center justify-center gap-5 px-gutter text-center">
+              <motion.div
+                className="flex flex-col items-center gap-3 sm:flex-row sm:gap-4"
+                initial={{ opacity: 0, y: 16 }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                  transition: {
+                    delay: 0.18,
+                    duration: duration.base,
+                    ease: EASE_OUT_EXPO,
+                  },
+                }}
+                exit={{ opacity: 0, transition: { duration: 0.15 } }}
+              >
+                <Image
+                  src={asset("/assets/logo/VERTICAL-WHITE.png")}
+                  alt=""
+                  width={48}
+                  height={68}
+                  className="h-12 w-auto object-contain sm:h-14"
+                  priority
+                />
+                <span className="relative font-display text-2xl font-extrabold tracking-tight text-paper sm:text-3xl">
+                  VERTICAL
+                  <span
+                    className="absolute -right-1.5 -top-0.5 h-1.5 w-1.5 rounded-full bg-accent-lime"
+                    aria-hidden
+                  />
+                </span>
+              </motion.div>
+
               <motion.p
                 className="font-mono text-caption uppercase tracking-[0.28em] text-accent-lime"
                 initial={{ opacity: 0, y: 12 }}
                 animate={{
                   opacity: 1,
                   y: 0,
-                  transition: { delay: 0.2, duration: duration.base, ease: EASE_OUT_EXPO },
+                  transition: {
+                    delay: 0.24,
+                    duration: duration.base,
+                    ease: EASE_OUT_EXPO,
+                  },
                 }}
                 exit={{ opacity: 0, transition: { duration: 0.15 } }}
               >
-                Vertical
+                Insert coin
               </motion.p>
+
               <motion.p
                 className={cn(
                   "font-display text-display-md tracking-display text-paper md:text-display-lg",
@@ -122,7 +160,7 @@ export function PageTransitionOverlay() {
                   opacity: 1,
                   y: 0,
                   transition: {
-                    delay: 0.28,
+                    delay: 0.3,
                     duration: duration.base,
                     ease: EASE_OUT_EXPO,
                   },
@@ -131,12 +169,17 @@ export function PageTransitionOverlay() {
               >
                 {label}
               </motion.p>
+
               <motion.span
-                className="mt-2 h-px w-16 bg-accent"
+                className="h-px w-16 bg-accent"
                 initial={{ scaleX: 0 }}
                 animate={{
                   scaleX: 1,
-                  transition: { delay: 0.35, duration: duration.base, ease: EASE_OUT_EXPO },
+                  transition: {
+                    delay: 0.36,
+                    duration: duration.base,
+                    ease: EASE_OUT_EXPO,
+                  },
                 }}
                 exit={{ scaleX: 0 }}
               />

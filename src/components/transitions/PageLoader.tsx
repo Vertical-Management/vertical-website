@@ -1,3 +1,5 @@
+import Image from "next/image";
+import { asset } from "@/lib/assets";
 import { cn } from "@/lib/utils";
 
 type PageLoaderProps = {
@@ -9,20 +11,44 @@ type PageLoaderProps = {
 
 /**
  * Shared branded loading UI — used by app/loading.tsx and fallbacks.
+ * Lockup: mark PNG + typographic VERTICAL (same as header / transitions).
  */
 export function PageLoader({
   variant = "fullscreen",
   label = "Cargando",
   className,
 }: PageLoaderProps) {
+  const inverse = variant === "fullscreen"; // paper ground → black mark
+
   const inner = (
     <div className="flex flex-col items-center gap-5">
-      <p className="font-mono text-caption uppercase tracking-[0.28em] text-ink-muted">
+      <p
+        className={cn(
+          "font-mono text-caption uppercase tracking-[0.28em]",
+          inverse ? "text-ink-muted" : "text-ink-muted",
+        )}
+      >
         {label}
       </p>
-      <p className="font-display text-2xl tracking-tight text-ink md:text-3xl">
-        VERTICAL
-      </p>
+
+      <div className="flex flex-col items-center gap-3 sm:flex-row sm:gap-3.5">
+        <Image
+          src={asset("/assets/logo/VERTICAL-BLACK.png")}
+          alt=""
+          width={40}
+          height={56}
+          className="h-10 w-auto object-contain sm:h-11"
+          priority
+        />
+        <p className="relative font-display text-2xl font-extrabold tracking-tight text-ink md:text-3xl">
+          VERTICAL
+          <span
+            className="absolute -right-1.5 -top-0.5 h-1.5 w-1.5 rounded-full bg-accent"
+            aria-hidden
+          />
+        </p>
+      </div>
+
       <div className="relative h-px w-20 overflow-hidden bg-ink/10">
         <span className="absolute inset-y-0 left-0 w-1/2 animate-shimmer bg-accent" />
       </div>

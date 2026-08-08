@@ -7,6 +7,7 @@ import { MenuToggle } from "@/components/layout/MenuToggle";
 import { MobileMenu } from "@/components/layout/MobileMenu";
 import { NavLink } from "@/components/layout/NavLink";
 import { useNavigation } from "@/components/providers/NavigationProvider";
+import { DEFAULT_HERO_VARIANT } from "@/components/home/hero/constants";
 import { useScrollDirection } from "@/hooks/useScrollDirection";
 import { NAV_LINKS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
@@ -24,8 +25,15 @@ export function Header() {
   const hidden =
     !menuOpen && solid && direction === "down" && !atTop;
 
-  // Force light toggle lines when menu open (dark overlay)
-  const toggleInverse = menuOpen;
+  // Home cinematic hero is dark — light chrome until the bar becomes solid
+  const overDarkHero =
+    pathname === "/" &&
+    DEFAULT_HERO_VARIANT === "cinematic" &&
+    !solid &&
+    !menuOpen;
+
+  // Force light toggle lines when menu open (dark overlay) or over dark hero
+  const toggleInverse = menuOpen || overDarkHero;
 
   return (
     <>
@@ -48,9 +56,9 @@ export function Header() {
           {/* Brand */}
           <Logo
             onNavigate={closeMenu}
-            inverse={menuOpen}
+            inverse={menuOpen || overDarkHero}
             className={cn(
-              menuOpen && "relative z-[61] text-paper",
+              (menuOpen || overDarkHero) && "relative z-[61] text-paper",
             )}
           />
 
@@ -70,6 +78,7 @@ export function Header() {
                     label={link.label}
                     index={link.index}
                     variant="desktop"
+                    inverse={overDarkHero}
                   />
                 </li>
               ))}
@@ -88,7 +97,7 @@ export function Header() {
                 "transition-[transform,box-shadow] duration-base ease-out-expo",
                 "hover:translate-x-px hover:translate-y-px hover:shadow-[1px_1px_0_0_var(--color-ink)]",
                 "sm:inline-flex",
-                menuOpen &&
+                (menuOpen || overDarkHero) &&
                   "relative z-[61] border-paper bg-accent-lime shadow-[3px_3px_0_0_#f4f1ea]",
                 pathname === "/contacto" && !menuOpen && "opacity-90",
               )}
