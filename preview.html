@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vertical — Preview</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        background: #0a0a0a;
+        overflow: hidden;
+        font-family: system-ui, sans-serif;
+      }
+      .bar {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        height: 36px;
+        padding: 0 12px;
+        background: #141414;
+        color: #c8ff00;
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        border-bottom: 1px solid #2a2a2a;
+      }
+      .bar a {
+        color: #f4f1ea;
+        text-decoration: none;
+        opacity: 0.75;
+      }
+      .bar a:hover {
+        opacity: 1;
+        color: #c8ff00;
+      }
+      .bar .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #c8ff00;
+        box-shadow: 0 0 8px #c8ff00;
+      }
+      iframe {
+        display: block;
+        width: 100%;
+        height: calc(100% - 36px);
+        border: 0;
+        background: #f4f1ea;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bar">
+      <span class="dot" aria-hidden="true"></span>
+      <strong>Vertical preview</strong>
+      <span style="opacity: 0.45">|</span>
+      <a href="http://127.0.0.1:3000/" target="site">Home</a>
+      <a href="http://127.0.0.1:3000/servicios" target="site">Servicios</a>
+      <a href="http://127.0.0.1:3000/proyectos" target="site">Proyectos</a>
+      <a href="http://127.0.0.1:3000/contacto" target="site">Contacto</a>
+      <a href="http://127.0.0.1:3000/design-system" target="site">Design system</a>
+      <span style="margin-left: auto; opacity: 0.45">http://127.0.0.1:3000</span>
+    </div>
+    <iframe
+      name="site"
+      title="Vertical website"
+      src="http://127.0.0.1:3000/"
+      allow="fullscreen"
+    ></iframe>
+  </body>
+</html>
