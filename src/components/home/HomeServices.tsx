@@ -1,9 +1,10 @@
 "use client";
 
 import NextLink from "next/link";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
-import { services } from "@/data/services";
+import { useLanguage } from "@/components/providers/LanguageProvider";
+import { localizeServices } from "@/lib/i18n";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Heading } from "@/components/ui/Heading";
@@ -15,9 +16,14 @@ import { EASE_OUT_EXPO, duration } from "@/lib/motion";
  * Services — large interactive list (brutalist editorial, high craft).
  */
 export function HomeServices() {
-  const [hovered, setHovered] = useState<string | null>(services[0]?.id ?? null);
+  const { t } = useLanguage();
+  const services = useMemo(() => localizeServices(t), [t]);
+  const [hovered, setHovered] = useState<string | null>(
+    services[0]?.id ?? null,
+  );
   const reduced = useReducedMotion();
   const active = services.find((s) => s.id === hovered) ?? services[0];
+  const s = t.home.services;
 
   return (
     <section
@@ -28,22 +34,20 @@ export function HomeServices() {
         <div className="mb-12 grid gap-8 md:mb-16 md:grid-cols-12 md:items-end">
           <div className="md:col-span-7">
             <Eyebrow index="03" className="mb-4 !text-white/45">
-              Servicios
+              {s.eyebrow}
             </Eyebrow>
             <Heading as="h2" size="display-lg" className="!text-paper">
-              Qué hacemos
+              {s.titleLine1}
               <br />
-              cuando insertas coin
+              {s.titleLine2}
             </Heading>
           </div>
           <p className="max-w-sm text-base text-white/55 md:col-span-5 md:justify-self-end md:text-right">
-            Del concepto al pixel final. Branding, digital, motion y estrategia
-            con la misma obsesión: que se sienta vivo.
+            {s.blurb}
           </p>
         </div>
 
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-8">
-          {/* List */}
           <ul className="lg:col-span-7">
             {services.map((service) => {
               const isOn = hovered === service.id;
@@ -80,10 +84,11 @@ export function HomeServices() {
                       className={cn(
                         "hidden font-mono text-[0.65rem] uppercase tracking-label text-white/30 transition-all duration-base sm:inline",
                         isOn && "text-accent-lime translate-x-0",
-                        !isOn && "translate-x-2 opacity-0 group-hover:opacity-100",
+                        !isOn &&
+                          "translate-x-2 opacity-0 group-hover:opacity-100",
                       )}
                     >
-                      Explorar →
+                      {s.explore}
                     </span>
                   </NextLink>
                 </li>
@@ -91,7 +96,6 @@ export function HomeServices() {
             })}
           </ul>
 
-          {/* Detail panel */}
           <div className="relative flex min-h-[220px] flex-col justify-between rounded-card border border-white/10 bg-white/5 p-6 backdrop-blur-sm md:p-8 lg:col-span-5">
             <AnimatePresence mode="wait">
               {active ? (
@@ -111,7 +115,11 @@ export function HomeServices() {
                   {active.tags ? (
                     <div className="mt-6 flex flex-wrap gap-2">
                       {active.tags.map((tag) => (
-                        <Badge key={tag} variant="outline" className="border-white/20 text-paper">
+                        <Badge
+                          key={tag}
+                          variant="outline"
+                          className="border-white/20 text-paper"
+                        >
                           {tag}
                         </Badge>
                       ))}
@@ -126,7 +134,7 @@ export function HomeServices() {
               data-cursor="hover"
               className="mt-8 inline-flex w-fit items-center gap-2 font-mono text-caption uppercase tracking-label text-paper transition-colors duration-base hover:text-accent-lime"
             >
-              Ver todos los servicios →
+              {s.viewAll}
             </NextLink>
           </div>
         </div>

@@ -8,6 +8,7 @@ import {
   useMemo,
   useRef,
   useState,
+  type CSSProperties,
 } from "react";
 import { getCarouselRows, type CarouselTile } from "@/data/carousel";
 import { useMediaBudget } from "@/hooks/useMediaBudget";
@@ -31,8 +32,9 @@ const HOLD_MS = 280;
 /**
  * Club-18 hero wall — continuous left scroll, reliable video loops.
  *
+ * Restored from production (fddaf1b) behavior:
  * - Posters always underneath (instant paint)
- * - Videos autoplay when ≥1px visible (option A)
+ * - Videos autoplay when ≥1px visible — ALL rows, no concurrent cap
  * - No opacity gate (frozen posters bug on prod)
  * - Marquee always runs after first paint
  */
@@ -164,7 +166,7 @@ function MarqueeRow({
         style={
           {
             ["--wall-duration" as string]: `${durationSec}s`,
-          } as React.CSSProperties
+          } as CSSProperties
         }
       >
         {track.map((tile, i) => {

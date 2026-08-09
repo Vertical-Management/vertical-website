@@ -71,15 +71,18 @@
   --font-mono-fallback: ui-monospace, "SF Mono", "Cascadia Code", monospace;
 
   /* ── Type scale extras ── */
-  --text-lead: clamp(1.125rem, 1.5vw, 1.375rem);
+  /* Lead slightly larger on small screens for mobile reading comfort */
+  --text-lead: clamp(1.0625rem, 0.9rem + 0.7vw, 1.375rem);
   --text-caption: 0.75rem;
   --tracking-label: 0.18em;
   --tracking-display: -0.035em;
 
   /* ── Layout ── */
-  --header-height: 4.5rem;
-  --gutter: clamp(1.25rem, 4vw, 3rem);
-  --section-y: clamp(5rem, 12vw, 10rem);
+  --header-height: 4.25rem;
+  /* Gutter: safe padding on iPhone SE → Pro Max */
+  --gutter: clamp(1.125rem, 0.65rem + 2.5vw, 3rem);
+  /* More vertical air on mobile (was dense at 5rem floor) */
+  --section-y: clamp(5.5rem, 4rem + 8vw, 10rem);
   --max-width-site: 1440px;
   --max-width-narrow: 720px;
   --max-width-wide: 1680px;
@@ -195,6 +198,16 @@
     font-size: 1rem;
     line-height: 1.6;
     overflow-x: clip;
+    /* Safe area for notched iPhones */
+    padding-left: env(safe-area-inset-left, 0);
+    padding-right: env(safe-area-inset-right, 0);
+  }
+
+  /* Avoid accidental horizontal rubber-band revealing layout overflow */
+  #smooth-wrapper,
+  #smooth-content,
+  main {
+    max-width: 100%;
   }
 
   h1,
@@ -422,8 +435,11 @@
     transform: scale(0.97);
   }
 
-  /* Custom cursor (Cursor.tsx) — keep native cursor on form fields & text */
-  @media (pointer: fine) {
+  /*
+   * Custom cursor — matches production (somvertical.ad).
+   * JS only adds .has-custom-cursor when dual-ring is active (fine + md+).
+   */
+  @media (pointer: fine) and (min-width: 768px) {
     html.has-custom-cursor,
     html.has-custom-cursor * {
       cursor: none !important;

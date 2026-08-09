@@ -2,10 +2,19 @@ import { SITE } from "@/lib/constants";
 import { projects } from "@/data/projects";
 import { asset } from "@/lib/assets";
 
+/**
+ * Unified brand pitch for title / description / Open Graph / Twitter.
+ * Single source — never diverge between pages.
+ */
+export const BRAND_TAGLINE = SITE.pitch;
+
 export const SEO = {
-  title: `${SITE.name} — ${SITE.founder}`,
-  description:
-    "Creatividad, branding, digital, motion y estrategia con craft y humor. Vertical Management · Andorra.",
+  /** Default document title (homepage absolute + layout default) */
+  title: `${SITE.name} — ${BRAND_TAGLINE}`,
+  /** Short title when template slots page name: "%s · Vertical" */
+  titleShort: `${SITE.name} · ${SITE.founder}`,
+  /** Meta description + og:description baseline */
+  description: `${BRAND_TAGLINE} Branding, digital, motion y estrategia. ${SITE.name} · ${SITE.location}.`,
   /**
    * Fallback static card. App Router also serves `opengraph-image.tsx` (PNG)
    * which most social platforms prefer over SVG.

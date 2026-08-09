@@ -2,9 +2,11 @@
 
 import { useState, type FormEvent } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { useLanguage } from "@/components/providers/LanguageProvider";
 import { Input, TextArea } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import { SITE } from "@/lib/constants";
+import { fill } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { EASE_OUT_EXPO, duration } from "@/lib/motion";
 
@@ -14,7 +16,7 @@ type FormState = {
   company: string;
   budget: string;
   message: string;
-  website: string; // honeypot
+  website: string;
 };
 
 type FormErrors = Partial<Record<keyof FormState | "form", string>>;
@@ -28,24 +30,12 @@ const INITIAL: FormState = {
   website: "",
 };
 
-function validateClient(data: FormState): FormErrors {
-  const errors: FormErrors = {};
-  if (!data.name.trim()) errors.name = "Pon un nombre (o un alias épico).";
-  if (!data.email.trim()) {
-    errors.email = "Necesitamos un email para responder.";
-  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
-    errors.email = "Ese email no parece válido.";
-  }
-  if (!data.message.trim() || data.message.trim().length < 12) {
-    errors.message = "Cuéntanos un poco más del lío creativo.";
-  }
-  return errors;
-}
-
 /**
  * Contact form → POST /api/contact (Resend if configured, else logged).
  */
 export function ContactForm() {
+  const { t } = useLanguage();
+  const f = t.contactPage.form;
   const [data, setData] = useState<FormState>(INITIAL);
   const [errors, setErrors] = useState<FormErrors>({});
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
@@ -53,6 +43,20 @@ export function ContactForm() {
   );
   const [serverMessage, setServerMessage] = useState("");
   const reduced = useReducedMotion();
+
+  const validateClient = (form: FormState): FormErrors => {
+    const next: FormErrors = {};
+    if (!form.name.trim()) next.name = f.errName;
+    if (!form.email.trim()) {
+      next.email = f.errEmailRequired;
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+      next.email = f.errEmailInvalid;
+    }
+    if (!form.message.trim() || form.message.trim().length < 12) {
+      next.message = f.errMessage;
+    }
+    return next;
+  };
 
   const set =
     (key: keyof FormState) =>
@@ -100,21 +104,17 @@ export function ContactForm() {
         setServerMessage(
           json?.error ||
             json?.errors?.form ||
-            "No se pudo enviar. Prueba de nuevo o escribe a " + SITE.email,
+            fill(f.errGeneric, { email: SITE.email }),
         );
         setStatus("error");
         return;
       }
 
-      setServerMessage(
-        json.message || "Mensaje recibido. Te respondemos pronto.",
-      );
+      setServerMessage(json.message || f.defaultSuccess);
       setStatus("sent");
       setData(INITIAL);
     } catch {
-      setServerMessage(
-        `Red caída. Escríbenos a ${SITE.email} y lo resolvemos offline.`,
-      );
+      setServerMessage(fill(f.errNetwork, { email: SITE.email }));
       setStatus("error");
     }
   };
@@ -134,14 +134,13 @@ export function ContactForm() {
             aria-live="polite"
           >
             <p className="font-mono text-caption uppercase tracking-label text-ink/60">
-              Coin accepted
+              {f.successEyebrow}
             </p>
             <h3 className="mt-3 font-display text-display-md text-ink">
-              Mensaje en camino.
+              {f.successTitle}
             </h3>
             <p className="mt-4 max-w-md text-ink/80">
-              {serverMessage ||
-                `Lo tenemos. Respuesta humana desde ${SITE.location} — no bot de 2012.`}
+              {serverMessage || f.successBody}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button
@@ -151,13 +150,13 @@ export function ContactForm() {
                   setServerMessage("");
                 }}
               >
-                Enviar otro
+                {f.sendAnother}
               </Button>
               <a
                 href={`mailto:${SITE.email}`}
                 className="inline-flex h-11 items-center rounded-pill border-2 border-ink px-6 text-sm font-medium text-ink transition-colors hover:bg-ink hover:text-paper"
               >
-                O escribe a {SITE.email}
+                {f.orWrite} {SITE.email}
               </a>
             </div>
           </motion.div>
@@ -169,13 +168,12 @@ export function ContactForm() {
             className="space-y-8"
             initial={false}
           >
-            {/* Honeypot */}
             <div
               className="absolute -left-[9999px] top-auto h-px w-px overflow-hidden"
               aria-hidden
             >
               <label>
-                No rellenar
+                {f.honeypot}
                 <input
                   type="text"
                   name="website"
@@ -189,10 +187,10 @@ export function ContactForm() {
 
             <div className="grid gap-8 sm:grid-cols-2">
               <Input
-                label="Nombre"
+                label={f.name}
                 name="name"
                 autoComplete="name"
-                placeholder="Tu nombre o alias"
+                placeholder={f.namePlaceholder}
                 value={data.name}
                 onChange={set("name")}
                 error={errors.name}
@@ -200,11 +198,11 @@ export function ContactForm() {
                 maxLength={80}
               />
               <Input
-                label="Email"
+                label={f.email}
                 name="email"
                 type="email"
                 autoComplete="email"
-                placeholder="hola@marca.com"
+                placeholder={f.emailPlaceholder}
                 value={data.email}
                 onChange={set("email")}
                 error={errors.email}
@@ -215,10 +213,10 @@ export function ContactForm() {
 
             <div className="grid gap-8 sm:grid-cols-2">
               <Input
-                label="Empresa (opcional)"
+                label={f.company}
                 name="company"
                 autoComplete="organization"
-                placeholder="Marca / Studio"
+                placeholder={f.companyPlaceholder}
                 value={data.company}
                 onChange={set("company")}
                 error={errors.company}
@@ -226,7 +224,7 @@ export function ContactForm() {
               />
               <label className="group flex w-full flex-col gap-2">
                 <span className="font-mono text-caption uppercase tracking-label text-ink-muted transition-colors duration-base group-focus-within:text-ink">
-                  Presupuesto (opcional)
+                  {f.budget}
                 </span>
                 <select
                   name="budget"
@@ -238,20 +236,20 @@ export function ContactForm() {
                     !data.budget && "text-ink-faint",
                   )}
                 >
-                  <option value="">Por definir</option>
-                  <option value="<5k">Menos de 5k</option>
-                  <option value="5-15k">5k – 15k</option>
-                  <option value="15-40k">15k – 40k</option>
-                  <option value="40k+">40k+</option>
-                  <option value="ongoing">Retainer / ongoing</option>
+                  <option value="">{f.budgetDefault}</option>
+                  {f.budgetOptions.map((opt) => (
+                    <option key={opt.value} value={opt.value}>
+                      {opt.label}
+                    </option>
+                  ))}
                 </select>
               </label>
             </div>
 
             <TextArea
-              label="Mensaje"
+              label={f.message}
               name="message"
-              placeholder="El proyecto, el deadline imposible, el dream — lo que sea."
+              placeholder={f.messagePlaceholder}
               rows={5}
               value={data.message}
               onChange={set("message")}
@@ -269,15 +267,14 @@ export function ContactForm() {
               </p>
             ) : null}
 
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
               <p className="max-w-xs text-xs leading-relaxed text-ink-muted">
-                Envío a {SITE.email}. Respuesta humana, sin autoresponder de
-                2012. Al enviar aceptas la{" "}
+                {fill(f.privacyNote, { email: SITE.email })}{" "}
                 <a
                   href="/privacidad"
                   className="underline decoration-ink/30 underline-offset-2 hover:decoration-ink"
                 >
-                  política de privacidad
+                  {f.privacyLink}
                 </a>
                 .
               </p>
@@ -285,10 +282,12 @@ export function ContactForm() {
                 type="submit"
                 variant="arcade"
                 size="lg"
+                fullWidth
                 disabled={status === "sending"}
                 data-cursor="hover"
+                className="sm:w-auto"
               >
-                {status === "sending" ? "Insertando…" : "Insert coin · Enviar"}
+                {status === "sending" ? f.sending : f.submit}
               </Button>
             </div>
           </motion.form>

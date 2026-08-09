@@ -5,10 +5,11 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { EASE_OUT_EXPO, duration } from "@/lib/motion";
 
+/** Hero cycle — tagline energy without hammering the same three words. */
 const DEFAULT_WORDS = [
   "más lejos",
   "más raro",
-  "más craft",
+  "más alto",
   "más divertido",
   "más vertical",
 ];

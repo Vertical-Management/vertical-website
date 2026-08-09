@@ -3,26 +3,30 @@ import {
   HomeAbout,
   HomeCTA,
   HomeHero,
+  HomeLogoCarousel,
   HomeManifesto,
   HomeMarquee,
-  HomeServices,
-  HomeWork,
 } from "@/components/home";
 import { Grain } from "@/components/ui/Grain";
 import { SEO } from "@/lib/seo";
+import { SITE } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: {
     absolute: SEO.title,
   },
-  description:
-    "Creamos marcas que van más lejos. Branding, digital, motion y estrategia con craft y humor. Andorra.",
+  description: SEO.description,
   alternates: { canonical: "/" },
   openGraph: {
     title: SEO.title,
-    description:
-      "Creamos marcas que van más lejos. Branding, digital, motion y estrategia con craft y humor.",
+    description: SEO.description,
     url: "/",
+    siteName: SITE.name,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SEO.title,
+    description: SEO.description,
   },
 };
 
@@ -43,9 +47,8 @@ export default function HomePage() {
       <HomeHero />
       <HomeMarquee />
       <HomeManifesto />
-      <HomeWork />
-      <HomeServices />
       <HomeAbout />
+      <HomeLogoCarousel />
       <HomeCTA />
     </main>
   );

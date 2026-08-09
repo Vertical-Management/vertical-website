@@ -7,18 +7,22 @@ import {
   ServicesProcess,
 } from "@/components/servicios";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { breadcrumbJsonLd } from "@/lib/seo";
+import { breadcrumbJsonLd, SEO } from "@/lib/seo";
+import { SITE } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Servicios",
-  description:
-    "Branding, digital, motion y estrategia creativa con craft y humor. Vertical Management — Andorra.",
+  description: `${SEO.description} Identidad, web, motion y concepto.`,
   alternates: { canonical: "/servicios" },
   openGraph: {
-    title: "Servicios · Vertical Management",
-    description:
-      "Identidad, web, motion y concepto. Bloques de color, tipografía brutal, ejecución de estudio.",
+    title: `Servicios · ${SITE.name}`,
+    description: SEO.description,
     url: "/servicios",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `Servicios · ${SITE.name}`,
+    description: SEO.description,
   },
 };
 

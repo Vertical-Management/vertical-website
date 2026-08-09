@@ -3,10 +3,12 @@
 import { useEffect } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import NextLink from "next/link";
+import { useLanguage } from "@/components/providers/LanguageProvider";
 import { useNavigation } from "@/components/providers/NavigationProvider";
 import { NavLink } from "@/components/layout/NavLink";
 import { Grain } from "@/components/ui/Grain";
 import { NAV_LINKS, SITE, SOCIAL_LINKS } from "@/lib/constants";
+import { NAV_I18N_KEYS } from "@/lib/i18n";
 import { EASE_IN_OUT_EXPO, EASE_OUT_EXPO, duration } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
@@ -16,7 +18,13 @@ import { cn } from "@/lib/utils";
  */
 export function MobileMenu() {
   const { menuOpen, closeMenu } = useNavigation();
+  const { t } = useLanguage();
   const reduced = useReducedMotion();
+
+  const navLabel = (href: string) => {
+    const key = NAV_I18N_KEYS[href as keyof typeof NAV_I18N_KEYS];
+    return key ? t.nav[key] : href;
+  };
 
   // Trap focus roughly: focus first link when open
   useEffect(() => {
@@ -49,7 +57,7 @@ export function MobileMenu() {
           id="mobile-navigation"
           role="dialog"
           aria-modal="true"
-          aria-label="Navegación principal"
+          aria-label={t.menu.ariaLabel}
           className={cn(
             "fixed inset-0 z-overlay flex flex-col bg-surface-inverse text-paper",
             "pt-[calc(var(--header-height)+0.5rem)]",
@@ -60,7 +68,10 @@ export function MobileMenu() {
 
           <div className="relative z-[1] flex min-h-0 flex-1 flex-col px-gutter pb-8">
             {/* Links */}
-            <nav className="flex flex-1 flex-col justify-center" aria-label="Menú">
+            <nav
+              className="flex flex-1 flex-col justify-center"
+              aria-label={t.menu.mainNav}
+            >
               <ul className="mx-auto w-full max-w-site">
                 {NAV_LINKS.map((link, i) => (
                   <motion.li
@@ -90,7 +101,7 @@ export function MobileMenu() {
                   >
                     <NavLink
                       href={link.href}
-                      label={link.label}
+                      label={navLabel(link.href)}
                       index={link.index}
                       variant="overlay"
                       onClick={closeMenu}
@@ -158,7 +169,7 @@ export function MobileMenu() {
                 transition: { delay: reduced ? 0 : 0.55 },
               }}
             >
-              Insert coin · No credits · Solo craft
+              No credits · Press start · Andorra
             </motion.p>
           </div>
         </motion.div>

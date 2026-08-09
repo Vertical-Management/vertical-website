@@ -14,16 +14,33 @@ export type SocialLink = {
 
 export type ProjectStatus = "live" | "archived" | "wip";
 
+/** Case-study blocks — concise, non-corporate depth */
+export type ProjectCaseStudy = {
+  /** Client problem / brief context */
+  context: string;
+  /** Central idea / creative angle */
+  approach: string;
+  /** Concrete deliverables shipped */
+  deliverables: string[];
+  /** Impact — qualitative ok if no hard metrics */
+  outcome: string;
+};
+
 export type Project = {
   slug: string;
   title: string;
   subtitle?: string;
   client?: string;
+  /** Project type for social proof (e.g. Motion campaign) */
+  projectType?: string;
   year: string | number;
   role?: string;
   categories: string[];
   excerpt: string;
+  /** Short narrative lead-in (optional if caseStudy is present) */
   description?: string;
+  /** Structured case study depth */
+  caseStudy?: ProjectCaseStudy;
   cover: string;
   gallery?: string[];
   videoUrl?: string;

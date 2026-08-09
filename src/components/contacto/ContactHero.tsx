@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { gsap, registerGsap, useGSAP } from "@/lib/gsap";
+import { useLanguage } from "@/components/providers/LanguageProvider";
 import { asset } from "@/lib/assets";
 import { SITE } from "@/lib/constants";
 import { Grain } from "@/components/ui/Grain";
@@ -15,6 +16,8 @@ import { EASE_OUT_EXPO, duration } from "@/lib/motion";
 export function ContactHero() {
   const root = useRef<HTMLElement>(null);
   const reduced = useReducedMotion();
+  const { t } = useLanguage();
+  const h = t.contactPage.hero;
 
   useGSAP(
     () => {
@@ -37,7 +40,7 @@ export function ContactHero() {
   return (
     <section
       ref={root}
-      className="relative flex min-h-[70dvh] flex-col justify-end overflow-hidden pt-header md:min-h-[78dvh]"
+      className="relative flex min-h-[62dvh] flex-col justify-end overflow-hidden pt-header sm:min-h-[70dvh] md:min-h-[78dvh]"
     >
       <div className="absolute inset-0" data-contact-bg>
         <Image
@@ -53,17 +56,17 @@ export function ContactHero() {
       </div>
       <Grain strong className="opacity-[0.08]" />
 
-      <div className="relative z-[1] mx-auto w-full max-w-site px-gutter pb-14 pt-28 md:pb-20 md:pt-36">
+      <div className="relative z-[1] mx-auto w-full max-w-site px-gutter pb-12 pt-24 sm:pb-14 sm:pt-28 md:pb-20 md:pt-36">
         <motion.p
-          className="mb-5 font-mono text-caption uppercase tracking-label text-white/50"
+          className="mb-4 font-mono text-[0.65rem] uppercase tracking-label text-white/50 sm:mb-5 sm:text-caption"
           initial={reduced ? false : { opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: duration.base, ease: EASE_OUT_EXPO }}
         >
-          04 — Contacto · {SITE.location}
+          {h.eyebrow} · {SITE.location}
         </motion.p>
 
-        <h1 className="max-w-4xl font-display text-display-2xl text-paper">
+        <h1 className="max-w-4xl text-balance font-display text-display-2xl text-paper">
           <span className="block overflow-hidden">
             <motion.span
               className="block"
@@ -71,7 +74,7 @@ export function ContactHero() {
               animate={{ y: "0%" }}
               transition={{ duration: duration.slow, ease: EASE_OUT_EXPO }}
             >
-              Insert coin
+              {h.title1}
             </motion.span>
           </span>
           <span className="block overflow-hidden">
@@ -85,7 +88,7 @@ export function ContactHero() {
                 delay: 0.08,
               }}
             >
-              hablemos.
+              {h.title2}
             </motion.span>
           </span>
         </h1>
@@ -100,8 +103,7 @@ export function ContactHero() {
             ease: EASE_OUT_EXPO,
           }}
         >
-          Desde las montañas de {SITE.location} (y el Wi‑Fi del mundo). Cuéntanos
-          el proyecto — sin PowerPoint obligatorio.
+          {h.body}
         </motion.p>
       </div>
     </section>

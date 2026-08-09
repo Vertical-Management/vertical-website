@@ -1,142 +1,107 @@
 "use client";
 
 import Image from "next/image";
-import { useRef } from "react";
-import { gsap, registerGsap, useGSAP } from "@/lib/gsap";
-import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
+import NextLink from "next/link";
+import { useLanguage } from "@/components/providers/LanguageProvider";
 import { asset } from "@/lib/assets";
-import { SITE } from "@/lib/constants";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { Grain } from "@/components/ui/Grain";
 import { Heading } from "@/components/ui/Heading";
 import { Reveal } from "@/components/ui/Reveal";
-import { Grain } from "@/components/ui/Grain";
 import { cn } from "@/lib/utils";
 
-const PRINCIPLES = [
-  {
-    index: "A",
-    title: "Concepto primero",
-    body: "Si no hay idea, no hay render que lo salve.",
-  },
-  {
-    index: "B",
-    title: "Craft obsesivo",
-    body: "Cada detalle cuenta. Cada hover tiene intención.",
-  },
-  {
-    index: "C",
-    title: "Humor con propósito",
-    body: "Irreverente sí. Gratuito nunca.",
-  },
-];
-
 /**
- * About Esteban / Vertical — portrait + principles.
+ * About teaser — dark high-craft slab with orange accent.
  */
 export function HomeAbout() {
-  const root = useRef<HTMLElement>(null);
-  const reduced = usePrefersReducedMotion();
-
-  useGSAP(
-    () => {
-      if (reduced || !root.current) return;
-      registerGsap();
-
-      gsap.fromTo(
-        "[data-about-img]",
-        { yPercent: 12, scale: 1.08 },
-        {
-          yPercent: -8,
-          scale: 1,
-          ease: "none",
-          scrollTrigger: {
-            trigger: root.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
-          },
-        },
-      );
-    },
-    { scope: root, dependencies: [reduced] },
-  );
+  const { t } = useLanguage();
+  const a = t.home.about;
 
   return (
-    <section ref={root} className="relative overflow-hidden py-section">
-      <Container>
-        <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-10">
-          {/* Portrait */}
-          <Reveal className="relative lg:col-span-5" variant="scaleIn">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-card border border-border bg-paper-dim">
-              <Grain />
-              <Image
-                data-about-img
-                src={asset("/assets/FERRER.webp")}
-                alt={SITE.founder}
-                fill
-                className="object-cover object-top"
-                sizes="(max-width: 1024px) 100vw, 40vw"
-                priority={false}
-              />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-ink/80 to-transparent p-5">
-                <p className="font-mono text-caption uppercase tracking-label text-accent-lime">
-                  Founder
-                </p>
-                <p className="mt-1 font-display text-display-sm text-paper">
-                  {SITE.founder}
-                </p>
-              </div>
-            </div>
-            {/* sticker */}
-            <div
-              className={cn(
-                "absolute -right-3 top-8 rotate-6 rounded-pill border-2 border-ink bg-accent px-4 py-2",
-                "font-mono text-[0.65rem] font-medium uppercase tracking-label text-paper shadow-[3px_3px_0_0_var(--color-ink)]",
-                "md:-right-6",
-              )}
+    <section className="relative overflow-hidden border-y-2 border-ink bg-ink py-section text-paper">
+      <Grain strong className="opacity-[0.07]" />
+
+      {/* Accent geometry — dark stage, orange energy */}
+      <div className="pointer-events-none absolute inset-0" aria-hidden>
+        <div className="absolute left-0 top-0 h-full w-1.5 bg-accent sm:w-2" />
+        <div className="absolute -right-8 top-16 h-28 w-28 rotate-12 bg-accent/20 sm:h-40 sm:w-40" />
+      </div>
+
+      <Container className="relative z-[1]">
+        <div className="max-w-4xl pl-3 sm:pl-4">
+          <Eyebrow index="02" className="mb-4 !text-accent/90">
+            {a.eyebrow}
+          </Eyebrow>
+
+          <div className="flex items-center gap-4 sm:gap-6 md:gap-8">
+            <Heading
+              as="h2"
+              size="display-md"
+              className="min-w-0 flex-1 max-w-lg !text-paper"
             >
-              Based in {SITE.location}
+              {a.titleLine1}
+              <br />
+              <span className="text-accent">{a.titleLine2}</span>
+            </Heading>
+
+            <div className="relative h-20 w-20 shrink-0 sm:h-24 sm:w-24 md:h-28 md:w-28">
+              <Image
+                src={asset("/assets/PIKACHU.gif")}
+                alt=""
+                fill
+                unoptimized
+                className="object-contain object-center"
+                sizes="112px"
+              />
             </div>
+          </div>
+
+          <Reveal delay={0.1}>
+            <p className="mt-6 max-w-lg text-lead text-white/65">{a.body}</p>
           </Reveal>
 
-          {/* Copy */}
-          <div className="lg:col-span-7 lg:pl-8">
-            <Eyebrow index="04" className="mb-4">
-              Quién hay detrás
-            </Eyebrow>
-            <Heading as="h2" size="display-md" className="max-w-lg">
-              Creativo de profesión.
-              <br />
-              <span className="text-ink-muted">Arcade de vocación.</span>
-            </Heading>
-            <Reveal delay={0.1}>
-              <p className="mt-6 max-w-lg text-lead text-ink-soft">
-                {SITE.name} es el vehículo de {SITE.founder} para construir
-                identidades, productos y campañas que no se comportan como
-                “contenido genérico”. Premium en la ejecución. Divertido en el
-                alma.
-              </p>
-            </Reveal>
+          <ul className="mt-10 grid gap-4 sm:grid-cols-3">
+            {a.principles.map((p, i) => (
+              <Reveal key={p.index} delay={0.1 + i * 0.08} as="li">
+                <article
+                  className={cn(
+                    "h-full rounded-card border-2 border-paper/20 bg-paper/[0.04] p-5",
+                    "shadow-[4px_4px_0_0_rgba(255,61,0,0.35)]",
+                    "transition-[transform,box-shadow,border-color,background-color] duration-base ease-out-expo",
+                    "hover:translate-x-px hover:translate-y-px hover:border-accent/60 hover:bg-paper/[0.07]",
+                    "hover:shadow-[2px_2px_0_0_rgba(255,61,0,0.5)]",
+                  )}
+                >
+                  <span className="font-mono text-caption text-accent">
+                    {p.index}
+                  </span>
+                  <h3 className="mt-2 font-display text-lg tracking-tight text-paper">
+                    {p.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-white/55">
+                    {p.body}
+                  </p>
+                </article>
+              </Reveal>
+            ))}
+          </ul>
 
-            <ul className="mt-10 grid gap-4 sm:grid-cols-3">
-              {PRINCIPLES.map((p, i) => (
-                <Reveal key={p.index} delay={0.1 + i * 0.08} as="li">
-                  <article className="h-full rounded-card border border-border bg-surface p-5 transition-colors duration-base hover:border-ink/25 hover:bg-surface-elevated">
-                    <span className="font-mono text-caption text-accent">
-                      {p.index}
-                    </span>
-                    <h3 className="mt-2 font-display text-lg tracking-tight">
-                      {p.title}
-                    </h3>
-                    <p className="mt-2 text-sm leading-relaxed text-ink-soft">
-                      {p.body}
-                    </p>
-                  </article>
-                </Reveal>
-              ))}
-            </ul>
-          </div>
+          <Reveal delay={0.35}>
+            <NextLink
+              href="/nosotros"
+              data-cursor="hover"
+              className={cn(
+                "mt-8 inline-flex items-center rounded-pill border-2 border-accent bg-accent px-5 py-2.5",
+                "font-mono text-[0.65rem] uppercase tracking-label text-paper",
+                "shadow-[3px_3px_0_0_#f4f1ea]",
+                "transition-[transform,box-shadow] duration-base ease-out-expo",
+                "hover:translate-x-px hover:translate-y-px hover:shadow-[1px_1px_0_0_#f4f1ea]",
+              )}
+            >
+              {a.storyCta}
+            </NextLink>
+          </Reveal>
         </div>
       </Container>
     </section>

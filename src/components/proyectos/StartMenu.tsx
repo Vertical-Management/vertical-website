@@ -3,6 +3,7 @@
 import NextLink from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { useDesktop } from "@/components/proyectos/DesktopContext";
+import { useLanguage } from "@/components/providers/LanguageProvider";
 import { projects } from "@/data/projects";
 import { SITE } from "@/lib/constants";
 import { EASE_OUT_EXPO, duration } from "@/lib/motion";
@@ -14,6 +15,7 @@ import { cn } from "@/lib/utils";
 export function StartMenu() {
   const { startOpen, setStartOpen, openWindow } = useDesktop();
   const reduced = useReducedMotion();
+  const { t } = useLanguage();
 
   if (!startOpen) return null;
 
@@ -22,7 +24,7 @@ export function StartMenu() {
       <button
         type="button"
         className="absolute inset-0 z-[90] cursor-default bg-black/20"
-        aria-label="Cerrar menú inicio"
+        aria-label={t.desktop.closeMenu}
         onClick={() => setStartOpen(false)}
       />
       <motion.div
@@ -35,18 +37,15 @@ export function StartMenu() {
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: duration.fast, ease: EASE_OUT_EXPO }}
       >
-        {/* Side rail */}
         <div className="flex w-12 flex-col items-center justify-end gap-2 bg-gradient-to-b from-accent-lime/90 to-accent py-3">
-          <span
-            className="mb-auto rotate-180 font-display text-[10px] font-bold tracking-[0.2em] text-ink [writing-mode:vertical-rl]"
-          >
+          <span className="mb-auto rotate-180 font-display text-[10px] font-bold tracking-[0.2em] text-ink [writing-mode:vertical-rl]">
             VERTICAL
           </span>
         </div>
 
         <div className="min-w-0 flex-1 p-2">
           <p className="px-2 py-1.5 font-mono text-[10px] uppercase tracking-label text-white/40">
-            Proyectos
+            {t.desktop.projects}
           </p>
           <ul>
             {projects.map((p) => (
@@ -70,7 +69,7 @@ export function StartMenu() {
           <div className="my-2 h-px bg-white/10" />
 
           <p className="px-2 py-1.5 font-mono text-[10px] uppercase tracking-label text-white/40">
-            Sistema
+            System
           </p>
           <ul>
             <li>
@@ -80,7 +79,7 @@ export function StartMenu() {
                 className="flex w-full rounded-lg px-2 py-2 text-left text-sm text-paper hover:bg-white/10"
                 onClick={() => openWindow("readme")}
               >
-                léeme.txt
+                {t.desktop.readme}
               </button>
             </li>
             <li>
@@ -90,7 +89,7 @@ export function StartMenu() {
                 className="flex w-full rounded-lg px-2 py-2 text-left text-sm text-paper hover:bg-white/10"
                 onClick={() => openWindow("about")}
               >
-                Sobre Vertical
+                {t.desktop.about}
               </button>
             </li>
             <li>
@@ -100,7 +99,7 @@ export function StartMenu() {
                 className="flex w-full rounded-lg px-2 py-2 text-sm text-paper hover:bg-white/10"
                 onClick={() => setStartOpen(false)}
               >
-                Servicios →
+                {t.nav.services} →
               </NextLink>
             </li>
             <li>
@@ -110,7 +109,7 @@ export function StartMenu() {
                 className="flex w-full rounded-lg px-2 py-2 text-sm text-accent-lime hover:bg-white/10"
                 onClick={() => setStartOpen(false)}
               >
-                Insert coin →
+                {t.nav.contact} →
               </NextLink>
             </li>
           </ul>

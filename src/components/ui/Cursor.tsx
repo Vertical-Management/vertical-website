@@ -17,12 +17,16 @@ type CursorProps = {
 };
 
 /**
- * Dual-ring custom cursor. Disabled on touch / reduced-motion.
+ * Dual-ring custom cursor — same as production (somvertical.ad).
+ * Dot + lagging ring, mix-blend-difference, hover/text modes.
+ * Disabled on touch / reduced-motion / viewports below md.
+ *
  * Pair with `data-cursor="hover"` or `data-cursor="text"` on interactive nodes.
  */
 export function Cursor({ className, hideNative = true }: CursorProps) {
   const reduced = useReducedMotion();
   const isFine = useMediaQuery("(pointer: fine)");
+  const isDesktop = useMediaQuery("(min-width: 768px)");
   const [visible, setVisible] = useState(false);
   const [mode, setMode] = useState<"default" | "hover" | "text">("default");
 
@@ -33,8 +37,15 @@ export function Cursor({ className, hideNative = true }: CursorProps) {
   const rx = useSpring(x, { stiffness: 180, damping: 28, mass: 0.5 });
   const ry = useSpring(y, { stiffness: 180, damping: 28, mass: 0.5 });
 
+  /** Only hide native when the custom cursor is actually painted */
+  const active = !reduced && isFine && isDesktop;
+
   useEffect(() => {
-    if (reduced || !isFine) return;
+    if (!active) {
+      document.documentElement.classList.remove("has-custom-cursor");
+      setVisible(false);
+      return;
+    }
 
     const onMove = (e: MouseEvent) => {
       x.set(e.clientX);
@@ -62,9 +73,9 @@ export function Cursor({ className, hideNative = true }: CursorProps) {
       document.removeEventListener("mouseleave", onLeave);
       document.documentElement.classList.remove("has-custom-cursor");
     };
-  }, [reduced, isFine, hideNative, x, y]);
+  }, [active, hideNative, x, y]);
 
-  if (reduced || !isFine) return null;
+  if (!active) return null;
 
   const hover = mode === "hover";
   const text = mode === "text";
@@ -72,17 +83,17 @@ export function Cursor({ className, hideNative = true }: CursorProps) {
   return (
     <div
       className={cn(
-        "pointer-events-none fixed inset-0 z-cursor hidden md:block",
+        "pointer-events-none fixed inset-0 z-cursor",
         className,
       )}
       aria-hidden
     >
-      {/* Dot */}
+      {/* Dot — production: bg-accent + mix-blend-difference */}
       <motion.div
         className="absolute h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent mix-blend-difference"
         style={{ left: sx, top: sy, opacity: visible ? 1 : 0 }}
       />
-      {/* Ring */}
+      {/* Ring — lags slightly; grows on hover / text */}
       <motion.div
         className={cn(
           "absolute -translate-x-1/2 -translate-y-1/2 rounded-full border border-ink/40 mix-blend-difference transition-[width,height,background-color] duration-base ease-out-expo",

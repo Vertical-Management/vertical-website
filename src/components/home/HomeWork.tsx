@@ -2,10 +2,11 @@
 
 import Image from "next/image";
 import NextLink from "next/link";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useReducedMotion } from "framer-motion";
-import { getFeaturedProjects } from "@/data/projects";
+import { useLanguage } from "@/components/providers/LanguageProvider";
 import { asset } from "@/lib/assets";
+import { localizeFeaturedProjects } from "@/lib/i18n";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Heading } from "@/components/ui/Heading";
@@ -18,33 +19,35 @@ import { cn } from "@/lib/utils";
  * Featured work — asymmetric editorial grid with hover craft.
  */
 export function HomeWork() {
-  const projects = getFeaturedProjects();
+  const { t } = useLanguage();
+  const projects = useMemo(() => localizeFeaturedProjects(t), [t]);
   const reduced = useReducedMotion();
   const [active, setActive] = useState<string | null>(null);
+  const w = t.home.work;
 
   return (
     <section className="relative overflow-hidden py-section">
       <Container>
-        <div className="mb-12 flex flex-col gap-6 md:mb-16 md:flex-row md:items-end md:justify-between">
+        <div className="mb-10 flex flex-col gap-5 sm:mb-12 sm:gap-6 md:mb-16 md:flex-row md:items-end md:justify-between">
           <div>
-            <Eyebrow index="02" className="mb-4">
-              Selected work
+            <Eyebrow index="02" className="mb-3 sm:mb-4">
+              {w.eyebrow}
             </Eyebrow>
-            <Heading as="h2" size="display-lg">
-              Proyectos que
+            <Heading as="h2" size="display-lg" className="text-balance">
+              {w.titleLine1}
               <br />
-              no piden perdón
+              {w.titleLine2}
             </Heading>
           </div>
           <Reveal delay={0.1}>
             <Link href="/proyectos" mono className="text-ink">
-              Todos los proyectos →
+              {w.allProjects}
             </Link>
           </Reveal>
         </div>
 
         <Stagger
-          className="grid gap-5 sm:grid-cols-2 lg:gap-6"
+          className="grid gap-6 sm:grid-cols-2 sm:gap-5 lg:gap-6"
           stagger={0.1}
           as="ul"
         >
@@ -73,7 +76,9 @@ export function HomeWork() {
                   <div
                     className={cn(
                       "relative overflow-hidden bg-paper-dim",
-                      tall ? "aspect-[4/5] sm:aspect-[16/10] lg:aspect-[3/4]" : "aspect-[4/5] sm:aspect-[4/3]",
+                      tall
+                        ? "aspect-[5/4] sm:aspect-[16/10] lg:aspect-[3/4]"
+                        : "aspect-[5/4] sm:aspect-[4/3]",
                     )}
                   >
                     <Image
@@ -84,16 +89,22 @@ export function HomeWork() {
                         "object-cover transition-transform duration-cinematic ease-out-expo",
                         !reduced && "group-hover:scale-105",
                       )}
-                      sizes="(max-width: 768px) 100vw, 50vw"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 40vw"
+                      loading="lazy"
+                      decoding="async"
+                      quality={i === 0 ? 75 : 65}
+                      priority={false}
                       unoptimized={project.cover.endsWith(".gif")}
                     />
                     <div
                       className={cn(
                         "absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/10 to-transparent transition-opacity duration-base",
-                        isActive ? "opacity-100" : "opacity-80 group-hover:opacity-100",
+                        isActive
+                          ? "opacity-100"
+                          : "opacity-80 group-hover:opacity-100",
                       )}
                     />
-                    <div className="absolute inset-x-0 bottom-0 p-5 md:p-7">
+                    <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5 md:p-7">
                       <div className="flex flex-wrap gap-2">
                         {project.categories.slice(0, 2).map((cat) => (
                           <span
@@ -104,10 +115,10 @@ export function HomeWork() {
                           </span>
                         ))}
                       </div>
-                      <h3 className="mt-3 font-display text-display-sm text-paper md:text-display-md">
+                      <h3 className="mt-2 font-display text-display-sm text-paper sm:mt-3 md:text-display-md">
                         {project.title}
                       </h3>
-                      <p className="mt-2 max-w-sm text-sm text-paper/75">
+                      <p className="mt-1.5 line-clamp-2 max-w-sm text-sm text-paper/75 sm:mt-2 sm:line-clamp-none">
                         {project.excerpt}
                       </p>
                       <span
@@ -117,7 +128,7 @@ export function HomeWork() {
                           !reduced && "group-hover:translate-x-1",
                         )}
                       >
-                        Abrir proyecto →
+                        {t.common.openProject}
                       </span>
                     </div>
                   </div>
@@ -134,7 +145,7 @@ export function HomeWork() {
               data-cursor="hover"
               className="inline-flex h-12 items-center rounded-pill border border-border-strong px-6 font-mono text-xs uppercase tracking-label transition-colors duration-base hover:border-ink hover:bg-ink hover:text-paper"
             >
-              Entrar al escritorio de proyectos
+              {w.enterDesktop}
             </NextLink>
           </Magnetic>
         </div>

@@ -158,7 +158,7 @@ export function ContactDevice({ className }: { className?: string }) {
                 Hola — tengo un proyecto raro 👀
               </div>
               <div className="mr-auto max-w-[90%] rounded-2xl rounded-bl-md bg-white/12 px-3.5 py-2.5 text-sm text-paper backdrop-blur-sm">
-                Perfecto. Los raros son los buenos. Insert coin abajo ↓
+                Perfecto. Los raros son los buenos. El form está abajo ↓
               </div>
             </div>
 

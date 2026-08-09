@@ -1,9 +1,10 @@
 "use client";
 
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
 import { gsap, registerGsap, useGSAP } from "@/lib/gsap";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
-import { services } from "@/data/services";
+import { useLanguage } from "@/components/providers/LanguageProvider";
+import { localizeServices } from "@/lib/i18n";
 import { serviceBlockClasses } from "@/components/servicios/serviceTheme";
 import { cn } from "@/lib/utils";
 
@@ -14,6 +15,9 @@ import { cn } from "@/lib/utils";
 export function ServicesBlocks() {
   const root = useRef<HTMLElement>(null);
   const reduced = usePrefersReducedMotion();
+  const { t } = useLanguage();
+  const services = useMemo(() => localizeServices(t), [t]);
+  const b = t.servicesPage.blocks;
 
   useGSAP(
     () => {
@@ -67,7 +71,7 @@ export function ServicesBlocks() {
   );
 
   return (
-    <section ref={root} aria-label="Detalle de servicios" className="relative">
+    <section ref={root} aria-label={b.ariaLabel} className="relative">
       {services.map((service, i) => {
         const theme = serviceBlockClasses(service.theme);
         const flip = i % 2 === 1;
@@ -110,7 +114,7 @@ export function ServicesBlocks() {
                     theme.muted,
                   )}
                 >
-                  Servicio {service.index}
+                  {b.serviceLabel} {service.index}
                 </p>
                 <h2 className="mt-4 font-display text-display-lg tracking-display">
                   {service.title}
@@ -148,7 +152,7 @@ export function ServicesBlocks() {
                         theme.muted,
                       )}
                     >
-                      Qué entregamos
+                      {b.deliverablesLabel}
                     </p>
                     <ul className="grid gap-2 sm:grid-cols-2">
                       {service.deliverables.map((item) => (

@@ -1,26 +1,48 @@
 /** Site-wide constants — navigation, SEO, contact. */
 
-const siteUrl =
-  (typeof process !== "undefined" && process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "")) ||
-  "https://somvertical.ad";
+/**
+ * Canonical production origin — always apex, never www.
+ * Env override must already be non-www; we strip a leading www if present.
+ */
+function resolveSiteUrl(): string {
+  const raw =
+    (typeof process !== "undefined" &&
+      process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "")) ||
+    "https://somvertical.ad";
+  try {
+    const u = new URL(raw.includes("://") ? raw : `https://${raw}`);
+    if (u.hostname.startsWith("www.")) {
+      u.hostname = u.hostname.slice(4);
+    }
+    u.protocol = "https:";
+    return u.origin;
+  } catch {
+    return "https://somvertical.ad";
+  }
+}
+
+const siteUrl = resolveSiteUrl();
 
 export const SITE = {
   name: "Vertical Management",
   shortName: "Vertical",
   founder: "Esteban Ferrer",
+  /** Always https://somvertical.ad (no trailing slash, no www) */
   url: siteUrl,
   locale: "es_AD",
   email: "sales@somvertical.ad",
   location: "Andorra",
   tagline: "Editorial Digital Disruptivo + Playful High-Craft",
+  /** Unified brand pitch — title, meta description, OG, on-page */
   pitch: "Creamos marcas que van más lejos, más raro y con más craft.",
 } as const;
 
 export const NAV_LINKS = [
   { href: "/", label: "Home", index: "01" },
-  { href: "/servicios", label: "Servicios", index: "02" },
-  { href: "/proyectos", label: "Proyectos", index: "03" },
-  { href: "/contacto", label: "Contacto", index: "04" },
+  { href: "/nosotros", label: "Nosotros", index: "02" },
+  { href: "/servicios", label: "Servicios", index: "03" },
+  { href: "/proyectos", label: "Proyectos", index: "04" },
+  { href: "/contacto", label: "Contacto", index: "05" },
 ] as const;
 
 export const SOCIAL_LINKS = [
@@ -28,7 +50,7 @@ export const SOCIAL_LINKS = [
     href: "https://www.instagram.com/somvertical/",
     label: "Instagram",
     handle: "@somvertical",
-    blurb: "Loops, behind the craft y caos controlado",
+    blurb: "Loops, behind the scenes y caos controlado",
     external: true,
   },
   {
@@ -42,7 +64,7 @@ export const SOCIAL_LINKS = [
     href: "mailto:sales@somvertical.ad",
     label: "Email",
     handle: "sales@somvertical.ad",
-    blurb: "La línea directa. Insert coin aquí",
+    blurb: "Línea directa. Respuesta humana.",
     external: true,
   },
 ] as const;

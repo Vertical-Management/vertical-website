@@ -81,10 +81,10 @@ export function HeroCinematic({ preview, className }: VariantProps) {
 
       <div
         data-hero-fade
-        className="relative z-[2] mx-auto w-full max-w-site px-gutter pb-20 pt-16 md:pb-24 md:pt-22"
+        className="relative z-[2] mx-auto w-full max-w-site px-gutter pb-16 pt-12 sm:pb-20 sm:pt-16 md:pb-24 md:pt-22"
       >
         <motion.span
-          className="mb-5 inline-flex items-center gap-2 rounded-pill border border-paper/15 bg-ink/40 px-3 py-1 font-mono text-[0.6rem] uppercase tracking-label text-accent-lime backdrop-blur-sm"
+          className="mb-4 inline-flex items-center gap-2 rounded-pill border border-paper/15 bg-ink/40 px-3 py-1 font-mono text-[0.6rem] uppercase tracking-label text-accent-lime backdrop-blur-sm sm:mb-5"
           initial={skipMotion ? false : { opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: duration.base, ease: EASE_OUT_EXPO }}

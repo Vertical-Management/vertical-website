@@ -1,12 +1,13 @@
 "use client";
 
+import type { ReactNode } from "react";
 import NextLink from "next/link";
 import { cn } from "@/lib/utils";
 import { Magnetic } from "@/components/ui/Magnetic";
 
 type CoinButtonProps = {
   href?: string;
-  children?: React.ReactNode;
+  children?: ReactNode;
   className?: string;
   size?: "md" | "lg" | "xl";
   magnetic?: boolean;

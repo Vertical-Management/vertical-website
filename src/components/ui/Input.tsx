@@ -6,7 +6,8 @@ import { cn } from "@/lib/utils";
 const fieldBase = cn(
   "w-full bg-transparent text-ink placeholder:text-ink-faint",
   "border-0 border-b border-border-strong",
-  "px-0 py-3 font-body text-base",
+  // text-base (16px) prevents iOS focus zoom; min height for touch
+  "min-h-12 px-0 py-3.5 font-body text-base leading-normal",
   "transition-[border-color,box-shadow] duration-base ease-out-expo",
   "focus:border-ink focus:outline-none focus:shadow-[0_1px_0_0_var(--color-ink)]",
   "disabled:cursor-not-allowed disabled:opacity-40",

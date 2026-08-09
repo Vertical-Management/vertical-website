@@ -18,6 +18,7 @@ import {
   SystemWindowBody,
   TrashWindowBody,
 } from "@/components/proyectos/WindowContents";
+import { useLanguage } from "@/components/providers/LanguageProvider";
 import { projects } from "@/data/projects";
 import { getProjectBySlug } from "@/data/projects";
 import { asset } from "@/lib/assets";
@@ -27,6 +28,7 @@ import type { DesktopWindowId } from "@/types";
 function DesktopInner() {
   const { windows, openWindow, setStartOpen, desktopRef } = useDesktop();
   const [selected, setSelected] = useState<string | null>(null);
+  const { t } = useLanguage();
 
   // Boot: open readme lightly after mount
   useEffect(() => {
@@ -41,7 +43,8 @@ function DesktopInner() {
     if (id.startsWith("project:")) {
       const slug = id.replace("project:", "");
       const project = getProjectBySlug(slug);
-      if (!project) return <p className="p-4 text-sm">Proyecto no encontrado.</p>;
+      if (!project)
+        return <p className="p-4 text-sm">{t.projectsPage.notFound}</p>;
       return <ProjectWindowBody project={project} />;
     }
     switch (id) {
@@ -93,14 +96,14 @@ function DesktopInner() {
       >
         <div className="flex flex-col gap-1 sm:flex-row sm:flex-wrap sm:content-start sm:gap-2">
           <DesktopIcon
-            label="léeme.txt"
+            label={t.desktop.readme}
             emoji="📄"
             selected={selected === "readme"}
             onSelect={() => setSelected("readme")}
             onOpen={() => openWindow("readme")}
           />
           <DesktopIcon
-            label="Sobre Vertical"
+            label={t.desktop.about}
             emoji="💻"
             selected={selected === "about"}
             onSelect={() => setSelected("about")}
@@ -117,7 +120,7 @@ function DesktopInner() {
             />
           ))}
           <DesktopIcon
-            label="Papelera"
+            label="Trash"
             emoji="🗑️"
             selected={selected === "trash"}
             onSelect={() => setSelected("trash")}
@@ -135,7 +138,7 @@ function DesktopInner() {
             iconSrc="/assets/xp/linux-penguin.svg"
             selected={selected === "linux"}
             onSelect={() => setSelected("linux")}
-            onOpen={() => openWindow("about", "Linux mode (mentira)")}
+            onOpen={() => openWindow("about", t.desktop.linuxMode)}
           />
         </div>
       </div>

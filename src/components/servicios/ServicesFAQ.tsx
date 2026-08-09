@@ -2,30 +2,12 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { useLanguage } from "@/components/providers/LanguageProvider";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Heading } from "@/components/ui/Heading";
 import { cn } from "@/lib/utils";
 import { EASE_OUT_EXPO, duration } from "@/lib/motion";
-
-const FAQS = [
-  {
-    q: "¿Trabajáis solo en Andorra?",
-    a: "Base en Andorra, clientes donde haga falta. Remoto o presencial según el proyecto.",
-  },
-  {
-    q: "¿Hacéis solo diseño o también desarrollo?",
-    a: "Diseño y dirección creativa de principio a fin. En digital colaboramos con devs de confianza o nos integramos en tu equipo.",
-  },
-  {
-    q: "¿Cuál es el ticket mínimo?",
-    a: "Depende del alcance. Si hay buena idea (o ganas de encontrarla), hablemos — sin cotización de relleno.",
-  },
-  {
-    q: "¿Y el humor? ¿Es obligatorio?",
-    a: "No. Pero si suma, no lo escondemos. Premium en la ejecución; personalidad en la marca.",
-  },
-];
 
 /**
  * Lightweight accordion FAQ — irreverent but useful.
@@ -33,6 +15,8 @@ const FAQS = [
 export function ServicesFAQ() {
   const [open, setOpen] = useState<number | null>(0);
   const reduced = useReducedMotion();
+  const { t } = useLanguage();
+  const f = t.servicesPage.faq;
 
   return (
     <section className="relative border-b border-border py-section">
@@ -40,36 +24,37 @@ export function ServicesFAQ() {
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
             <Eyebrow index="06" className="mb-4">
-              FAQ
+              {f.eyebrow}
             </Eyebrow>
-            <Heading as="h2" size="display-md">
-              Preguntas
+            <Heading as="h2" size="display-md" className="text-balance">
+              {f.titleLine1}
               <br />
-              sin PowerPoint
+              {f.titleLine2}
             </Heading>
+            <p className="mt-4 max-w-xs text-sm text-ink-soft">{f.blurb}</p>
           </div>
 
           <ul className="lg:col-span-8">
-            {FAQS.map((item, i) => {
+            {f.items.map((item, i) => {
               const isOpen = open === i;
               return (
                 <li key={item.q} className="border-b border-border">
                   <button
                     type="button"
                     data-cursor="hover"
-                    className="flex w-full items-start justify-between gap-6 py-5 text-left transition-colors duration-base hover:text-accent md:py-6"
+                    className="flex min-h-14 w-full items-start justify-between gap-4 py-5 text-left transition-colors duration-base hover:text-accent sm:gap-6 md:py-6"
                     aria-expanded={isOpen}
                     onClick={() => setOpen(isOpen ? null : i)}
                   >
-                    <span className="font-display text-lg tracking-tight md:text-xl">
-                      <span className="mr-3 font-mono text-caption text-ink-faint">
+                    <span className="font-display text-base tracking-tight sm:text-lg md:text-xl">
+                      <span className="mr-2 font-mono text-caption text-ink-faint sm:mr-3">
                         {String(i + 1).padStart(2, "0")}
                       </span>
                       {item.q}
                     </span>
                     <span
                       className={cn(
-                        "mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-border font-mono text-sm transition-transform duration-base ease-out-expo",
+                        "mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-border font-mono text-sm transition-transform duration-base ease-out-expo",
                         isOpen && "rotate-45 bg-ink text-paper",
                       )}
                       aria-hidden

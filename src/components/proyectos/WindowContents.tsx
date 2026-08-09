@@ -25,7 +25,9 @@ export function ProjectWindowBody({ project }: { project: Project }) {
         />
         <div className="absolute bottom-3 left-3 right-3">
           <p className="font-mono text-[10px] uppercase tracking-label text-white/60">
-            {project.year} · {project.client}
+            {project.year}
+            {project.client ? ` · ${project.client}` : ""}
+            {project.projectType ? ` · ${project.projectType}` : ""}
           </p>
           <h3 className="font-display text-xl text-white md:text-2xl">
             {project.title}
@@ -73,7 +75,7 @@ export function ReadmeWindowBody() {
         <li>Clic en un icono para abrir la ventana.</li>
         <li>Arrastra las ventanas por la barra de título.</li>
         <li>Rojo cierra · amarillo minimiza · taskbar restaura.</li>
-        <li>Cada carpeta es un caso real. Sin plantillas.</li>
+        <li>Cada carpeta es un caso real con contexto y entregables.</li>
       </ul>
       <p className="pt-2 text-white/40">
         OS version 2.0 · Playful High-Craft · {SITE.location}
@@ -91,7 +93,7 @@ export function AboutWindowBody() {
       <h3 className="mt-2 font-display text-2xl text-white">Vertical OS</h3>
       <p className="mt-3 text-sm leading-relaxed text-white/65">
         Un desktop creativo modernizado: el espíritu XP/Linux del sitio original,
-        con craft de 2026. Proyectos como apps. Humor incluido en el kernel.
+        con UI de 2026. Proyectos como apps. Humor incluido en el kernel.
       </p>
       <p className="mt-4 text-sm text-white/50">
         Founder: {SITE.founder}
@@ -103,7 +105,7 @@ export function AboutWindowBody() {
         className="mt-5 inline-flex font-mono text-[11px] uppercase tracking-label text-accent-lime hover:underline"
         data-cursor="hover"
       >
-        Insert coin → Contacto
+        Escribir → Contacto
       </NextLink>
     </div>
   );
@@ -117,7 +119,7 @@ export function TrashWindowBody() {
       </span>
       <p className="font-display text-lg text-white">Papelera vacía</p>
       <p className="max-w-xs text-sm text-white/50">
-        Aquí irían los briefs aburridos y las plantillas genéricas. No hay nada.
+        Aquí irían los briefs aburridos y los archivos “final_v3_REAL”. Vacío.
         Buen signo.
       </p>
     </div>

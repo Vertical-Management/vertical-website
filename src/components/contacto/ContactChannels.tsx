@@ -1,41 +1,45 @@
 "use client";
 
+import { useLanguage } from "@/components/providers/LanguageProvider";
 import { SITE, SOCIAL_LINKS } from "@/lib/constants";
 import { Reveal, Stagger, StaggerItem } from "@/components/ui/Reveal";
 import { cn } from "@/lib/utils";
-
-const CHANNELS = [
-  {
-    label: "Email",
-    value: SITE.email,
-    href: `mailto:${SITE.email}`,
-    hint: "Línea directa · respuesta humana",
-  },
-  {
-    label: "Base",
-    value: SITE.location,
-    href: "https://www.google.com/maps/search/Andorra",
-    hint: "Montañas + remoto global",
-    external: true,
-  },
-  {
-    label: "Founder",
-    value: SITE.founder,
-    href: "/proyectos",
-    hint: "El que inserta ideas y craft",
-  },
-];
 
 /**
  * Quick contact channels + social with real handles/blurbs.
  */
 export function ContactChannels() {
+  const { t } = useLanguage();
+  const ch = t.contactPage.channels;
+
+  const CHANNELS = [
+    {
+      label: ch.emailLabel,
+      value: SITE.email,
+      href: `mailto:${SITE.email}`,
+      hint: ch.emailHint,
+    },
+    {
+      label: ch.baseLabel,
+      value: SITE.location,
+      href: "https://www.google.com/maps/search/Andorra",
+      hint: ch.baseHint,
+      external: true,
+    },
+    {
+      label: ch.founderLabel,
+      value: SITE.founder,
+      href: "/proyectos",
+      hint: ch.founderHint,
+    },
+  ];
+
   return (
     <section className="border-y border-border bg-paper-warm py-12 md:py-16">
       <div className="mx-auto max-w-site px-gutter">
         <Reveal>
           <p className="font-mono text-caption uppercase tracking-label text-ink-muted">
-            Canales abiertos
+            {ch.eyebrow}
           </p>
         </Reveal>
         <Stagger
@@ -43,12 +47,12 @@ export function ContactChannels() {
           stagger={0.08}
           as="ul"
         >
-          {CHANNELS.map((ch) => (
-            <StaggerItem key={ch.label} as="li">
+          {CHANNELS.map((item) => (
+            <StaggerItem key={item.label} as="li">
               <a
-                href={ch.href}
-                target={ch.external ? "_blank" : undefined}
-                rel={ch.external ? "noopener noreferrer" : undefined}
+                href={item.href}
+                target={item.external ? "_blank" : undefined}
+                rel={item.external ? "noopener noreferrer" : undefined}
                 data-cursor="hover"
                 className={cn(
                   "group flex h-full flex-col rounded-card border-2 border-ink bg-surface p-6",
@@ -58,12 +62,12 @@ export function ContactChannels() {
                 )}
               >
                 <span className="font-mono text-caption uppercase tracking-label text-ink-muted">
-                  {ch.label}
+                  {item.label}
                 </span>
                 <span className="mt-3 font-display text-xl tracking-tight text-ink group-hover:text-accent">
-                  {ch.value}
+                  {item.value}
                 </span>
-                <span className="mt-2 text-sm text-ink-soft">{ch.hint}</span>
+                <span className="mt-2 text-sm text-ink-soft">{item.hint}</span>
               </a>
             </StaggerItem>
           ))}

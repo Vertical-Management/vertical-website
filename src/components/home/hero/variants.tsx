@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef } from "react";
+import { useRef, type RefObject } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { gsap, registerGsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
 import { Grain } from "@/components/ui/Grain";
@@ -18,7 +18,7 @@ type VariantProps = {
 };
 
 function useHeroParallax(
-  root: React.RefObject<HTMLElement | null>,
+  root: RefObject<HTMLElement | null>,
   reduced: boolean | null,
   enabled: boolean,
 ) {

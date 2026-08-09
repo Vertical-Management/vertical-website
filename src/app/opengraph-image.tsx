@@ -1,7 +1,8 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "Vertical Management — Esteban Ferrer";
+export const alt =
+  "Vertical Management — Creamos marcas que van más lejos, más raro y con más craft.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -33,7 +34,7 @@ export default function OpenGraphImage() {
               fontFamily: "ui-monospace, monospace",
             }}
           >
-            Andorra · Insert coin
+            Andorra · Vertical Management
           </div>
           <div
             style={{
@@ -60,11 +61,13 @@ export default function OpenGraphImage() {
           <div
             style={{
               color: "rgba(244,241,234,0.85)",
-              fontSize: 36,
+              fontSize: 28,
               fontWeight: 600,
+              maxWidth: 900,
+              lineHeight: 1.25,
             }}
           >
-            Editorial Digital Disruptivo
+            Creamos marcas que van más lejos, más raro y con más craft.
           </div>
         </div>
 

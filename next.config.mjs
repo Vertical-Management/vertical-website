@@ -6,7 +6,8 @@ const nextConfig = {
   productionBrowserSourceMaps: false,
   images: {
     formats: ["image/avif", "image/webp"],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
+    // Cap work-wall tiles; avoid shipping 2k+ sources to phones
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     minimumCacheTTL: 60 * 60 * 24 * 30,
     remotePatterns: [],
@@ -14,11 +15,24 @@ const nextConfig = {
   experimental: {
     // Stabilize Windows multi-worker builds (missing chunk race)
     cpus: 1,
-    optimizePackageImports: [
-      "gsap",
-      "@gsap/react",
-      "framer-motion",
-    ],
+    // Do NOT optimize framer-motion — causes missing vendor-chunks/framer-motion.js
+    // in Next 14 dev/prod on Windows after cache rebuilds.
+    optimizePackageImports: ["gsap", "@gsap/react"],
+  },
+  /**
+   * Permanent apex canonical: www.somvertical.ad → https://somvertical.ad
+   * Host-matched so local/preview hosts are never looped.
+   * Vercel also mirrors this in vercel.json (edge, before app).
+   */
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.somvertical.ad" }],
+        destination: "https://somvertical.ad/:path*",
+        permanent: true,
+      },
+    ];
   },
   async headers() {
     return [
@@ -32,6 +46,11 @@ const nextConfig = {
           {
             key: "Permissions-Policy",
             value: "camera=(), microphone=(), geolocation=()",
+          },
+          // HSTS only meaningful on the apex once www 301s cleanly
+          {
+            key: "Strict-Transport-Security",
+            value: "max-age=63072000; includeSubDomains; preload",
           },
         ],
       },

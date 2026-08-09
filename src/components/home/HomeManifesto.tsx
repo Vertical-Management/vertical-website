@@ -3,16 +3,10 @@
 import { useRef } from "react";
 import { gsap, registerGsap, useGSAP } from "@/lib/gsap";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
+import { useLanguage } from "@/components/providers/LanguageProvider";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { cn } from "@/lib/utils";
-
-const LINES = [
-  "No hacemos “webs bonitas”.",
-  "Diseñamos sistemas con carácter,",
-  "experiencias que se recuerdan",
-  "y marcas que se atreven a ser.",
-];
 
 /**
  * Manifesto block — line-by-line scroll reveal (GSAP).
@@ -20,6 +14,8 @@ const LINES = [
 export function HomeManifesto() {
   const root = useRef<HTMLElement>(null);
   const reduced = usePrefersReducedMotion();
+  const { t, locale } = useLanguage();
+  const m = t.home.manifesto;
 
   useGSAP(
     () => {
@@ -46,39 +42,38 @@ export function HomeManifesto() {
         );
       });
     },
-    { scope: root, dependencies: [reduced] },
+    { scope: root, dependencies: [reduced, locale] },
   );
 
   return (
     <section ref={root} className="relative overflow-hidden py-section">
       <Container>
-        <Eyebrow index="01" className="mb-8 md:mb-12">
-          Manifiesto
+        <Eyebrow index="01" className="mb-6 sm:mb-8 md:mb-12">
+          {m.eyebrow}
         </Eyebrow>
 
         <div className="max-w-5xl">
-          {LINES.map((text, i) => (
+          {m.lines.map((text, i) => (
             <p
-              key={text}
+              key={`${locale}-${i}-${text}`}
               data-line
               className={cn(
-                "overflow-hidden font-display tracking-display text-ink",
+                "overflow-hidden text-balance font-display tracking-display text-ink",
                 i === 0
                   ? "text-display-lg"
                   : "text-display-md text-ink-soft md:text-display-lg",
-                i > 0 && "mt-1 md:mt-2",
+                i > 0 && "mt-1.5 md:mt-2",
               )}
             >
               <span data-line-inner className="block will-change-transform">
-                {reduced ? text : text}
+                {text}
               </span>
             </p>
           ))}
         </div>
 
-        <p className="mt-10 max-w-md text-base text-ink-muted md:mt-14 md:text-lg">
-          Vertical Management es el estudio de Esteban Ferrer: concepto,
-          ejecución y un poco de caos controlado — desde Andorra para el mundo.
+        <p className="mt-8 max-w-md text-base leading-relaxed text-ink-muted sm:mt-10 md:mt-14 md:text-lg">
+          {m.body}
         </p>
       </Container>
     </section>

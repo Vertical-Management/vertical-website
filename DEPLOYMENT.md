@@ -43,19 +43,35 @@ git push origin main
 
 Luego **Redeploy** (Deployments → ⋮ → Redeploy).
 
-### D. Dominio custom (`somvertical.ad`)
+### D. Dominio custom (`somvertical.ad`) — apex canónico
 
-1. Vercel → Project → **Settings → Domains** → add `somvertical.ad` (+ `www` si aplica)
-2. En tu DNS (registrar):
+**Regla:** el origen canónico es **`https://somvertical.ad`** (sin www).  
+`www.somvertical.ad` debe redirigir **301 permanente** al apex. El código ya lo fuerza en `vercel.json`, `next.config.mjs` y `src/middleware.ts`.
 
-| Type | Name | Value |
+1. Vercel → Project → **Settings → Domains**
+   - Añade **`somvertical.ad`** y márcalo como **Primary**.
+   - Añade **`www.somvertical.ad`** y configura **Redirect to** `somvertical.ad` (301).
+   - Espera a que ambos muestren **Valid Configuration** y certificado SSL **Issued** (sin “Certificate mismatch”).
+2. En tu DNS (registrar) — usa los records exactos que muestre Vercel:
+
+| Type | Name | Value (típico Vercel) |
 |------|------|--------|
-| A | `@` | `76.76.21.21` |
+| A | `@` | `76.76.21.21` (o los IPs que indique Vercel) |
 | CNAME | `www` | `cname.vercel-dns.com` |
 
-(Vercel muestra los records exactos al añadir el dominio.)
+3. Env de producción: `NEXT_PUBLIC_SITE_URL=https://somvertical.ad` (**sin** `www`, **sin** barra final) y redeploy.
 
-3. Actualiza `NEXT_PUBLIC_SITE_URL=https://somvertical.ad` y redeploy.
+**Comprobación post-deploy:**
+
+```bash
+# Debe devolver 301/308 → https://somvertical.ad/...
+curl -sI https://www.somvertical.ad | findstr /i "HTTP Location"
+
+# Apex: 200 + HSTS
+curl -sI https://somvertical.ad | findstr /i "HTTP Strict"
+```
+
+Si `www` falla con error de certificado (`SEC_E_WRONG_PRINCIPAL` / name mismatch), el dominio www **no está bien enlazado al proyecto** o el cert aún no se emitió: re-añade www en Domains y espera la emisión SSL. Sin cert válido el 301 de app no llega a ejecutarse (el handshake TLS falla antes).
 
 ---
 

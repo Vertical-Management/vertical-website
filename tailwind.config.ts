@@ -67,25 +67,26 @@ const config: Config = {
         ],
       },
       fontSize: {
+        /* Floors tuned for 375–430px: readable, no edge clipping */
         "display-2xl": [
-          "clamp(3.5rem, 12vw, 10rem)",
-          { lineHeight: "0.88", letterSpacing: "-0.04em", fontWeight: "800" },
+          "clamp(2.75rem, 1.4rem + 7.2vw, 10rem)",
+          { lineHeight: "0.9", letterSpacing: "-0.035em", fontWeight: "800" },
         ],
         "display-xl": [
-          "clamp(2.75rem, 8vw, 7rem)",
-          { lineHeight: "0.9", letterSpacing: "-0.035em", fontWeight: "700" },
+          "clamp(2.25rem, 1.2rem + 5.2vw, 7rem)",
+          { lineHeight: "0.92", letterSpacing: "-0.03em", fontWeight: "700" },
         ],
         "display-lg": [
-          "clamp(2rem, 5vw, 4.5rem)",
-          { lineHeight: "0.94", letterSpacing: "-0.03em", fontWeight: "700" },
+          "clamp(1.85rem, 1.15rem + 3.2vw, 4.5rem)",
+          { lineHeight: "0.96", letterSpacing: "-0.028em", fontWeight: "700" },
         ],
         "display-md": [
-          "clamp(1.5rem, 3vw, 2.75rem)",
-          { lineHeight: "1.02", letterSpacing: "-0.025em", fontWeight: "600" },
+          "clamp(1.4rem, 1rem + 1.8vw, 2.75rem)",
+          { lineHeight: "1.05", letterSpacing: "-0.022em", fontWeight: "600" },
         ],
         "display-sm": [
-          "clamp(1.25rem, 2vw, 1.75rem)",
-          { lineHeight: "1.15", letterSpacing: "-0.02em", fontWeight: "600" },
+          "clamp(1.2rem, 1rem + 1vw, 1.75rem)",
+          { lineHeight: "1.18", letterSpacing: "-0.018em", fontWeight: "600" },
         ],
         lead: [
           "var(--text-lead)",

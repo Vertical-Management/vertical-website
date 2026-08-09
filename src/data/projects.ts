@@ -10,14 +10,28 @@ export const projects: Project[] = [
     title: "FEP 2026",
     subtitle: "Motion graphics · Festival",
     client: "Estéreo Picnic",
+    projectType: "Motion campaign",
     year: 2026,
     role: "Director creativo",
     categories: ["Animation", "Motion", "Campaign"],
     excerpt:
-      "Selección de animaciones y loops para FEP2026 con paleta sincronizada.",
+      "Loops y animaciones para FEP2026: energía de festival en frames que no se scrollean de largo.",
     description:
-      "Estéreo Picnic es mucho más que un festival: es un universo sonoro y visual donde la música, el arte y las emociones se encuentran.\n\nEste proyecto captura la magia del FEP a través del movimiento: bucles, paleta sincronizada y energía de artistas en frames que no se scrollean de largo. Cada loop funciona como puente visual entre el público y la experiencia del evento.",
-    // Static cover for LCP/home; gallery uses H.264 loops (converted from GIF)
+      "Estéreo Picnic no es “un cartel con fechas”. Es un universo. El brief: dar movimiento a ese universo sin diluir la marca del festival.",
+    caseStudy: {
+      context:
+        "Un festival de escala continental necesita assets que funcionen en pantallas gigantes, reels y backstage a la vez — con la misma energía y sin verse como stock de “música y luces”.",
+      approach:
+        "Tratamos cada loop como un single: paleta sincronizada, ritmo de artista y un gancho visual que se lee en 0,5 s. Menos “intro genérica”, más identidad en movimiento.",
+      deliverables: [
+        "Sistema de loops y bucleados de marca",
+        "Piezas por artista / momento del festival",
+        "Master 1080p + cutdowns para social",
+        "Paleta y timing compartidos entre piezas",
+      ],
+      outcome:
+        "Una pared de motion que se siente FEP al instante: más scroll-stop, más coherencia de campaña y un kit reutilizable para el equipo de marketing del festival.",
+    },
     cover: "/assets/PAG ANIMATION FEP2026/FEP PORTADA-cover.webp",
     gallery: [
       "/assets/PAG ANIMATION FEP2026/loops/fep-portada.mp4",
@@ -38,12 +52,28 @@ export const projects: Project[] = [
     title: "Cafeteros Co.",
     subtitle: "Branding integral",
     client: "Cafeteros Co.",
+    projectType: "Brand system",
     year: 2025,
     role: "Brand Designer",
     categories: ["Branding", "Packaging"],
-    excerpt: "Sistema visual con aroma y carácter para café colombiano.",
+    excerpt:
+      "Identidad y packaging para café colombiano con carácter de origen y lectura moderna.",
     description:
-      "Cafeteros CO celebra la excelencia del café colombiano: tradición, calidad y diseño contemporáneo.\n\nDel grano al packaging, un sistema con olor a craft. Identidad visual coherente en empaque, materiales de marca y aplicaciones que conectan con el consumidor en cada punto de contacto.",
+      "Café con pedigrí de origen que competía en un estante lleno de “bolsas marrones con hoja”. Había que oler a Colombia sin clichés de postal.",
+    caseStudy: {
+      context:
+        "Marca emergente de café de especialidad: necesitaba sistema visual completo (no solo un logo) para empaque, punto de venta y digitales — con orgullo de origen y cero folklore barato.",
+      approach:
+        "Construimos un sistema táctil: tipografía con peso, color de tostado, iconografía de proceso y packaging que se lee a un metro de distancia. Tradición en el fondo, contemporáneo en la superficie.",
+      deliverables: [
+        "Identidad verbal y visual",
+        "Sistema de packaging (líneas y variantes)",
+        "Aplicaciones de marca y materiales de POS",
+        "Kit de assets para web y social",
+      ],
+      outcome:
+        "Una marca que se reconoce en estantería y en feed: más coherencia entre grano, bolsa y conversación. El sistema escala a nuevas líneas sin reinventar el molino cada vez.",
+    },
     cover: "/assets/PAG BRANDING CAFETEROS CO/CCDC1.webp",
     gallery: [
       "/assets/PAG BRANDING CAFETEROS CO/CCDC1.webp",
@@ -67,12 +97,28 @@ export const projects: Project[] = [
     title: "KOAJ 3D",
     subtitle: "Dirección visual 3D",
     client: "KOAJ",
+    projectType: "3D fashion",
     year: 2025,
     role: "3D Artist",
     categories: ["3D", "Fashion", "Digital"],
-    excerpt: "Exploración 3D para retail fashion de alto impacto.",
+    excerpt:
+      "Renders y dirección 3D para retail fashion: producto claro, atmósfera premium.",
     description:
-      "Moda contemporánea, volumen y composición editorial.\n\nCada render proyecta carácter de marca con lectura clara de producto y atmósfera digital premium. Exploración visual enfocada en retail fashion de alto impacto.",
+      "Retail fashion que quería verse digital-first sin perder la lectura de prenda. El reto: volumen y deseo en la misma toma.",
+    caseStudy: {
+      context:
+        "Campaña y activos digitales para marca de moda: necesitaban piezas 3D que vendieran silueta y textura en pantallas, no solo un lookbook plano escaneado.",
+      approach:
+        "Dirección visual con foco en composición editorial: luz, material y pose. Cada render se comporta como un still de campaña — legible en grid, potente a pantalla completa.",
+      deliverables: [
+        "Serie de renders hero y product",
+        "Exploración de materiales y look development",
+        "Assets para e-commerce y campaña digital",
+        "Variantes de formato (feed, story, display)",
+      ],
+      outcome:
+        "Un set de imágenes con carácter de marca y lectura clara de producto. Más impacto en canal digital y un lenguaje 3D reutilizable para drops futuros.",
+    },
     cover: "/assets/PAG KOAJ 3D/FEP KOAJ1.webp",
     gallery: [
       "/assets/PAG KOAJ 3D/FEP KOAJ1.webp",
@@ -97,12 +143,28 @@ export const projects: Project[] = [
     title: "UX Pedigree",
     subtitle: "Product design · App",
     client: "Pedigree",
+    projectType: "Product UX/UI",
     year: 2025,
     role: "UX/UI Designer",
     categories: ["UX/UI", "Product"],
-    excerpt: "Producto digital con cola que mueve la cola.",
+    excerpt:
+      "App University GB: onboarding, shell y tono de producto que mueve la cola.",
     description:
-      "Diseño de interfaz y experiencia para University GB: onboarding, app shell y un tono de producto que no aburre ni al perro ni al humano.\n\nPantallas, login, sources y el perrito que se ganó el lugar en el sistema.",
+      "Producto digital para una marca que habla con humanos y con perros. El brief: útil, claro y con personalidad — sin infantilizar ni aburrir.",
+    caseStudy: {
+      context:
+        "University GB necesitaba una experiencia de app que guiara al usuario (y a su perro) sin fricción: login, fuentes de contenido y un shell que se sienta de marca, no de template genérico.",
+      approach:
+        "UX limpia primero, carácter después. Flujos cortos, jerarquía tipográfica fuerte y un mascot system que refuerza el tono sin robarse la tarea. Cada pantalla tiene un “por qué estás aquí”.",
+      deliverables: [
+        "Flujos de onboarding y login",
+        "App shell y navegación principal",
+        "UI kits de pantallas clave",
+        "Assets de mascota / carácter de producto",
+      ],
+      outcome:
+        "Un producto más legible y con voz propia: menos pantallas “de relleno”, más claridad en la tarea y un sistema listo para iterar features sin romper el tono.",
+    },
     cover: "/assets/PAG UX_UI PEDIGREE/UNIVERSITY GROW BOOK.webp",
     gallery: [
       "/assets/PAG UX_UI PEDIGREE/UNIVERSITY GROW BOOK.webp",
@@ -132,4 +194,20 @@ export function getFeaturedProjects(): Project[] {
 
 export function getAllProjectSlugs(): string[] {
   return projects.map((p) => p.slug);
+}
+
+/** Adjacent projects for case-study nav (wraps around) */
+export function getAdjacentProjects(slug: string): {
+  prev: Project | null;
+  next: Project | null;
+} {
+  const i = projects.findIndex((p) => p.slug === slug);
+  if (i < 0) return { prev: null, next: null };
+  const prev = projects[(i - 1 + projects.length) % projects.length] ?? null;
+  const next = projects[(i + 1) % projects.length] ?? null;
+  // Same slug only if single project
+  return {
+    prev: prev?.slug === slug ? null : prev,
+    next: next?.slug === slug ? null : next,
+  };
 }

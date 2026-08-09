@@ -28,7 +28,7 @@ export const services: Service[] = [
     punch: "EXPERIENCIA",
     theme: "cool",
     description:
-      "Sitios y productos con craft de Awwwards y personalidad de arcade.",
+      "Sitios y productos con nivel de Awwwards y personalidad de arcade.",
     longDescription:
       "Webs y productos digitales con tipografía de impacto, micro-interacciones intencionadas y performance real. Premium en la ejecución, divertido en el alma.",
     tags: ["Web", "UI", "UX", "Experiencias"],
@@ -95,7 +95,7 @@ export const processSteps: ProcessStep[] = [
   },
   {
     index: "03",
-    title: "Craft",
+    title: "Ejecución",
     description:
       "Diseño, motion y sistemas con obsesión por el detalle. Cada hover tiene intención.",
   },
@@ -103,7 +103,7 @@ export const processSteps: ProcessStep[] = [
     index: "04",
     title: "Launch & iterate",
     description:
-      "Salimos al mundo, medimos lo que importa y afinamos. Insert coin de nuevo si hace falta.",
+      "Salimos al mundo, medimos lo que importa y afinamos. Volvemos a la máquina si hace falta.",
   },
 ];
 

@@ -11,6 +11,7 @@ type LazyGalleryProps = {
   title: string;
   /** How many items to mount initially */
   initialCount?: number;
+  loadMoreLabel?: string;
 };
 
 function GalleryVideo({
@@ -74,6 +75,7 @@ export function LazyGallery({
   images,
   title,
   initialCount = 3,
+  loadMoreLabel = "Load more",
 }: LazyGalleryProps) {
   const [visibleCount, setVisibleCount] = useState(
     Math.min(initialCount, images.length),
@@ -154,7 +156,7 @@ export function LazyGallery({
             }
             className="inline-flex h-11 items-center rounded-pill border border-border-strong px-6 font-mono text-xs uppercase tracking-label transition-colors hover:border-ink hover:bg-ink hover:text-paper"
           >
-            Cargar más frames
+            {loadMoreLabel}
           </button>
         </div>
       ) : null}

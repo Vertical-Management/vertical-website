@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Providers } from "@/components/providers/Providers";
 import { SiteChrome } from "@/components/layout/SiteChrome";
+import { SkipLink } from "@/components/layout/SkipLink";
 import { Cursor } from "@/components/ui/Cursor";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { fontVariables } from "@/lib/fonts";
@@ -28,6 +29,7 @@ export const metadata: Metadata = {
     "motion graphics",
     "UX UI",
     "estrategia creativa",
+    SITE.pitch,
   ],
   authors: [{ name: SITE.founder, url: SITE.url }],
   creator: SITE.name,
@@ -48,7 +50,7 @@ export const metadata: Metadata = {
         url: SEO.ogImage,
         width: 1200,
         height: 630,
-        alt: `${SITE.name} — ${SITE.founder}`,
+        alt: `${SITE.name} — ${SITE.pitch}`,
         type: "image/svg+xml",
       },
     ],
@@ -107,10 +109,8 @@ export default function RootLayout({
     >
       <body className="min-h-dvh bg-paper font-body text-ink">
         <JsonLd data={[organizationJsonLd(), websiteJsonLd(), personJsonLd()]} />
-        <a href="#main-content" className="skip-link">
-          Saltar al contenido
-        </a>
         <Providers>
+          <SkipLink />
           <Cursor />
           <div id="smooth-wrapper" className="relative">
             <div id="smooth-content">

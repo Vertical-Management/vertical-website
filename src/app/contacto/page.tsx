@@ -7,17 +7,21 @@ import {
 } from "@/components/contacto";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { SITE } from "@/lib/constants";
-import { breadcrumbJsonLd } from "@/lib/seo";
+import { breadcrumbJsonLd, SEO } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Contacto",
-  description: `Hablemos. ${SITE.name}, ${SITE.location}. Branding, digital, motion y estrategia. Insert coin.`,
+  description: `${SEO.description} Hablemos desde ${SITE.location}.`,
   alternates: { canonical: "/contacto" },
   openGraph: {
-    title: "Contacto · Vertical Management",
-    description:
-      "Insert coin y cuéntanos el proyecto. Desde Andorra para el mundo.",
+    title: `Contacto · ${SITE.name}`,
+    description: SEO.description,
     url: "/contacto",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `Contacto · ${SITE.name}`,
+    description: SEO.description,
   },
 };
 

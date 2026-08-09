@@ -2,6 +2,7 @@
 
 export const ROUTE_LABELS: Record<string, string> = {
   "/": "Home",
+  "/nosotros": "Nosotros",
   "/servicios": "Servicios",
   "/proyectos": "Proyectos",
   "/contacto": "Contacto",

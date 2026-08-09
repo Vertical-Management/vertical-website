@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "Vertical Management",
     short_name: "Vertical",
     description:
-      "Creatividad, branding y experiencias digitales con craft y humor. Andorra.",
+      "Creamos marcas que van más lejos, más raro y con más craft. Andorra.",
     start_url: "/",
     display: "standalone",
     background_color: "#f4f1ea",

@@ -148,7 +148,7 @@ export function PageTransitionOverlay() {
                 }}
                 exit={{ opacity: 0, transition: { duration: 0.15 } }}
               >
-                Insert coin
+                Loading stage
               </motion.p>
 
               <motion.p

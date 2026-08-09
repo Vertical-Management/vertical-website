@@ -27,17 +27,17 @@
 
   SCALE (fluid)
   ─────────────
-  display-2xl  clamp(3.5rem, 12vw, 10rem)
-  display-xl   clamp(2.75rem, 8vw, 7rem)
-  display-lg   clamp(2rem, 5vw, 4.5rem)
-  display-md   clamp(1.5rem, 3vw, 2.75rem)
-  lead         clamp(1.125rem, 1.5vw, 1.375rem)
+  display-2xl  clamp(2.75rem, 1.4rem + 7.2vw, 10rem)
+  display-xl   clamp(2.25rem, 1.2rem + 5.2vw, 7rem)
+  display-lg   clamp(1.85rem, 1.15rem + 3.2vw, 4.5rem)
+  display-md   clamp(1.4rem, 1rem + 1.8vw, 2.75rem)
+  lead         clamp(1.0625rem, 0.9rem + 0.7vw, 1.375rem)
 
   SPACE
   ─────
-  gutter       clamp(1.25rem, 4vw, 3rem)
-  section-y    clamp(5rem, 12vw, 10rem)
-  header       4.5rem
+  gutter       clamp(1.125rem, 0.65rem + 2.5vw, 3rem)
+  section-y    clamp(5.5rem, 4rem + 8vw, 10rem)
+  header       4.25rem
   max-site     1440px
 
   MOTION

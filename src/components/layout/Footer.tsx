@@ -3,10 +3,12 @@
 import NextLink from "next/link";
 import { Logo } from "@/components/layout/Logo";
 import { NavLink } from "@/components/layout/NavLink";
+import { useLanguage } from "@/components/providers/LanguageProvider";
 import { Marquee, MarqueeItem } from "@/components/ui/Marquee";
 import { Grain } from "@/components/ui/Grain";
 import { Magnetic } from "@/components/ui/Magnetic";
 import { NAV_LINKS, SITE, SOCIAL_LINKS } from "@/lib/constants";
+import { NAV_I18N_KEYS } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
 const MARQUEE = [
@@ -17,15 +19,21 @@ const MARQUEE = [
   "Estrategia",
   "Andorra",
   "Playful High-Craft",
-  "Insert Coin",
+  "Vertical Thinking",
 ];
 
 /**
  * Site footer — editorial wordmark, nav, social, irreverent meta.
  */
 export function Footer() {
+  const { t } = useLanguage();
   // Fixed at build-ish render; suppressHydrationWarning avoids year-boundary flicker
   const year = new Date().getFullYear();
+
+  const navLabel = (href: string) => {
+    const key = NAV_I18N_KEYS[href as keyof typeof NAV_I18N_KEYS];
+    return key ? t.nav[key] : href;
+  };
 
   return (
     <footer
@@ -55,12 +63,13 @@ export function Footer() {
         <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
           <div className="max-w-xl">
             <p className="font-mono text-caption uppercase tracking-label text-ink-muted">
-              ¿Hablamos?
+              {t.footer.letsTalk}
             </p>
             <h2 className="mt-3 font-display text-display-md text-ink">
-              Hagamos algo
+              {t.footer.ctaLine1}
               <br />
-              <span className="text-accent">verticalmente</span> memorable.
+              <span className="text-accent">{t.footer.ctaAccent}</span>{" "}
+              {t.footer.ctaLine2}
             </h2>
           </div>
 
@@ -76,7 +85,7 @@ export function Footer() {
                 "hover:translate-x-px hover:translate-y-px hover:shadow-[2px_2px_0_0_var(--color-ink)]",
               )}
             >
-              Insert coin → Contacto
+              {t.footer.writeContact}
             </NextLink>
           </Magnetic>
         </div>
@@ -96,7 +105,7 @@ export function Footer() {
           <div className="sm:col-span-2 lg:col-span-1">
             <Logo magnetic={false} size="md" />
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-ink-soft">
-              {SITE.pitch}
+              {t.site.pitch}
               <br />
               {SITE.location} · {SITE.founder}.
             </p>
@@ -104,14 +113,14 @@ export function Footer() {
 
           <div>
             <p className="font-mono text-caption uppercase tracking-label text-ink-muted">
-              Navegar
+              {t.footer.navigate}
             </p>
             <ul className="mt-4 flex flex-col gap-3">
               {NAV_LINKS.map((link) => (
                 <li key={link.href}>
                   <NavLink
                     href={link.href}
-                    label={link.label}
+                    label={navLabel(link.href)}
                     index={link.index}
                     variant="footer"
                   />
@@ -122,7 +131,7 @@ export function Footer() {
 
           <div>
             <p className="font-mono text-caption uppercase tracking-label text-ink-muted">
-              Social
+              {t.footer.social}
             </p>
             <ul className="mt-4 flex flex-col gap-3">
               {SOCIAL_LINKS.map((s) => (
@@ -159,7 +168,7 @@ export function Footer() {
 
           <div>
             <p className="font-mono text-caption uppercase tracking-label text-ink-muted">
-              Contacto
+              {t.footer.contact}
             </p>
             <a
               href={`mailto:${SITE.email}`}
@@ -178,7 +187,7 @@ export function Footer() {
             className="font-mono text-[0.65rem] uppercase tracking-label text-ink-faint"
             suppressHydrationWarning
           >
-            © {year} {SITE.name}. Todos los coins reservados.
+            © {year} {SITE.name}. {t.footer.highScores}
           </p>
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-[0.65rem] uppercase tracking-label text-ink-faint">
             <NextLink
@@ -186,7 +195,7 @@ export function Footer() {
               data-cursor="hover"
               className="transition-colors hover:text-ink"
             >
-              Privacidad
+              {t.footer.privacy}
             </NextLink>
             <a
               href={`mailto:${SITE.email}`}
@@ -196,7 +205,9 @@ export function Footer() {
               {SITE.email}
             </a>
             <span className="hidden sm:inline">·</span>
-            <span>Hecho con craft · sin plantillas</span>
+            <span>
+              {t.footer.madeIn} {SITE.location}
+            </span>
           </div>
         </div>
       </div>
