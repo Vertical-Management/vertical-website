@@ -54,6 +54,8 @@ export type Dictionary = {
     social: string;
     contact: string;
     privacy: string;
+    legalNotice: string;
+    cookies: string;
     highScores: string;
     madeIn: string;
   };
@@ -83,6 +85,10 @@ export type Dictionary = {
       viewProjects: string;
       rotating: string[];
       tags: string[];
+      /** Geo badge while IP lookup runs */
+      locationLoading: string;
+      /** Accessible name for the hero section */
+      sectionLabel: string;
     };
     marquee: { rowA: string[]; rowB: string[] };
     manifesto: {
@@ -330,6 +336,20 @@ export type Dictionary = {
     linuxMode: string;
   };
   privacy: {
+    eyebrow: string;
+    title: string;
+    updated: string;
+    backContact: string;
+    sections: { title: string; body: string; list?: string[] }[];
+  };
+  legalNotice: {
+    eyebrow: string;
+    title: string;
+    updated: string;
+    backContact: string;
+    sections: { title: string; body: string; list?: string[] }[];
+  };
+  cookies: {
     eyebrow: string;
     title: string;
     updated: string;

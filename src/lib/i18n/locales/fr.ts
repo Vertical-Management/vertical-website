@@ -9,20 +9,22 @@ const fr: Dictionary = {
     contact: "Contact",
   },
   header: {
-    insertCoin: "Insert coin",
+    insertCoin: "Contact",
     language: "Langue",
     selectLanguage: "Choisir la langue",
   },
   footer: {
-    letsTalk: "On en parle ?",
-    ctaLine1: "Faisons quelque chose",
-    ctaAccent: "verticalement",
-    ctaLine2: "mémorable.",
-    writeContact: "Écrire → Contact",
+    letsTalk: "Clôture",
+    ctaLine1: "Moins de bruit.",
+    ctaAccent: "Plus vertical.",
+    ctaLine2: "",
+    writeContact: "Parlons →",
     navigate: "Naviguer",
     social: "Social",
     contact: "Contact",
     privacy: "Confidentialité",
+    legalNotice: "Mentions légales",
+    cookies: "Cookies",
     highScores: "High scores réservés.",
     madeIn: "Fait main à",
   },
@@ -45,11 +47,11 @@ const fr: Dictionary = {
   home: {
     hero: {
       creativeManagement: "Creative Management",
-      line1: "Nous créons",
-      line2: "des marques qui vont",
+      line1: "SOM VERTICAL",
+      line2: "BY ESTEBAN FERRER",
       pitch:
-        "Branding, digital, motion et stratégie — depuis Andorre, avec intention et zéro générique.",
-      insertCoin: "Insert coin",
+        "Branding, digital, motion, stratégie et software. Nous aidons marques et entreprises à gagner de l’argent réel : marketing qui convertit, croissance d’audience organique, produits digitaux et vibe coding avec intention. Depuis Andorre, sans génériques.",
+      insertCoin: "Contact",
       viewProjects: "Voir les projets",
       rotating: [
         "plus loin",
@@ -59,6 +61,8 @@ const fr: Dictionary = {
         "plus vertical",
       ],
       tags: ["Branding", "Digital", "Motion", "3D"],
+      locationLoading: "Détection de la position…",
+      sectionLabel: "Accueil",
     },
     marquee: {
       rowA: [
@@ -83,12 +87,12 @@ const fr: Dictionary = {
     manifesto: {
       eyebrow: "Manifeste",
       lines: [
-        "Nous ne faisons pas de “beaux sites”.",
-        "Nous concevons des systèmes avec du caractère,",
-        "des expériences qui restent",
-        "et des marques qui osent être.",
+        "Nous ne vendons ni fumée ni templates.",
+        "Nous bâtissons des marques qui convertissent,",
+        "des systèmes qui restent en tête",
+        "et des produits avec une vraie intention.",
       ],
-      body: "Vertical Management est le studio d’Esteban Ferrer : concept, exécution et un peu de chaos contrôlé — depuis Andorre pour le monde.",
+      body: "Si ça ne bouge pas l’aiguille — ventes, audience ou produit — ça ne sort pas de la machine. Vertical, c’est du craft avec résultat, depuis Andorre pour le monde.",
     },
     work: {
       eyebrow: "Selected work",
@@ -108,9 +112,9 @@ const fr: Dictionary = {
     },
     about: {
       eyebrow: "Qui est derrière",
-      titleLine1: "Créatif de métier.",
-      titleLine2: "Arcade de vocation.",
-      body: "Vertical Management est le véhicule d’Esteban Ferrer pour construire des identités, produits et campagnes qui refusent le contenu générique. Premium dans l’exécution. Fun dans l’âme.",
+      titleLine1: "Salut, je suis Esteban.",
+      titleLine2: "Voici Vertical.",
+      body: "Je dirige le studio depuis Andorre : branding, digital, motion et software sous la même barre — on voit qui l’a fait, et ça doit aider à grandir pour de vrai. Premium en exécution. Proche en conversation. Sans posture d’agence.",
       founder: "Founder",
       basedIn: "Based in",
       principles: [
@@ -126,17 +130,17 @@ const fr: Dictionary = {
         },
         {
           index: "C",
-          title: "Jeu avec boussole",
-          body: "Irrévérencieux oui. Gratuit, jamais.",
+          title: "Résultat avec caractère",
+          body: "Beau sans conversion ne compte pas. Irrévérencieux avec boussole.",
         },
       ],
       storyCta: "Lire l’histoire →",
     },
     cta: {
-      eyebrow: "Game over? No. Press start.",
-      words: ["Prêt", "pour", "l’", "écran", "suivant ?"],
+      eyebrow: "Prochain mouvement",
+      words: ["Moins", "de bruit.", "Plus", "vertical."],
       accentFrom: 2,
-      body: "Parle-nous du projet. S’il y a une bonne idée (ou l’envie de la trouver), on joue. Andorre et remote.",
+      body: "Si tu as un vrai projet (ou l’envie de le trouver), parlons. Andorre et remote.",
       startProject: "Démarrer un projet",
     },
   },
@@ -615,53 +619,144 @@ const fr: Dictionary = {
     linuxMode: "Linux mode (blague)",
   },
   privacy: {
-    eyebrow: "Legal",
-    title: "Confidentialité",
-    updated: "Dernière mise à jour : août 2026 · {name} ({location})",
-    backContact: "← Retour au contact",
+    eyebrow: "Legal · LQPD",
+    title: "Privacy policy",
+    updated:
+      "Last updated: August 2026 · {name} / Esteban Ferrer ({location}) · Llei 29/2021 (LQPD)",
+    backContact: "← Back to contact",
     sections: [
       {
-        title: "1. Responsable",
-        body: "Le responsable du traitement des données est {name}, basé à {location}. Contact : {email}.",
+        title: "1. Data controller",
+        body: "The data controller is Esteban Ferrer, trading as {name} (SOM VERTICAL), based in {location}. Contact: {email}. Website: {url}.",
       },
       {
-        title: "2. Quelles données nous collectons",
-        body: "Via le formulaire de contact nous pouvons traiter les données listées. Nous ne demandons ni données de paiement ni pièces d’identité via ce site.",
+        title: "2. Legal framework",
+        body: "Processing is governed by Andorra’s Llei 29/2021 (LQPD) and its implementing regulation, and where applicable by the EU GDPR for data subjects in the Union.",
+      },
+      {
+        title: "3. Data we collect",
+        body: "Through the contact form and email we may process the listed categories. We do not request payment data or ID documents through this site.",
         list: [
-          "Nom ou alias",
-          "Adresse e-mail",
-          "Entreprise (optionnel)",
-          "Budget indicatif (optionnel)",
-          "Message et contenu du projet que tu partages",
+          "Name or alias",
+          "Email address",
+          "Company (optional)",
+          "Indicative budget (optional)",
+          "Message and project details you share",
+          "Minimal server technical data (IP, security logs) when hosting records them",
         ],
       },
       {
-        title: "3. Finalité et base légale",
-        body: "Nous utilisons ces données uniquement pour répondre à ta demande, évaluer le brief et, le cas échéant, démarrer une relation commerciale. La base légale est ton consentement à l’envoi du formulaire et, le cas échéant, des mesures précontractuelles à ta demande.",
+        title: "4. Purposes",
+        body: "We process data to: (a) answer inquiries; (b) assess briefs and hold pre-contractual talks; (c) run the commercial relationship if formalized; (d) meet legal duties; (e) keep the site secure.",
       },
       {
-        title: "4. Conservation",
-        body: "Nous conservons les messages le temps nécessaire pour gérer la conversation et les obligations légales applicables. Sans relation commerciale, ils sont supprimés ou archivés de façon limitée lorsqu’ils ne sont plus nécessaires.",
+        title: "5. Legal basis",
+        body: "Consent when you submit the form or write to us; pre-contractual steps at your request; contract performance when a relationship exists; and, where applicable, legitimate interest in security and legal compliance.",
       },
       {
-        title: "5. Sous-traitants et outils",
-        body: "L’envoi des e-mails du formulaire peut passer par un fournisseur d’e-mail transactionnel (p. ex. Resend). L’hébergement peut être sur Vercel ou un autre cloud. Ces fournisseurs agissent comme sous-traitants selon leurs propres termes et mesures de sécurité.",
+        title: "6. Retention",
+        body: "We keep messages and contact data as long as needed for the conversation, the commercial relationship and legal duties. Without a commercial relationship, data is deleted or limitedly archived when no longer needed.",
       },
       {
-        title: "6. Cookies et analytics",
-        body: "Ce site n’utilise pas de cookies publicitaires ni de trackers tiers par défaut. Des cookies techniques indispensables peuvent être utilisés (p. ex. préférences de session). Si l’analytics est activée plus tard, nous informerons et, si requis, demanderons le consentement.",
+        title: "7. Processors",
+        body: "Form emails may go through a transactional email provider (e.g. Resend). Hosting may be on Vercel or another cloud provider. They act as processors under their terms. We do not sell personal data.",
       },
       {
-        title: "7. Tes droits",
-        body: "Tu peux demander l’accès, la rectification, l’effacement, la limitation ou l’opposition au traitement, et la portabilité le cas échéant, en écrivant à {email}. Tu peux aussi déposer une réclamation auprès de l’autorité compétente en Andorre ou dans ton pays de résidence dans l’UE.",
+        title: "8. International transfers",
+        body: "Some processors may process data outside Andorra or the EEA. When they do, appropriate safeguards under applicable law apply.",
       },
       {
-        title: "8. Sécurité",
-        body: "Nous appliquons des mesures techniques et organisationnelles raisonnables (HTTPS, validation des formulaires, limites d’envoi). Aucun système n’est 100 % sûr ; si tu détectes un incident, préviens-nous.",
+        title: "9. Cookies and approximate geolocation",
+        body: "The site may use browser local/session storage for preferences (e.g. language or location cache). The hero location badge uses approximate IP geolocation, not precise GPS. See the Cookies policy.",
       },
       {
-        title: "9. Modifications",
-        body: "Nous pouvons mettre à jour cette politique. La version en vigueur sera toujours à cette URL : {url}/privacidad.",
+        title: "10. Your rights",
+        body: "You may exercise access, rectification, erasure, objection, restriction and, where applicable, portability by writing to {email}. You may withdraw consent where processing is based on it, without affecting prior lawfulness.",
+      },
+      {
+        title: "11. Complaints",
+        body: "You may lodge a complaint with the Agència Andorrana de Protecció de Dades (APDA) or another competent authority, without prejudice to court remedies.",
+      },
+      {
+        title: "12. Security",
+        body: "We apply reasonable technical and organizational measures (HTTPS, form validation, send limits). No system is 100% secure; report incidents to {email}.",
+      },
+      {
+        title: "13. Changes",
+        body: "We may update this policy. The current version is at {url}/privacidad.",
+      },
+    ],
+  },
+  legalNotice: {
+    eyebrow: "Legal",
+    title: "Legal notice",
+    updated: "Last updated: August 2026 · {name} ({location})",
+    backContact: "← Back to contact",
+    sections: [
+      {
+        title: "1. Site owner",
+        body: "The website {url} is operated by Esteban Ferrer under the brand {name} (SOM VERTICAL), based in {location}. Contact: {email}.",
+      },
+      {
+        title: "2. Purpose",
+        body: "This site informs about studio services and enables commercial contact. Content is informational and not a binding offer unless agreed in writing.",
+      },
+      {
+        title: "3. Terms of use",
+        body: "Users must use the site lawfully, not introduce malware or attack security, and provide truthful form data. We may deny access in case of abuse.",
+      },
+      {
+        title: "4. Intellectual property",
+        body: "Texts, designs, logos, images, video and code on this site belong to {name} / Esteban Ferrer or third-party licensors. Unauthorized reproduction or transformation is prohibited except as allowed by law.",
+      },
+      {
+        title: "5. Links",
+        body: "Third-party links (social, tools) are for convenience. We do not control those sites or their policies.",
+      },
+      {
+        title: "6. Liability",
+        body: "We make reasonable efforts to keep the site available and updated, without guaranteeing zero errors or downtime. Liability is limited as allowed by Andorran law.",
+      },
+      {
+        title: "7. Governing law",
+        body: "This notice is governed by the law of the Principality of Andorra. Disputes are submitted to the competent Andorran courts, without prejudice to mandatory consumer rights where applicable.",
+      },
+    ],
+  },
+  cookies: {
+    eyebrow: "Legal",
+    title: "Cookies policy",
+    updated: "Last updated: August 2026 · {name} ({location})",
+    backContact: "← Back to contact",
+    sections: [
+      {
+        title: "1. What cookies are",
+        body: "Cookies and similar tech (localStorage, sessionStorage) store small data in your browser to remember preferences or help the site work.",
+      },
+      {
+        title: "2. What we use",
+        body: "By default we do not install ad cookies or third-party trackers. We may use:",
+        list: [
+          "Strictly necessary browser storage (e.g. UI language preference)",
+          "sessionStorage to cache the approximate visitor location shown in the hero (city/country via IP)",
+          "Hosting/CDN technical cookies required for security and delivery",
+        ],
+      },
+      {
+        title: "3. IP geolocation",
+        body: "The home location badge may call an IP geolocation service (approx. city and country). It does not request device GPS permission. You can clear session storage in your browser.",
+      },
+      {
+        title: "4. Basis and purpose",
+        body: "Technical storage supports site function and experience. Strictly necessary tech does not require consent. If non-essential analytics or marketing cookies are added later, we will inform and request consent when required.",
+      },
+      {
+        title: "5. How to manage them",
+        body: "You can delete or block cookies and site data in browser settings. Disabling technical storage may affect preferences such as language.",
+      },
+      {
+        title: "6. More information",
+        body: "For personal data processing, see the Privacy policy. Contact: {email}.",
       },
     ],
   },
@@ -680,7 +775,7 @@ const fr: Dictionary = {
   },
   site: {
     pitch:
-      "Nous créons des marques qui vont plus loin, plus étrange et avec plus de craft.",
+      "Branding, digital, motion, stratégie et software qui convertissent — depuis Andorre.",
   },
 };
 

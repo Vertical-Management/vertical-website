@@ -30,12 +30,13 @@ export function ServicesBlocks() {
           const content = block.querySelector<HTMLElement>("[data-content]");
 
           if (punch) {
+            // Keep watermark subdued — never climb above body copy contrast
             gsap.fromTo(
               punch,
-              { xPercent: -8, opacity: 0.35 },
+              { xPercent: -6, opacity: 0.22 },
               {
-                xPercent: 4,
-                opacity: 0.55,
+                xPercent: 3,
+                opacity: 0.34,
                 ease: "none",
                 scrollTrigger: {
                   trigger: block,
@@ -86,14 +87,14 @@ export function ServicesBlocks() {
               theme.block,
             )}
           >
-            {/* Giant watermark word */}
+            {/* Giant watermark — always behind copy, softer so it never eats body type */}
             <p
               data-punch
               aria-hidden
               className={cn(
-                "pointer-events-none absolute -right-4 top-1/2 select-none font-display text-[clamp(4rem,22vw,16rem)] font-extrabold leading-none tracking-display",
+                "pointer-events-none absolute -right-4 top-1/2 z-0 select-none font-display text-[clamp(4rem,22vw,16rem)] font-extrabold leading-none tracking-display",
                 theme.number,
-                " -translate-y-1/2",
+                " -translate-y-1/2 opacity-40",
               )}
             >
               {service.punch ?? service.title}
@@ -102,7 +103,7 @@ export function ServicesBlocks() {
             <div
               data-content
               className={cn(
-                "relative z-[1] mx-auto grid max-w-site gap-10 px-gutter py-16 md:py-24 lg:grid-cols-12 lg:gap-8 lg:py-28",
+                "relative z-10 mx-auto grid max-w-site gap-10 px-gutter py-16 md:py-24 lg:grid-cols-12 lg:gap-8 lg:py-28",
                 flip && "lg:[&>*:first-child]:order-2",
               )}
             >

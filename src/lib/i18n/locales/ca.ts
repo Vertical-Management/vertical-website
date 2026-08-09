@@ -9,20 +9,22 @@ const ca: Dictionary = {
     contact: "Contacte",
   },
   header: {
-    insertCoin: "Insert coin",
+    insertCoin: "Contacte",
     language: "Idioma",
     selectLanguage: "Seleccionar idioma",
   },
   footer: {
-    letsTalk: "Parlem?",
-    ctaLine1: "Fem alguna cosa",
-    ctaAccent: "verticalment",
-    ctaLine2: "memorable.",
-    writeContact: "Escriure → Contacte",
+    letsTalk: "Tancament",
+    ctaLine1: "Menys soroll.",
+    ctaAccent: "Més vertical.",
+    ctaLine2: "",
+    writeContact: "Parlem →",
     navigate: "Navegar",
     social: "Social",
     contact: "Contacte",
     privacy: "Privacitat",
+    legalNotice: "Avís legal",
+    cookies: "Cookies",
     highScores: "High scores reservats.",
     madeIn: "Fet a mà a",
   },
@@ -45,11 +47,11 @@ const ca: Dictionary = {
   home: {
     hero: {
       creativeManagement: "Creative Management",
-      line1: "Creem",
-      line2: "marques que van",
+      line1: "SOM VERTICAL",
+      line2: "BY ESTEBAN FERRER",
       pitch:
-        "Branding, digital, motion i estratègia — des d’Andorra, amb intenció i zero genèric.",
-      insertCoin: "Insert coin",
+        "Branding, digital, motion, estratègia i software. Ajudem marques i empreses a guanyar diners de veritat: marketing que converteix, creixement de públic orgànic, productes digitals i vibe coding amb intenció. Des d’Andorra, sense genèrics.",
+      insertCoin: "Contacte",
       viewProjects: "Veure projectes",
       rotating: [
         "més lluny",
@@ -59,6 +61,8 @@ const ca: Dictionary = {
         "més vertical",
       ],
       tags: ["Branding", "Digital", "Motion", "3D"],
+      locationLoading: "Detectant ubicació…",
+      sectionLabel: "Inici",
     },
     marquee: {
       rowA: [
@@ -83,12 +87,12 @@ const ca: Dictionary = {
     manifesto: {
       eyebrow: "Manifest",
       lines: [
-        "No fem “webs boniques”.",
-        "Dissenyem sistemes amb caràcter,",
-        "experiències que es recorden",
-        "i marques que s’atreveixen a ser.",
+        "No venem fum ni plantilles.",
+        "Construïm marques que converteixen,",
+        "sistemes que es recorden",
+        "i productes amb intenció real.",
       ],
-      body: "Vertical Management és l’estudi d’Esteban Ferrer: concepte, execució i una mica de caos controlat — des d’Andorra per al món.",
+      body: "Si no mou l’agulla — vendes, audiència o producte — no surt de la màquina. Vertical és craft amb resultat, des d’Andorra per al món.",
     },
     work: {
       eyebrow: "Selected work",
@@ -108,9 +112,9 @@ const ca: Dictionary = {
     },
     about: {
       eyebrow: "Qui hi ha al darrere",
-      titleLine1: "Creatiu de professió.",
-      titleLine2: "Arcade de vocació.",
-      body: "Vertical Management és el vehicle d’Esteban Ferrer per construir identitats, productes i campanyes que no es comporten com a “contingut genèric”. Premium en l’execució. Divertit a l’ànima.",
+      titleLine1: "Hola, sóc l’Esteban.",
+      titleLine2: "Això és Vertical.",
+      body: "Dirigeixo l’estudi des d’Andorra: branding, digital, motion i software amb el mateix llistó — que es noti qui ho ha fet i que serveixi per créixer de veritat. Premium en l’execució. Proper en la conversa. Sense postureig d’agència.",
       founder: "Founder",
       basedIn: "Based in",
       principles: [
@@ -126,17 +130,17 @@ const ca: Dictionary = {
         },
         {
           index: "C",
-          title: "Joc amb brúixola",
-          body: "Irreverent sí. Gratuït, mai.",
+          title: "Resultat amb caràcter",
+          body: "Bonic sense conversió no compta. Irreverent amb brúixola.",
         },
       ],
       storyCta: "Coneix la història →",
     },
     cta: {
-      eyebrow: "Game over? No. Press start.",
-      words: ["Preparat", "per", "la", "següent", "pantalla?"],
+      eyebrow: "Següent moviment",
+      words: ["Menys", "soroll.", "Més", "vertical."],
       accentFrom: 2,
-      body: "Explica’ns el projecte. Si hi ha bona idea (o ganes de trobar-la), juguem. Andorra i remot.",
+      body: "Si tens un projecte real (o ganes de trobar-lo), parlem. Andorra i remot.",
       startProject: "Començar projecte",
     },
   },
@@ -616,53 +620,144 @@ const ca: Dictionary = {
     linuxMode: "Linux mode (mentida)",
   },
   privacy: {
-    eyebrow: "Legal",
-    title: "Privacitat",
-    updated: "Darrera actualització: agost 2026 · {name} ({location})",
-    backContact: "← Tornar a contacte",
+    eyebrow: "Legal · LQPD",
+    title: "Privacy policy",
+    updated:
+      "Last updated: August 2026 · {name} / Esteban Ferrer ({location}) · Llei 29/2021 (LQPD)",
+    backContact: "← Back to contact",
     sections: [
       {
-        title: "1. Responsable",
-        body: "El responsable del tractament de les dades és {name}, amb seu a {location}. Contacte: {email}.",
+        title: "1. Data controller",
+        body: "The data controller is Esteban Ferrer, trading as {name} (SOM VERTICAL), based in {location}. Contact: {email}. Website: {url}.",
       },
       {
-        title: "2. Quines dades recollim",
-        body: "A través del formulari de contacte podem tractar les dades llistades. No demanem dades de pagament ni documents d’identitat a través d’aquest lloc.",
+        title: "2. Legal framework",
+        body: "Processing is governed by Andorra’s Llei 29/2021 (LQPD) and its implementing regulation, and where applicable by the EU GDPR for data subjects in the Union.",
+      },
+      {
+        title: "3. Data we collect",
+        body: "Through the contact form and email we may process the listed categories. We do not request payment data or ID documents through this site.",
         list: [
-          "Nom o àlies",
-          "Adreça de correu electrònic",
-          "Empresa (opcional)",
-          "Pressupost orientatiu (opcional)",
-          "Missatge i contingut del projecte que ens expliquis",
+          "Name or alias",
+          "Email address",
+          "Company (optional)",
+          "Indicative budget (optional)",
+          "Message and project details you share",
+          "Minimal server technical data (IP, security logs) when hosting records them",
         ],
       },
       {
-        title: "3. Finalitat i base legal",
-        body: "Fem servir aquestes dades exclusivament per respondre a la teva consulta, valorar l’encàrrec i, si escau, iniciar una relació comercial. La base legal és el teu consentiment en enviar el formulari i, si escau, l’execució de mesures precontractuals a la teva petició.",
+        title: "4. Purposes",
+        body: "We process data to: (a) answer inquiries; (b) assess briefs and hold pre-contractual talks; (c) run the commercial relationship if formalized; (d) meet legal duties; (e) keep the site secure.",
       },
       {
-        title: "4. Conservació",
-        body: "Conservem els missatges el temps necessari per gestionar la conversa i les obligacions legals aplicables. Si no hi ha relació comercial, s’eliminen o s’arxiven de forma limitada quan ja no són necessaris.",
+        title: "5. Legal basis",
+        body: "Consent when you submit the form or write to us; pre-contractual steps at your request; contract performance when a relationship exists; and, where applicable, legitimate interest in security and legal compliance.",
       },
       {
-        title: "5. Encarregats i eines",
-        body: "L’enviament de correus del formulari pot realitzar-se mitjançant un proveïdor d’email transaccional (p. ex. Resend). L’hosting del lloc pot ser a Vercel o un altre proveïdor cloud. Aquests proveïdors actuen com a encarregats del tractament segons els seus propis termes i mesures de seguretat.",
+        title: "6. Retention",
+        body: "We keep messages and contact data as long as needed for the conversation, the commercial relationship and legal duties. Without a commercial relationship, data is deleted or limitedly archived when no longer needed.",
       },
       {
-        title: "6. Cookies i analítica",
-        body: "Aquest lloc no utilitza cookies de publicitat ni trackers de tercers per defecte. Es poden usar cookies tècniques imprescindibles per al funcionament (p. ex. preferències de sessió del navegador). Si en el futur s’activa analítica, s’informarà i, quan sigui obligatori, se sol·licitarà consentiment.",
+        title: "7. Processors",
+        body: "Form emails may go through a transactional email provider (e.g. Resend). Hosting may be on Vercel or another cloud provider. They act as processors under their terms. We do not sell personal data.",
       },
       {
-        title: "7. Els teus drets",
-        body: "Pots sol·licitar accés, rectificació, supressió, limitació o oposició al tractament de les teves dades, i la portabilitat quan escau, escrivint a {email}. També pots presentar una reclamació davant l’autoritat de control competent a Andorra o al teu país de residència a la UE.",
+        title: "8. International transfers",
+        body: "Some processors may process data outside Andorra or the EEA. When they do, appropriate safeguards under applicable law apply.",
       },
       {
-        title: "8. Seguretat",
-        body: "Apliquem mesures tècniques i organitzatives raonables (HTTPS, validació de formularis, límits d’enviament). Cap sistema és 100 % segur; si detects un incident, avisa’ns.",
+        title: "9. Cookies and approximate geolocation",
+        body: "The site may use browser local/session storage for preferences (e.g. language or location cache). The hero location badge uses approximate IP geolocation, not precise GPS. See the Cookies policy.",
       },
       {
-        title: "9. Canvis",
-        body: "Podem actualitzar aquesta política. La versió vigent estarà sempre en aquesta URL: {url}/privacidad.",
+        title: "10. Your rights",
+        body: "You may exercise access, rectification, erasure, objection, restriction and, where applicable, portability by writing to {email}. You may withdraw consent where processing is based on it, without affecting prior lawfulness.",
+      },
+      {
+        title: "11. Complaints",
+        body: "You may lodge a complaint with the Agència Andorrana de Protecció de Dades (APDA) or another competent authority, without prejudice to court remedies.",
+      },
+      {
+        title: "12. Security",
+        body: "We apply reasonable technical and organizational measures (HTTPS, form validation, send limits). No system is 100% secure; report incidents to {email}.",
+      },
+      {
+        title: "13. Changes",
+        body: "We may update this policy. The current version is at {url}/privacidad.",
+      },
+    ],
+  },
+  legalNotice: {
+    eyebrow: "Legal",
+    title: "Legal notice",
+    updated: "Last updated: August 2026 · {name} ({location})",
+    backContact: "← Back to contact",
+    sections: [
+      {
+        title: "1. Site owner",
+        body: "The website {url} is operated by Esteban Ferrer under the brand {name} (SOM VERTICAL), based in {location}. Contact: {email}.",
+      },
+      {
+        title: "2. Purpose",
+        body: "This site informs about studio services and enables commercial contact. Content is informational and not a binding offer unless agreed in writing.",
+      },
+      {
+        title: "3. Terms of use",
+        body: "Users must use the site lawfully, not introduce malware or attack security, and provide truthful form data. We may deny access in case of abuse.",
+      },
+      {
+        title: "4. Intellectual property",
+        body: "Texts, designs, logos, images, video and code on this site belong to {name} / Esteban Ferrer or third-party licensors. Unauthorized reproduction or transformation is prohibited except as allowed by law.",
+      },
+      {
+        title: "5. Links",
+        body: "Third-party links (social, tools) are for convenience. We do not control those sites or their policies.",
+      },
+      {
+        title: "6. Liability",
+        body: "We make reasonable efforts to keep the site available and updated, without guaranteeing zero errors or downtime. Liability is limited as allowed by Andorran law.",
+      },
+      {
+        title: "7. Governing law",
+        body: "This notice is governed by the law of the Principality of Andorra. Disputes are submitted to the competent Andorran courts, without prejudice to mandatory consumer rights where applicable.",
+      },
+    ],
+  },
+  cookies: {
+    eyebrow: "Legal",
+    title: "Cookies policy",
+    updated: "Last updated: August 2026 · {name} ({location})",
+    backContact: "← Back to contact",
+    sections: [
+      {
+        title: "1. What cookies are",
+        body: "Cookies and similar tech (localStorage, sessionStorage) store small data in your browser to remember preferences or help the site work.",
+      },
+      {
+        title: "2. What we use",
+        body: "By default we do not install ad cookies or third-party trackers. We may use:",
+        list: [
+          "Strictly necessary browser storage (e.g. UI language preference)",
+          "sessionStorage to cache the approximate visitor location shown in the hero (city/country via IP)",
+          "Hosting/CDN technical cookies required for security and delivery",
+        ],
+      },
+      {
+        title: "3. IP geolocation",
+        body: "The home location badge may call an IP geolocation service (approx. city and country). It does not request device GPS permission. You can clear session storage in your browser.",
+      },
+      {
+        title: "4. Basis and purpose",
+        body: "Technical storage supports site function and experience. Strictly necessary tech does not require consent. If non-essential analytics or marketing cookies are added later, we will inform and request consent when required.",
+      },
+      {
+        title: "5. How to manage them",
+        body: "You can delete or block cookies and site data in browser settings. Disabling technical storage may affect preferences such as language.",
+      },
+      {
+        title: "6. More information",
+        body: "For personal data processing, see the Privacy policy. Contact: {email}.",
       },
     ],
   },
@@ -680,7 +775,8 @@ const ca: Dictionary = {
     retry: "Reintentar",
   },
   site: {
-    pitch: "Creem marques que van més lluny, més rar i amb més craft.",
+    pitch:
+      "Branding, digital, motion, estratègia i software que converteixen — des d’Andorra.",
   },
 };
 

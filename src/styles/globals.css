@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Hero resource wall — continuous left marquee (translate -50% of doubled track) */
+/* Hero resource wall — continuous left marquee (transform only, GPU layer) */
 @keyframes hero-wall-marquee {
   from {
     transform: translate3d(0, 0, 0);
@@ -15,6 +15,7 @@
 .hero-wall-track {
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
+  /* Avoid permanent will-change when paused — only while running */
 }
 
 .hero-wall-track--running {
@@ -22,9 +23,50 @@
   will-change: transform;
 }
 
+.hero-wall-tile {
+  /* Isolate each cell so wall motion doesn't dirty page scroll paints */
+  contain: layout paint style;
+  transform: translateZ(0);
+}
+
+/* Video crossfade over poster — no hard pop */
+.hero-wall-video {
+  opacity: 0;
+  transition: opacity 420ms var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
+  will-change: opacity;
+}
+
+.hero-wall-video--boot {
+  opacity: 0;
+}
+
+.hero-wall-video--ready {
+  opacity: 1;
+}
+
+/* Header over dark hero — soft scrim so nav never loses contrast */
+.header-over-dark {
+  background: linear-gradient(
+    to bottom,
+    rgb(10 10 10 / 0.55) 0%,
+    rgb(10 10 10 / 0.2) 70%,
+    transparent 100%
+  );
+}
+
+/* Hero copy contrast helper */
+.hero-copy-legible {
+  text-shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 6px 28px rgb(0 0 0 / 0.28);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hero-wall-track--running {
     animation: none !important;
+    will-change: auto;
+  }
+
+  .hero-wall-video {
+    transition: none;
     will-change: auto;
   }
 }
@@ -433,6 +475,12 @@
 
   .pressable:active {
     transform: scale(0.97);
+  }
+
+  /* Focus ring helper for arcade CTAs on dark surfaces */
+  .focus-ring-arcade:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
   }
 
   /*

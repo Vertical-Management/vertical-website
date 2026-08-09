@@ -34,7 +34,8 @@ export const SITE = {
   location: "Andorra",
   tagline: "Editorial Digital Disruptivo + Playful High-Craft",
   /** Unified brand pitch — title, meta description, OG, on-page */
-  pitch: "Creamos marcas que van más lejos, más raro y con más craft.",
+  pitch:
+    "Branding, digital, motion, estrategia y software que convierten — desde Andorra.",
 } as const;
 
 export const NAV_LINKS = [

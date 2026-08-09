@@ -10,7 +10,7 @@ import { Grain } from "@/components/ui/Grain";
 import { EASE_OUT_EXPO, duration } from "@/lib/motion";
 
 /**
- * Immersive nosotros hero — NOSOTROS.png full-bleed + impact type.
+ * Immersive nosotros hero — LOOPLER full-bleed + impact type.
  */
 export function NosotrosHero() {
   const root = useRef<HTMLElement>(null);
@@ -44,7 +44,7 @@ export function NosotrosHero() {
     >
       <div className="absolute inset-0" data-nosotros-bg>
         <Image
-          src={asset("/assets/NOSOTROS.png")}
+          src={asset("/assets/PAG BRANDING CAFETEROS CO/LOOPLER.png")}
           alt=""
           fill
           className="object-cover object-center scale-110"

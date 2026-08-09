@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import NextLink from "next/link";
+import { useReducedMotion } from "framer-motion";
 import { useLanguage } from "@/components/providers/LanguageProvider";
 import { asset } from "@/lib/assets";
 import { Container } from "@/components/ui/Container";
@@ -17,6 +18,7 @@ import { cn } from "@/lib/utils";
 export function HomeAbout() {
   const { t } = useLanguage();
   const a = t.home.about;
+  const reduced = useReducedMotion();
 
   return (
     <section className="relative overflow-hidden border-y-2 border-ink bg-ink py-section text-paper">
@@ -45,16 +47,20 @@ export function HomeAbout() {
               <span className="text-accent">{a.titleLine2}</span>
             </Heading>
 
-            <div className="relative h-20 w-20 shrink-0 sm:h-24 sm:w-24 md:h-28 md:w-28">
-              <Image
-                src={asset("/assets/PIKACHU.gif")}
-                alt=""
-                fill
-                unoptimized
-                className="object-contain object-center"
-                sizes="112px"
-              />
-            </div>
+            {/* Decorative mascot — skip animated GIF when reduced motion (INV-12/08) */}
+            {!reduced ? (
+              <div className="relative hidden h-20 w-20 shrink-0 sm:block sm:h-24 sm:w-24 md:h-28 md:w-28">
+                <Image
+                  src={asset("/assets/PIKACHU.gif")}
+                  alt=""
+                  fill
+                  unoptimized
+                  loading="lazy"
+                  className="object-contain object-center"
+                  sizes="112px"
+                />
+              </div>
+            ) : null}
           </div>
 
           <Reveal delay={0.1}>

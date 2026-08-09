@@ -4,30 +4,18 @@ import NextLink from "next/link";
 import { Logo } from "@/components/layout/Logo";
 import { NavLink } from "@/components/layout/NavLink";
 import { useLanguage } from "@/components/providers/LanguageProvider";
-import { Marquee, MarqueeItem } from "@/components/ui/Marquee";
 import { Grain } from "@/components/ui/Grain";
 import { Magnetic } from "@/components/ui/Magnetic";
+import { socialIconFor } from "@/components/ui/SocialIcons";
 import { NAV_LINKS, SITE, SOCIAL_LINKS } from "@/lib/constants";
 import { NAV_I18N_KEYS } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
-const MARQUEE = [
-  "Branding",
-  "Digital",
-  "Motion",
-  "3D",
-  "Estrategia",
-  "Andorra",
-  "Playful High-Craft",
-  "Vertical Thinking",
-];
-
 /**
- * Site footer — editorial wordmark, nav, social, irreverent meta.
+ * Site footer — compact close: manifesto line, nav, social with icons, legal.
  */
 export function Footer() {
   const { t } = useLanguage();
-  // Fixed at build-ish render; suppressHydrationWarning avoids year-boundary flicker
   const year = new Date().getFullYear();
 
   const navLabel = (href: string) => {
@@ -42,47 +30,27 @@ export function Footer() {
     >
       <Grain />
 
-      {/* Marquee strip */}
-      <div className="relative z-[1] border-b border-border py-4">
-        <Marquee speed="normal" gap="2.5rem">
-          {MARQUEE.map((item) => (
-            <MarqueeItem key={item}>
-              <span className="font-display text-display-sm text-ink/70">
-                {item}
-              </span>
-              <span className="text-accent" aria-hidden>
-                ✦
-              </span>
-            </MarqueeItem>
-          ))}
-        </Marquee>
-      </div>
-
-      <div className="relative z-[1] mx-auto max-w-site px-gutter py-16 md:py-22">
-        {/* CTA row */}
-        <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
-          <div className="max-w-xl">
-            <p className="font-mono text-caption uppercase tracking-label text-ink-muted">
-              {t.footer.letsTalk}
-            </p>
-            <h2 className="mt-3 font-display text-display-md text-ink">
-              {t.footer.ctaLine1}
-              <br />
-              <span className="text-accent">{t.footer.ctaAccent}</span>{" "}
-              {t.footer.ctaLine2}
-            </h2>
-          </div>
-
-          <Magnetic strength={16}>
+      <div className="relative z-[1] mx-auto max-w-site px-gutter py-14 md:py-20">
+        {/* Closing manifesto */}
+        <div className="mx-auto max-w-2xl text-center">
+          <p className="font-mono text-caption uppercase tracking-label text-ink-muted">
+            {t.footer.letsTalk}
+          </p>
+          <h2 className="mt-4 font-display text-display-md text-ink md:text-display-lg">
+            {t.footer.ctaLine1}{" "}
+            <span className="text-accent">{t.footer.ctaAccent}</span>
+            {t.footer.ctaLine2 ? ` ${t.footer.ctaLine2}` : ""}
+          </h2>
+          <Magnetic strength={14} className="mt-8 inline-flex">
             <NextLink
               href="/contacto"
               data-cursor="hover"
               className={cn(
-                "inline-flex h-14 items-center rounded-pill border-2 border-ink bg-accent-lime px-8",
+                "inline-flex h-12 items-center rounded-pill border-2 border-ink bg-accent-lime px-7",
                 "font-mono text-xs uppercase tracking-[0.14em] text-ink",
-                "shadow-[4px_4px_0_0_var(--color-ink)]",
+                "shadow-[3px_3px_0_0_var(--color-ink)]",
                 "transition-[transform,box-shadow] duration-base ease-out-expo",
-                "hover:translate-x-px hover:translate-y-px hover:shadow-[2px_2px_0_0_var(--color-ink)]",
+                "hover:translate-x-px hover:translate-y-px hover:shadow-[1px_1px_0_0_var(--color-ink)]",
               )}
             >
               {t.footer.writeContact}
@@ -91,105 +59,95 @@ export function Footer() {
         </div>
 
         {/* Giant wordmark */}
-        <div className="mt-16 overflow-hidden md:mt-22">
+        <div className="mt-14 overflow-hidden text-center md:mt-18">
           <p
-            className="select-none font-display text-[clamp(3.5rem,18vw,14rem)] font-extrabold leading-[0.85] tracking-display text-ink/[0.07]"
+            className="select-none font-display text-[clamp(3.25rem,16vw,12rem)] font-extrabold leading-[0.85] tracking-display text-ink/[0.07]"
             aria-hidden
           >
             VERTICAL
           </p>
         </div>
 
-        {/* Columns */}
-        <div className="mt-12 grid gap-10 border-t border-border pt-12 sm:grid-cols-2 lg:grid-cols-4">
-          <div className="sm:col-span-2 lg:col-span-1">
-            <Logo magnetic={false} size="md" />
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-ink-soft">
+        {/* Nav + social — centered, balanced */}
+        <div className="mx-auto mt-12 grid max-w-3xl gap-10 border-t border-border pt-10 sm:grid-cols-2">
+          <div className="text-center sm:text-left">
+            <Logo magnetic={false} size="md" className="mx-auto sm:mx-0" />
+            <p className="mt-4 text-sm leading-relaxed text-ink-soft">
               {t.site.pitch}
-              <br />
-              {SITE.location} · {SITE.founder}.
+            </p>
+            <p className="mt-2 font-mono text-[0.65rem] uppercase tracking-label text-ink-faint">
+              {SITE.location} · {SITE.founder}
             </p>
           </div>
 
-          <div>
-            <p className="font-mono text-caption uppercase tracking-label text-ink-muted">
-              {t.footer.navigate}
-            </p>
-            <ul className="mt-4 flex flex-col gap-3">
-              {NAV_LINKS.map((link) => (
-                <li key={link.href}>
-                  <NavLink
-                    href={link.href}
-                    label={navLabel(link.href)}
-                    index={link.index}
-                    variant="footer"
-                  />
-                </li>
-              ))}
-            </ul>
-          </div>
+          <div className="grid grid-cols-2 gap-8 text-center sm:text-left">
+            <div>
+              <p className="font-mono text-caption uppercase tracking-label text-ink-muted">
+                {t.footer.navigate}
+              </p>
+              <ul className="mt-4 flex flex-col items-center gap-2.5 sm:items-start">
+                {NAV_LINKS.map((link) => (
+                  <li key={link.href}>
+                    <NavLink
+                      href={link.href}
+                      label={navLabel(link.href)}
+                      index={link.index}
+                      variant="footer"
+                    />
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          <div>
-            <p className="font-mono text-caption uppercase tracking-label text-ink-muted">
-              {t.footer.social}
-            </p>
-            <ul className="mt-4 flex flex-col gap-3">
-              {SOCIAL_LINKS.map((s) => (
-                <li key={s.label}>
-                  <a
-                    href={s.href}
-                    target={s.href.startsWith("http") ? "_blank" : undefined}
-                    rel={
-                      s.href.startsWith("http")
-                        ? "noopener noreferrer"
-                        : undefined
-                    }
-                    data-cursor="hover"
-                    className="group flex flex-col gap-0.5 text-sm text-ink-soft transition-colors duration-base hover:text-ink"
-                  >
-                    <span className="inline-flex items-center gap-1">
-                      <span className="link-underline font-medium text-ink">
-                        {s.label}
-                      </span>
-                      {s.href.startsWith("http") ? (
-                        <span className="opacity-40 transition-opacity group-hover:opacity-80">
-                          ↗
+            <div>
+              <p className="font-mono text-caption uppercase tracking-label text-ink-muted">
+                {t.footer.social}
+              </p>
+              <ul className="mt-4 flex flex-col items-center gap-3 sm:items-start">
+                {SOCIAL_LINKS.map((s) => {
+                  const Icon = socialIconFor(s.label);
+                  return (
+                    <li key={s.label}>
+                      <a
+                        href={s.href}
+                        target={s.href.startsWith("http") ? "_blank" : undefined}
+                        rel={
+                          s.href.startsWith("http")
+                            ? "noopener noreferrer"
+                            : undefined
+                        }
+                        data-cursor="hover"
+                        className="group inline-flex items-center gap-2 text-sm text-ink-soft transition-colors duration-base hover:text-ink"
+                      >
+                        <span className="flex h-8 w-8 items-center justify-center rounded-full border border-border bg-paper text-ink transition-colors group-hover:border-ink group-hover:bg-ink group-hover:text-paper">
+                          <Icon className="h-3.5 w-3.5" title="" />
                         </span>
-                      ) : null}
-                    </span>
-                    <span className="font-mono text-[0.65rem] tracking-label text-ink-faint">
-                      {s.handle}
-                    </span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <p className="font-mono text-caption uppercase tracking-label text-ink-muted">
-              {t.footer.contact}
-            </p>
-            <a
-              href={`mailto:${SITE.email}`}
-              data-cursor="hover"
-              className="mt-4 inline-block text-sm text-ink-soft transition-colors duration-base hover:text-accent"
-            >
-              <span className="link-underline">{SITE.email}</span>
-            </a>
-            <p className="mt-3 text-sm text-ink-muted">{SITE.location}</p>
+                        <span className="font-medium text-ink">{s.label}</span>
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
           </div>
         </div>
 
         {/* Legal row */}
-        <div className="mt-14 flex flex-col gap-3 border-t border-border pt-6 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-12 flex flex-col items-center gap-3 border-t border-border pt-6 text-center sm:flex-row sm:justify-between sm:text-left">
           <p
             className="font-mono text-[0.65rem] uppercase tracking-label text-ink-faint"
             suppressHydrationWarning
           >
             © {year} {SITE.name}. {t.footer.highScores}
           </p>
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-[0.65rem] uppercase tracking-label text-ink-faint">
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 font-mono text-[0.65rem] uppercase tracking-label text-ink-faint">
+            <NextLink
+              href="/aviso-legal"
+              data-cursor="hover"
+              className="transition-colors hover:text-ink"
+            >
+              {t.footer.legalNotice}
+            </NextLink>
             <NextLink
               href="/privacidad"
               data-cursor="hover"
@@ -197,13 +155,13 @@ export function Footer() {
             >
               {t.footer.privacy}
             </NextLink>
-            <a
-              href={`mailto:${SITE.email}`}
+            <NextLink
+              href="/cookies"
               data-cursor="hover"
               className="transition-colors hover:text-ink"
             >
-              {SITE.email}
-            </a>
+              {t.footer.cookies}
+            </NextLink>
             <span className="hidden sm:inline">·</span>
             <span>
               {t.footer.madeIn} {SITE.location}

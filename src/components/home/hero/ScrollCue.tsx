@@ -9,6 +9,9 @@ type ScrollCueProps = {
   static?: boolean;
 };
 
+/**
+ * Desktop-only scroll hint — hidden on small viewports to avoid CTA overlap.
+ */
 export function ScrollCue({
   tone = "ink",
   className,
@@ -21,26 +24,27 @@ export function ScrollCue({
   return (
     <motion.div
       className={cn(
-        "absolute bottom-8 left-1/2 z-[2] flex -translate-x-1/2 flex-col items-center gap-2",
+        // Hide on mobile/tablet; only show from lg when there is room
+        "pointer-events-none absolute bottom-8 left-1/2 z-[2] hidden -translate-x-1/2 flex-col items-center gap-2 opacity-60 lg:flex",
         className,
       )}
       initial={skipMotion ? false : { opacity: 0 }}
-      animate={{ opacity: 1 }}
+      animate={{ opacity: 0.55 }}
       transition={{ delay: skipMotion ? 0 : 1 }}
       aria-hidden
     >
       <span
         className={cn(
-          "font-mono text-[0.6rem] uppercase tracking-label",
-          isPaper ? "text-paper/50" : "text-ink-muted",
+          "font-mono text-[0.55rem] uppercase tracking-label",
+          isPaper ? "text-paper/45" : "text-ink-muted",
         )}
       >
         Scroll
       </span>
       <span
         className={cn(
-          "relative h-10 w-px overflow-hidden",
-          isPaper ? "bg-paper/20" : "bg-ink/15",
+          "relative h-8 w-px overflow-hidden",
+          isPaper ? "bg-paper/15" : "bg-ink/12",
         )}
       >
         <span className="absolute inset-x-0 top-0 h-1/2 animate-pulse-soft bg-accent" />

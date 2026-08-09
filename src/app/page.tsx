@@ -3,11 +3,8 @@ import {
   HomeAbout,
   HomeCTA,
   HomeHero,
-  HomeLogoCarousel,
   HomeManifesto,
-  HomeMarquee,
 } from "@/components/home";
-import { Grain } from "@/components/ui/Grain";
 import { SEO } from "@/lib/seo";
 import { SITE } from "@/lib/constants";
 
@@ -31,24 +28,15 @@ export const metadata: Metadata = {
 };
 
 /**
- * Home — immersive narrative experience.
- * Critical path: Hero wall (budgeted media) + marquee + editorial sections.
+ * Home — lean narrative (INV-15): hero → manifiesto → quién hay detrás → cierre.
+ * No full-page fixed grain (paint cost on scroll); grain lives in sections.
  */
 export default function HomePage() {
   return (
     <main id="main-content" className="relative">
-      <div
-        className="pointer-events-none fixed inset-0 z-[1] opacity-[0.03]"
-        aria-hidden
-      >
-        <Grain className="opacity-100" />
-      </div>
-
       <HomeHero />
-      <HomeMarquee />
       <HomeManifesto />
       <HomeAbout />
-      <HomeLogoCarousel />
       <HomeCTA />
     </main>
   );

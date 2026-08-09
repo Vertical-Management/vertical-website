@@ -41,6 +41,7 @@ export function CoinButton({
         "hover:translate-x-px hover:translate-y-px hover:shadow-[2px_2px_0_0_var(--color-ink)]",
         "active:translate-x-0.5 active:translate-y-0.5 active:shadow-none",
         "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
+        "focus-visible:ring-2 focus-visible:ring-accent/40 focus-visible:ring-offset-2 focus-visible:ring-offset-ink",
         sizes[size],
         className,
       )}
