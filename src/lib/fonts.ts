@@ -1,4 +1,4 @@
-import { JetBrains_Mono, Manrope, Syne } from "next/font/google";
+import localFont from "next/font/local";
 
 /**
  * Vertical type system
@@ -8,29 +8,29 @@ import { JetBrains_Mono, Manrope, Syne } from "next/font/google";
  * Mono    → JetBrains Mono: indexes, labels, "system" voice
  */
 
-export const fontDisplay = Syne({
-  subsets: ["latin"],
+export const fontDisplay = localFont({
+  src: "../assets/fonts/syne-latin.woff2",
   variable: "--font-display",
   display: "swap",
-  weight: ["500", "600", "700", "800"],
+  weight: "500 800",
   // Hero H1 — keep preload for LCP text paint
   preload: true,
 });
 
-export const fontBody = Manrope({
-  subsets: ["latin"],
+export const fontBody = localFont({
+  src: "../assets/fonts/manrope-latin.woff2",
   variable: "--font-body",
   display: "swap",
-  weight: ["400", "500", "600", "700"],
+  weight: "400 700",
   // Body copy — keep preload
   preload: true,
 });
 
-export const fontMono = JetBrains_Mono({
-  subsets: ["latin"],
+export const fontMono = localFont({
+  src: "../assets/fonts/jetbrains-mono-latin.woff2",
   variable: "--font-mono",
   display: "swap",
-  weight: ["400", "500", "600"],
+  weight: "400 600",
   // Labels / indexes — not LCP-critical; avoid third font preload race
   preload: false,
 });
