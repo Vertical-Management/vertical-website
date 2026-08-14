@@ -1,5 +1,8 @@
 # Reglas del proyecto — Vertical Management
 
+**Acata `.grok/rules/invariantes.md` en cada pedido, sin que el usuario lo recuerde.**  
+Son órdenes permanentes. No esperes “sigue las rules” ni “haz los INV”.
+
 Portfolio high-craft de **Vertical Management** (Esteban Ferrer).  
 Stack: **Next.js 14 (App Router) · TypeScript · Tailwind · GSAP · Lenis · Framer Motion**.
 
