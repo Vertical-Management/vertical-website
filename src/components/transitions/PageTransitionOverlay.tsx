@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { useLanguage } from "@/components/providers/LanguageProvider";
 import { usePageTransition } from "@/components/transitions/TransitionProvider";
 import { asset } from "@/lib/assets";
 import { EASE_IN_OUT_EXPO, EASE_OUT_EXPO, duration } from "@/lib/motion";
@@ -13,6 +14,7 @@ import { cn } from "@/lib/utils";
  */
 export function PageTransitionOverlay() {
   const { phase, label, isTransitioning } = usePageTransition();
+  const { t } = useLanguage();
   const reduced = useReducedMotion();
   const [mounted, setMounted] = useState(false);
 
@@ -30,7 +32,7 @@ export function PageTransitionOverlay() {
         aria-live="polite"
         aria-atomic="true"
       >
-        {isTransitioning ? `Navegando a ${label}` : ""}
+        {isTransitioning ? `${t.common.navigatingTo} ${label}` : ""}
       </div>
 
       <AnimatePresence>
@@ -123,7 +125,7 @@ export function PageTransitionOverlay() {
                   width={48}
                   height={68}
                   className="h-12 w-auto object-contain sm:h-14"
-                  priority
+                  priority={false}
                 />
                 <span className="relative font-display text-2xl font-extrabold tracking-tight text-paper sm:text-3xl">
                   VERTICAL
@@ -148,7 +150,7 @@ export function PageTransitionOverlay() {
                 }}
                 exit={{ opacity: 0, transition: { duration: 0.15 } }}
               >
-                Loading stage
+                {t.common.loadingStage}
               </motion.p>
 
               <motion.p

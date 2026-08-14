@@ -12,6 +12,8 @@ const fr: Dictionary = {
     insertCoin: "Contact",
     language: "Langue",
     selectLanguage: "Choisir la langue",
+    openMenu: "Ouvrir le menu",
+    closeMenu: "Fermer le menu",
   },
   footer: {
     letsTalk: "Clôture",
@@ -31,6 +33,7 @@ const fr: Dictionary = {
   menu: {
     ariaLabel: "Navigation principale",
     mainNav: "Menu",
+    tagline: "Sans crédits · Appuyez sur start · Andorre",
   },
   common: {
     skipToContent: "Aller au contenu",
@@ -43,6 +46,10 @@ const fr: Dictionary = {
     year: "Année",
     role: "Rôle",
     loading: "Chargement…",
+    scroll: "Défiler",
+    insertCoin: "Insert coin",
+    navigatingTo: "Navigation vers",
+    loadingStage: "Chargement de la scène",
   },
   home: {
     hero: {

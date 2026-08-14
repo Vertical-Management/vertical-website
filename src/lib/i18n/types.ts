@@ -43,6 +43,8 @@ export type Dictionary = {
     insertCoin: string;
     language: string;
     selectLanguage: string;
+    openMenu: string;
+    closeMenu: string;
   };
   footer: {
     letsTalk: string;
@@ -62,6 +64,7 @@ export type Dictionary = {
   menu: {
     ariaLabel: string;
     mainNav: string;
+    tagline: string;
   };
   common: {
     skipToContent: string;
@@ -74,6 +77,10 @@ export type Dictionary = {
     year: string;
     role: string;
     loading: string;
+    scroll: string;
+    insertCoin: string;
+    navigatingTo: string;
+    loadingStage: string;
   };
   home: {
     hero: {

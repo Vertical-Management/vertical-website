@@ -49,12 +49,17 @@ export function HeroWallCarousel({ className }: HeroWallCarouselProps) {
   });
   const wallRef = useRef<HTMLDivElement>(null);
   const tilesRef = useRef(new Map<string, TileHandle>());
+  const candidatesRef = useRef(new Set<string>());
   const [activeIds, setActiveIds] = useState<Set<string>>(() => new Set());
   const [wallInView, setWallInView] = useState(true);
 
   const register = useCallback((handle: TileHandle | null, id: string) => {
-    if (!handle) tilesRef.current.delete(id);
-    else tilesRef.current.set(id, handle);
+    if (!handle) {
+      tilesRef.current.delete(id);
+      candidatesRef.current.delete(id);
+    } else {
+      tilesRef.current.set(id, handle);
+    }
   }, []);
 
   // Pause marquee work when hero is off-screen
@@ -72,21 +77,32 @@ export function HeroWallCarousel({ className }: HeroWallCarouselProps) {
     return () => io.disconnect();
   }, []);
 
-  // Score-visible videos with rAF throttle — no interval storm
+  // Score only near-viewport video tiles. CSS marquee needs a light poll;
+  // IO keeps the candidate set small so we do not read 32 rects every tick.
   useEffect(() => {
     const wall = wallRef.current;
     if (!wall) return;
 
     let raf = 0;
     let running = true;
+    let ticks = 0;
+    const mobile =
+      typeof window !== "undefined" &&
+      window.matchMedia("(max-width: 768px)").matches;
+    const sampleMs = staticOnly || !wallInView ? 2000 : mobile ? 480 : 250;
+    const fullScanEvery = mobile ? 6 : 8;
 
-    const pickActive = () => {
+    const pickActive = (forceFull = false) => {
       if (!running) return;
 
       if (staticOnly || !wallInView) {
+        candidatesRef.current.clear();
         setActiveIds((prev) => (prev.size ? new Set() : prev));
         return;
       }
+
+      ticks += 1;
+      const scanAll = forceFull || ticks % fullScanEvery === 1;
 
       const wr = wall.getBoundingClientRect();
       const clipL = Math.max(wr.left, 0);
@@ -97,9 +113,12 @@ export function HeroWallCarousel({ className }: HeroWallCarouselProps) {
       const viewH = Math.max(1, clipB - clipT);
 
       const ranked: { id: string; score: number }[] = [];
+      const nextCandidates = scanAll ? new Set<string>() : candidatesRef.current;
 
       tilesRef.current.forEach((handle, id) => {
         if (handle.kind !== "video" || !handle.el.isConnected) return;
+        if (!scanAll && !candidatesRef.current.has(id)) return;
+
         const r = handle.el.getBoundingClientRect();
         const left = Math.max(r.left, clipL);
         const right = Math.min(r.right, clipR);
@@ -107,7 +126,13 @@ export function HeroWallCarousel({ className }: HeroWallCarouselProps) {
         const bottom = Math.min(r.bottom, clipB);
         const w = right - left;
         const h = bottom - top;
-        if (w <= 0 || h <= 0) return;
+        if (w <= 0 || h <= 0) {
+          if (scanAll) return;
+          candidatesRef.current.delete(id);
+          return;
+        }
+
+        if (scanAll) nextCandidates.add(id);
         // Prefer larger on-screen coverage + prefer center of wall
         const area = (w * h) / (viewW * viewH);
         const cx = (left + right) / 2;
@@ -115,6 +140,8 @@ export function HeroWallCarousel({ className }: HeroWallCarouselProps) {
         const centerBias = 1 - Math.min(1, Math.abs(cx - mid) / viewW);
         ranked.push({ id, score: area * 0.7 + centerBias * 0.3 });
       });
+
+      if (scanAll) candidatesRef.current = nextCandidates;
 
       ranked.sort((a, b) => b.score - a.score);
       const next = new Set(ranked.slice(0, maxVideos).map((r) => r.id));
@@ -131,30 +158,46 @@ export function HeroWallCarousel({ className }: HeroWallCarouselProps) {
       });
     };
 
-    const schedule = () => {
+    const schedule = (forceFull = false) => {
       if (raf) return;
       raf = window.requestAnimationFrame(() => {
         raf = 0;
-        pickActive();
+        pickActive(forceFull);
       });
     };
 
-    // Observe tile visibility via a single wall-level IO + light sampling
-    // while marquee moves (IO alone misses continuous CSS translate)
-    const io = new IntersectionObserver(() => schedule(), {
-      root: null,
-      threshold: [0, 0.05, 0.2, 0.5],
-      rootMargin: "40px",
-    });
-    io.observe(wall);
+    const ioTiles = new IntersectionObserver(
+      (entries) => {
+        let changed = false;
+        for (const entry of entries) {
+          const id = (entry.target as HTMLElement).dataset.wallId;
+          if (!id) continue;
+          if (entry.isIntersecting) {
+            if (!candidatesRef.current.has(id)) {
+              candidatesRef.current.add(id);
+              changed = true;
+            }
+          } else if (candidatesRef.current.delete(id)) {
+            changed = true;
+          }
+        }
+        if (changed) schedule();
+      },
+      { root: null, rootMargin: "80px 120px", threshold: 0 },
+    );
 
-    pickActive();
-    // Sample while wall is on screen — 4 Hz is enough with CSS marquee
-    const timer = window.setInterval(schedule, wallInView && !staticOnly ? 250 : 2000);
+    tilesRef.current.forEach((handle) => {
+      if (handle.kind === "video" && handle.el.isConnected) {
+        ioTiles.observe(handle.el);
+      }
+    });
+
+    pickActive(true);
+    const timer = window.setInterval(() => schedule(), sampleMs);
 
     return () => {
       running = false;
-      io.disconnect();
+      ioTiles.disconnect();
       window.clearInterval(timer);
       if (raf) window.cancelAnimationFrame(raf);
     };
@@ -230,7 +273,7 @@ function MarqueeRow({
               id={id}
               tile={tile}
               lcp={rowIndex === 0 && i === 0}
-              eagerStill={rowIndex === 0 && i < 2}
+              eagerStill={rowIndex === 0 && i === 0}
               allowVideo={!staticOnly && activeIds.has(id)}
               register={register}
             />
@@ -356,6 +399,7 @@ function Tile({
   return (
     <div
       ref={rootRef}
+      data-wall-id={id}
       className="hero-wall-tile relative h-full shrink-0 overflow-hidden bg-ink"
       style={{
         width: "max(16.666vw, 33.333vh)",

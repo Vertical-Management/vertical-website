@@ -2,6 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { useNavigation } from "@/components/providers/NavigationProvider";
+import { useLanguage } from "@/components/providers/LanguageProvider";
 
 type MenuToggleProps = {
   className?: string;
@@ -14,6 +15,7 @@ type MenuToggleProps = {
  */
 export function MenuToggle({ className, inverse }: MenuToggleProps) {
   const { menuOpen, toggleMenu } = useNavigation();
+  const { t } = useLanguage();
 
   return (
     <button
@@ -27,9 +29,10 @@ export function MenuToggle({ className, inverse }: MenuToggleProps) {
         menuOpen && "hover:bg-white/10 hover:border-white/20",
         className,
       )}
-      aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
+      aria-label={menuOpen ? t.header.closeMenu : t.header.openMenu}
       aria-expanded={menuOpen}
       aria-controls="mobile-navigation"
+      data-menu-toggle
       data-cursor="hover"
     >
       <span className="relative flex h-3.5 w-5 flex-col justify-between" aria-hidden>

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import { useLanguage } from "@/components/providers/LanguageProvider";
 import { cn } from "@/lib/utils";
 
 type ScrollCueProps = {
@@ -18,6 +19,7 @@ export function ScrollCue({
   static: isStatic = false,
 }: ScrollCueProps) {
   const reduced = useReducedMotion();
+  const { t } = useLanguage();
   const skipMotion = isStatic || !!reduced;
   const isPaper = tone === "paper";
 
@@ -39,7 +41,7 @@ export function ScrollCue({
           isPaper ? "text-paper/45" : "text-ink-muted",
         )}
       >
-        Scroll
+        {t.common.scroll}
       </span>
       <span
         className={cn(

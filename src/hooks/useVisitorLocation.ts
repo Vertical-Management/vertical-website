@@ -24,7 +24,7 @@ type CachePayload = {
 
 const CACHE_KEY = "vertical:visitor-location";
 const CACHE_MS = 1000 * 60 * 60 * 12; // 12h
-const FETCH_MS = 3500;
+const FETCH_MS = 1800;
 
 function buildLabel(city: string | null, country: string | null): string {
   if (city && country) return `${city} · ${country}`;
@@ -57,14 +57,24 @@ function writeCache(loc: VisitorLocation) {
 
 async function fetchJson(
   url: string,
-  signal: AbortSignal,
+  parentSignal: AbortSignal,
 ): Promise<Record<string, unknown>> {
-  const res = await fetch(url, {
-    headers: { Accept: "application/json" },
-    signal,
-  });
-  if (!res.ok) throw new Error(`geo ${res.status}`);
-  return (await res.json()) as Record<string, unknown>;
+  const controller = new AbortController();
+  const abort = () => controller.abort();
+  const timer = window.setTimeout(abort, FETCH_MS);
+  parentSignal.addEventListener("abort", abort, { once: true });
+
+  try {
+    const res = await fetch(url, {
+      headers: { Accept: "application/json" },
+      signal: controller.signal,
+    });
+    if (!res.ok) throw new Error(`geo ${res.status}`);
+    return (await res.json()) as Record<string, unknown>;
+  } finally {
+    window.clearTimeout(timer);
+    parentSignal.removeEventListener("abort", abort);
+  }
 }
 
 /**
@@ -87,7 +97,6 @@ export function useVisitorLocation(): {
     }
 
     const controller = new AbortController();
-    const timer = window.setTimeout(() => controller.abort(), FETCH_MS);
     let cancelled = false;
 
     const run = async () => {
@@ -139,7 +148,6 @@ export function useVisitorLocation(): {
           if (!cancelled) setLocation(LOCATION_FALLBACK);
         }
       } finally {
-        window.clearTimeout(timer);
         if (!cancelled) setLoading(false);
       }
     };
@@ -147,7 +155,6 @@ export function useVisitorLocation(): {
     void run();
     return () => {
       cancelled = true;
-      window.clearTimeout(timer);
       controller.abort();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps -- mount-once lookup

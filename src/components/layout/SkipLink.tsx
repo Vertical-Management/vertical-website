@@ -6,7 +6,7 @@ import { useLanguage } from "@/components/providers/LanguageProvider";
 export function SkipLink() {
   const { t } = useLanguage();
   return (
-    <a href="#main-content" className="skip-link">
+    <a href="#main-content" className="skip-link" data-nav-inert>
       {t.common.skipToContent}
     </a>
   );

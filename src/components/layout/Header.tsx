@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
 import { Logo } from "@/components/layout/Logo";
@@ -26,6 +27,14 @@ export function Header() {
   const { menuOpen, closeMenu } = useNavigation();
   const { t } = useLanguage();
   const pathname = usePathname();
+  const desktopNavRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const nav = desktopNavRef.current;
+    if (!nav) return;
+    if (menuOpen) nav.setAttribute("inert", "");
+    else nav.removeAttribute("inert");
+  }, [menuOpen]);
 
   // Hide when scrolling down past solid threshold, unless menu open
   const hidden = !menuOpen && solid && direction === "down" && !atTop;
@@ -79,11 +88,13 @@ export function Header() {
 
           {/* Desktop nav */}
           <nav
+            ref={desktopNavRef}
             className={cn(
               "absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 lg:block",
               menuOpen && "pointer-events-none opacity-0",
             )}
             aria-label={t.common.mainNav}
+            aria-hidden={menuOpen}
           >
             <ul className="flex items-center gap-1 xl:gap-3">
               {NAV_LINKS.filter((l) => l.href !== "/").map((link) => (

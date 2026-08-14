@@ -95,11 +95,10 @@ export function LanguageSwitcher({
                 : {
                     opacity: 0,
                     x: 12,
-                    width: 0,
                     transition: { duration: duration.fast, ease: EASE_OUT_EXPO },
                   }
             }
-            className="mr-1.5 flex items-center gap-1.5 overflow-hidden sm:mr-2 sm:gap-2"
+            className="absolute right-full top-1/2 z-[62] mr-1.5 flex -translate-y-1/2 items-center gap-1.5 sm:mr-2 sm:gap-2"
           >
             {others.map((code, i) => {
               const item = LOCALE_META[code];
@@ -139,7 +138,7 @@ export function LanguageSwitcher({
                         }
                   }
                   className={cn(
-                    "rounded-full p-0 leading-none",
+                    "flex h-11 w-11 items-center justify-center rounded-full p-0 leading-none",
                     "border-0 bg-transparent shadow-none outline-none",
                     "opacity-80 transition-transform duration-base ease-out-expo",
                     "hover:scale-110 hover:opacity-100",
@@ -170,7 +169,7 @@ export function LanguageSwitcher({
         aria-controls={open ? listId : undefined}
         onClick={() => setOpen((v) => !v)}
         className={cn(
-          "relative rounded-full p-0 leading-none",
+          "relative flex h-11 w-11 items-center justify-center rounded-full p-0 leading-none",
           "border-0 bg-transparent shadow-none outline-none",
           "transition-transform duration-base ease-out-expo",
           "hover:scale-110",

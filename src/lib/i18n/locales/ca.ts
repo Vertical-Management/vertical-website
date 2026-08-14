@@ -12,6 +12,8 @@ const ca: Dictionary = {
     insertCoin: "Contacte",
     language: "Idioma",
     selectLanguage: "Seleccionar idioma",
+    openMenu: "Obrir menú",
+    closeMenu: "Tancar menú",
   },
   footer: {
     letsTalk: "Tancament",
@@ -31,6 +33,7 @@ const ca: Dictionary = {
   menu: {
     ariaLabel: "Navegació principal",
     mainNav: "Menú",
+    tagline: "Sense crèdits · Prem start · Andorra",
   },
   common: {
     skipToContent: "Saltar al contingut",
@@ -43,6 +46,10 @@ const ca: Dictionary = {
     year: "Any",
     role: "Rol",
     loading: "Carregant…",
+    scroll: "Desplaça't",
+    insertCoin: "Insert coin",
+    navigatingTo: "Navegant a",
+    loadingStage: "Carregant escena",
   },
   home: {
     hero: {

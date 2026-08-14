@@ -4,6 +4,7 @@ import Image from "next/image";
 import NextLink from "next/link";
 import { cn } from "@/lib/utils";
 import { Magnetic } from "@/components/ui/Magnetic";
+import { useLanguage } from "@/components/providers/LanguageProvider";
 import { SITE } from "@/lib/constants";
 import { asset } from "@/lib/assets";
 
@@ -50,6 +51,7 @@ export function Logo({
   magnetic = true,
   size = "sm",
 }: LogoProps) {
+  const { t } = useLanguage();
   const mark = MARK[size];
   const src = inverse ? LOGO.white : LOGO.black;
 
@@ -61,7 +63,7 @@ export function Logo({
         "group relative inline-flex items-center gap-2.5 sm:gap-3",
         className,
       )}
-      aria-label={`${SITE.name} — inicio`}
+      aria-label={`${SITE.name} — ${t.nav.home}`}
       data-cursor="hover"
     >
       <Image

@@ -12,6 +12,8 @@ const en: Dictionary = {
     insertCoin: "Contact",
     language: "Language",
     selectLanguage: "Select language",
+    openMenu: "Open menu",
+    closeMenu: "Close menu",
   },
   footer: {
     letsTalk: "Close",
@@ -31,6 +33,7 @@ const en: Dictionary = {
   menu: {
     ariaLabel: "Main navigation",
     mainNav: "Menu",
+    tagline: "No credits · Press start · Andorra",
   },
   common: {
     skipToContent: "Skip to content",
@@ -43,6 +46,10 @@ const en: Dictionary = {
     year: "Year",
     role: "Role",
     loading: "Loading…",
+    scroll: "Scroll",
+    insertCoin: "Insert coin",
+    navigatingTo: "Navigating to",
+    loadingStage: "Loading stage",
   },
   home: {
     hero: {

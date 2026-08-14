@@ -12,6 +12,8 @@ const es: Dictionary = {
     insertCoin: "Contacto",
     language: "Idioma",
     selectLanguage: "Seleccionar idioma",
+    openMenu: "Abrir menú",
+    closeMenu: "Cerrar menú",
   },
   footer: {
     letsTalk: "Cierre",
@@ -31,6 +33,7 @@ const es: Dictionary = {
   menu: {
     ariaLabel: "Navegación principal",
     mainNav: "Menú",
+    tagline: "Sin créditos · Pulsa start · Andorra",
   },
   common: {
     skipToContent: "Saltar al contenido",
@@ -43,6 +46,10 @@ const es: Dictionary = {
     year: "Año",
     role: "Rol",
     loading: "Cargando…",
+    scroll: "Desplázate",
+    insertCoin: "Insert coin",
+    navigatingTo: "Navegando a",
+    loadingStage: "Cargando escena",
   },
   home: {
     hero: {
