@@ -85,13 +85,16 @@ export function useVisitorLocation(): {
   location: VisitorLocation | null;
   loading: boolean;
 } {
-  const [location, setLocation] = useState<VisitorLocation | null>(() =>
-    readCache(),
-  );
-  const [loading, setLoading] = useState(() => !readCache());
+  // Always start empty so SSR HTML matches the first client paint.
+  // sessionStorage is read after mount — otherwise a cached city hydrates
+  // over "Detectando ubicación…" and Next shows a runtime overlay.
+  const [location, setLocation] = useState<VisitorLocation | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (location) {
+    const cached = readCache();
+    if (cached) {
+      setLocation(cached);
       setLoading(false);
       return;
     }
