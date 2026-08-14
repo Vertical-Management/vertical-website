@@ -49,17 +49,15 @@ export function HomeAbout() {
 
             {/* Decorative mascot — skip animated GIF when reduced motion (INV-12/08) */}
             {!reduced ? (
-              <div className="relative hidden h-20 w-20 shrink-0 sm:block sm:h-24 sm:w-24 md:h-28 md:w-28">
-                <Image
-                  src={asset("/assets/PIKACHU.gif")}
-                  alt=""
-                  fill
-                  unoptimized
-                  loading="lazy"
-                  className="object-contain object-center"
-                  sizes="112px"
-                />
-              </div>
+              <Image
+                src={asset("/assets/PIKACHU.gif")}
+                alt=""
+                width={112}
+                height={112}
+                unoptimized
+                loading="lazy"
+                className="hidden h-20 w-20 shrink-0 object-contain object-center sm:block sm:h-24 sm:w-24 md:h-28 md:w-28"
+              />
             ) : null}
           </div>
 
