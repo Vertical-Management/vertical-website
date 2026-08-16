@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { Providers } from "@/components/providers/Providers";
 import { SiteChrome } from "@/components/layout/SiteChrome";
 import { SkipLink } from "@/components/layout/SkipLink";
-import { Cursor } from "@/components/ui/Cursor";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { fontVariables } from "@/lib/fonts";
 import { organizationJsonLd, personJsonLd, SEO, websiteJsonLd } from "@/lib/seo";
@@ -111,7 +110,6 @@ export default function RootLayout({
         <JsonLd data={[organizationJsonLd(), websiteJsonLd(), personJsonLd()]} />
         <Providers>
           <SkipLink />
-          <Cursor />
           <div id="smooth-wrapper" className="relative">
             <div id="smooth-content">
               <SiteChrome>{children}</SiteChrome>

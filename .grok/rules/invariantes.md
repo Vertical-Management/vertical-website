@@ -102,6 +102,11 @@ Si una página tiene un sistema visual propio (tokens, glass, wrappers), debe
 quedar acotado a esa ruta. No alteres el chrome compartido (header, footer,
 menú) ni reutilices esas clases o estilos en otras páginas.
 
+**INV-17** — El cursor nativo del sistema es el cursor del sitio  
+No sustituyas el puntero del sistema por un cursor custom (anillo, blend,
+`cursor: none` global). El hover de botones y links usa el cursor por defecto
+del navegador en todas las páginas.
+
 ---
 
 ## Declaración al commitear (no es “ejecutar” la orden)
@@ -130,6 +135,7 @@ INV-13: OK
 INV-14: OK
 INV-15: OK
 INV-16: OK
+INV-17: OK
 ```
 
 Formas aceptadas por el gate: `INV-01: OK` · `INV-01=OK` · `INV-01 OK` · `[x] INV-01`  
