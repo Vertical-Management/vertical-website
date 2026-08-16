@@ -143,6 +143,61 @@ const fr: Dictionary = {
       ],
       storyCta: "Lire l’histoire →",
     },
+    testimonials: {
+      eyebrow: "High scores",
+      title: "Ceux qui ont déjà appuyé sur start",
+      sectionLabel: "Témoignages",
+      items: [
+        {
+          quote:
+            "Enfin un studio qui ne lâche pas un PDF et disparaît. La marque s’utilise, elle ne s’archive pas.",
+          name: "Marina Soler",
+          role: "Directrice de marque",
+        },
+        {
+          quote:
+            "Le concept d’abord, le pixel ensuite. Le motion n’a rien d’un stock : ça sent la maison.",
+          name: "Luca Moretti",
+          role: "Head of Growth",
+        },
+        {
+          quote:
+            "Remote, clairs, plus affûtés qu’une agence de 40. Ça, c’est insert coin.",
+          name: "Nora Pellicer",
+          role: "Founder",
+        },
+        {
+          quote:
+            "On a demandé une identité. On a reçu un système que l’équipe utilise vraiment.",
+          name: "Tomás Herrera",
+          role: "CMO",
+        },
+        {
+          quote:
+            "Zéro posture. Ils parlent droit, livrent bizarre, et la conversion se voit.",
+          name: "Aina Riba",
+          role: "Product lead",
+        },
+        {
+          quote:
+            "Le site ne ressemble pas à un site de plus. Ça vaut déjà d’appuyer sur start.",
+          name: "Julien Marchand",
+          role: "Directeur créatif",
+        },
+        {
+          quote:
+            "Debrief en un appel. Du craft sur chaque hover. Comme ça devrait toujours être.",
+          name: "Paula Mendes",
+          role: "Brand manager",
+        },
+        {
+          quote:
+            "Je croyais que playful high-craft était un slogan. Puis j’ai vu le travail.",
+          name: "Oriol Serra",
+          role: "CEO",
+        },
+      ],
+    },
     cta: {
       eyebrow: "Prochain mouvement",
       words: ["Moins", "de bruit.", "Plus", "vertical."],

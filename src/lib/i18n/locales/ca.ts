@@ -143,6 +143,61 @@ const ca: Dictionary = {
       ],
       storyCta: "Coneix la història →",
     },
+    testimonials: {
+      eyebrow: "High scores",
+      title: "Ho diuen qui ja prem start",
+      sectionLabel: "Testimonis",
+      items: [
+        {
+          quote:
+            "Per fi un estudi que no entrega un PDF i desapareix. La marca s’usa, no s’arxiva.",
+          name: "Marina Soler",
+          role: "Directora de marca",
+        },
+        {
+          quote:
+            "Concepte primer, píxel després. El motion no sembla stock: se sent de casa.",
+          name: "Luca Moretti",
+          role: "Head of Growth",
+        },
+        {
+          quote:
+            "Remot, clar i més afilats que una agència de 40. Això és insert coin.",
+          name: "Nora Pellicer",
+          role: "Founder",
+        },
+        {
+          quote:
+            "Vam demanar identitat. Va tornar un sistema que l’equip usa cada dia.",
+          name: "Tomás Herrera",
+          role: "CMO",
+        },
+        {
+          quote:
+            "Gens de postureig. Parlen clar, entreguen rar i la conversió es nota.",
+          name: "Aina Riba",
+          role: "Product lead",
+        },
+        {
+          quote:
+            "El lloc no sembla un altre lloc més. Ja només per això val la pena prémer start.",
+          name: "Julien Marchand",
+          role: "Director creatiu",
+        },
+        {
+          quote:
+            "Debrief en una trucada. Craft a cada hover. Així hauria de ser sempre.",
+          name: "Paula Mendes",
+          role: "Brand manager",
+        },
+        {
+          quote:
+            "Pensava que playful high-craft era un eslògan. Després vaig veure la feina.",
+          name: "Oriol Serra",
+          role: "CEO",
+        },
+      ],
+    },
     cta: {
       eyebrow: "Següent moviment",
       words: ["Menys", "soroll.", "Més", "vertical."],

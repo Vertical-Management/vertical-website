@@ -143,6 +143,61 @@ const es: Dictionary = {
       ],
       storyCta: "Conocer la historia →",
     },
+    testimonials: {
+      eyebrow: "High scores",
+      title: "Lo dicen quienes ya pulsan start",
+      sectionLabel: "Testimonios",
+      items: [
+        {
+          quote:
+            "Por fin un estudio que no entrega un PDF y desaparece. La marca se usa, no se archiva.",
+          name: "Marina Soler",
+          role: "Directora de marca",
+        },
+        {
+          quote:
+            "Concepto primero, pixel después. El motion no parece stock: se siente de la casa.",
+          name: "Luca Moretti",
+          role: "Head of Growth",
+        },
+        {
+          quote:
+            "Remoto, claro y más afilados que una agencia de 40. Eso es insert coin.",
+          name: "Nora Pellicer",
+          role: "Founder",
+        },
+        {
+          quote:
+            "Pedimos identidad. Volvió un sistema que el equipo usa todos los días.",
+          name: "Tomás Herrera",
+          role: "CMO",
+        },
+        {
+          quote:
+            "Nada de postureo. Hablan claro, entregan raro y la conversión se nota.",
+          name: "Aina Riba",
+          role: "Product lead",
+        },
+        {
+          quote:
+            "El sitio no parece otro sitio más. Ya solo por eso vale pulsar start.",
+          name: "Julien Marchand",
+          role: "Director creativo",
+        },
+        {
+          quote:
+            "Debrief en una llamada. Craft en cada hover. Así debería ser siempre.",
+          name: "Paula Mendes",
+          role: "Brand manager",
+        },
+        {
+          quote:
+            "Pensé que playful high-craft era un eslogan. Luego vi el trabajo.",
+          name: "Oriol Serra",
+          role: "CEO",
+        },
+      ],
+    },
     cta: {
       eyebrow: "Siguiente movimiento",
       words: ["Menos", "ruido.", "Más", "vertical."],

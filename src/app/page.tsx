@@ -5,6 +5,7 @@ import {
   HomeHero,
   HomeLogoCarousel,
   HomeManifesto,
+  HomeTestimonials,
 } from "@/components/home";
 import { SEO } from "@/lib/seo";
 import { SITE } from "@/lib/constants";
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
 };
 
 /**
- * Home — Club 18 wall, logo strip, manifesto, about, close.
+ * Home — Club 18 wall, logo strip, manifesto, about, testimonials, close.
  */
 export default function HomePage() {
   return (
@@ -38,6 +39,7 @@ export default function HomePage() {
       <HomeLogoCarousel />
       <HomeManifesto />
       <HomeAbout />
+      <HomeTestimonials />
       <HomeCTA />
     </main>
   );

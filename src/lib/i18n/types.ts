@@ -128,6 +128,12 @@ export type Dictionary = {
       principles: { index: string; title: string; body: string }[];
       storyCta: string;
     };
+    testimonials: {
+      eyebrow: string;
+      title: string;
+      sectionLabel: string;
+      items: { quote: string; name: string; role: string }[];
+    };
     cta: {
       eyebrow: string;
       words: string[];

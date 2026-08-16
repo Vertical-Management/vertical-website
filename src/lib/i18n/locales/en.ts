@@ -143,6 +143,61 @@ const en: Dictionary = {
       ],
       storyCta: "Read the story →",
     },
+    testimonials: {
+      eyebrow: "High scores",
+      title: "From people who already pressed start",
+      sectionLabel: "Testimonials",
+      items: [
+        {
+          quote:
+            "At last, a studio that doesn’t drop a PDF and vanish. The brand gets used, not archived.",
+          name: "Marina Soler",
+          role: "Brand director",
+        },
+        {
+          quote:
+            "Concept first, pixel after. The motion doesn’t look like stock — it feels like the house.",
+          name: "Luca Moretti",
+          role: "Head of Growth",
+        },
+        {
+          quote:
+            "Remote, clear, and sharper than a 40-person agency. That’s insert coin.",
+          name: "Nora Pellicer",
+          role: "Founder",
+        },
+        {
+          quote:
+            "We asked for an identity. We got a system the team actually uses every day.",
+          name: "Tomás Herrera",
+          role: "CMO",
+        },
+        {
+          quote:
+            "No posturing. They talk straight, deliver weird, and conversion shows up.",
+          name: "Aina Riba",
+          role: "Product lead",
+        },
+        {
+          quote:
+            "The site doesn’t look like another site. That’s already worth pressing start.",
+          name: "Julien Marchand",
+          role: "Creative director",
+        },
+        {
+          quote:
+            "Debrief in one call. Craft in every hover. This is how it should always be.",
+          name: "Paula Mendes",
+          role: "Brand manager",
+        },
+        {
+          quote:
+            "I thought playful high-craft was a slogan. Then I saw the work.",
+          name: "Oriol Serra",
+          role: "CEO",
+        },
+      ],
+    },
     cta: {
       eyebrow: "Next move",
       words: ["Less", "noise.", "More", "vertical."],
