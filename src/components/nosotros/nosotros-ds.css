@@ -15,6 +15,8 @@
   --n-ease: cubic-bezier(0.16, 1, 0.3, 1);
   --n-radius-shell: 2.5rem;
   --n-radius-card: 1.25rem;
+  /* Sit below the fixed header so shells never collide with site chrome */
+  padding-top: var(--header-height);
   background-color: var(--n-light);
   color: var(--n-zinc);
 }

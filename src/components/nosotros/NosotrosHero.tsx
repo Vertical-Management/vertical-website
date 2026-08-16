@@ -49,7 +49,7 @@ export function NosotrosHero() {
     <NosotrosShell
       ref={root}
       tone="dark"
-      className="flex min-h-[92vh] min-h-[92svh] flex-col justify-end"
+      className="flex min-h-[calc(100dvh-var(--header-height)-1.5rem)] flex-col justify-end"
     >
       <div className="absolute inset-0">
         <div className="absolute inset-0" data-nosotros-bg>
@@ -72,7 +72,7 @@ export function NosotrosHero() {
         {h.watermark}
       </p>
 
-      <div className="relative z-[2] grid w-full flex-1 items-end gap-10 px-5 pb-10 pt-[calc(var(--header-height)+1.75rem)] sm:px-8 sm:pb-12 md:grid-cols-12 md:gap-8 md:px-12 md:pb-16 lg:px-16">
+      <div className="relative z-[2] grid w-full flex-1 items-end gap-10 px-5 pb-10 pt-10 sm:px-8 sm:pb-12 sm:pt-12 md:grid-cols-12 md:gap-8 md:px-12 md:pb-16 md:pt-14 lg:px-16">
         <div className="md:col-span-7 lg:col-span-8">
           <motion.p
             className="n-label mb-4 text-white/50 sm:mb-5"
