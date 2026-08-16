@@ -323,6 +323,63 @@ const fr: Dictionary = {
       startProject: "Démarrer un projet",
       viewProjects: "Voir les projets →",
     },
+    crt: {
+      windowPath: "vertical@studio: ~/servicios",
+      available: "available for high-craft work",
+      whoami: {
+        command: "whoami --services",
+        banner: "SERVICES",
+        role: "> Creative Management Studio · Branding · Digital · Motion · 3D",
+        checks: [
+          "Andorre comme base",
+          "High-craft + play",
+          "Pas de travail générique",
+        ],
+        lsCta: "$ ls ~/services ->",
+        contactCta: "./contact --brief",
+      },
+      neofetch: {
+        command: "neofetch --studio",
+        user: "vertical@studio",
+        rows: [
+          { key: "OS", value: "Vertical Studio v3.1 (Andorra build)" },
+          { key: "Host", value: "Andorre · Remote-first" },
+          { key: "Role", value: "Creative Management" },
+          { key: "Uptime", value: "high-craft mode" },
+          { key: "Shell", value: "Concept → Execution → Ship" },
+          { key: "Stack", value: "Branding · Digital · Motion · 3D" },
+          { key: "Focus", value: "Systèmes avec du caractère, pas des templates" },
+        ],
+        status: "available for select projects",
+      },
+      listing: {
+        command: "ls -la ~/services # 4 selected",
+        heading: "Things we ship // drwxr-xr-x",
+        perm: "-rwxr-xr-x",
+        cases: "voir les cas ->",
+        brief: "brief ->",
+        files: [
+          { id: "branding", name: "branding/", tag: "signature" },
+          { id: "digital", name: "digital-web/", tag: "core" },
+          { id: "motion", name: "motion-3d/", tag: "" },
+          { id: "strategy", name: "strategie/", tag: "" },
+        ],
+      },
+      process: {
+        command: "cat process.txt | sort -r",
+      },
+      contact: {
+        command: "./contact --brief",
+        headline: "Ready to insert the next coin?",
+        mailLabel: "$ mail",
+        copy: "copier",
+        copied: "copied",
+      },
+      echo: {
+        line: '$ echo "(c) 2026 Vertical · built in the terminal · shipped with character"',
+        git: "last commit: 2h ago, main@craft, uptime 99.98%",
+      },
+    },
   },
   serviceItems: {
     branding: {

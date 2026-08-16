@@ -32,6 +32,7 @@ export function Header() {
   // Routes whose first screen is a colored / dark hero — light chrome from first paint
   const coloredHeroRoute =
     (pathname === "/" && DEFAULT_HERO_VARIANT === "cinematic") ||
+    pathname === "/servicios" ||
     pathname === "/contacto";
 
   const nearWhite = useHeaderSurface(coloredHeroRoute);

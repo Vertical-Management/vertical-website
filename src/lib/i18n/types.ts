@@ -220,6 +220,46 @@ export type Dictionary = {
       startProject: string;
       viewProjects: string;
     };
+    crt: {
+      windowPath: string;
+      available: string;
+      whoami: {
+        command: string;
+        banner: string;
+        role: string;
+        checks: string[];
+        lsCta: string;
+        contactCta: string;
+      };
+      neofetch: {
+        command: string;
+        user: string;
+        rows: { key: string; value: string }[];
+        status: string;
+      };
+      listing: {
+        command: string;
+        heading: string;
+        perm: string;
+        cases: string;
+        brief: string;
+        files: { id: string; name: string; tag: string }[];
+      };
+      process: {
+        command: string;
+      };
+      contact: {
+        command: string;
+        headline: string;
+        mailLabel: string;
+        copy: string;
+        copied: string;
+      };
+      echo: {
+        line: string;
+        git: string;
+      };
+    };
   };
   serviceItems: {
     branding: ServiceCopy;

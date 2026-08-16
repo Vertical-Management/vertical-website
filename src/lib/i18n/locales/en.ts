@@ -323,6 +323,59 @@ const en: Dictionary = {
       startProject: "Start a project",
       viewProjects: "View projects →",
     },
+    crt: {
+      windowPath: "vertical@studio: ~/servicios",
+      available: "available for high-craft work",
+      whoami: {
+        command: "whoami --services",
+        banner: "SERVICES",
+        role: "> Creative Management Studio · Branding · Digital · Motion · 3D",
+        checks: ["Andorra as base", "High-craft + play", "No generic work"],
+        lsCta: "$ ls ~/services ->",
+        contactCta: "./contact --brief",
+      },
+      neofetch: {
+        command: "neofetch --studio",
+        user: "vertical@studio",
+        rows: [
+          { key: "OS", value: "Vertical Studio v3.1 (Andorra build)" },
+          { key: "Host", value: "Andorra · Remote-first" },
+          { key: "Role", value: "Creative Management" },
+          { key: "Uptime", value: "high-craft mode" },
+          { key: "Shell", value: "Concept → Execution → Ship" },
+          { key: "Stack", value: "Branding · Digital · Motion · 3D" },
+          { key: "Focus", value: "Character systems, not templates" },
+        ],
+        status: "available for select projects",
+      },
+      listing: {
+        command: "ls -la ~/services # 4 selected",
+        heading: "Things we ship // drwxr-xr-x",
+        perm: "-rwxr-xr-x",
+        cases: "view work ->",
+        brief: "brief ->",
+        files: [
+          { id: "branding", name: "branding/", tag: "signature" },
+          { id: "digital", name: "digital-web/", tag: "core" },
+          { id: "motion", name: "motion-3d/", tag: "" },
+          { id: "strategy", name: "strategy/", tag: "" },
+        ],
+      },
+      process: {
+        command: "cat process.txt | sort -r",
+      },
+      contact: {
+        command: "./contact --brief",
+        headline: "Ready to insert the next coin?",
+        mailLabel: "$ mail",
+        copy: "copy",
+        copied: "copied",
+      },
+      echo: {
+        line: '$ echo "(c) 2026 Vertical · built in the terminal · shipped with character"',
+        git: "last commit: 2h ago, main@craft, uptime 99.98%",
+      },
+    },
   },
   serviceItems: {
     branding: {

@@ -1,62 +1,87 @@
 "use client";
 
+import { useState } from "react";
 import NextLink from "next/link";
-import { CoinButton } from "@/components/home/CoinButton";
 import { useLanguage } from "@/components/providers/LanguageProvider";
-import { Container } from "@/components/ui/Container";
-import { Grain } from "@/components/ui/Grain";
-import { Magnetic } from "@/components/ui/Magnetic";
-import { SITE } from "@/lib/constants";
+import { SITE, SOCIAL_LINKS } from "@/lib/constants";
+import { CrtCaret, CrtPrompt } from "./CrtPrimitives";
 
 /**
- * Services closing CTA.
+ * CRT close — `./contact --brief` + shell echo.
  */
 export function ServicesCTA() {
   const { t } = useLanguage();
-  const c = t.servicesPage.cta;
+  const c = t.servicesPage.crt.contact;
+  const echo = t.servicesPage.crt.echo;
+  const command = `$ mail ${SITE.email}`;
+  const [copied, setCopied] = useState(false);
+
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(SITE.email);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1600);
+    } catch {
+      setCopied(false);
+    }
+  };
 
   return (
-    <section
-      className="relative overflow-hidden bg-surface-inverse py-section text-paper"
-      data-theme="inverse"
-    >
-      <Grain strong />
-      <Container className="relative z-[1]">
-        <div className="grid items-end gap-10 lg:grid-cols-12">
-          <div className="lg:col-span-8">
-            <p className="font-mono text-caption uppercase tracking-label text-white/40">
-              {c.eyebrow}
+    <>
+      <section>
+        <CrtPrompt command={c.command} />
+        <div className="crt-panel p-4 md:p-5">
+          <h2 className="text-lg font-semibold text-[#eafff1] md:text-xl">
+            {c.headline}
+          </h2>
+          <div className="mt-4 flex flex-wrap items-center gap-2">
+            <p className="crt-panel flex min-w-0 flex-1 items-center overflow-x-auto px-3 py-2 text-sm text-[#39ff7a]">
+              <span>{c.mailLabel}</span>
+              <span className="ml-2 text-[#eafff1]">{SITE.email}</span>
+              <CrtCaret />
             </p>
-            <h2 className="mt-4 font-display text-display-lg text-paper">
-              {c.titleLine1}
-              <br />
-              <span className="text-accent-lime">{c.titleAccent}</span>
-            </h2>
-            <p className="mt-6 max-w-md text-lead text-white/55">{c.body}</p>
-          </div>
-          <div className="flex flex-col items-start gap-4 lg:col-span-4 lg:items-end">
-            <CoinButton href="/contacto" size="xl">
-              {c.startProject}
-            </CoinButton>
-            <Magnetic strength={10}>
-              <NextLink
-                href="/proyectos"
-                data-cursor="hover"
-                className="inline-flex h-14 items-center rounded-pill border border-white/25 px-7 text-sm font-medium text-paper transition-colors duration-base hover:border-accent-lime hover:text-accent-lime"
-              >
-                {c.viewProjects}
-              </NextLink>
-            </Magnetic>
-            <a
-              href={`mailto:${SITE.email}`}
-              className="font-mono text-caption uppercase tracking-label text-white/40 transition-colors hover:text-paper"
-              data-cursor="hover"
+            <button
+              type="button"
+              onClick={() => void copy()}
+              className="crt-btn crt-btn--ghost"
+              aria-label={`${c.copy} ${command}`}
             >
-              {SITE.email}
-            </a>
+              {copied ? c.copied : c.copy}
+            </button>
           </div>
+          <ul className="mt-4 flex flex-wrap gap-2">
+            {SOCIAL_LINKS.filter((s) => s.label !== "Email").map((s) => (
+              <li key={s.label}>
+                <a
+                  href={s.href}
+                  target={s.href.startsWith("http") ? "_blank" : undefined}
+                  rel={
+                    s.href.startsWith("http") ? "noopener noreferrer" : undefined
+                  }
+                  className="crt-pill hover:border-[#2bbf5c] hover:text-[#39ff7a]"
+                >
+                  {s.label.toLowerCase()}
+                </a>
+              </li>
+            ))}
+            <li>
+              <NextLink href="/proyectos" className="crt-pill hover:text-[#39ff7a]">
+                {t.servicesPage.cta.viewProjects.replace(" →", "").toLowerCase()}
+              </NextLink>
+            </li>
+            <li>
+              <NextLink href="/contacto" className="crt-pill crt-pill--amber">
+                {t.header.insertCoin.toLowerCase()}
+              </NextLink>
+            </li>
+          </ul>
         </div>
-      </Container>
-    </section>
+      </section>
+
+      <footer className="flex flex-col gap-2 border-t border-[#143614] pt-4 text-[0.65rem] text-[#1c7a3c] sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-[#5f8d68]">{echo.line}</p>
+        <p>{echo.git}</p>
+      </footer>
+    </>
   );
 }

@@ -1,181 +1,71 @@
 "use client";
 
-import { useMemo, useRef } from "react";
-import { gsap, registerGsap, useGSAP } from "@/lib/gsap";
-import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
+import { useMemo } from "react";
+import NextLink from "next/link";
 import { useLanguage } from "@/components/providers/LanguageProvider";
 import { localizeServices } from "@/lib/i18n";
-import { serviceBlockClasses } from "@/components/servicios/serviceTheme";
-import { cn } from "@/lib/utils";
+import { CrtPrompt } from "./CrtPrimitives";
 
 /**
- * Full-bleed color blocks — one per service.
- * Brutalist slabs + high-craft hover and scroll.
+ * CRT services grid — `ls -la ~/services`.
  */
 export function ServicesBlocks() {
-  const root = useRef<HTMLElement>(null);
-  const reduced = usePrefersReducedMotion();
   const { t } = useLanguage();
   const services = useMemo(() => localizeServices(t), [t]);
+  const listing = t.servicesPage.crt.listing;
   const b = t.servicesPage.blocks;
 
-  useGSAP(
-    () => {
-      if (reduced || !root.current) return;
-      registerGsap();
-
-      root.current.querySelectorAll<HTMLElement>("[data-service-block]").forEach(
-        (block) => {
-          const punch = block.querySelector<HTMLElement>("[data-punch]");
-          const content = block.querySelector<HTMLElement>("[data-content]");
-
-          if (punch) {
-            // Keep watermark subdued — never climb above body copy contrast
-            gsap.fromTo(
-              punch,
-              { xPercent: -6, opacity: 0.22 },
-              {
-                xPercent: 3,
-                opacity: 0.34,
-                ease: "none",
-                scrollTrigger: {
-                  trigger: block,
-                  start: "top bottom",
-                  end: "bottom top",
-                  scrub: true,
-                },
-              },
-            );
-          }
-
-          if (content) {
-            gsap.fromTo(
-              content,
-              { y: 36, opacity: 0 },
-              {
-                y: 0,
-                opacity: 1,
-                duration: 0.9,
-                ease: "power3.out",
-                scrollTrigger: {
-                  trigger: block,
-                  start: "top 78%",
-                  toggleActions: "play none none reverse",
-                },
-              },
-            );
-          }
-        },
-      );
-    },
-    { scope: root, dependencies: [reduced] },
-  );
-
   return (
-    <section ref={root} aria-label={b.ariaLabel} className="relative">
-      {services.map((service, i) => {
-        const theme = serviceBlockClasses(service.theme);
-        const flip = i % 2 === 1;
-
-        return (
-          <article
-            key={service.id}
-            id={service.id}
-            data-service-block
-            className={cn(
-              "relative scroll-mt-header overflow-hidden border-b-2 border-ink",
-              theme.block,
-            )}
-          >
-            {/* Giant watermark — always behind copy, softer so it never eats body type */}
-            <p
-              data-punch
-              aria-hidden
-              className={cn(
-                "pointer-events-none absolute -right-4 top-1/2 z-0 select-none font-display text-[clamp(4rem,22vw,16rem)] font-extrabold leading-none tracking-display",
-                theme.number,
-                " -translate-y-1/2 opacity-40",
-              )}
-            >
-              {service.punch ?? service.title}
-            </p>
-
-            <div
-              data-content
-              className={cn(
-                "relative z-10 mx-auto grid max-w-site gap-10 px-gutter py-16 md:py-24 lg:grid-cols-12 lg:gap-8 lg:py-28",
-                flip && "lg:[&>*:first-child]:order-2",
-              )}
-            >
-              {/* Index + title */}
-              <div className="lg:col-span-5">
-                <p
-                  className={cn(
-                    "font-mono text-caption uppercase tracking-label",
-                    theme.muted,
-                  )}
-                >
-                  {b.serviceLabel} {service.index}
-                </p>
-                <h2 className="mt-4 font-display text-display-lg tracking-display">
-                  {service.title}
-                </h2>
-                <p className={cn("mt-2 font-display text-display-sm opacity-80", theme.muted)}>
-                  {service.punch}
-                </p>
-              </div>
-
-              {/* Body */}
-              <div className="lg:col-span-7">
-                <p className="max-w-xl text-lead">{service.longDescription}</p>
-
-                {service.tags ? (
-                  <ul className="mt-8 flex flex-wrap gap-2">
-                    {service.tags.map((tag) => (
-                      <li
-                        key={tag}
-                        className={cn(
-                          "rounded-pill border px-3 py-1 font-mono text-[0.65rem] uppercase tracking-label",
-                          theme.badge,
-                        )}
-                      >
-                        {tag}
-                      </li>
-                    ))}
-                  </ul>
-                ) : null}
-
-                {service.deliverables ? (
-                  <div className="mt-10 border-t-2 border-current/15 pt-8">
-                    <p
-                      className={cn(
-                        "mb-4 font-mono text-caption uppercase tracking-label",
-                        theme.muted,
-                      )}
-                    >
-                      {b.deliverablesLabel}
-                    </p>
-                    <ul className="grid gap-2 sm:grid-cols-2">
-                      {service.deliverables.map((item) => (
-                        <li
-                          key={item}
-                          className="flex items-start gap-3 text-sm font-medium md:text-base"
-                        >
-                          <span
-                            className={cn("mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-current")}
-                            aria-hidden
-                          />
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
+    <section id="crt-services" aria-label={b.ariaLabel}>
+      <CrtPrompt command={listing.command} />
+      <h2 className="mb-4 text-sm font-semibold tracking-tight text-[#eafff1] md:text-base">
+        {listing.heading}
+      </h2>
+      <ul className="grid gap-3 sm:grid-cols-2">
+        {listing.files.map((file) => {
+          const service = services.find((s) => s.id === file.id);
+          if (!service) return null;
+          return (
+            <li key={file.id} id={service.id}>
+              <article className="crt-panel flex h-full flex-col p-4">
+                <div className="flex items-start justify-between gap-3">
+                  <h3 className="crt-glow-text text-sm font-semibold">{file.name}</h3>
+                  <div className="flex shrink-0 flex-col items-end gap-1">
+                    <span className="text-[0.62rem] text-[#1c7a3c]">{listing.perm}</span>
+                    {file.tag ? (
+                      <span className="crt-pill crt-pill--amber">{file.tag}</span>
+                    ) : null}
                   </div>
-                ) : null}
-              </div>
-            </div>
-          </article>
-        );
-      })}
+                </div>
+                <p className="mt-3 text-sm leading-relaxed text-[#5f8d68]">
+                  {service.description}
+                </p>
+                <ul className="mt-3 flex flex-wrap gap-1.5">
+                  {(service.tags ?? []).slice(0, 4).map((tag) => (
+                    <li key={tag} className="crt-pill">
+                      {tag}
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-4 flex flex-wrap gap-3 text-xs">
+                  <NextLink
+                    href="/proyectos"
+                    className="crt-glow-text hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#39ff7a]"
+                  >
+                    {listing.cases}
+                  </NextLink>
+                  <NextLink
+                    href="/contacto"
+                    className="text-[#2bbf5c] hover:text-[#39ff7a] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#39ff7a]"
+                  >
+                    {listing.brief}
+                  </NextLink>
+                </div>
+              </article>
+            </li>
+          );
+        })}
+      </ul>
     </section>
   );
 }

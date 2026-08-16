@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
 import {
+  CrtFrame,
   ServicesBlocks,
   ServicesCTA,
-  ServicesFAQ,
   ServicesHero,
+  ServicesIdentity,
   ServicesProcess,
 } from "@/components/servicios";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { breadcrumbJsonLd, SEO } from "@/lib/seo";
 import { SITE } from "@/lib/constants";
+import "@/components/servicios/servicios-crt.css";
 
 export const metadata: Metadata = {
   title: "Servicios",
@@ -27,22 +29,28 @@ export const metadata: Metadata = {
 };
 
 /**
- * Servicios — brutalist color blocks elevated to high-craft.
+ * Servicios — CRT terminal session (this route only).
  */
 export default function ServiciosPage() {
   return (
-    <main id="main-content" className="relative">
+    <main
+      id="main-content"
+      data-nav-ground="color"
+      className="servicios-crt relative"
+    >
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", path: "/" },
           { name: "Servicios", path: "/servicios" },
         ])}
       />
-      <ServicesHero />
-      <ServicesBlocks />
-      <ServicesProcess />
-      <ServicesFAQ />
-      <ServicesCTA />
+      <CrtFrame>
+        <ServicesHero />
+        <ServicesIdentity />
+        <ServicesBlocks />
+        <ServicesProcess />
+        <ServicesCTA />
+      </CrtFrame>
     </main>
   );
 }
