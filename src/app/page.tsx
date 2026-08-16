@@ -29,15 +29,15 @@ export const metadata: Metadata = {
 };
 
 /**
- * Home — wall + editorial hero, manifesto, about, logo strip, close.
+ * Home — Club 18 wall, logo strip, manifesto, about, close.
  */
 export default function HomePage() {
   return (
     <main id="main-content" className="relative">
       <HomeHero />
+      <HomeLogoCarousel />
       <HomeManifesto />
       <HomeAbout />
-      <HomeLogoCarousel />
       <HomeCTA />
     </main>
   );
