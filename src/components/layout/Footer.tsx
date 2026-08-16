@@ -26,7 +26,7 @@ export function Footer() {
   return (
     <footer
       role="contentinfo"
-      className="relative mt-auto overflow-hidden border-t border-border bg-paper-warm"
+      className="relative mt-auto overflow-hidden bg-paper-warm"
     >
       <Grain />
 
@@ -58,18 +58,8 @@ export function Footer() {
           </Magnetic>
         </div>
 
-        {/* Giant wordmark */}
-        <div className="mt-14 overflow-hidden text-center md:mt-18">
-          <p
-            className="select-none font-display text-[clamp(3.25rem,16vw,12rem)] font-extrabold leading-[0.85] tracking-display text-ink/[0.07]"
-            aria-hidden
-          >
-            VERTICAL
-          </p>
-        </div>
-
         {/* Nav + social — centered, balanced */}
-        <div className="mx-auto mt-12 grid max-w-3xl gap-10 border-t border-border pt-10 sm:grid-cols-2">
+        <div className="mx-auto mt-14 grid max-w-3xl gap-10 border-t border-border pt-10 sm:grid-cols-2 md:mt-18">
           <div className="text-center sm:text-left">
             <Logo magnetic={false} size="md" className="mx-auto sm:mx-0" />
             <p className="mt-4 text-sm leading-relaxed text-ink-soft">

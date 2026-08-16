@@ -65,6 +65,7 @@ export function HeroCinematic({ preview, className }: VariantProps) {
     <section
       ref={root}
       data-hero-surface="dark"
+      data-nav-ground="color"
       className={cn(
         "relative flex flex-col justify-end overflow-hidden bg-ink text-paper",
         preview ? "min-h-[78vh] pt-6 md:min-h-[85vh]" : "min-h-dvh pt-header",

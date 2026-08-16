@@ -11,7 +11,7 @@ export function HomeMarquee() {
   const { rowA, rowB } = t.home.marquee;
 
   return (
-    <div className="relative border-y border-border bg-paper-warm py-4 md:py-5">
+    <div className="relative bg-paper-warm py-4 md:py-5">
       <Marquee speed="normal" gap="2.5rem" className="py-1">
         {rowA.map((item) => (
           <MarqueeItem key={item} className="gap-8">

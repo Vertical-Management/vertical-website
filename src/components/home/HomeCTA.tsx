@@ -48,7 +48,7 @@ export function HomeCTA() {
   return (
     <section
       ref={root}
-      className="relative overflow-hidden border-t border-border bg-paper-warm py-section"
+      className="relative overflow-hidden bg-paper-warm py-section"
     >
       <Grain />
       <Container className="relative z-[1] text-center">

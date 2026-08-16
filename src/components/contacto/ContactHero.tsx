@@ -40,6 +40,7 @@ export function ContactHero() {
   return (
     <section
       ref={root}
+      data-nav-ground="color"
       className="relative flex min-h-[62dvh] flex-col justify-end overflow-hidden pt-header sm:min-h-[70dvh] md:min-h-[78dvh]"
     >
       <div className="absolute inset-0" data-contact-bg>

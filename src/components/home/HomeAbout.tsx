@@ -21,7 +21,10 @@ export function HomeAbout() {
   const reduced = useReducedMotion();
 
   return (
-    <section className="relative overflow-hidden border-y-2 border-ink bg-ink py-section text-paper">
+    <section
+      className="relative overflow-hidden bg-ink py-section text-paper"
+      data-nav-ground="color"
+    >
       <Grain strong className="opacity-[0.07]" />
 
       {/* Accent geometry — dark stage, orange energy */}

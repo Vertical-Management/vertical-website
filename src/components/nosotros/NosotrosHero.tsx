@@ -40,6 +40,7 @@ export function NosotrosHero() {
   return (
     <section
       ref={root}
+      data-nav-ground="color"
       className="relative flex min-h-[72dvh] flex-col justify-end overflow-hidden border-b border-ink pt-header sm:min-h-[80dvh] md:min-h-[88dvh]"
     >
       <div className="absolute inset-0" data-nosotros-bg>
