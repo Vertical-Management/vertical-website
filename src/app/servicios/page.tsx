@@ -35,7 +35,7 @@ export default function ServiciosPage() {
   return (
     <main
       id="main-content"
-      data-nav-ground="color"
+      data-nav-ground="paper"
       className="servicios-crt relative"
     >
       <JsonLd
@@ -44,8 +44,6 @@ export default function ServiciosPage() {
           { name: "Servicios", path: "/servicios" },
         ])}
       />
-      <div className="crt-glow" aria-hidden />
-      <div className="crt-scanlines" aria-hidden />
       <CrtFrame>
         <ServicesHero />
         <ServicesIdentity />

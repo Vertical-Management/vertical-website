@@ -8,7 +8,7 @@ export function CrtPrompt({ command }: { command: string }) {
   return (
     <p className="crt-prompt">
       <span className="crt-prompt-user">vertical@studio</span>
-      <span className="text-[#1c7a3c]">$</span>
+      <span className="crt-prompt-cash">$</span>
       <span className="crt-prompt-cmd">{command}</span>
     </p>
   );
@@ -31,6 +31,7 @@ export function CrtFrame({ children }: CrtFrameProps) {
   return (
     <div className="crt-frame">
       <div className="crt-window">
+        <div className="crt-scanlines" aria-hidden />
         <div className="crt-titlebar">
           <div className="crt-dots" aria-hidden>
             <span className="crt-dot" style={{ background: "#ff5f56" }} />

@@ -18,7 +18,7 @@ export function ServicesBlocks() {
   return (
     <section id="crt-services" aria-label={b.ariaLabel}>
       <CrtPrompt command={listing.command} />
-      <h2 className="mb-4 text-sm font-semibold tracking-tight text-[#eafff1] md:text-base">
+      <h2 className="crt-head mb-4 text-sm font-semibold tracking-tight md:text-base">
         {listing.heading}
       </h2>
       <ul className="grid gap-3 sm:grid-cols-2">
@@ -31,13 +31,13 @@ export function ServicesBlocks() {
                 <div className="flex items-start justify-between gap-3">
                   <h3 className="crt-glow-text text-sm font-semibold">{file.name}</h3>
                   <div className="flex shrink-0 flex-col items-end gap-1">
-                    <span className="text-[0.62rem] text-[#1c7a3c]">{listing.perm}</span>
+                    <span className="crt-muted text-[0.62rem]">{listing.perm}</span>
                     {file.tag ? (
-                      <span className="crt-pill crt-pill--amber">{file.tag}</span>
+                      <span className="crt-pill crt-pill--accent">{file.tag}</span>
                     ) : null}
                   </div>
                 </div>
-                <p className="mt-3 text-sm leading-relaxed text-[#5f8d68]">
+                <p className="crt-copy mt-3 text-sm leading-relaxed">
                   {service.description}
                 </p>
                 <ul className="mt-3 flex flex-wrap gap-1.5">
@@ -50,13 +50,13 @@ export function ServicesBlocks() {
                 <div className="mt-4 flex flex-wrap gap-3 text-xs">
                   <NextLink
                     href="/proyectos"
-                    className="crt-glow-text hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#39ff7a]"
+                    className="crt-glow-text hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--crt-lime)]"
                   >
                     {listing.cases}
                   </NextLink>
                   <NextLink
                     href="/contacto"
-                    className="text-[#2bbf5c] hover:text-[#39ff7a] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#39ff7a]"
+                    className="crt-copy hover:text-[var(--crt-lime)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--crt-lime)]"
                   >
                     {listing.brief}
                   </NextLink>

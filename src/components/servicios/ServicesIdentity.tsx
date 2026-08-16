@@ -25,18 +25,18 @@ export function ServicesIdentity() {
           <pre className="crt-glow-text overflow-x-auto text-[0.62rem] leading-[1.15] sm:text-[0.7rem]">
             {ASCII}
           </pre>
-          <p className="mt-3 text-xs text-[#2bbf5c]">{n.user}</p>
+          <p className="crt-glow-text mt-3 text-xs">{n.user}</p>
         </div>
         <dl className="space-y-1.5 text-xs sm:text-sm">
           {n.rows.map((row) => (
             <div key={row.key} className="grid grid-cols-[6.5rem_1fr] gap-2 sm:grid-cols-[7.5rem_1fr]">
-              <dt className="text-[#2bbf5c]">{row.key}</dt>
-              <dd className="text-[#eafff1]">{row.value}</dd>
+              <dt className="crt-glow-text">{row.key}</dt>
+              <dd className="crt-head">{row.value}</dd>
             </div>
           ))}
           <div className="grid grid-cols-[6.5rem_1fr] gap-2 sm:grid-cols-[7.5rem_1fr]">
-            <dt className="text-[#2bbf5c]">Status</dt>
-            <dd className="text-[#ffd24a]">
+            <dt className="crt-glow-text">Status</dt>
+            <dd className="crt-accent">
               <span className="crt-blink">●</span> {n.status}
             </dd>
           </div>
@@ -45,11 +45,11 @@ export function ServicesIdentity() {
           className="flex flex-wrap gap-1.5 md:col-span-2"
           aria-hidden
         >
-          {["#39ff7a", "#2bbf5c", "#1c7a3c", "#143614", "#ffd24a", "#eafff1"].map(
+          {["#C8FF00", "#0A0A0A", "#F4F1EA", "#FF3D00", "#FF1A5C", "#00C2FF"].map(
             (hex) => (
               <span
                 key={hex}
-                className="h-3 w-7 rounded-[3px] border border-[#143614]"
+                className="h-3 w-7 rounded-[3px] border border-white/10"
                 style={{ background: hex }}
               />
             ),

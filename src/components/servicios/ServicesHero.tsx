@@ -38,14 +38,14 @@ export function ServicesHero() {
         {w.banner}
       </h1>
       <p className="crt-glow-text mt-3 text-sm leading-relaxed md:text-base">{w.role}</p>
-      <p className="mt-4 max-w-2xl text-sm leading-relaxed text-[#5f8d68] md:text-[0.95rem]">
+      <p className="crt-copy mt-4 max-w-2xl text-sm leading-relaxed md:text-[0.95rem]">
         {highlightSage(h.body, w.highlights ?? [])}
       </p>
       <ul className="mt-5 space-y-1.5 text-sm">
         {w.checks.map((check) => (
-          <li key={check} className="text-[#2bbf5c]">
+          <li key={check}>
             <span className="crt-glow-text">[x]</span>{" "}
-            <span className="text-[#5f8d68]">{check}</span>
+            <span className="crt-copy">{check}</span>
           </li>
         ))}
       </ul>
