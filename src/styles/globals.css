@@ -24,8 +24,12 @@
 }
 
 .hero-wall-tile {
+  aspect-ratio: 1 / 1;
+  height: 100%;
+  width: auto;
+  flex: 0 0 auto;
   /* Isolate each cell so wall motion doesn't dirty page scroll paints */
-  contain: layout paint style;
+  contain: paint style;
   transform: translateZ(0);
 }
 

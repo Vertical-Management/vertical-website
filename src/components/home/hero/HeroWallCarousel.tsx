@@ -400,11 +400,12 @@ function Tile({
     <div
       ref={rootRef}
       data-wall-id={id}
-      className="hero-wall-tile relative h-full shrink-0 overflow-hidden bg-ink"
+      className="hero-wall-tile relative aspect-square h-full shrink-0 overflow-hidden bg-ink"
       style={{
-        width: "max(16.666vw, 33.333vh)",
+        aspectRatio: "1 / 1",
+        height: "100%",
+        width: "auto",
         contentVisibility: nearView ? "visible" : "auto",
-        contain: "layout paint style",
       }}
     >
       {stillSrc && nearView ? (
@@ -412,7 +413,7 @@ function Tile({
           src={stillSrc}
           alt={alt}
           fill
-          sizes="(max-width: 768px) 42vw, 17vw"
+          sizes="33vh"
           quality={68}
           priority={!!lcp}
           loading={eagerStill || lcp ? "eager" : "lazy"}

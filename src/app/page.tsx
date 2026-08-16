@@ -3,6 +3,7 @@ import {
   HomeAbout,
   HomeCTA,
   HomeHero,
+  HomeLogoCarousel,
   HomeManifesto,
 } from "@/components/home";
 import { SEO } from "@/lib/seo";
@@ -28,8 +29,7 @@ export const metadata: Metadata = {
 };
 
 /**
- * Home — lean narrative (INV-15): hero → manifiesto → quién hay detrás → cierre.
- * No full-page fixed grain (paint cost on scroll); grain lives in sections.
+ * Home — wall + editorial hero, manifesto, about, logo strip, close.
  */
 export default function HomePage() {
   return (
@@ -37,6 +37,7 @@ export default function HomePage() {
       <HomeHero />
       <HomeManifesto />
       <HomeAbout />
+      <HomeLogoCarousel />
       <HomeCTA />
     </main>
   );
