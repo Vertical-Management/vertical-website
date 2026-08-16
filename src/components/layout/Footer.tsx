@@ -5,14 +5,12 @@ import { Logo } from "@/components/layout/Logo";
 import { NavLink } from "@/components/layout/NavLink";
 import { useLanguage } from "@/components/providers/LanguageProvider";
 import { Grain } from "@/components/ui/Grain";
-import { Magnetic } from "@/components/ui/Magnetic";
 import { socialIconFor } from "@/components/ui/SocialIcons";
 import { NAV_LINKS, SITE, SOCIAL_LINKS } from "@/lib/constants";
 import { NAV_I18N_KEYS } from "@/lib/i18n";
-import { cn } from "@/lib/utils";
 
 /**
- * Site footer — compact close: manifesto line, nav, social with icons, legal.
+ * Site footer — brand, nav, social, legal.
  */
 export function Footer() {
   const { t } = useLanguage();
@@ -31,35 +29,8 @@ export function Footer() {
       <Grain />
 
       <div className="relative z-[1] mx-auto max-w-site px-gutter py-14 md:py-20">
-        {/* Closing manifesto */}
-        <div className="mx-auto max-w-2xl text-center">
-          <p className="font-mono text-caption uppercase tracking-label text-ink-muted">
-            {t.footer.letsTalk}
-          </p>
-          <h2 className="mt-4 font-display text-display-md text-ink md:text-display-lg">
-            {t.footer.ctaLine1}{" "}
-            <span className="text-accent">{t.footer.ctaAccent}</span>
-            {t.footer.ctaLine2 ? ` ${t.footer.ctaLine2}` : ""}
-          </h2>
-          <Magnetic strength={14} className="mt-8 inline-flex">
-            <NextLink
-              href="/contacto"
-              data-cursor="hover"
-              className={cn(
-                "inline-flex h-12 items-center rounded-pill border-2 border-ink bg-accent-lime px-7",
-                "font-mono text-xs uppercase tracking-[0.14em] text-ink",
-                "shadow-[3px_3px_0_0_var(--color-ink)]",
-                "transition-[transform,box-shadow] duration-base ease-out-expo",
-                "hover:translate-x-px hover:translate-y-px hover:shadow-[1px_1px_0_0_var(--color-ink)]",
-              )}
-            >
-              {t.footer.writeContact}
-            </NextLink>
-          </Magnetic>
-        </div>
-
         {/* Nav + social — centered, balanced */}
-        <div className="mx-auto mt-14 grid max-w-3xl gap-10 border-t border-border pt-10 sm:grid-cols-2 md:mt-18">
+        <div className="mx-auto grid max-w-3xl gap-10 sm:grid-cols-2">
           <div className="text-center sm:text-left">
             <Logo magnetic={false} size="md" className="mx-auto sm:mx-0" />
             <p className="mt-4 text-sm leading-relaxed text-ink-soft">
