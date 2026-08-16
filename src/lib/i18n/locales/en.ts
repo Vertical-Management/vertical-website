@@ -157,7 +157,12 @@ const en: Dictionary = {
       title: "Creative by profession.",
       titleMuted: "Arcade by vocation.",
       body: "We’re not “another agency”. We’re Vertical: Esteban Ferrer’s studio — concept, execution and a little controlled chaos, from Andorra to the world.",
-      chips: ["Andorra", "Esteban Ferrer", "Playful High-Craft"],
+      watermark: "PLAYER ONE",
+      stats: [
+        { value: "AD", label: "Andorra" },
+        { value: "1P", label: "Esteban Ferrer" },
+        { value: "∞", label: "Playful High-Craft" },
+      ],
     },
     timeline: {
       eyebrow: "Origin",

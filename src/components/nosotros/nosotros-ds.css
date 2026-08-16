@@ -1,0 +1,112 @@
+/**
+ * /nosotros-only visual system.
+ * Imported solely from src/app/nosotros/page.tsx — do not reuse elsewhere.
+ */
+
+.nosotros-page {
+  --n-dark: #000000;
+  --n-dark-soft: #0a0a0a;
+  --n-light: #f4f4f5;
+  --n-zinc: #18181b;
+  --n-zinc-500: #71717a;
+  --n-lime: #c8ff00;
+  --n-glass: rgba(255, 255, 255, 0.05);
+  --n-glass-border: rgba(255, 255, 255, 0.1);
+  --n-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --n-radius-shell: 2.5rem;
+  --n-radius-card: 1.25rem;
+  background-color: var(--n-light);
+  color: var(--n-zinc);
+}
+
+.nosotros-page .n-frame {
+  width: 100%;
+  max-width: 1600px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding: 0.75rem 0.75rem 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .nosotros-page .n-frame {
+    gap: 1.15rem;
+    padding: 0.85rem 1.15rem 1.75rem;
+  }
+}
+
+.nosotros-page .n-shell {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--n-radius-shell);
+}
+
+.nosotros-page .n-shell--dark {
+  color: #ffffff;
+  background: linear-gradient(180deg, #0a0a0a 0%, #000000 100%);
+}
+
+.nosotros-page .n-shell--light {
+  color: var(--n-zinc);
+  background: linear-gradient(180deg, #fafafa 0%, #f4f4f5 72%, #ececee 100%);
+}
+
+.nosotros-page .n-grain {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0.13;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 180px 180px;
+}
+
+.nosotros-page .n-glass {
+  background: var(--n-glass);
+  border: 1px solid var(--n-glass-border);
+  border-radius: var(--n-radius-card);
+}
+
+@media (min-width: 768px) {
+  .nosotros-page .n-glass {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .nosotros-page .n-glass--lg {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+}
+
+.nosotros-page .n-label {
+  font-family: var(--font-mono), var(--font-mono-fallback), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.nosotros-page .n-heading {
+  font-weight: 600;
+  letter-spacing: -0.05em;
+  line-height: 1.05;
+}
+
+.nosotros-page .n-body {
+  font-weight: 300;
+  color: var(--n-zinc-500);
+}
+
+.nosotros-page .n-shell--dark .n-body {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nosotros-page .n-action:hover {
+    transform: none;
+  }
+}

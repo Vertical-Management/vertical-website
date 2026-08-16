@@ -97,6 +97,11 @@ Cada bloque de la home (y landings similares) debe aportar claridad o conversió
 No rellenes con marquee, CTAs duplicados, tags o decoración que compitan con el
 mensaje principal, maten legibilidad en móvil o añadan peso sin valor.
 
+**INV-16** — Un look exclusivo de una ruta no puede filtrarse  
+Si una página tiene un sistema visual propio (tokens, glass, wrappers), debe
+quedar acotado a esa ruta. No alteres el chrome compartido (header, footer,
+menú) ni reutilices esas clases o estilos en otras páginas.
+
 ---
 
 ## Declaración al commitear (no es “ejecutar” la orden)
@@ -124,6 +129,7 @@ INV-12: OK
 INV-13: OK
 INV-14: OK
 INV-15: OK
+INV-16: OK
 ```
 
 Formas aceptadas por el gate: `INV-01: OK` · `INV-01=OK` · `INV-01 OK` · `[x] INV-01`  

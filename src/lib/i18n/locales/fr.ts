@@ -157,7 +157,12 @@ const fr: Dictionary = {
       title: "Créatif de métier.",
       titleMuted: "Arcade de vocation.",
       body: "On n’est pas “une agence de plus”. On est Vertical : le studio d’Esteban Ferrer — concept, exécution et un peu de chaos contrôlé, depuis Andorre vers le monde.",
-      chips: ["Andorre", "Esteban Ferrer", "Playful High-Craft"],
+      watermark: "PLAYER ONE",
+      stats: [
+        { value: "AD", label: "Andorre" },
+        { value: "1P", label: "Esteban Ferrer" },
+        { value: "∞", label: "Playful High-Craft" },
+      ],
     },
     timeline: {
       eyebrow: "Origine",

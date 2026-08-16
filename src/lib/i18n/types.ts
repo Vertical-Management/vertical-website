@@ -142,7 +142,8 @@ export type Dictionary = {
       title: string;
       titleMuted: string;
       body: string;
-      chips: string[];
+      watermark: string;
+      stats: { value: string; label: string }[];
     };
     timeline: {
       eyebrow: string;

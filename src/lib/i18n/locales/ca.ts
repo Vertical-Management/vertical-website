@@ -157,7 +157,12 @@ const ca: Dictionary = {
       title: "Creatiu de professió.",
       titleMuted: "Arcade de vocació.",
       body: "No som “una altra agència”. Som Vertical: l’estudi d’Esteban Ferrer — concepte, execució i una mica de caos controlat, des d’Andorra per al món.",
-      chips: ["Andorra", "Esteban Ferrer", "Playful High-Craft"],
+      watermark: "PLAYER ONE",
+      stats: [
+        { value: "AD", label: "Andorra" },
+        { value: "1P", label: "Esteban Ferrer" },
+        { value: "∞", label: "Playful High-Craft" },
+      ],
     },
     timeline: {
       eyebrow: "Origen",

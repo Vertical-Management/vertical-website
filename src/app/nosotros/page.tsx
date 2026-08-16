@@ -9,6 +9,7 @@ import {
 import { JsonLd } from "@/components/seo/JsonLd";
 import { SITE } from "@/lib/constants";
 import { breadcrumbJsonLd, SEO } from "@/lib/seo";
+import "@/components/nosotros/nosotros-ds.css";
 
 export const metadata: Metadata = {
   title: "Nosotros",
@@ -31,7 +32,7 @@ export const metadata: Metadata = {
  */
 export default function NosotrosPage() {
   return (
-    <main id="main-content" className="relative">
+    <main id="main-content" className="nosotros-page relative">
       <JsonLd
         data={[
           breadcrumbJsonLd([
@@ -61,11 +62,13 @@ export default function NosotrosPage() {
           },
         ]}
       />
-      <NosotrosHero />
-      <NosotrosTimeline />
-      <NosotrosRules />
-      <NosotrosFounder />
-      <NosotrosCTA />
+      <div className="n-frame">
+        <NosotrosHero />
+        <NosotrosTimeline />
+        <NosotrosRules />
+        <NosotrosFounder />
+        <NosotrosCTA />
+      </div>
     </main>
   );
 }
