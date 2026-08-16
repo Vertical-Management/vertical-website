@@ -26,10 +26,10 @@ export function CrtFrame({ children }: CrtFrameProps) {
   const { t } = useLanguage();
   const crt = t.servicesPage.crt;
 
+  if (!crt) return <>{children}</>;
+
   return (
     <div className="crt-frame">
-      <div className="crt-glow" aria-hidden />
-      <div className="crt-scanlines" aria-hidden />
       <div className="crt-window">
         <div className="crt-titlebar">
           <div className="crt-dots" aria-hidden>

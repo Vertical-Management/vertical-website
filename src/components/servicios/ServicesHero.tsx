@@ -7,6 +7,25 @@ import { CrtCaret, CrtPrompt } from "./CrtPrimitives";
 /**
  * CRT hero — `whoami --services`.
  */
+function highlightSage(text: string, marks: string[]) {
+  if (marks.length === 0) return text;
+  const escaped = marks
+    .filter(Boolean)
+    .map((m) => m.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+  if (escaped.length === 0) return text;
+  const re = new RegExp(`(${escaped.join("|")})`, "gi");
+  const parts = text.split(re);
+  return parts.map((part, i) =>
+    marks.some((m) => m.toLowerCase() === part.toLowerCase()) ? (
+      <span key={`${part}-${i}`} className="crt-glow-text">
+        {part}
+      </span>
+    ) : (
+      part
+    ),
+  );
+}
+
 export function ServicesHero() {
   const { t } = useLanguage();
   const h = t.servicesPage.hero;
@@ -20,7 +39,7 @@ export function ServicesHero() {
       </h1>
       <p className="crt-glow-text mt-3 text-sm leading-relaxed md:text-base">{w.role}</p>
       <p className="mt-4 max-w-2xl text-sm leading-relaxed text-[#5f8d68] md:text-[0.95rem]">
-        {h.body}
+        {highlightSage(h.body, w.highlights ?? [])}
       </p>
       <ul className="mt-5 space-y-1.5 text-sm">
         {w.checks.map((check) => (

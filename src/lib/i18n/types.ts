@@ -227,6 +227,7 @@ export type Dictionary = {
         command: string;
         banner: string;
         role: string;
+        highlights: string[];
         checks: string[];
         lsCta: string;
         contactCta: string;

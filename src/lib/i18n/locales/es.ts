@@ -330,6 +330,7 @@ const es: Dictionary = {
         command: "whoami --services",
         banner: "SERVICIOS",
         role: "> Creative Management Studio · Branding · Digital · Motion · 3D",
+        highlights: ["carácter", "estudio", "cuatro frentes"],
         checks: [
           "Andorra como base",
           "High-craft + play",

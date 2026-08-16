@@ -44,6 +44,8 @@ export default function ServiciosPage() {
           { name: "Servicios", path: "/servicios" },
         ])}
       />
+      <div className="crt-glow" aria-hidden />
+      <div className="crt-scanlines" aria-hidden />
       <CrtFrame>
         <ServicesHero />
         <ServicesIdentity />

@@ -330,6 +330,7 @@ const en: Dictionary = {
         command: "whoami --services",
         banner: "SERVICES",
         role: "> Creative Management Studio · Branding · Digital · Motion · 3D",
+        highlights: ["character", "studio-grade", "four fronts"],
         checks: ["Andorra as base", "High-craft + play", "No generic work"],
         lsCta: "$ ls ~/services ->",
         contactCta: "./contact --brief",
