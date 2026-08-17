@@ -85,6 +85,8 @@ export type Dictionary = {
   home: {
     hero: {
       creativeManagement: string;
+      /** Small mono byline above the display headline */
+      byline: string;
       line1: string;
       line2: string;
       pitch: string;

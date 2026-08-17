@@ -54,8 +54,9 @@ const ca: Dictionary = {
   home: {
     hero: {
       creativeManagement: "Creative Management",
-      line1: "SOM VERTICAL",
-      line2: "BY ESTEBAN FERRER",
+      byline: "SOM VERTICAL · ESTEBAN FERRER",
+      line1: "Creem",
+      line2: "marques que van",
       pitch:
         "Branding, digital, motion, estratègia i software. Ajudem marques i empreses a guanyar diners de veritat: marketing que converteix, creixement de públic orgànic, productes digitals i vibe coding amb intenció. Des d’Andorra, sense genèrics.",
       insertCoin: "Contacte",

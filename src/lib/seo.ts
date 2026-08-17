@@ -14,7 +14,7 @@ export const SEO = {
   /** Short title when template slots page name: "%s · Vertical" */
   titleShort: `${SITE.name} · ${SITE.founder}`,
   /** Meta description + og:description baseline */
-  description: `${BRAND_TAGLINE} ${SITE.name} · ${SITE.founder} · ${SITE.location}.`,
+  description: `${BRAND_TAGLINE} Branding, digital, motion y estrategia. ${SITE.name} · ${SITE.location}.`,
   /**
    * Fallback static card. App Router also serves `opengraph-image.tsx` (PNG)
    * which most social platforms prefer over SVG.
