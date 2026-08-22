@@ -29,8 +29,8 @@ jobs:
       - name: Install
         run: npm ci
 
-      # format:check se activará tras el pase de formato dedicado (TASK-0013);
-      # hoy el formateo se aplica vía lint-staged sobre archivos cambiados.
+      - name: Format check
+        run: npm run format:check
 
       - name: Lint
         run: npm run lint

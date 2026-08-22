@@ -61,13 +61,7 @@ const fr: Dictionary = {
         "Branding, digital, motion, stratégie et software. Nous aidons marques et entreprises à gagner de l’argent réel : marketing qui convertit, croissance d’audience organique, produits digitaux et vibe coding avec intention. Depuis Andorre, sans génériques.",
       insertCoin: "Contact",
       viewProjects: "Voir les projets",
-      rotating: [
-        "plus loin",
-        "plus étrange",
-        "plus haut",
-        "plus fun",
-        "plus vertical",
-      ],
+      rotating: ["plus loin", "plus étrange", "plus haut", "plus fun", "plus vertical"],
       tags: ["Branding", "Digital", "Motion", "3D"],
       locationLoading: "Détection de la position…",
       sectionLabel: "Accueil",
@@ -387,11 +381,7 @@ const fr: Dictionary = {
         banner: "SERVICES",
         role: "> Creative Management Studio · Branding · Digital · Motion · 3D",
         highlights: ["caractère", "studio", "quatre fronts"],
-        checks: [
-          "Andorre comme base",
-          "High-craft + play",
-          "Pas de travail générique",
-        ],
+        checks: ["Andorre comme base", "High-craft + play", "Pas de travail générique"],
         lsCta: "$ ls ~/services ->",
         contactCta: "./contact --brief",
       },
@@ -458,8 +448,7 @@ const fr: Dictionary = {
     digital: {
       title: "Digital & Web",
       punch: "EXPÉRIENCE",
-      description:
-        "Sites et produits niveau Awwwards avec une personnalité d’arcade.",
+      description: "Sites et produits niveau Awwwards avec une personnalité d’arcade.",
       longDescription:
         "Web et produits digitaux avec typo d’impact, micro-interactions intentionnelles et vraie performance. Premium en exécution, fun au cœur.",
       tags: ["Web", "UI", "UX", "Expériences"],
@@ -490,8 +479,7 @@ const fr: Dictionary = {
     strategy: {
       title: "Stratégie créative",
       punch: "CONCEPT",
-      description:
-        "Concept d’abord. Puis exécution. Humour inclus quand ça apporte.",
+      description: "Concept d’abord. Puis exécution. Humour inclus quand ça apporte.",
       longDescription:
         "Avant le pixel : l’angle. Positionnement, campagnes et récits qui donnent une direction à l’équipe et de la clarté au client.",
       tags: ["Concept", "Campaign", "Conseil", "Narratif"],
@@ -568,8 +556,7 @@ const fr: Dictionary = {
         { value: "ongoing", label: "Retainer / ongoing" },
       ],
       message: "Message",
-      messagePlaceholder:
-        "Le projet, le deadline impossible, le dream — n’importe quoi.",
+      messagePlaceholder: "Le projet, le deadline impossible, le dream — n’importe quoi.",
       honeypot: "Ne pas remplir",
       privacyNote:
         "Envoi à {email}. Réponse humaine, sans autoresponder de 2012. En envoyant tu acceptes la",
@@ -601,8 +588,7 @@ const fr: Dictionary = {
     eyebrowCases: "Cas",
     eyebrowOs: "Vertical OS",
     title: "Projets",
-    bodyMobile:
-      "Quatre cas réels. Client, type et année visibles — touche et entre.",
+    bodyMobile: "Quatre cas réels. Client, type et année visibles — touche et entre.",
     bodyDesktop:
       "Vertical OS : le bureau d’antan, modernisé. Ouvre des fenêtres, glisse, minimise sans pitié.",
     desktopMeta: "Desktop · v2.0 · {count} cases loaded",

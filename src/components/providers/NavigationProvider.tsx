@@ -102,9 +102,7 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
   );
 
   return (
-    <NavigationContext.Provider value={value}>
-      {children}
-    </NavigationContext.Provider>
+    <NavigationContext.Provider value={value}>{children}</NavigationContext.Provider>
   );
 }
 

@@ -28,9 +28,7 @@ export function HeroCinematic({ preview, className }: VariantProps) {
   const { location, loading } = useVisitorLocation();
   const { t } = useLanguage();
   const h = t.home.hero;
-  const badgeLabel = loading
-    ? h.locationLoading
-    : (location?.label ?? h.locationLoading);
+  const badgeLabel = loading ? h.locationLoading : (location?.label ?? h.locationLoading);
 
   // Fade copy only — no scrub on coarse pointers / reduced motion
   useGSAP(
@@ -39,8 +37,7 @@ export function HeroCinematic({ preview, className }: VariantProps) {
       registerGsap();
       const fade = root.current.querySelectorAll<HTMLElement>("[data-hero-fade]");
       const coarse =
-        typeof window !== "undefined" &&
-        window.matchMedia("(pointer: coarse)").matches;
+        typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches;
       if (coarse) return;
 
       fade.forEach((el) => {
@@ -84,10 +81,10 @@ export function HeroCinematic({ preview, className }: VariantProps) {
           <HeroWallCarousel />
         </motion.div>
 
-        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/65 to-ink/35" />
-        <div className="absolute inset-0 bg-gradient-to-r from-ink/90 via-ink/55 to-ink/30" />
+        <div className="via-ink/65 to-ink/35 absolute inset-0 bg-gradient-to-t from-ink" />
+        <div className="from-ink/90 via-ink/55 to-ink/30 absolute inset-0 bg-gradient-to-r" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_70%,transparent_0%,rgb(10_10_10/0.55)_70%)]" />
-        <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-ink/70 to-transparent md:h-36" />
+        <div className="from-ink/70 absolute inset-x-0 top-0 h-28 bg-gradient-to-b to-transparent md:h-36" />
       </div>
 
       <Grain className="opacity-[0.06]" />
@@ -102,7 +99,7 @@ export function HeroCinematic({ preview, className }: VariantProps) {
         className="relative z-[2] mx-auto w-full max-w-site px-gutter pb-14 pt-12 sm:pb-20 sm:pt-16 md:pb-24 md:pt-22"
       >
         <motion.span
-          className="mb-4 inline-flex min-h-[1.75rem] min-w-[12rem] max-w-full items-center gap-2 rounded-pill border border-paper/20 bg-ink/55 px-3 py-1 font-mono text-[0.6rem] uppercase tracking-label text-accent-lime backdrop-blur-sm sm:mb-5 sm:min-w-[14rem]"
+          className="border-paper/20 bg-ink/55 tracking-label mb-4 inline-flex min-h-[1.75rem] min-w-[12rem] max-w-full items-center gap-2 rounded-pill border px-3 py-1 font-mono text-[0.6rem] uppercase text-accent-lime backdrop-blur-sm sm:mb-5 sm:min-w-[14rem]"
           style={{ color: "var(--color-accent-lime, #c8ff00)" }}
           initial={skipMotion ? false : { opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
@@ -117,9 +114,7 @@ export function HeroCinematic({ preview, className }: VariantProps) {
             )}
             aria-hidden
           />
-          <span className={cn("truncate", loading && "opacity-70")}>
-            {badgeLabel}
-          </span>
+          <span className={cn("truncate", loading && "opacity-70")}>{badgeLabel}</span>
         </motion.span>
         <HeroCopy tone="paper" static={!!preview} />
       </div>

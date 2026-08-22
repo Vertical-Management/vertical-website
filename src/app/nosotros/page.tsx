@@ -32,11 +32,7 @@ export const metadata: Metadata = {
  */
 export default function NosotrosPage() {
   return (
-    <main
-      id="main-content"
-      data-nav-ground="paper"
-      className="nosotros-page relative"
-    >
+    <main id="main-content" data-nav-ground="paper" className="nosotros-page relative">
       <JsonLd
         data={[
           breadcrumbJsonLd([

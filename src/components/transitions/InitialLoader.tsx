@@ -109,7 +109,7 @@ export function InitialLoader() {
               priority={false}
               className="h-20 w-auto object-contain md:h-24"
             />
-            <p className="font-display text-display-lg tracking-display md:text-display-xl">
+            <p className="tracking-display font-display text-display-lg md:text-display-xl">
               VERTICAL
             </p>
           </motion.div>
@@ -121,7 +121,7 @@ export function InitialLoader() {
                 style={{ width: `${progress}%` }}
               />
             </div>
-            <p className="mt-3 text-center font-mono text-[10px] tabular-nums tracking-label text-white/40">
+            <p className="tracking-label mt-3 text-center font-mono text-[10px] tabular-nums text-white/40">
               {String(progress).padStart(3, "0")}%
             </p>
           </div>

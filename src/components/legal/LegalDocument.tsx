@@ -30,17 +30,13 @@ export function LegalDocument({ kind }: LegalDocumentProps) {
   return (
     <Container className="max-w-narrow py-section">
       <Eyebrow className="mb-4">{doc.eyebrow}</Eyebrow>
-      <h1 className="font-display text-display-lg tracking-display">
-        {doc.title}
-      </h1>
+      <h1 className="tracking-display font-display text-display-lg">{doc.title}</h1>
       <p className="mt-4 text-ink-soft">{fill(doc.updated, vars)}</p>
 
       <div className="prose-vertical mt-12 space-y-10 text-base leading-relaxed text-ink-soft">
         {doc.sections.map((section) => (
           <section key={section.title}>
-            <h2 className="font-display text-display-sm text-ink">
-              {section.title}
-            </h2>
+            <h2 className="font-display text-display-sm text-ink">{section.title}</h2>
             <p className="mt-3">{fill(section.body, vars)}</p>
             {section.list ? (
               <ul className="mt-3 list-disc space-y-1 pl-5">
@@ -56,7 +52,7 @@ export function LegalDocument({ kind }: LegalDocumentProps) {
       <p className="mt-16">
         <Link
           href="/contacto"
-          className="font-mono text-caption uppercase tracking-label text-ink-muted transition-colors hover:text-accent"
+          className="tracking-label font-mono text-caption uppercase text-ink-muted transition-colors hover:text-accent"
         >
           {doc.backContact}
         </Link>

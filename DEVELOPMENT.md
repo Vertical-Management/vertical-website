@@ -97,12 +97,14 @@ vertical-website/
 ### Adding a New Page
 
 1. **Create a new `.astro` file** in `src/pages/`:
+
    ```bash
    # Example: src/pages/blog.astro
    touch src/pages/blog.astro
    ```
 
 2. **Template**:
+
    ```astro
    ---
    import BaseLayout from '../layouts/BaseLayout.astro';
@@ -124,11 +126,13 @@ vertical-website/
 ### Adding a New Component
 
 1. **Create component file**:
+
    ```bash
    touch src/components/MyComponent.jsx
    ```
 
 2. **Example React component**:
+
    ```jsx
    export default function MyComponent() {
      return <div className="my-component">Hello!</div>;
@@ -148,6 +152,7 @@ vertical-website/
 Two approaches:
 
 **1. Global styles** (in `src/styles/global.scss` or `animations.scss`):
+
 ```scss
 .my-component {
   padding: 1rem;
@@ -156,6 +161,7 @@ Two approaches:
 ```
 
 **2. Scoped styles** (in Astro component):
+
 ```astro
 ---
 // Component logic
@@ -191,6 +197,7 @@ Edit `src/data/projects.json`:
 ```
 
 Then projects auto-generate:
+
 - Listing page: `/proyectos`
 - Detail page: `/proyectos/my-project`
 
@@ -215,13 +222,14 @@ Edit directly and save; dev server will hot-reload.
 ```scss
 /* In global.scss */
 :root {
-  --vm-bg: #ffffff;      /* Background */
-  --vm-fg: #0b0b0b;      /* Foreground / text */
-  --vm-accent: #ff4d4f;  /* Red accent */
+  --vm-bg: #ffffff; /* Background */
+  --vm-fg: #0b0b0b; /* Foreground / text */
+  --vm-accent: #ff4d4f; /* Red accent */
 }
 ```
 
 Use in components:
+
 ```scss
 .my-element {
   background: var(--vm-bg);
@@ -233,18 +241,21 @@ Use in components:
 ### Add a New Color
 
 1. Update `src/styles/global.scss`:
+
    ```scss
    :root {
      --vm-bg: #ffffff;
      --vm-fg: #0b0b0b;
      --vm-accent: #ff4d4f;
-     --vm-secondary: #1890ff;  /* New color */
+     --vm-secondary: #1890ff; /* New color */
    }
    ```
 
 2. Use in components:
    ```scss
-   .secondary-btn { background: var(--vm-secondary); }
+   .secondary-btn {
+     background: var(--vm-secondary);
+   }
    ```
 
 ### Animations
@@ -269,6 +280,7 @@ Advanced animations are in `src/styles/animations.scss`. Add new ones:
 ```
 
 Always respect `prefers-reduced-motion`:
+
 ```scss
 @media (prefers-reduced-motion: reduce) {
   * {
@@ -284,7 +296,7 @@ Always respect `prefers-reduced-motion`:
 ### Optimal Formats
 
 - **Heroes/Full-width**: WebP (85% quality) or optimized JPEG
-- **Thumbnails**: WebP 
+- **Thumbnails**: WebP
 - **Icons/Logos**: SVG
 - **Animated content**: GIF or MP4 (MP4 is smaller)
 
@@ -311,13 +323,9 @@ convert input.jpg -quality 85 output.jpg
 ### Lazy Load Images
 
 In components:
+
 ```jsx
-<img
-  src="/assets/image.webp"
-  alt="Description"
-  loading="lazy"
-  decoding="async"
-/>
+<img src="/assets/image.webp" alt="Description" loading="lazy" decoding="async" />
 ```
 
 ---
@@ -387,6 +395,7 @@ npm run format
 ### Check for Issues
 
 Look for any console warnings in:
+
 1. Browser DevTools Console
 2. Test Lighthouse audit: Right-click → Inspect → Lighthouse
 

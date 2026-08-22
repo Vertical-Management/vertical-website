@@ -48,8 +48,7 @@ function srgbToLin(c: number) {
 /** True only for white / paper / cream — not for tinted or saturated grounds. */
 function isNearWhite({ r, g, b, a }: Rgba): boolean {
   if (a < 0.72) return false;
-  const L =
-    0.2126 * srgbToLin(r) + 0.7152 * srgbToLin(g) + 0.0722 * srgbToLin(b);
+  const L = 0.2126 * srgbToLin(r) + 0.7152 * srgbToLin(g) + 0.0722 * srgbToLin(b);
   const max = Math.max(r, g, b) / 255;
   const min = Math.min(r, g, b) / 255;
   const sat = max === 0 ? 0 : (max - min) / max;

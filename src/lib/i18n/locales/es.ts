@@ -61,13 +61,7 @@ const es: Dictionary = {
         "Branding, digital, motion, estrategia y software. Ayudamos a marcas y empresas a ganar dinero real: marketing que convierte, crecimiento de público orgánico, productos digitales y vibe coding con intención. Desde Andorra, sin genéricos.",
       insertCoin: "Contacto",
       viewProjects: "Ver proyectos",
-      rotating: [
-        "más lejos",
-        "más raro",
-        "más alto",
-        "más divertido",
-        "más vertical",
-      ],
+      rotating: ["más lejos", "más raro", "más alto", "más divertido", "más vertical"],
       tags: ["Branding", "Digital", "Motion", "3D"],
       locationLoading: "Detectando ubicación…",
       sectionLabel: "Inicio",
@@ -168,32 +162,27 @@ const es: Dictionary = {
           role: "Founder",
         },
         {
-          quote:
-            "Pedimos identidad. Volvió un sistema que el equipo usa todos los días.",
+          quote: "Pedimos identidad. Volvió un sistema que el equipo usa todos los días.",
           name: "Tomás Herrera",
           role: "CMO",
         },
         {
-          quote:
-            "Nada de postureo. Hablan claro, entregan raro y la conversión se nota.",
+          quote: "Nada de postureo. Hablan claro, entregan raro y la conversión se nota.",
           name: "Aina Riba",
           role: "Product lead",
         },
         {
-          quote:
-            "El sitio no parece otro sitio más. Ya solo por eso vale pulsar start.",
+          quote: "El sitio no parece otro sitio más. Ya solo por eso vale pulsar start.",
           name: "Julien Marchand",
           role: "Director creativo",
         },
         {
-          quote:
-            "Debrief en una llamada. Craft en cada hover. Así debería ser siempre.",
+          quote: "Debrief en una llamada. Craft en cada hover. Así debería ser siempre.",
           name: "Paula Mendes",
           role: "Brand manager",
         },
         {
-          quote:
-            "Pensé que playful high-craft era un eslogan. Luego vi el trabajo.",
+          quote: "Pensé que playful high-craft era un eslogan. Luego vi el trabajo.",
           name: "Oriol Serra",
           role: "CEO",
         },
@@ -387,11 +376,7 @@ const es: Dictionary = {
         banner: "SERVICIOS",
         role: "> Creative Management Studio · Branding · Digital · Motion · 3D",
         highlights: ["carácter", "estudio", "cuatro frentes"],
-        checks: [
-          "Andorra como base",
-          "High-craft + play",
-          "Sin trabajo genérico",
-        ],
+        checks: ["Andorra como base", "High-craft + play", "Sin trabajo genérico"],
         lsCta: "$ ls ~/services ->",
         contactCta: "./contact --brief",
       },
@@ -458,8 +443,7 @@ const es: Dictionary = {
     digital: {
       title: "Digital & Web",
       punch: "EXPERIENCIA",
-      description:
-        "Sitios y productos con nivel de Awwwards y personalidad de arcade.",
+      description: "Sitios y productos con nivel de Awwwards y personalidad de arcade.",
       longDescription:
         "Webs y productos digitales con tipografía de impacto, micro-interacciones intencionadas y performance real. Premium en la ejecución, divertido en el alma.",
       tags: ["Web", "UI", "UX", "Experiencias"],
@@ -490,8 +474,7 @@ const es: Dictionary = {
     strategy: {
       title: "Estrategia creativa",
       punch: "CONCEPTO",
-      description:
-        "Concepto primero. Luego ejecución. Humor incluido cuando suma.",
+      description: "Concepto primero. Luego ejecución. Humor incluido cuando suma.",
       longDescription:
         "Antes del pixel: el ángulo. Posicionamiento, campañas y narrativas que dan dirección al equipo y claridad al cliente.",
       tags: ["Concepto", "Campaign", "Consultoría", "Narrativa"],
@@ -568,10 +551,10 @@ const es: Dictionary = {
         { value: "ongoing", label: "Retainer / ongoing" },
       ],
       message: "Mensaje",
-      messagePlaceholder:
-        "El proyecto, el deadline imposible, el dream — lo que sea.",
+      messagePlaceholder: "El proyecto, el deadline imposible, el dream — lo que sea.",
       honeypot: "No rellenar",
-      privacyNote: "Envío a {email}. Respuesta humana, sin autoresponder de 2012. Al enviar aceptas la",
+      privacyNote:
+        "Envío a {email}. Respuesta humana, sin autoresponder de 2012. Al enviar aceptas la",
       privacyLink: "política de privacidad",
       sending: "Enviando…",
       submit: "Insert coin · Enviar",
@@ -583,8 +566,7 @@ const es: Dictionary = {
       errNetwork: "Red caída. Escríbenos a {email} y lo resolvemos offline.",
       successEyebrow: "Coin accepted",
       successTitle: "Mensaje en camino.",
-      successBody:
-        "Lo tenemos. Respuesta humana desde Andorra — no bot de 2012.",
+      successBody: "Lo tenemos. Respuesta humana desde Andorra — no bot de 2012.",
       sendAnother: "Enviar otro",
       orWrite: "O escribe a",
       defaultSuccess: "Mensaje recibido. Te respondemos pronto.",
@@ -601,8 +583,7 @@ const es: Dictionary = {
     eyebrowCases: "Casos",
     eyebrowOs: "Vertical OS",
     title: "Proyectos",
-    bodyMobile:
-      "Cuatro casos reales. Cliente, tipo y año a la vista — toca y entra.",
+    bodyMobile: "Cuatro casos reales. Cliente, tipo y año a la vista — toca y entra.",
     bodyDesktop:
       "Vertical OS: el escritorio de siempre, modernizado. Abre ventanas, arrastra, minimiza sin piedad.",
     desktopMeta: "Desktop · v2.0 · {count} cases loaded",

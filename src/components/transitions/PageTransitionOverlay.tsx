@@ -26,12 +26,7 @@ export function PageTransitionOverlay() {
 
   return (
     <>
-      <div
-        className="sr-only"
-        role="status"
-        aria-live="polite"
-        aria-atomic="true"
-      >
+      <div className="sr-only" role="status" aria-live="polite" aria-atomic="true">
         {isTransitioning ? `${t.common.navigatingTo} ${label}` : ""}
       </div>
 
@@ -155,7 +150,7 @@ export function PageTransitionOverlay() {
 
               <motion.p
                 className={cn(
-                  "font-display text-display-md tracking-display text-paper md:text-display-lg",
+                  "tracking-display font-display text-display-md text-paper md:text-display-lg",
                 )}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{

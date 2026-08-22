@@ -98,10 +98,8 @@ export function HomeWork() {
                     />
                     <div
                       className={cn(
-                        "absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/10 to-transparent transition-opacity duration-base",
-                        isActive
-                          ? "opacity-100"
-                          : "opacity-80 group-hover:opacity-100",
+                        "from-ink/70 via-ink/10 absolute inset-0 bg-gradient-to-t to-transparent transition-opacity duration-base",
+                        isActive ? "opacity-100" : "opacity-80 group-hover:opacity-100",
                       )}
                     />
                     <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5 md:p-7">
@@ -109,7 +107,7 @@ export function HomeWork() {
                         {project.categories.slice(0, 2).map((cat) => (
                           <span
                             key={cat}
-                            className="rounded-pill bg-paper/15 px-2.5 py-1 font-mono text-[0.6rem] uppercase tracking-label text-paper backdrop-blur-sm"
+                            className="bg-paper/15 tracking-label rounded-pill px-2.5 py-1 font-mono text-[0.6rem] uppercase text-paper backdrop-blur-sm"
                           >
                             {cat}
                           </span>
@@ -118,12 +116,12 @@ export function HomeWork() {
                       <h3 className="mt-2 font-display text-display-sm text-paper sm:mt-3 md:text-display-md">
                         {project.title}
                       </h3>
-                      <p className="mt-1.5 line-clamp-2 max-w-sm text-sm text-paper/75 sm:mt-2 sm:line-clamp-none">
+                      <p className="text-paper/75 mt-1.5 line-clamp-2 max-w-sm text-sm sm:mt-2 sm:line-clamp-none">
                         {project.excerpt}
                       </p>
                       <span
                         className={cn(
-                          "mt-4 inline-flex items-center gap-2 font-mono text-[0.65rem] uppercase tracking-label text-accent-lime",
+                          "tracking-label mt-4 inline-flex items-center gap-2 font-mono text-[0.65rem] uppercase text-accent-lime",
                           "transition-transform duration-base ease-out-expo",
                           !reduced && "group-hover:translate-x-1",
                         )}
@@ -143,7 +141,7 @@ export function HomeWork() {
             <NextLink
               href="/proyectos"
               data-cursor="hover"
-              className="inline-flex h-12 items-center rounded-pill border border-border-strong px-6 font-mono text-xs uppercase tracking-label transition-colors duration-base hover:border-ink hover:bg-ink hover:text-paper"
+              className="tracking-label inline-flex h-12 items-center rounded-pill border border-border-strong px-6 font-mono text-xs uppercase transition-colors duration-base hover:border-ink hover:bg-ink hover:text-paper"
             >
               {w.enterDesktop}
             </NextLink>

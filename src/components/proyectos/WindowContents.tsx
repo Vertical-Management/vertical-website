@@ -24,14 +24,12 @@ export function ProjectWindowBody({ project }: { project: Project }) {
           aria-hidden
         />
         <div className="absolute bottom-3 left-3 right-3">
-          <p className="font-mono text-[10px] uppercase tracking-label text-white/60">
+          <p className="tracking-label font-mono text-[10px] uppercase text-white/60">
             {project.year}
             {project.client ? ` · ${project.client}` : ""}
             {project.projectType ? ` · ${project.projectType}` : ""}
           </p>
-          <h3 className="font-display text-xl text-white md:text-2xl">
-            {project.title}
-          </h3>
+          <h3 className="font-display text-xl text-white md:text-2xl">{project.title}</h3>
         </div>
       </div>
 
@@ -40,7 +38,7 @@ export function ProjectWindowBody({ project }: { project: Project }) {
           {project.categories.map((c) => (
             <span
               key={c}
-              className="rounded-pill border border-white/15 px-2 py-0.5 font-mono text-[10px] uppercase tracking-label text-white/70"
+              className="tracking-label rounded-pill border border-white/15 px-2 py-0.5 font-mono text-[10px] uppercase text-white/70"
             >
               {c}
             </span>
@@ -51,12 +49,12 @@ export function ProjectWindowBody({ project }: { project: Project }) {
           <NextLink
             href={`/proyectos/${project.slug}`}
             data-cursor="hover"
-            className="inline-flex h-9 items-center rounded-pill bg-accent-lime px-4 font-mono text-[11px] uppercase tracking-label text-ink transition-transform duration-base hover:scale-[1.02]"
+            className="tracking-label inline-flex h-9 items-center rounded-pill bg-accent-lime px-4 font-mono text-[11px] uppercase text-ink transition-transform duration-base hover:scale-[1.02]"
           >
             Abrir caso →
           </NextLink>
           {project.role ? (
-            <span className="inline-flex h-9 items-center font-mono text-[10px] uppercase tracking-label text-white/40">
+            <span className="tracking-label inline-flex h-9 items-center font-mono text-[10px] uppercase text-white/40">
               {project.role}
             </span>
           ) : null}
@@ -87,13 +85,13 @@ export function ReadmeWindowBody() {
 export function AboutWindowBody() {
   return (
     <div className="p-5">
-      <p className="font-mono text-[10px] uppercase tracking-label text-accent-lime">
+      <p className="tracking-label font-mono text-[10px] uppercase text-accent-lime">
         About this machine
       </p>
       <h3 className="mt-2 font-display text-2xl text-white">Vertical OS</h3>
       <p className="mt-3 text-sm leading-relaxed text-white/65">
-        Un desktop creativo modernizado: el espíritu XP/Linux del sitio original,
-        con UI de 2026. Proyectos como apps. Humor incluido en el kernel.
+        Un desktop creativo modernizado: el espíritu XP/Linux del sitio original, con UI
+        de 2026. Proyectos como apps. Humor incluido en el kernel.
       </p>
       <p className="mt-4 text-sm text-white/50">
         Founder: {SITE.founder}
@@ -102,7 +100,7 @@ export function AboutWindowBody() {
       </p>
       <NextLink
         href="/contacto"
-        className="mt-5 inline-flex font-mono text-[11px] uppercase tracking-label text-accent-lime hover:underline"
+        className="tracking-label mt-5 inline-flex font-mono text-[11px] uppercase text-accent-lime hover:underline"
         data-cursor="hover"
       >
         Escribir → Contacto
@@ -119,18 +117,13 @@ export function TrashWindowBody() {
       </span>
       <p className="font-display text-lg text-white">Papelera vacía</p>
       <p className="max-w-xs text-sm text-white/50">
-        Aquí irían los briefs aburridos y los archivos “final_v3_REAL”. Vacío.
-        Buen signo.
+        Aquí irían los briefs aburridos y los archivos “final_v3_REAL”. Vacío. Buen signo.
       </p>
     </div>
   );
 }
 
-export function SystemWindowBody({
-  className,
-}: {
-  className?: string;
-}) {
+export function SystemWindowBody({ className }: { className?: string }) {
   return (
     <div className={cn("space-y-2 p-5 font-mono text-[11px] text-white/60", className)}>
       <p className="text-accent-lime">vertical@andorra:~$</p>

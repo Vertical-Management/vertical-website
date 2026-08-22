@@ -55,8 +55,7 @@ async function deliverEmail(data: ContactPayload): Promise<{
 
   const { subject, text, html } = formatContactEmail(data);
   const to = process.env.CONTACT_TO_EMAIL || SITE.email;
-  const from =
-    process.env.CONTACT_FROM_EMAIL || `Vertical <onboarding@resend.dev>`;
+  const from = process.env.CONTACT_FROM_EMAIL || `Vertical <onboarding@resend.dev>`;
   const apiKey = process.env.RESEND_API_KEY;
 
   if (apiKey) {
@@ -130,10 +129,7 @@ export async function POST(req: Request) {
     const parsed = validateContactPayload(json);
 
     if (!parsed.ok) {
-      return NextResponse.json(
-        { ok: false, errors: parsed.errors },
-        { status: 400 },
-      );
+      return NextResponse.json({ ok: false, errors: parsed.errors }, { status: 400 });
     }
 
     const result = await deliverEmail(parsed.data);

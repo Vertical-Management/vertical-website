@@ -14,7 +14,10 @@ export function NosotrosTimeline() {
   const reveal = useNosotrosReveal();
 
   return (
-    <NosotrosShell tone="light" className="px-5 py-14 sm:px-8 sm:py-16 md:px-12 md:py-20 lg:px-16">
+    <NosotrosShell
+      tone="light"
+      className="px-5 py-14 sm:px-8 sm:py-16 md:px-12 md:py-20 lg:px-16"
+    >
       <div className="max-w-2xl">
         <motion.p
           className="n-label mb-4 text-zinc-500"

@@ -40,10 +40,7 @@ export function Marquee({
   if (reduced) {
     return (
       <div
-        className={cn(
-          "flex overflow-x-auto scrollbar-none",
-          className,
-        )}
+        className={cn("scrollbar-none flex overflow-x-auto", className)}
         style={{ gap }}
       >
         {children}
@@ -52,13 +49,7 @@ export function Marquee({
   }
 
   return (
-    <div
-      className={cn(
-        "group relative flex overflow-hidden",
-        className,
-      )}
-      aria-hidden
-    >
+    <div className={cn("group relative flex overflow-hidden", className)} aria-hidden>
       <div
         className={cn(
           "flex min-w-full shrink-0 items-center",
@@ -69,11 +60,7 @@ export function Marquee({
         style={{ gap, columnGap: gap }}
       >
         {Array.from({ length: copies }).map((_, i) => (
-          <div
-            key={i}
-            className="flex shrink-0 items-center"
-            style={{ gap }}
-          >
+          <div key={i} className="flex shrink-0 items-center" style={{ gap }}>
             {children}
           </div>
         ))}
@@ -89,8 +76,6 @@ type MarqueeItemProps = {
 
 export function MarqueeItem({ children, className }: MarqueeItemProps) {
   return (
-    <div className={cn("inline-flex shrink-0 items-center", className)}>
-      {children}
-    </div>
+    <div className={cn("inline-flex shrink-0 items-center", className)}>{children}</div>
   );
 }

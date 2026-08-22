@@ -50,7 +50,7 @@ export function ProjectDetail({ project: raw }: ProjectDetailProps) {
             priority
             unoptimized={coverIsGif}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-transparent" />
+          <div className="via-ink/40 absolute inset-0 bg-gradient-to-t from-ink to-transparent" />
           <Grain className="opacity-30" strong />
           <Container className="absolute inset-x-0 bottom-0 z-[1] pb-10 md:pb-14">
             <Eyebrow className="mb-3 !text-white/50">
@@ -66,11 +66,7 @@ export function ProjectDetail({ project: raw }: ProjectDetailProps) {
             ) : null}
             <div className="mt-5 flex flex-wrap gap-2">
               {project.categories.map((c) => (
-                <Badge
-                  key={c}
-                  variant="outline"
-                  className="border-white/25 text-paper"
-                >
+                <Badge key={c} variant="outline" className="border-white/25 text-paper">
                   {c}
                 </Badge>
               ))}
@@ -81,7 +77,7 @@ export function ProjectDetail({ project: raw }: ProjectDetailProps) {
 
       <section className="border-b border-border bg-paper-warm py-4 md:py-5">
         <Container>
-          <ul className="flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[0.65rem] uppercase tracking-label text-ink-muted">
+          <ul className="tracking-label flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[0.65rem] uppercase text-ink-muted">
             {project.client ? (
               <li>
                 <span className="text-ink-faint">{t.common.client}</span>{" "}
@@ -112,7 +108,7 @@ export function ProjectDetail({ project: raw }: ProjectDetailProps) {
         <Container>
           <div className="grid gap-12 lg:grid-cols-12">
             <Reveal className="lg:col-span-4">
-              <dl className="space-y-5 font-mono text-caption uppercase tracking-label">
+              <dl className="tracking-label space-y-5 font-mono text-caption uppercase">
                 {project.client ? (
                   <div>
                     <dt className="text-ink-muted">{t.common.client}</dt>
@@ -146,7 +142,7 @@ export function ProjectDetail({ project: raw }: ProjectDetailProps) {
               </dl>
               <NextLink
                 href="/proyectos"
-                className="mt-8 inline-flex font-mono text-caption uppercase tracking-label text-ink-muted transition-colors hover:text-accent"
+                className="tracking-label mt-8 inline-flex font-mono text-caption uppercase text-ink-muted transition-colors hover:text-accent"
                 data-cursor="hover"
               >
                 {pd.backProjects}
@@ -163,24 +159,18 @@ export function ProjectDetail({ project: raw }: ProjectDetailProps) {
               {cs ? (
                 <div className="space-y-8">
                   <Reveal delay={0.08}>
-                    <CaseBlock
-                      label={`01 · ${pd.context}`}
-                      title={pd.problem}
-                    >
+                    <CaseBlock label={`01 · ${pd.context}`} title={pd.problem}>
                       {cs.context}
                     </CaseBlock>
                   </Reveal>
                   <Reveal delay={0.1}>
-                    <CaseBlock
-                      label={`02 · ${pd.approach}`}
-                      title={pd.idea}
-                    >
+                    <CaseBlock label={`02 · ${pd.approach}`} title={pd.idea}>
                       {cs.approach}
                     </CaseBlock>
                   </Reveal>
                   <Reveal delay={0.12}>
                     <div>
-                      <p className="font-mono text-caption uppercase tracking-label text-accent">
+                      <p className="tracking-label font-mono text-caption uppercase text-accent">
                         03 · {pd.deliverables}
                       </p>
                       <h2 className="mt-2 font-display text-display-sm tracking-tight">
@@ -203,10 +193,7 @@ export function ProjectDetail({ project: raw }: ProjectDetailProps) {
                     </div>
                   </Reveal>
                   <Reveal delay={0.14}>
-                    <CaseBlock
-                      label={`04 · ${pd.outcome}`}
-                      title={pd.impact}
-                    >
+                    <CaseBlock label={`04 · ${pd.outcome}`} title={pd.impact}>
                       {cs.outcome}
                     </CaseBlock>
                   </Reveal>
@@ -258,7 +245,7 @@ export function ProjectDetail({ project: raw }: ProjectDetailProps) {
       {(prev || next) && (
         <section className="border-t border-border py-10 md:py-12">
           <Container>
-            <p className="mb-4 font-mono text-caption uppercase tracking-label text-ink-muted">
+            <p className="tracking-label mb-4 font-mono text-caption uppercase text-ink-muted">
               {pd.nextScreen}
             </p>
             <div className="grid gap-3 sm:grid-cols-2">
@@ -266,9 +253,9 @@ export function ProjectDetail({ project: raw }: ProjectDetailProps) {
                 <NextLink
                   href={`/proyectos/${prev.slug}`}
                   data-cursor="hover"
-                  className="group flex flex-col rounded-card border border-border bg-surface p-5 transition-colors hover:border-ink/30"
+                  className="hover:border-ink/30 group flex flex-col rounded-card border border-border bg-surface p-5 transition-colors"
                 >
-                  <span className="font-mono text-[10px] uppercase tracking-label text-ink-faint">
+                  <span className="tracking-label font-mono text-[10px] uppercase text-ink-faint">
                     {pd.prev}
                   </span>
                   <span className="mt-2 font-display text-lg group-hover:text-accent">
@@ -285,9 +272,9 @@ export function ProjectDetail({ project: raw }: ProjectDetailProps) {
                 <NextLink
                   href={`/proyectos/${next.slug}`}
                   data-cursor="hover"
-                  className="group flex flex-col rounded-card border border-border bg-surface p-5 text-right transition-colors hover:border-ink/30 sm:items-end"
+                  className="hover:border-ink/30 group flex flex-col rounded-card border border-border bg-surface p-5 text-right transition-colors sm:items-end"
                 >
-                  <span className="font-mono text-[10px] uppercase tracking-label text-ink-faint">
+                  <span className="tracking-label font-mono text-[10px] uppercase text-ink-faint">
                     {pd.next}
                   </span>
                   <span className="mt-2 font-display text-lg group-hover:text-accent">
@@ -306,7 +293,7 @@ export function ProjectDetail({ project: raw }: ProjectDetailProps) {
       <section className="border-t border-border py-section">
         <Container className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
           <div>
-            <p className="font-mono text-caption uppercase tracking-label text-ink-muted">
+            <p className="tracking-label font-mono text-caption uppercase text-ink-muted">
               {pd.anotherCase}
             </p>
             <p className="mt-2 font-display text-display-sm">{pd.tellBrief}</p>
@@ -340,7 +327,7 @@ function CaseBlock({
 }) {
   return (
     <div>
-      <p className="font-mono text-caption uppercase tracking-label text-accent">
+      <p className="tracking-label font-mono text-caption uppercase text-accent">
         {label}
       </p>
       <h2 className="mt-2 font-display text-display-sm tracking-tight">{title}</h2>

@@ -131,7 +131,7 @@ export function HeroSplit({ preview, className }: VariantProps) {
               aria-hidden
             />
 
-            <div className="relative overflow-hidden rounded-card border border-ink/10 bg-ink shadow-lg">
+            <div className="border-ink/10 relative overflow-hidden rounded-card border bg-ink shadow-lg">
               <div className="relative aspect-square w-full">
                 <Image
                   src={HERO_INTRO.src}
@@ -142,19 +142,17 @@ export function HeroSplit({ preview, className }: VariantProps) {
                   className="object-cover"
                 />
               </div>
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/80 to-transparent p-5">
-                <p className="font-mono text-[0.6rem] uppercase tracking-label text-accent-lime">
+              <div className="from-ink/80 absolute inset-x-0 bottom-0 bg-gradient-to-t to-transparent p-5">
+                <p className="tracking-label font-mono text-[0.6rem] uppercase text-accent-lime">
                   01 · New intro
                 </p>
-                <p className="mt-1 font-display text-display-sm text-paper">
-                  Arinsal
-                </p>
+                <p className="mt-1 font-display text-display-sm text-paper">Arinsal</p>
               </div>
             </div>
 
             <motion.div
               data-float
-              className="absolute -bottom-6 -left-4 hidden w-24 overflow-hidden rounded-md border border-ink/10 shadow-md sm:block md:-left-8 md:w-28"
+              className="border-ink/10 absolute -bottom-6 -left-4 hidden w-24 overflow-hidden rounded-md border shadow-md sm:block md:-left-8 md:w-28"
               initial={skipMotion ? false : { opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
@@ -208,7 +206,7 @@ export function HeroFeatured({ preview, className }: VariantProps) {
 
       <motion.div
         data-float
-        className="pointer-events-none absolute right-[2%] top-[14%] z-[1] hidden w-[min(38vw,420px)] overflow-hidden rounded-card border border-ink/10 shadow-lg md:block lg:right-[4%] lg:top-[12%]"
+        className="border-ink/10 pointer-events-none absolute right-[2%] top-[14%] z-[1] hidden w-[min(38vw,420px)] overflow-hidden rounded-card border shadow-lg md:block lg:right-[4%] lg:top-[12%]"
         initial={skipMotion ? false : { opacity: 0, scale: 0.92, y: 28 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{
@@ -227,7 +225,7 @@ export function HeroFeatured({ preview, className }: VariantProps) {
             className="object-cover"
           />
         </div>
-        <div className="absolute left-3 top-3 rounded-pill bg-accent-lime px-2.5 py-1 font-mono text-[0.55rem] uppercase tracking-label text-ink">
+        <div className="tracking-label absolute left-3 top-3 rounded-pill bg-accent-lime px-2.5 py-1 font-mono text-[0.55rem] uppercase text-ink">
           Intro
         </div>
       </motion.div>
@@ -237,7 +235,7 @@ export function HeroFeatured({ preview, className }: VariantProps) {
           key={item.alt}
           data-float
           className={cn(
-            "pointer-events-none absolute z-[1] overflow-hidden rounded-md border border-ink/10 shadow-lg",
+            "border-ink/10 pointer-events-none absolute z-[1] overflow-hidden rounded-md border shadow-lg",
             item.className,
           )}
           initial={skipMotion ? false : { opacity: 0, scale: 0.9, y: 24 }}
@@ -265,7 +263,7 @@ export function HeroFeatured({ preview, className }: VariantProps) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: duration.base, ease: EASE_OUT_EXPO }}
       >
-        <div className="relative aspect-[4/3] overflow-hidden rounded-card border border-ink/10 shadow-md">
+        <div className="border-ink/10 relative aspect-[4/3] overflow-hidden rounded-card border shadow-md">
           <Image
             src={HERO_INTRO.src}
             alt={HERO_INTRO.alt}
@@ -311,9 +309,9 @@ export function HeroPoster({ preview, className }: VariantProps) {
       <Grain />
 
       <div className="pointer-events-none absolute inset-0" aria-hidden>
-        <div className="absolute -left-8 top-28 h-32 w-32 rotate-12 bg-accent-lime/40 md:h-44 md:w-44" />
-        <div className="absolute bottom-24 right-[6%] h-24 w-24 -rotate-6 bg-accent/25 md:h-32 md:w-32" />
-        <div className="absolute right-[20%] top-[18%] h-16 w-40 bg-accent-cool/20" />
+        <div className="bg-accent-lime/40 absolute -left-8 top-28 h-32 w-32 rotate-12 md:h-44 md:w-44" />
+        <div className="bg-accent/25 absolute bottom-24 right-[6%] h-24 w-24 -rotate-6 md:h-32 md:w-32" />
+        <div className="bg-accent-cool/20 absolute right-[20%] top-[18%] h-16 w-40" />
       </div>
 
       <div
@@ -327,7 +325,7 @@ export function HeroPoster({ preview, className }: VariantProps) {
         <div className="order-1 md:order-2 md:col-span-6 lg:col-span-7">
           <div className="relative mx-auto max-w-md md:max-w-lg lg:max-w-xl">
             <motion.div
-              className="absolute -left-4 top-8 z-[3] rotate-[-12deg] rounded-pill border-2 border-ink bg-accent-lime px-3 py-1.5 font-mono text-[0.6rem] uppercase tracking-label text-ink shadow-[3px_3px_0_0_var(--color-ink)] md:-left-8 md:top-12"
+              className="tracking-label absolute -left-4 top-8 z-[3] rotate-[-12deg] rounded-pill border-2 border-ink bg-accent-lime px-3 py-1.5 font-mono text-[0.6rem] uppercase text-ink shadow-[3px_3px_0_0_var(--color-ink)] md:-left-8 md:top-12"
               initial={skipMotion ? false : { opacity: 0, scale: 0.8, rotate: -20 }}
               animate={{ opacity: 1, scale: 1, rotate: -12 }}
               transition={{
@@ -340,7 +338,7 @@ export function HeroPoster({ preview, className }: VariantProps) {
             </motion.div>
 
             <motion.div
-              className="absolute -right-2 bottom-16 z-[3] rotate-[8deg] rounded-pill border-2 border-ink bg-accent px-3 py-1.5 font-mono text-[0.6rem] uppercase tracking-label text-paper shadow-[3px_3px_0_0_var(--color-ink)] md:right-0 md:bottom-20"
+              className="tracking-label absolute -right-2 bottom-16 z-[3] rotate-[8deg] rounded-pill border-2 border-ink bg-accent px-3 py-1.5 font-mono text-[0.6rem] uppercase text-paper shadow-[3px_3px_0_0_var(--color-ink)] md:bottom-20 md:right-0"
               initial={skipMotion ? false : { opacity: 0, scale: 0.8, rotate: 16 }}
               animate={{ opacity: 1, scale: 1, rotate: 8 }}
               transition={{
@@ -373,11 +371,11 @@ export function HeroPoster({ preview, className }: VariantProps) {
                   className="object-cover"
                 />
               </div>
-              <div className="absolute inset-x-0 top-0 flex items-center justify-between bg-ink/50 px-4 py-3 backdrop-blur-[2px]">
-                <span className="font-mono text-[0.55rem] uppercase tracking-label text-paper/70">
+              <div className="bg-ink/50 absolute inset-x-0 top-0 flex items-center justify-between px-4 py-3 backdrop-blur-[2px]">
+                <span className="tracking-label text-paper/70 font-mono text-[0.55rem] uppercase">
                   Vertical · 2026
                 </span>
-                <span className="font-mono text-[0.55rem] uppercase tracking-label text-accent-lime">
+                <span className="tracking-label font-mono text-[0.55rem] uppercase text-accent-lime">
                   ARINSAL
                 </span>
               </div>

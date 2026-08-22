@@ -80,10 +80,7 @@ function clampPos(
   bounds: DesktopBounds,
 ) {
   const maxX = Math.max(0, bounds.width - Math.min(width, bounds.width));
-  const maxY = Math.max(
-    0,
-    bounds.height - TASKBAR_H - Math.min(TITLEBAR_H + 24, height),
-  );
+  const maxY = Math.max(0, bounds.height - TASKBAR_H - Math.min(TITLEBAR_H + 24, height));
   return {
     x: Math.min(Math.max(0, x), maxX),
     y: Math.min(Math.max(0, y), maxY),
@@ -128,9 +125,7 @@ export function DesktopProvider({ children }: { children: ReactNode }) {
     zCounter += 1;
     setFocusedId(id);
     setWindows((prev) =>
-      prev.map((w) =>
-        w.id === id ? { ...w, z: zCounter, minimized: false } : w,
-      ),
+      prev.map((w) => (w.id === id ? { ...w, z: zCounter, minimized: false } : w)),
     );
   }, []);
 
@@ -172,9 +167,7 @@ export function DesktopProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const minimizeWindow = useCallback((id: DesktopWindowId) => {
-    setWindows((prev) =>
-      prev.map((w) => (w.id === id ? { ...w, minimized: true } : w)),
-    );
+    setWindows((prev) => prev.map((w) => (w.id === id ? { ...w, minimized: true } : w)));
     setFocusedId((cur) => (cur === id ? null : cur));
   }, []);
 
@@ -234,9 +227,7 @@ export function DesktopProvider({ children }: { children: ReactNode }) {
     ],
   );
 
-  return (
-    <DesktopContext.Provider value={value}>{children}</DesktopContext.Provider>
-  );
+  return <DesktopContext.Provider value={value}>{children}</DesktopContext.Provider>;
 }
 
 export function useDesktop() {

@@ -10,16 +10,11 @@ export function Divider({ className, label, vertical }: DividerProps) {
   if (label) {
     return (
       <div
-        className={cn(
-          "flex items-center gap-4 text-ink-muted",
-          className,
-        )}
+        className={cn("flex items-center gap-4 text-ink-muted", className)}
         role="separator"
       >
         <span className="h-px flex-1 bg-border" />
-        <span className="font-mono text-caption uppercase tracking-label">
-          {label}
-        </span>
+        <span className="tracking-label font-mono text-caption uppercase">{label}</span>
         <span className="h-px flex-1 bg-border" />
       </div>
     );
@@ -36,9 +31,6 @@ export function Divider({ className, label, vertical }: DividerProps) {
   }
 
   return (
-    <hr
-      className={cn("h-px w-full border-0 bg-border", className)}
-      role="separator"
-    />
+    <hr className={cn("h-px w-full border-0 bg-border", className)} role="separator" />
   );
 }

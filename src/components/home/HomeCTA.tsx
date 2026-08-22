@@ -46,13 +46,10 @@ export function HomeCTA() {
   );
 
   return (
-    <section
-      ref={root}
-      className="relative overflow-hidden bg-paper-warm py-section"
-    >
+    <section ref={root} className="relative overflow-hidden bg-paper-warm py-section">
       <Grain />
       <Container className="relative z-[1] text-center">
-        <p className="font-mono text-caption uppercase tracking-label text-ink-muted">
+        <p className="tracking-label font-mono text-caption uppercase text-ink-muted">
           {c.eyebrow}
         </p>
 
@@ -61,11 +58,7 @@ export function HomeCTA() {
             <span
               key={`${locale}-${i}-${word}`}
               data-cta-word
-              className={
-                i >= c.accentFrom
-                  ? "inline-block text-accent"
-                  : "inline-block"
-              }
+              className={i >= c.accentFrom ? "inline-block text-accent" : "inline-block"}
             >
               {word}
               {i < c.words.length - 1 ? "\u00a0" : ""}

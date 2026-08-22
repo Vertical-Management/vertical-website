@@ -30,10 +30,7 @@ export function ContactDevice({ className }: { className?: string }) {
 
   return (
     <motion.div
-      className={cn(
-        "relative mx-auto w-full max-w-[320px]",
-        className,
-      )}
+      className={cn("relative mx-auto w-full max-w-[320px]", className)}
       initial={reduced ? false : { opacity: 0, y: 40, rotateX: 8 }}
       whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
       viewport={{ once: true, amount: 0.3 }}
@@ -57,10 +54,10 @@ export function ContactDevice({ className }: { className?: string }) {
               src={asset("/assets/xp/fondo-de-pantalla.jpg")}
               alt=""
               fill
-              className="object-cover opacity-40 blur-sm scale-110"
+              className="scale-110 object-cover opacity-40 blur-sm"
               sizes="320px"
             />
-            <div className="absolute inset-0 bg-ink/50 backdrop-blur-md" />
+            <div className="bg-ink/50 absolute inset-0 backdrop-blur-md" />
           </div>
 
           <div className="relative z-[1] flex min-h-[560px] flex-col px-4 pb-5 pt-3">
@@ -83,12 +80,10 @@ export function ContactDevice({ className }: { className?: string }) {
 
             {/* App header */}
             <div className="mt-4 text-center">
-              <p className="font-mono text-[10px] uppercase tracking-label text-accent-lime">
+              <p className="tracking-label font-mono text-[10px] uppercase text-accent-lime">
                 Messages
               </p>
-              <p className="mt-1 font-display text-xl text-paper">
-                {SITE.shortName}
-              </p>
+              <p className="mt-1 font-display text-xl text-paper">{SITE.shortName}</p>
             </div>
 
             {/* Contact card */}
@@ -107,7 +102,7 @@ export function ContactDevice({ className }: { className?: string }) {
                   <p className="truncate font-display text-lg text-paper">
                     {SITE.founder}
                   </p>
-                  <p className="truncate font-mono text-[10px] uppercase tracking-label text-white/45">
+                  <p className="tracking-label truncate font-mono text-[10px] uppercase text-white/45">
                     {SITE.location} · Creative
                   </p>
                 </div>
@@ -120,7 +115,7 @@ export function ContactDevice({ className }: { className?: string }) {
                   className="flex items-center justify-between rounded-2xl px-3 py-3 transition-colors hover:bg-white/10"
                 >
                   <span>
-                    <span className="block font-mono text-[9px] uppercase tracking-label text-white/40">
+                    <span className="tracking-label block font-mono text-[9px] uppercase text-white/40">
                       Mail
                     </span>
                     <span className="text-sm text-accent-cool">{SITE.email}</span>
@@ -139,7 +134,7 @@ export function ContactDevice({ className }: { className?: string }) {
                     className="flex items-center justify-between rounded-2xl px-3 py-3 transition-colors hover:bg-white/10"
                   >
                     <span>
-                      <span className="block font-mono text-[9px] uppercase tracking-label text-white/40">
+                      <span className="tracking-label block font-mono text-[9px] uppercase text-white/40">
                         Social
                       </span>
                       <span className="text-sm text-paper">{s.label}</span>
@@ -157,7 +152,7 @@ export function ContactDevice({ className }: { className?: string }) {
               <div className="ml-auto max-w-[85%] rounded-2xl rounded-br-md bg-accent px-3.5 py-2.5 text-sm text-paper shadow-sm">
                 Hola — tengo un proyecto raro 👀
               </div>
-              <div className="mr-auto max-w-[90%] rounded-2xl rounded-bl-md bg-white/12 px-3.5 py-2.5 text-sm text-paper backdrop-blur-sm">
+              <div className="bg-white/12 mr-auto max-w-[90%] rounded-2xl rounded-bl-md px-3.5 py-2.5 text-sm text-paper backdrop-blur-sm">
                 Perfecto. Los raros son los buenos. El form está abajo ↓
               </div>
             </div>
@@ -172,7 +167,7 @@ export function ContactDevice({ className }: { className?: string }) {
 
       {/* Soft reflection */}
       <div
-        className="pointer-events-none absolute -bottom-6 left-1/2 h-8 w-3/4 -translate-x-1/2 rounded-[100%] bg-ink/30 blur-xl"
+        className="bg-ink/30 pointer-events-none absolute -bottom-6 left-1/2 h-8 w-3/4 -translate-x-1/2 rounded-[100%] blur-xl"
         aria-hidden
       />
     </motion.div>

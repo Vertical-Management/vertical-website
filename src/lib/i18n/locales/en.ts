@@ -61,13 +61,7 @@ const en: Dictionary = {
         "Branding, digital, motion, strategy and software. We help brands and companies make real money: marketing that converts, organic audience growth, digital products and intentional vibe coding. From Andorra, no generics.",
       insertCoin: "Contact",
       viewProjects: "View projects",
-      rotating: [
-        "further",
-        "weirder",
-        "higher",
-        "more fun",
-        "more vertical",
-      ],
+      rotating: ["further", "weirder", "higher", "more fun", "more vertical"],
       tags: ["Branding", "Digital", "Motion", "3D"],
       locationLoading: "Detecting location…",
       sectionLabel: "Home",
@@ -192,8 +186,7 @@ const en: Dictionary = {
           role: "Brand manager",
         },
         {
-          quote:
-            "I thought playful high-craft was a slogan. Then I saw the work.",
+          quote: "I thought playful high-craft was a slogan. Then I saw the work.",
           name: "Oriol Serra",
           role: "CEO",
         },
@@ -454,8 +447,7 @@ const en: Dictionary = {
     digital: {
       title: "Digital & Web",
       punch: "EXPERIENCE",
-      description:
-        "Sites and products with Awwwards-level craft and arcade personality.",
+      description: "Sites and products with Awwwards-level craft and arcade personality.",
       longDescription:
         "Web and digital products with impactful type, intentional micro-interactions and real performance. Premium in execution, playful at heart.",
       tags: ["Web", "UI", "UX", "Experiences"],
@@ -507,8 +499,7 @@ const en: Dictionary = {
     },
     {
       title: "Concept",
-      description:
-        "Ideas with an edge. We test directions until one feels inevitable.",
+      description: "Ideas with an edge. We test directions until one feels inevitable.",
     },
     {
       title: "Execution",
@@ -563,8 +554,7 @@ const en: Dictionary = {
         { value: "ongoing", label: "Retainer / ongoing" },
       ],
       message: "Message",
-      messagePlaceholder:
-        "The project, the impossible deadline, the dream — anything.",
+      messagePlaceholder: "The project, the impossible deadline, the dream — anything.",
       honeypot: "Do not fill",
       privacyNote:
         "Sent to {email}. Human reply, no 2012 autoresponder. By sending you accept the",
@@ -596,8 +586,7 @@ const en: Dictionary = {
     eyebrowCases: "Cases",
     eyebrowOs: "Vertical OS",
     title: "Projects",
-    bodyMobile:
-      "Four real cases. Client, type and year up front — tap and go in.",
+    bodyMobile: "Four real cases. Client, type and year up front — tap and go in.",
     bodyDesktop:
       "Vertical OS: the classic desktop, modernized. Open windows, drag, minimize without mercy.",
     desktopMeta: "Desktop · v2.0 · {count} cases loaded",

@@ -87,8 +87,7 @@ export function HeroWallCarousel({ className }: HeroWallCarouselProps) {
     let running = true;
     let ticks = 0;
     const mobile =
-      typeof window !== "undefined" &&
-      window.matchMedia("(max-width: 768px)").matches;
+      typeof window !== "undefined" && window.matchMedia("(max-width: 768px)").matches;
     const sampleMs = staticOnly || !wallInView ? 2000 : mobile ? 480 : 250;
     const fullScanEvery = mobile ? 6 : 8;
 
@@ -305,7 +304,7 @@ function Tile({
   const [nearView, setNearView] = useState(!!lcp || !!eagerStill);
   const src = asset(tile.src);
   const poster = tile.poster ? asset(tile.poster) : undefined;
-  const stillSrc = tile.kind === "video" ? poster ?? null : src;
+  const stillSrc = tile.kind === "video" ? (poster ?? null) : src;
   const alt = tile.alt?.trim() ? tile.alt : "";
 
   useLayoutEffect(() => {

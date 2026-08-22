@@ -101,11 +101,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="es"
-      className={cn("antialiased", fontVariables)}
-      suppressHydrationWarning
-    >
+    <html lang="es" className={cn("antialiased", fontVariables)} suppressHydrationWarning>
       <body className="min-h-dvh bg-paper font-body text-ink">
         <JsonLd data={[organizationJsonLd(), websiteJsonLd(), personJsonLd()]} />
         <Providers>

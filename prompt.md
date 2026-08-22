@@ -1,3 +1,4 @@
 Do the following changes:
+
 - modify the start button linked modal (xp-ad-* ) to use the same class names to the extent that it makes sense as other windows, for example instead of .xp-ad-titlebar it should just use .xp-titlebar
 - use the image vertical-website/recursos/vertical-ad.png to include it in the modal dialog, and also add with css some contrast blinking animation to make it funny like 90s style website

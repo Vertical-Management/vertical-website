@@ -31,9 +31,7 @@ export function ServicesCTA() {
       <section>
         <CrtPrompt command={c.command} />
         <div className="crt-panel p-4 md:p-5">
-          <h2 className="crt-head text-lg font-semibold md:text-xl">
-            {c.headline}
-          </h2>
+          <h2 className="crt-head text-lg font-semibold md:text-xl">{c.headline}</h2>
           <div className="mt-4 flex flex-wrap items-center gap-2">
             <p className="crt-panel crt-glow-text flex min-w-0 flex-1 items-center overflow-x-auto px-3 py-2 text-sm">
               <span>{c.mailLabel}</span>
@@ -55,9 +53,7 @@ export function ServicesCTA() {
                 <a
                   href={s.href}
                   target={s.href.startsWith("http") ? "_blank" : undefined}
-                  rel={
-                    s.href.startsWith("http") ? "noopener noreferrer" : undefined
-                  }
+                  rel={s.href.startsWith("http") ? "noopener noreferrer" : undefined}
                   className="crt-pill hover:border-[var(--crt-lime)] hover:text-[var(--crt-lime)]"
                 >
                   {s.label.toLowerCase()}
@@ -65,7 +61,10 @@ export function ServicesCTA() {
               </li>
             ))}
             <li>
-              <NextLink href="/proyectos" className="crt-pill hover:text-[var(--crt-lime)]">
+              <NextLink
+                href="/proyectos"
+                className="crt-pill hover:text-[var(--crt-lime)]"
+              >
                 {t.servicesPage.cta.viewProjects.replace(" →", "").toLowerCase()}
               </NextLink>
             </li>

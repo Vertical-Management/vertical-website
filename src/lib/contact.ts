@@ -41,7 +41,9 @@ export function validateContactPayload(
 
   const body = raw as Record<string, unknown>;
   const name = sanitizeHeader(String(body.name ?? "").trim());
-  const email = String(body.email ?? "").trim().toLowerCase();
+  const email = String(body.email ?? "")
+    .trim()
+    .toLowerCase();
   const company = sanitizeHeader(String(body.company ?? "").trim());
   const budget = sanitizeHeader(String(body.budget ?? "").trim());
   const message = String(body.message ?? "").trim();

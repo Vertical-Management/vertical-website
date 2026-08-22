@@ -23,16 +23,14 @@ export function Link({
   mono,
   ...props
 }: LinkProps) {
-  const externalProps = external
-    ? { target: "_blank", rel: "noopener noreferrer" }
-    : {};
+  const externalProps = external ? { target: "_blank", rel: "noopener noreferrer" } : {};
 
   return (
     <NextLink
       className={cn(
         "inline-flex items-center gap-1 transition-colors duration-base ease-out-expo",
         underline && "link-underline",
-        mono && "font-mono text-caption uppercase tracking-label",
+        mono && "tracking-label font-mono text-caption uppercase",
         className,
       )}
       {...externalProps}

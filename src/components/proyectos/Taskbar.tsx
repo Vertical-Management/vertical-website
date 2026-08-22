@@ -9,14 +9,8 @@ import { cn } from "@/lib/utils";
  * Uses a lightweight CSS mark instead of the multi-MB windows.png.
  */
 export function Taskbar() {
-  const {
-    windows,
-    focusedId,
-    startOpen,
-    toggleStart,
-    restoreWindow,
-    focusWindow,
-  } = useDesktop();
+  const { windows, focusedId, startOpen, toggleStart, restoreWindow, focusWindow } =
+    useDesktop();
   const [time, setTime] = useState("");
 
   useEffect(() => {
@@ -59,7 +53,7 @@ export function Taskbar() {
 
       <div className="mx-1 h-6 w-px bg-white/10" aria-hidden />
 
-      <div className="flex min-w-0 flex-1 items-center gap-1 overflow-x-auto scrollbar-none">
+      <div className="scrollbar-none flex min-w-0 flex-1 items-center gap-1 overflow-x-auto">
         {windows.map((w) => {
           const active = focusedId === w.id && !w.minimized;
           return (
@@ -67,11 +61,9 @@ export function Taskbar() {
               key={w.id}
               type="button"
               data-cursor="hover"
-              onClick={() =>
-                w.minimized ? restoreWindow(w.id) : focusWindow(w.id)
-              }
+              onClick={() => (w.minimized ? restoreWindow(w.id) : focusWindow(w.id))}
               className={cn(
-                "h-9 max-w-[160px] truncate rounded-md border px-2.5 font-mono text-[10px] uppercase tracking-label",
+                "tracking-label h-9 max-w-[160px] truncate rounded-md border px-2.5 font-mono text-[10px] uppercase",
                 "transition-colors duration-fast",
                 active
                   ? "border-accent-lime/40 bg-white/15 text-paper"

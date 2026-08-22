@@ -32,23 +32,18 @@ function readStaticOnly(reduced: boolean | null): boolean {
   if (typeof window === "undefined") return !!reduced;
   if (reduced) return true;
 
-  const conn = (navigator as Navigator & { connection?: NetworkInformation })
-    .connection;
+  const conn = (navigator as Navigator & { connection?: NetworkInformation }).connection;
   // Only hard-disable video on explicit Save-Data or reduced-motion.
   if (conn?.saveData) return true;
   if (conn?.effectiveType === "slow-2g") return true;
   return false;
 }
 
-function readMaxVideos(
-  reduced: boolean | null,
-  caps: Required<CapOptions>,
-): number {
+function readMaxVideos(reduced: boolean | null, caps: Required<CapOptions>): number {
   if (typeof window === "undefined") return caps.desktop;
   if (reduced || readStaticOnly(reduced)) return 0;
 
-  const conn = (navigator as Navigator & { connection?: NetworkInformation })
-    .connection;
+  const conn = (navigator as Navigator & { connection?: NetworkInformation }).connection;
   const mobile = isMobileViewport();
   let cap = mobile ? caps.mobile : caps.desktop;
 
@@ -74,9 +69,7 @@ export function useMediaBudget(caps?: CapOptions): MediaBudget {
   };
 
   const [staticOnly, setStaticOnly] = useState(() => readStaticOnly(reduced));
-  const [maxVideos, setMaxVideos] = useState(() =>
-    readMaxVideos(reduced, resolved),
-  );
+  const [maxVideos, setMaxVideos] = useState(() => readMaxVideos(reduced, resolved));
 
   useEffect(() => {
     const apply = () => {
@@ -85,8 +78,7 @@ export function useMediaBudget(caps?: CapOptions): MediaBudget {
     };
     apply();
 
-    const conn = (navigator as Navigator & { connection?: EventTarget })
-      .connection;
+    const conn = (navigator as Navigator & { connection?: EventTarget }).connection;
     conn?.addEventListener?.("change", apply);
 
     const mql = window.matchMedia("(max-width: 768px)");

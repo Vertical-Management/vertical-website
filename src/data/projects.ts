@@ -147,8 +147,7 @@ export const projects: Project[] = [
     year: 2025,
     role: "UX/UI Designer",
     categories: ["UX/UI", "Product"],
-    excerpt:
-      "App University GB: onboarding, shell y tono de producto que mueve la cola.",
+    excerpt: "App University GB: onboarding, shell y tono de producto que mueve la cola.",
     description:
       "Producto digital para una marca que habla con humanos y con perros. El brief: útil, claro y con personalidad — sin infantilizar ni aburrir.",
     caseStudy: {

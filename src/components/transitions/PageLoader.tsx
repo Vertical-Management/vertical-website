@@ -54,10 +54,10 @@ export function PageLoader({
         </p>
       </div>
 
-      <div className="relative h-px w-20 overflow-hidden bg-ink/10">
+      <div className="bg-ink/10 relative h-px w-20 overflow-hidden">
         <span className="absolute inset-y-0 left-0 w-1/2 animate-shimmer bg-accent" />
       </div>
-      <p className="font-mono text-[10px] uppercase tracking-label text-ink-faint">
+      <p className="tracking-label font-mono text-[10px] uppercase text-ink-faint">
         {t.common.insertCoin}
       </p>
     </div>
@@ -66,10 +66,7 @@ export function PageLoader({
   if (variant === "inline") {
     return (
       <div
-        className={cn(
-          "flex min-h-[40vh] items-center justify-center py-20",
-          className,
-        )}
+        className={cn("flex min-h-[40vh] items-center justify-center py-20", className)}
         role="status"
         aria-live="polite"
         aria-label={resolvedLabel}

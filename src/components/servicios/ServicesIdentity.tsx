@@ -29,7 +29,10 @@ export function ServicesIdentity() {
         </div>
         <dl className="space-y-1.5 text-xs sm:text-sm">
           {n.rows.map((row) => (
-            <div key={row.key} className="grid grid-cols-[6.5rem_1fr] gap-2 sm:grid-cols-[7.5rem_1fr]">
+            <div
+              key={row.key}
+              className="grid grid-cols-[6.5rem_1fr] gap-2 sm:grid-cols-[7.5rem_1fr]"
+            >
               <dt className="crt-glow-text">{row.key}</dt>
               <dd className="crt-head">{row.value}</dd>
             </div>
@@ -41,10 +44,7 @@ export function ServicesIdentity() {
             </dd>
           </div>
         </dl>
-        <div
-          className="flex flex-wrap gap-1.5 md:col-span-2"
-          aria-hidden
-        >
+        <div className="flex flex-wrap gap-1.5 md:col-span-2" aria-hidden>
           {["#C8FF00", "#0A0A0A", "#F4F1EA", "#FF3D00", "#FF1A5C", "#00C2FF"].map(
             (hex) => (
               <span

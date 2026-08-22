@@ -4,11 +4,7 @@ import NextLink from "next/link";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/components/providers/LanguageProvider";
 import { SITE } from "@/lib/constants";
-import {
-  InteractiveActionButton,
-  NosotrosShell,
-  useNosotrosReveal,
-} from "./primitives";
+import { InteractiveActionButton, NosotrosShell, useNosotrosReveal } from "./primitives";
 
 /**
  * Closing CTA — next screen + interactive action button.
@@ -41,8 +37,7 @@ export function NosotrosCTA() {
             whileInView="visible"
             viewport={{ once: true, amount: 0.4 }}
           >
-            {c.titleLine1}{" "}
-            <span className="text-accent-lime">{c.titleAccent}</span>
+            {c.titleLine1} <span className="text-accent-lime">{c.titleAccent}</span>
           </motion.h2>
           <motion.p
             className="n-body mt-6 max-w-md text-lead font-light text-white/55"
@@ -67,7 +62,7 @@ export function NosotrosCTA() {
           </NextLink>
           <a
             href={`mailto:${SITE.email}`}
-            className="font-mono text-caption uppercase tracking-label text-white/35 transition-colors hover:text-white"
+            className="tracking-label font-mono text-caption uppercase text-white/35 transition-colors hover:text-white"
             data-cursor="hover"
           >
             {SITE.email}

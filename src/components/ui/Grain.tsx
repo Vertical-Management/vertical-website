@@ -9,9 +9,6 @@ type GrainProps = {
 /** Film grain overlay — place inside a `relative` parent. */
 export function Grain({ className, strong }: GrainProps) {
   return (
-    <div
-      className={cn("grain", strong && "opacity-[0.08]", className)}
-      aria-hidden
-    />
+    <div className={cn("grain", strong && "opacity-[0.08]", className)} aria-hidden />
   );
 }

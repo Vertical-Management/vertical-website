@@ -13,11 +13,7 @@ import {
 import { usePathname, useRouter } from "next/navigation";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { useNavigation } from "@/components/providers/NavigationProvider";
-import {
-  getRouteLabel,
-  isInternalHref,
-  normalizePath,
-} from "@/lib/routes";
+import { getRouteLabel, isInternalHref, normalizePath } from "@/lib/routes";
 
 export type TransitionPhase = "idle" | "leaving" | "entering";
 
@@ -174,9 +170,7 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
   );
 
   return (
-    <TransitionContext.Provider value={value}>
-      {children}
-    </TransitionContext.Provider>
+    <TransitionContext.Provider value={value}>{children}</TransitionContext.Provider>
   );
 }
 

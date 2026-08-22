@@ -22,10 +22,7 @@ export function Footer() {
   };
 
   return (
-    <footer
-      role="contentinfo"
-      className="relative mt-auto overflow-hidden bg-paper-warm"
-    >
+    <footer role="contentinfo" className="relative mt-auto overflow-hidden bg-paper-warm">
       <Grain />
 
       <div className="relative z-[1] mx-auto max-w-site px-gutter py-14 md:py-20">
@@ -33,17 +30,15 @@ export function Footer() {
         <div className="mx-auto grid max-w-3xl gap-10 sm:grid-cols-2">
           <div className="text-center sm:text-left">
             <Logo magnetic={false} size="md" className="mx-auto sm:mx-0" />
-            <p className="mt-4 text-sm leading-relaxed text-ink-soft">
-              {t.site.pitch}
-            </p>
-            <p className="mt-2 font-mono text-[0.65rem] uppercase tracking-label text-ink-faint">
+            <p className="mt-4 text-sm leading-relaxed text-ink-soft">{t.site.pitch}</p>
+            <p className="tracking-label mt-2 font-mono text-[0.65rem] uppercase text-ink-faint">
               {SITE.location} · {SITE.founder}
             </p>
           </div>
 
           <div className="grid grid-cols-2 gap-8 text-center sm:text-left">
             <div>
-              <p className="font-mono text-caption uppercase tracking-label text-ink-muted">
+              <p className="tracking-label font-mono text-caption uppercase text-ink-muted">
                 {t.footer.navigate}
               </p>
               <ul className="mt-4 flex flex-col items-center gap-2.5 sm:items-start">
@@ -61,7 +56,7 @@ export function Footer() {
             </div>
 
             <div>
-              <p className="font-mono text-caption uppercase tracking-label text-ink-muted">
+              <p className="tracking-label font-mono text-caption uppercase text-ink-muted">
                 {t.footer.social}
               </p>
               <ul className="mt-4 flex flex-col items-center gap-3 sm:items-start">
@@ -73,9 +68,7 @@ export function Footer() {
                         href={s.href}
                         target={s.href.startsWith("http") ? "_blank" : undefined}
                         rel={
-                          s.href.startsWith("http")
-                            ? "noopener noreferrer"
-                            : undefined
+                          s.href.startsWith("http") ? "noopener noreferrer" : undefined
                         }
                         data-cursor="hover"
                         className="group inline-flex items-center gap-2 text-sm text-ink-soft transition-colors duration-base hover:text-ink"
@@ -96,12 +89,12 @@ export function Footer() {
         {/* Legal row */}
         <div className="mt-12 flex flex-col items-center gap-3 border-t border-border pt-6 text-center sm:flex-row sm:justify-between sm:text-left">
           <p
-            className="font-mono text-[0.65rem] uppercase tracking-label text-ink-faint"
+            className="tracking-label font-mono text-[0.65rem] uppercase text-ink-faint"
             suppressHydrationWarning
           >
             © {year} {SITE.name}. {t.footer.highScores}
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 font-mono text-[0.65rem] uppercase tracking-label text-ink-faint">
+          <div className="tracking-label flex flex-wrap items-center justify-center gap-x-4 gap-y-2 font-mono text-[0.65rem] uppercase text-ink-faint">
             <NextLink
               href="/aviso-legal"
               data-cursor="hover"

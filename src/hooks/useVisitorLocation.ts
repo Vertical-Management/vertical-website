@@ -106,8 +106,7 @@ export function useVisitorLocation(): {
       try {
         const data = await fetchJson("https://ipapi.co/json/", controller.signal);
         if (data.error) throw new Error("geo api error");
-        const city =
-          typeof data.city === "string" ? data.city.trim() || null : null;
+        const city = typeof data.city === "string" ? data.city.trim() || null : null;
         const country =
           typeof data.country_name === "string"
             ? data.country_name.trim() || null
@@ -126,17 +125,11 @@ export function useVisitorLocation(): {
       } catch {
         if (controller.signal.aborted && cancelled) return;
         try {
-          const data2 = await fetchJson(
-            "https://ipwho.is/",
-            controller.signal,
-          );
+          const data2 = await fetchJson("https://ipwho.is/", controller.signal);
           if (data2.success === false) throw new Error("geo2 error");
-          const city =
-            typeof data2.city === "string" ? data2.city.trim() || null : null;
+          const city = typeof data2.city === "string" ? data2.city.trim() || null : null;
           const country =
-            typeof data2.country === "string"
-              ? data2.country.trim() || null
-              : null;
+            typeof data2.country === "string" ? data2.country.trim() || null : null;
           const next: VisitorLocation = {
             city,
             country,

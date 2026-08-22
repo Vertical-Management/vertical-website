@@ -37,7 +37,7 @@ export function ScrollCue({
     >
       <span
         className={cn(
-          "font-mono text-[0.55rem] uppercase tracking-label",
+          "tracking-label font-mono text-[0.55rem] uppercase",
           isPaper ? "text-paper/45" : "text-ink-muted",
         )}
       >

@@ -10,23 +10,23 @@ una decisión clave, **actualiza este archivo en el mismo PR** (ver `RULE-007` e
 ## 1. Visión general
 
 Portfolio high-craft de **Vertical Management** (Esteban Ferrer), estética
-*"Editorial Digital Disruptivo + Playful High-Craft"*.
+_"Editorial Digital Disruptivo + Playful High-Craft"_.
 
-| Capa | Tecnología |
-|------|------------|
-| Framework | **Next.js 14.2** (App Router) · React 18 · TypeScript 5 (strict) |
-| Estilos | **Tailwind CSS 3** + design tokens CSS (`src/styles/tokens.css`) |
-| Motion | **GSAP** + `@gsap/react` · **Framer Motion 11** · **Lenis** (smooth scroll) |
-| Fuentes | `next/font/local` — Syne (display) · Manrope (body) · JetBrains Mono (labels) |
-| Email | **Resend** (API REST directa, sin SDK) |
-| Hosting | **Vercel** (apex `somvertical.ad`; `www` → 301) |
-| Tests | **Vitest** (unit, lógica pura) · **Playwright** (E2E) |
+| Capa      | Tecnología                                                                    |
+| --------- | ----------------------------------------------------------------------------- |
+| Framework | **Next.js 14.2** (App Router) · React 18 · TypeScript 5 (strict)              |
+| Estilos   | **Tailwind CSS 3** + design tokens CSS (`src/styles/tokens.css`)              |
+| Motion    | **GSAP** + `@gsap/react` · **Framer Motion 11** · **Lenis** (smooth scroll)   |
+| Fuentes   | `next/font/local` — Syne (display) · Manrope (body) · JetBrains Mono (labels) |
+| Email     | **Resend** (API REST directa, sin SDK)                                        |
+| Hosting   | **Vercel** (apex `somvertical.ad`; `www` → 301)                               |
+| Tests     | **Vitest** (unit, lógica pura) · **Playwright** (E2E)                         |
 
 Principios rectores: las **invariantes** (`INV-01`…`INV-17`) en
 [.grok/rules/invariantes.md](./.grok/rules/invariantes.md) son órdenes
 permanentes de producto (no regresiones, rendimiento, CWV, motion, media
-budget, a11y, i18n, privacidad, craft). Este documento describe *cómo está
-hecho* el sitio para poder cumplirlas.
+budget, a11y, i18n, privacidad, craft). Este documento describe _cómo está
+hecho_ el sitio para poder cumplirlas.
 
 ```mermaid
 flowchart LR
@@ -176,7 +176,7 @@ Env vars (ver `.env.example`): `RESEND_API_KEY`, `CONTACT_TO_EMAIL`,
 ## 7. SEO y dominio
 
 - Metadata por ruta (title/description/canonical/OG/Twitter) desde `lib/seo.ts`
-  + constantes `SITE` (`lib/constants.ts`).
+  - constantes `SITE` (`lib/constants.ts`).
 - `sitemap.ts`, `robots.ts`, `manifest.ts` generados por el App Router.
 - OG image dinámica (`opengraph-image.tsx`, 1200×630); proyectos usan cover.
 - JSON-LD: Organization, WebSite, Person, ContactPage, CreativeWork,
@@ -214,15 +214,15 @@ Env vars (ver `.env.example`): `RESEND_API_KEY`, `CONTACT_TO_EMAIL`,
 
 Comandos (ver también `AGENTS.md` → `RULE-005`):
 
-| Comando | Qué hace |
-|---------|----------|
-| `npm run lint` | ESLint (`next/core-web-vitals`) |
-| `npm run typecheck` | `tsc --noEmit` (strict) |
-| `npm run format` / `format:check` | Prettier (con plugin Tailwind) |
-| `npm run test` | **Vitest** — tests unitarios (lógica pura) |
-| `npm run test:watch` | Vitest en watch |
-| `npm run test:e2e` | **Playwright** — build + serve + specs E2E |
-| `npm run build` | Build de producción |
+| Comando                           | Qué hace                                   |
+| --------------------------------- | ------------------------------------------ |
+| `npm run lint`                    | ESLint (`next/core-web-vitals`)            |
+| `npm run typecheck`               | `tsc --noEmit` (strict)                    |
+| `npm run format` / `format:check` | Prettier (con plugin Tailwind)             |
+| `npm run test`                    | **Vitest** — tests unitarios (lógica pura) |
+| `npm run test:watch`              | Vitest en watch                            |
+| `npm run test:e2e`                | **Playwright** — build + serve + specs E2E |
+| `npm run build`                   | Build de producción                        |
 
 ### Unit (Vitest)
 
@@ -264,17 +264,17 @@ build-check existente; el deploy real lo hace Vercel.
 
 ## 11. Decisiones clave (ADR-lite)
 
-| # | Decisión | Por qué |
-|---|----------|---------|
-| 1 | i18n **client-side** (sin rutas por locale) | Un solo set de rutas y transiciones; el locale es preferencia, no SEO por idioma. Riesgo asumido: HTML inicial siempre `es`. |
-| 2 | Contenido en `src/data/` tipado, sin CMS | Portfolio pequeño y estable; TypeScript valida la forma; los copys viven en diccionarios i18n. |
-| 3 | Rate limit en memoria | Serverless multi-instancia lo hace soft; suficiente como primera barrera junto a honeypot + límites de payload. |
-| 4 | Producción sin `RESEND_API_KEY` ⇒ 500 | Nunca fingir éxito en un envío real (silencio = leads perdidos). |
-| 5 | Desktop OS con `ssr: false` | Aísla el peso de la experiencia "Vertical OS" fuera del primer render. |
-| 6 | `framer-motion` fuera de `optimizePackageImports` | Bug conocido de vendor-chunks en Next 14 + Windows (documentado en `next.config.mjs`). |
-| 7 | `cpus: 1` en builds | Estabiliza builds Windows (race de chunks perdidos). |
-| 8 | Canonical www→apex en 3 capas | Edge (Vercel), Next redirects y middleware cubren todos los entornos sin loops. |
-| 9 | Tests: Vitest node (sin jsdom) + Playwright prod-build | Rápido y estable en Windows; el E2E cubre la integración real de UI contra el build desplegable. |
+| #   | Decisión                                               | Por qué                                                                                                                      |
+| --- | ------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------- |
+| 1   | i18n **client-side** (sin rutas por locale)            | Un solo set de rutas y transiciones; el locale es preferencia, no SEO por idioma. Riesgo asumido: HTML inicial siempre `es`. |
+| 2   | Contenido en `src/data/` tipado, sin CMS               | Portfolio pequeño y estable; TypeScript valida la forma; los copys viven en diccionarios i18n.                               |
+| 3   | Rate limit en memoria                                  | Serverless multi-instancia lo hace soft; suficiente como primera barrera junto a honeypot + límites de payload.              |
+| 4   | Producción sin `RESEND_API_KEY` ⇒ 500                  | Nunca fingir éxito en un envío real (silencio = leads perdidos).                                                             |
+| 5   | Desktop OS con `ssr: false`                            | Aísla el peso de la experiencia "Vertical OS" fuera del primer render.                                                       |
+| 6   | `framer-motion` fuera de `optimizePackageImports`      | Bug conocido de vendor-chunks en Next 14 + Windows (documentado en `next.config.mjs`).                                       |
+| 7   | `cpus: 1` en builds                                    | Estabiliza builds Windows (race de chunks perdidos).                                                                         |
+| 8   | Canonical www→apex en 3 capas                          | Edge (Vercel), Next redirects y middleware cubren todos los entornos sin loops.                                              |
+| 9   | Tests: Vitest node (sin jsdom) + Playwright prod-build | Rápido y estable en Windows; el E2E cubre la integración real de UI contra el build desplegable.                             |
 
 ---
 

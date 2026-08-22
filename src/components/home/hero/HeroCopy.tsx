@@ -45,16 +45,10 @@ export function HeroCopy({
         };
 
   return (
-    <div
-      className={cn(
-        "relative z-[2]",
-        isPaper && "hero-copy-legible",
-        className,
-      )}
-    >
+    <div className={cn("relative z-[2]", isPaper && "hero-copy-legible", className)}>
       <motion.h1
         className={cn(
-          "mb-5 font-mono text-[0.65rem] font-medium uppercase tracking-label sm:mb-6 sm:text-caption md:mb-8",
+          "tracking-label mb-5 font-mono text-[0.65rem] font-medium uppercase sm:mb-6 sm:text-caption md:mb-8",
           isPaper ? "text-paper/80" : "text-ink-muted",
         )}
         style={isPaper ? { color: "rgba(244, 241, 234, 0.8)" } : undefined}
@@ -83,7 +77,7 @@ export function HeroCopy({
             href="/proyectos"
             data-cursor="hover"
             className={cn(
-              "inline-flex h-14 w-full min-h-12 max-w-sm items-center justify-center rounded-pill border-2 px-8 text-base font-medium transition-colors duration-base ease-out-expo sm:h-16 sm:w-auto sm:max-w-none",
+              "inline-flex h-14 min-h-12 w-full max-w-sm items-center justify-center rounded-pill border-2 px-8 text-base font-medium transition-colors duration-base ease-out-expo sm:h-16 sm:w-auto sm:max-w-none",
               "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
               isPaper
                 ? "border-paper/40 text-paper hover:border-paper hover:bg-paper hover:text-ink"

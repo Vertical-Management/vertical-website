@@ -1,11 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import {
-  createLenis,
-  shouldEnableSmoothScroll,
-  type LenisInstance,
-} from "@/lib/lenis";
+import { createLenis, shouldEnableSmoothScroll, type LenisInstance } from "@/lib/lenis";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { gsap, registerGsap, ScrollTrigger } from "@/lib/gsap";
 import { useNavigation } from "@/components/providers/NavigationProvider";

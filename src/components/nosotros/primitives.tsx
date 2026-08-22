@@ -36,31 +36,29 @@ type ShellProps = {
 };
 
 /** Rounded 2.5rem section wrapper — /nosotros only. */
-export const NosotrosShell = forwardRef<HTMLElement, ShellProps>(
-  function NosotrosShell(
-    { children, tone, className, labelledBy, ariaLabel },
-    ref,
-  ) {
-    return (
-      <section
-        ref={ref}
-        data-nav-ground={tone === "dark" ? "color" : "paper"}
-        aria-labelledby={labelledBy}
-        aria-label={ariaLabel}
-        className={cn(
-          "n-shell relative overflow-hidden rounded-[2.5rem]",
-          tone === "dark"
-            ? "n-shell--dark bg-gradient-to-b from-[#0A0A0A] to-black text-white"
-            : "n-shell--light bg-gradient-to-b from-zinc-50 via-[#F4F4F5] to-zinc-200/80 text-zinc-900",
-          className,
-        )}
-      >
-        {tone === "dark" ? <span className="n-grain" aria-hidden /> : null}
-        {children}
-      </section>
-    );
-  },
-);
+export const NosotrosShell = forwardRef<HTMLElement, ShellProps>(function NosotrosShell(
+  { children, tone, className, labelledBy, ariaLabel },
+  ref,
+) {
+  return (
+    <section
+      ref={ref}
+      data-nav-ground={tone === "dark" ? "color" : "paper"}
+      aria-labelledby={labelledBy}
+      aria-label={ariaLabel}
+      className={cn(
+        "n-shell relative overflow-hidden rounded-[2.5rem]",
+        tone === "dark"
+          ? "n-shell--dark bg-gradient-to-b from-[#0A0A0A] to-black text-white"
+          : "n-shell--light bg-gradient-to-b from-zinc-50 via-[#F4F4F5] to-zinc-200/80 text-zinc-900",
+        className,
+      )}
+    >
+      {tone === "dark" ? <span className="n-grain" aria-hidden /> : null}
+      {children}
+    </section>
+  );
+});
 
 type GlassStatCardProps = {
   value: string;

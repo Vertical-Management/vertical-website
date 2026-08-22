@@ -20,8 +20,7 @@ export const HERO_FLOATS = [
   {
     src: asset("/assets/PAG KOAJ 3D/FEP KOAJ1.webp"),
     alt: "KOAJ 3D",
-    className:
-      "bottom-[18%] left-[3%] hidden w-[120px] -rotate-3 sm:block lg:w-[160px]",
+    className: "bottom-[18%] left-[3%] hidden w-[120px] -rotate-3 sm:block lg:w-[160px]",
     delay: 0.55,
   },
   {

@@ -24,9 +24,9 @@ export function MenuToggle({ className, inverse }: MenuToggleProps) {
       className={cn(
         "group relative z-[61] flex h-11 w-11 items-center justify-center rounded-full",
         "border border-transparent transition-colors duration-base ease-out-expo",
-        "hover:border-border-strong hover:bg-ink/5",
+        "hover:bg-ink/5 hover:border-border-strong",
         "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
-        menuOpen && "hover:bg-white/10 hover:border-white/20",
+        menuOpen && "hover:border-white/20 hover:bg-white/10",
         className,
       )}
       aria-label={menuOpen ? t.header.closeMenu : t.header.openMenu}
@@ -51,10 +51,10 @@ export function MenuToggle({ className, inverse }: MenuToggleProps) {
           className={cn(
             "block h-[1.5px] w-full rounded-full transition-all duration-base ease-out-expo",
             menuOpen
-              ? "scale-x-0 opacity-0 bg-paper"
+              ? "scale-x-0 bg-paper opacity-0"
               : inverse
-                ? "bg-paper w-3.5 self-end"
-                : "bg-ink w-3.5 self-end group-hover:w-full group-hover:self-auto",
+                ? "w-3.5 self-end bg-paper"
+                : "w-3.5 self-end bg-ink group-hover:w-full group-hover:self-auto",
           )}
         />
         <span

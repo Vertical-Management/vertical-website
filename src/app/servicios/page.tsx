@@ -33,11 +33,7 @@ export const metadata: Metadata = {
  */
 export default function ServiciosPage() {
   return (
-    <main
-      id="main-content"
-      data-nav-ground="paper"
-      className="servicios-crt relative"
-    >
+    <main id="main-content" data-nav-ground="paper" className="servicios-crt relative">
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", path: "/" },

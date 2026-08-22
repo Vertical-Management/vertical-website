@@ -86,11 +86,7 @@ export function Logo({
           WORD[size],
           inverse ? "text-paper" : "text-ink",
         )}
-        style={
-          inverse
-            ? { color: "var(--color-paper, #f4f1ea)" }
-            : undefined
-        }
+        style={inverse ? { color: "var(--color-paper, #f4f1ea)" } : undefined}
       >
         VERTICAL
         <span

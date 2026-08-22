@@ -59,7 +59,7 @@ export function HomeManifesto() {
               key={`${locale}-${i}-${text}`}
               data-line
               className={cn(
-                "overflow-hidden text-balance font-display tracking-display text-ink",
+                "tracking-display overflow-hidden text-balance font-display text-ink",
                 i === 0
                   ? "text-display-lg"
                   : "text-display-md text-ink-soft md:text-display-lg",

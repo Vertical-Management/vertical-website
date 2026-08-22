@@ -98,10 +98,7 @@ export function HomeTestimonials() {
 
     const io = new IntersectionObserver(
       ([entry]) => {
-        el.style.setProperty(
-          "--ht-play",
-          entry?.isIntersecting ? "running" : "paused",
-        );
+        el.style.setProperty("--ht-play", entry?.isIntersecting ? "running" : "paused");
       },
       { threshold: 0.08 },
     );

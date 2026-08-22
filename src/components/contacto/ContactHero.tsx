@@ -48,18 +48,18 @@ export function ContactHero() {
           src={asset("/assets/xp/fondo-de-pantalla.jpg")}
           alt=""
           fill
-          className="object-cover object-center scale-110"
+          className="scale-110 object-cover object-center"
           sizes="100vw"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-ink/25" />
-        <div className="absolute inset-0 bg-gradient-to-r from-ink/40 via-transparent to-ink/30" />
+        <div className="via-ink/55 to-ink/25 absolute inset-0 bg-gradient-to-t from-ink" />
+        <div className="from-ink/40 to-ink/30 absolute inset-0 bg-gradient-to-r via-transparent" />
       </div>
       <Grain strong className="opacity-[0.08]" />
 
       <div className="relative z-[1] mx-auto w-full max-w-site px-gutter pb-12 pt-24 sm:pb-14 sm:pt-28 md:pb-20 md:pt-36">
         <motion.p
-          className="mb-4 font-mono text-[0.65rem] uppercase tracking-label text-white/50 sm:mb-5 sm:text-caption"
+          className="tracking-label mb-4 font-mono text-[0.65rem] uppercase text-white/50 sm:mb-5 sm:text-caption"
           initial={reduced ? false : { opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: duration.base, ease: EASE_OUT_EXPO }}

@@ -61,13 +61,7 @@ const ca: Dictionary = {
         "Branding, digital, motion, estratègia i software. Ajudem marques i empreses a guanyar diners de veritat: marketing que converteix, creixement de públic orgànic, productes digitals i vibe coding amb intenció. Des d’Andorra, sense genèrics.",
       insertCoin: "Contacte",
       viewProjects: "Veure projectes",
-      rotating: [
-        "més lluny",
-        "més rar",
-        "més amunt",
-        "més divertit",
-        "més vertical",
-      ],
+      rotating: ["més lluny", "més rar", "més amunt", "més divertit", "més vertical"],
       tags: ["Branding", "Digital", "Motion", "3D"],
       locationLoading: "Detectant ubicació…",
       sectionLabel: "Inici",
@@ -162,20 +156,17 @@ const ca: Dictionary = {
           role: "Head of Growth",
         },
         {
-          quote:
-            "Remot, clar i més afilats que una agència de 40. Això és insert coin.",
+          quote: "Remot, clar i més afilats que una agència de 40. Això és insert coin.",
           name: "Nora Pellicer",
           role: "Founder",
         },
         {
-          quote:
-            "Vam demanar identitat. Va tornar un sistema que l’equip usa cada dia.",
+          quote: "Vam demanar identitat. Va tornar un sistema que l’equip usa cada dia.",
           name: "Tomás Herrera",
           role: "CMO",
         },
         {
-          quote:
-            "Gens de postureig. Parlen clar, entreguen rar i la conversió es nota.",
+          quote: "Gens de postureig. Parlen clar, entreguen rar i la conversió es nota.",
           name: "Aina Riba",
           role: "Product lead",
         },
@@ -186,8 +177,7 @@ const ca: Dictionary = {
           role: "Director creatiu",
         },
         {
-          quote:
-            "Debrief en una trucada. Craft a cada hover. Així hauria de ser sempre.",
+          quote: "Debrief en una trucada. Craft a cada hover. Així hauria de ser sempre.",
           name: "Paula Mendes",
           role: "Brand manager",
         },
@@ -387,11 +377,7 @@ const ca: Dictionary = {
         banner: "SERVEIS",
         role: "> Creative Management Studio · Branding · Digital · Motion · 3D",
         highlights: ["caràcter", "estudi", "quatre fronts"],
-        checks: [
-          "Andorra com a base",
-          "High-craft + play",
-          "Sense feina genèrica",
-        ],
+        checks: ["Andorra com a base", "High-craft + play", "Sense feina genèrica"],
         lsCta: "$ ls ~/services ->",
         contactCta: "./contact --brief",
       },
@@ -458,8 +444,7 @@ const ca: Dictionary = {
     digital: {
       title: "Digital & Web",
       punch: "EXPERIÈNCIA",
-      description:
-        "Llocs i productes amb nivell d’Awwwards i personalitat d’arcade.",
+      description: "Llocs i productes amb nivell d’Awwwards i personalitat d’arcade.",
       longDescription:
         "Webs i productes digitals amb tipografia d’impacte, microinteraccions intencionades i performance real. Premium en l’execució, divertit a l’ànima.",
       tags: ["Web", "UI", "UX", "Experiències"],
@@ -490,8 +475,7 @@ const ca: Dictionary = {
     strategy: {
       title: "Estratègia creativa",
       punch: "CONCEPTE",
-      description:
-        "Concepte primer. Després execució. Humor inclòs quan suma.",
+      description: "Concepte primer. Després execució. Humor inclòs quan suma.",
       longDescription:
         "Abans del píxel: l’angle. Posicionament, campanyes i narratives que donen direcció a l’equip i claredat al client.",
       tags: ["Concepte", "Campaign", "Consultoria", "Narrativa"],
@@ -512,8 +496,7 @@ const ca: Dictionary = {
     },
     {
       title: "Concepte",
-      description:
-        "Idees amb fil. Provem direccions fins que una se sent inevitable.",
+      description: "Idees amb fil. Provem direccions fins que una se sent inevitable.",
     },
     {
       title: "Execució",
@@ -568,8 +551,7 @@ const ca: Dictionary = {
         { value: "ongoing", label: "Retainer / ongoing" },
       ],
       message: "Missatge",
-      messagePlaceholder:
-        "El projecte, el deadline impossible, el dream — el que sigui.",
+      messagePlaceholder: "El projecte, el deadline impossible, el dream — el que sigui.",
       honeypot: "No omplir",
       privacyNote:
         "Enviament a {email}. Resposta humana, sense autoresponder de 2012. En enviar acceptes la",
@@ -584,8 +566,7 @@ const ca: Dictionary = {
       errNetwork: "Xarxa caiguda. Escriu-nos a {email} i ho resolem offline.",
       successEyebrow: "Coin accepted",
       successTitle: "Missatge en camí.",
-      successBody:
-        "Ho tenim. Resposta humana des d’Andorra — no bot de 2012.",
+      successBody: "Ho tenim. Resposta humana des d’Andorra — no bot de 2012.",
       sendAnother: "Enviar un altre",
       orWrite: "O escriu a",
       defaultSuccess: "Missatge rebut. Et respondrem aviat.",
@@ -602,8 +583,7 @@ const ca: Dictionary = {
     eyebrowCases: "Casos",
     eyebrowOs: "Vertical OS",
     title: "Projectes",
-    bodyMobile:
-      "Quatre casos reals. Client, tipus i any a la vista — toca i entra.",
+    bodyMobile: "Quatre casos reals. Client, tipus i any a la vista — toca i entra.",
     bodyDesktop:
       "Vertical OS: l’escriptori de sempre, modernitzat. Obre finestres, arrossega, minimitza sense pietat.",
     desktopMeta: "Desktop · v2.0 · {count} cases loaded",
@@ -717,8 +697,7 @@ const ca: Dictionary = {
       projectType: "Product UX/UI",
       role: "UX/UI Designer",
       categories: ["UX/UI", "Product"],
-      excerpt:
-        "App University GB: onboarding, shell i to de producte que mou la cua.",
+      excerpt: "App University GB: onboarding, shell i to de producte que mou la cua.",
       description:
         "Producte digital per a una marca que parla amb humans i amb gossos. El brief: útil, clar i amb personalitat — sense infantilitzar ni avorrir.",
       caseStudy: {

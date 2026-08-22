@@ -36,10 +36,7 @@ export function RotatingWords({
 
   // Longest word reserves horizontal space → no CLS on rotate
   const minCh = useMemo(() => {
-    const longest = words.reduce(
-      (max, w) => Math.max(max, w.length),
-      0,
-    );
+    const longest = words.reduce((max, w) => Math.max(max, w.length), 0);
     return Math.max(longest, 8);
   }, [words]);
 
@@ -73,9 +70,7 @@ export function RotatingWords({
 
   return (
     <span
-      className={cn(
-        "relative inline-flex h-[1.05em] overflow-hidden align-bottom",
-      )}
+      className={cn("relative inline-flex h-[1.05em] overflow-hidden align-bottom")}
       style={{ minWidth: `${minCh}ch` }}
     >
       <span className="sr-only" aria-live="polite" aria-atomic="true">
