@@ -224,13 +224,23 @@ Comandos (ver también `AGENTS.md` → `RULE-005`):
 | `npm run test:e2e`                | **Playwright** — build + serve + specs E2E |
 | `npm run build`                   | Build de producción                        |
 
-### Unit (Vitest)
+### Unit + componentes (Vitest)
 
-- Entorno `node`, tests junto al código en `src/**/__tests__/*.test.ts`.
-- Cubren la lógica pura: validación y plantilla de email de contacto
-  (`lib/contact.ts`), helpers de rutas (`lib/routes.ts`), paridad de claves de
-  los 4 diccionarios i18n + `fill()` + `localize*()`, `cn()`, helpers de media.
-- Regla (`RULE-006`): lógica nueva en `lib/` o `data/` ⇒ test unitario.
+Dos proyectos en `vitest.config.mts`:
+
+- **`unit`** (entorno `node`): tests junto al código en
+  `src/**/__tests__/*.test.ts`. Cubren la lógica pura: validación y plantilla
+  de email de contacto (`lib/contact.ts`), helpers de rutas (`lib/routes.ts`),
+  paridad de claves de los 4 diccionarios i18n + `fill()` + `localize*()`,
+  `cn()`, helpers de media.
+- **`components`** (entorno `jsdom`): specs `src/**/*.dom.test.tsx` con Testing
+  Library (`vitest.setup.ts` aporta stub de `matchMedia` para framer-motion y
+  cleanup; `@vitejs/plugin-react` transforma el JSX porque el tsconfig de Next
+  usa `jsx: "preserve"`). Cubren `ContactForm` (validación cliente, honeypot,
+  happy path), `LanguageSwitcher` (persistencia, `<html lang>`, Escape) y
+  `MobileMenu` (diálogo a11y, Escape, scroll lock).
+- Regla (`RULE-006`): lógica nueva en `lib/`/`data/` ⇒ unit; componente con
+  interacción ⇒ test jsdom.
 
 ### E2E (Playwright)
 
@@ -239,15 +249,28 @@ Comandos (ver también `AGENTS.md` → `RULE-005`):
   que se despliega, no contra dev.
 - Specs en `e2e/`: render de home, navegación entre rutas principales,
   formulario de contacto (validación 400 real contra la API + happy path con
-  red mockeada), SEO files (`sitemap.xml`, `robots.txt`, `manifest`), 404, y
-  smoke con `prefers-reduced-motion`.
-- `test-results/` y `playwright-report/` están gitignored.
+  red mockeada), SEO files (`sitemap.xml`, `robots.txt`, `manifest`), 404,
+  smoke con `prefers-reduced-motion`, **a11y con axe** (falla con violaciones
+  critical; serious listadas para triaje) y **regresión visual opt-in**
+  (`PLAYWRIGHT_VISUAL=1`; baselines dependientes de plataforma, vídeos
+  congelados para determinismo).
+- `test-results/`, `playwright-report/`, baselines y `lighthouse-report/`
+  están gitignored.
 
 ### CI (GitHub Actions)
 
 `.github/workflows/ci.yml`: en cada PR y push a `main` ejecuta
-lint → typecheck → unit → build → E2E (Chromium). `deploy.yml` mantiene el
-build-check existente; el deploy real lo hace Vercel.
+format:check → lint → typecheck → unit (job _quality_) y build → E2E +
+reportes como artefactos (job _e2e_), más un job _lighthouse_ no bloqueante
+como baseline CWV (`TASK-0015` lo hará bloqueante). Dependabot actualiza npm
+y actions semanalmente. `deploy.yml` mantiene el build-check existente; el
+deploy real lo hace Vercel.
+
+### Hooks locales
+
+Pre-commit: lint-staged (ESLint --fix + Prettier sobre staged, con
+`--max-arg-length` para respetar el límite de línea de comando de Windows).
+Pre-push: typecheck + suite Vitest completa.
 
 ---
 

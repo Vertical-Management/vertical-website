@@ -78,3 +78,40 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 7
+
+  # TASK-0010 — baseline CWV. No bloqueante de momento: primera toma de
+  # temperaturas; cuando los scores sean estables se quita continue-on-error
+  # y se aprietan los umbrales (INV-06: LCP ≤ 2.5s · INP ≤ 200ms · CLS ≤ 0.1).
+  lighthouse:
+    name: Lighthouse baseline
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+        env:
+          NEXT_PUBLIC_SITE_URL: https://somvertical.ad
+
+      - name: Lighthouse CI
+        run: npx --yes @lhci/cli autorun
+        env:
+          NEXT_PUBLIC_SITE_URL: https://somvertical.ad
+
+      - name: Upload Lighthouse report
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-report
+          path: lighthouse-report/
+          retention-days: 14

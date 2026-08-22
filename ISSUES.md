@@ -26,13 +26,15 @@ describe aquí **antes o durante** su ejecución, con un ID estable.
 | [TASK-0004](#task-0004) | Tests E2E con Playwright contra build de producción           | ✅ done |
 | [TASK-0005](#task-0005) | Tooling de calidad: husky + lint-staged + CI (GitHub Actions) | ✅ done |
 | [TASK-0006](#task-0006) | Workflow en `AGENTS.md` con reglas numeradas `RULE-001…N`     | ✅ done |
-| [TASK-0007](#task-0007) | Tests de componentes con Testing Library (jsdom)              | 🔲 todo |
-| [TASK-0008](#task-0008) | A11y E2E con `@axe-core/playwright`                           | 🔲 todo |
-| [TASK-0009](#task-0009) | Regresión visual con screenshots de Playwright                | 🔲 todo |
-| [TASK-0010](#task-0010) | Presupuesto CWV automatizado (Lighthouse CI)                  | 🔲 todo |
-| [TASK-0011](#task-0011) | Dependabot para actualización de dependencias                 | 🔲 todo |
-| [TASK-0012](#task-0012) | Limpieza de artefactos temporales del repo                    | 🔲 todo |
-| [TASK-0013](#task-0013) | Pase de formato repo-wide y `format:check` en CI              | 🔲 todo |
+| [TASK-0007](#task-0007) | Tests de componentes con Testing Library (jsdom)              | ✅ done |
+| [TASK-0008](#task-0008) | A11y E2E con `@axe-core/playwright`                           | ✅ done |
+| [TASK-0009](#task-0009) | Regresión visual con screenshots de Playwright                | ✅ done |
+| [TASK-0010](#task-0010) | Presupuesto CWV automatizado (Lighthouse CI)                  | ✅ done |
+| [TASK-0011](#task-0011) | Dependabot para actualización de dependencias                 | ✅ done |
+| [TASK-0012](#task-0012) | Limpieza de artefactos temporales del repo                    | ✅ done |
+| [TASK-0013](#task-0013) | Pase de formato repo-wide y activar `format:check` en CI      | ✅ done |
+| [TASK-0014](#task-0014) | Corregir deuda de contraste (axe `color-contrast`)            | 🔲 todo |
+| [TASK-0015](#task-0015) | Apretar umbrales Lighthouse (quitar continue-on-error)        | 🔲 todo |
 
 ---
 
@@ -96,7 +98,7 @@ pura existente.
 - [x] Tests de `lib/utils.ts` (`cn`) y `lib/media.ts` (poster convention).
 - [x] Suite en verde y integrada en pre-push y CI.
 
-**Commits**: `test(unit): … (TASK-0003)`
+**Commits**: `test(unit): … (TASK-0003)` (+ formateo cosmico posterior)
 
 ---
 
@@ -118,7 +120,7 @@ Playwright con `webServer` que compila y sirve el build de producción (puerto 3
 - [x] Spec 404 + smoke `prefers-reduced-motion`.
 - [x] Suite en verde en local (Chromium).
 
-**Commits**: `test(e2e): … (TASK-0004)`
+**Commits**: `test(e2e): … (TASK-0004)` ×2 (suite + formateo/emulateMedia)
 
 ---
 
@@ -137,6 +139,9 @@ Playwright con `webServer` que compila y sirve el build de producción (puerto 3
       E2E en PRs y pushes a `main`.
 - [x] `.gitignore` con `test-results/`, `playwright-report/`, `coverage/`.
 
+Nota Windows: el hook usa `lint-staged --max-arg-length 2000` para no superar
+el límite de longitud de comando al commitear lotes grandes.
+
 **Commits**: `chore(quality): … (TASK-0005)`
 
 ---
@@ -154,8 +159,9 @@ producto.
 **Criterios de aceptación**
 
 - [x] Reglas numeradas cubren: jerarquía de docs, ciclo de vida de tareas
-      (`ISSUES.md`), git/ramas/commits/push, puertas de calidad, política de tests,
-      sincronización de `ARCHITECTURE.md`, secretos, dependencias y deploy.
+      (`ISSUES.md`), git/ramas/commits/push, puertas de calidad, política de
+      tests, sincronización de `ARCHITECTURE.md`, secretos, dependencias y
+      deploy.
 - [x] Referencias cruzadas con `ISSUES.md` y `ARCHITECTURE.md`.
 - [x] Sin romper el gate de commit de Grok (declaración `INV-NN: OK` intacta).
 
@@ -163,67 +169,170 @@ producto.
 
 ---
 
-## Backlog
+## TASK-0007 — Tests de componentes con Testing Library (jsdom)
 
-### TASK-0007 — Tests de componentes con Testing Library (jsdom)
+- **Estado**: ✅ done · **Cierre**: 2026-08-22 · **Commit**: `8824085`
+- **Prioridad**: media · **Área**: testing
 
-- **Estado**: 🔲 todo · **Prioridad**: media · **Área**: testing
-
-Añadir `jsdom` + `@testing-library/react` y tests de interacción para UI
-crítica: `MobileMenu` (apertura, Escape, focus), `ContactForm` (errores
-cliente), `LanguageSwitcher` (cambio de locale + persistencia).
+Tests de interacción para UI crítica sobre jsdom.
 
 **Criterios de aceptación**
 
-- [ ] Vitest con proyectos `node` y `jsdom` separados.
-- [ ] ≥3 componentes con tests de interacción.
+- [x] Vitest con proyectos `unit` (node) y `components` (jsdom) separados;
+      `@vitejs/plugin-react` para transformar JSX y stub de `matchMedia`
+      para framer-motion (`vitest.setup.ts`).
+- [x] `ContactForm`: campos accesibles, honeypot presente, validación cliente
+      sin llamada a API, email inválido, happy path con payload correcto y
+      confirmación visible.
+- [x] `LanguageSwitcher`: default es, listbox con los otros 3 locales, pick
+      persiste en localStorage + sincroniza `<html lang>`, Escape cierra,
+      hidratación desde storage.
+- [x] `MobileMenu`: diálogo con `aria-modal`/label, links del nav, Escape
+      cierra y libera scroll del body, click en link navega y cierra.
+- [x] Suite completa verde: 53 tests (41 unit + 12 componentes).
 
-### TASK-0008 — A11y E2E con `@axe-core/playwright`
+**Commits**: `test(components): … (TASK-0007)`
 
-- **Estado**: 🔲 todo · **Prioridad**: media · **Área**: testing / a11y
+---
 
-Escanear rutas principales con axe (serio y mobile) sin violaciones críticas;
-integrar en CI.
+## TASK-0008 — A11y E2E con `@axe-core/playwright`
 
-### TASK-0009 — Regresión visual con screenshots de Playwright
+- **Estado**: ✅ done · **Cierre**: 2026-08-22 · **Commit**: ver git log
+  `(TASK-0008)`
+- **Prioridad**: media · **Área**: testing / a11y
 
-- **Estado**: 🔲 todo · **Prioridad**: baja · **Área**: testing
+**Criterios de aceptación**
 
-Snapshots de secciones clave (hero, servicios, proyectos, contacto) en desktop
-y mobile; umbral de diff; decidir política de actualización de baselines.
+- [x] Escaneo axe (wcag2a/2aa/21aa) de `/`, `/nosotros`, `/servicios`,
+      `/proyectos`, `/contacto`.
+- [x] El spec falla con violaciones `critical` — hoy: **cero** en las 5 rutas.
+- [x] Violaciones `serious` se listan en el output para triaje sin bloquear:
+      solo `color-contrast` (1–8 nodos por ruta) → TASK-0014.
 
-### TASK-0010 — Presupuesto CWV automatizado (Lighthouse CI)
+**Commits**: `test(a11y): … (TASK-0008)`
+
+---
+
+## TASK-0009 — Regresión visual con screenshots de Playwright
+
+- **Estado**: ✅ done · **Cierre**: 2026-08-22 · **Commit**: ver git log
+  `(TASK-0009)`
+- **Prioridad**: baja · **Área**: testing
+
+**Criterios de aceptación**
+
+- [x] Baselines desktop de hero home, servicios y contacto.
+- [x] Opt-in vía `PLAYWRIGHT_VISUAL=1`: los baselines son dependientes de
+      plataforma (win32 generados; CI linux no ejecuta el spec sin la env).
+- [x] Estabilidad: reduced-motion emulado, `animations: "disabled"` y vídeos
+      congelados a poster.
+- [x] Determinismo verificado: dos runs consecutivos en verde.
+
+**Commits**: `test(visual): … (TASK-0009)`
+
+---
+
+## TASK-0010 — Presupuesto CWV automatizado (Lighthouse CI)
+
+- **Estado**: ✅ done · **Cierre**: 2026-08-22 · **Commit**: ver git log
+  `(TASK-0010)`
+- **Prioridad**: baja · **Área**: perf
+
+**Criterios de aceptación**
+
+- [x] `lighthouserc.json`: 3 rutas (home, servicios, contacto), preset
+      desktop, reporte a filesystem (sin storage público).
+- [x] Job `lighthouse` en CI con aserciones base (perf ≥ 0.5, a11y/bp/seo
+      ≥ 0.9) marcado `continue-on-error` como baseline no bloqueante.
+- [x] Apriete de umbrales y bloqueo diferidos a TASK-0015 (tras estabilizar
+      scores; objetivo final `INV-06`).
+
+**Commits**: `chore(perf): … (TASK-0010)`
+
+---
+
+## TASK-0011 — Dependabot para actualización de dependencias
+
+- **Estado**: ✅ done · **Cierre**: 2026-08-22 · **Commit**: `848aeb3`
+- **Prioridad**: baja · **Área**: mantenimiento
+
+**Criterios de aceptación**
+
+- [x] `.github/dependabot.yml`: npm + github-actions, semanal.
+- [x] Patches/minors agrupados por ecosistema; majors en PRs separados.
+- [x] Cada PR de Dependabot pasa automáticamente por CI.
+
+**Commits**: `chore(deps): … (TASK-0011)`
+
+---
+
+## TASK-0012 — Limpieza de artefactos temporales del repo
+
+- **Estado**: ✅ done · **Cierre**: 2026-08-22 · **Commit**: ver git log
+  `(TASK-0012)` / `(TASK-0013)`
+- **Prioridad**: baja · **Área**: higiene
+
+**Criterios de aceptación**
+
+- [x] `.astro/` (artefactos de build de la era Astro, trackeados)
+      des-trackeado con `git rm --cached` — los ficheros siguen en disco,
+      nada borrado.
+- [x] `.gitignore` cubre `.astro/` y los temporales locales (`.tmp-*`,
+      `tmp-*`, `base.md`, `pilot-one.md`, `images`, `.studioPets`) vía
+      `.prettierignore` + `.gitignore`.
+- [x] Sin borrado físico: requiere confirmación explícita del usuario
+      (pendiente si algún día se quiere purgar).
+
+**Commits**: `chore(hygiene): untrack legacy Astro build artifacts`
+
+---
+
+## TASK-0013 — Pase de formato repo-wide y activar `format:check` en CI
+
+- **Estado**: ✅ done · **Cierre**: 2026-08-22 · **Commit**: `4ca4cc4`
+- **Prioridad**: media · **Área**: tooling
+
+**Criterios de aceptación**
+
+- [x] Diff único de formato (~105 ficheros), sin cambios semánticos; gates
+      verificados después (lint/typecheck/unit/build en verde).
+- [x] Paso _Format check_ activo en el job `quality` de CI.
+- [x] lint-staged mantiene los archivos nuevos formateados a partir de
+      entonces (verificado en cada commit posterior).
+- [x] `.prettierignore` excluye assets (`public/`), carpetas externas
+      (`viewer/`, `recursos/`, `.grok/`) y basura local.
+
+**Commits**: `style: repo-wide prettier pass, enable format:check in CI`
+
+---
+
+## Backlog
+
+### TASK-0014 — Corregir deuda de contraste (axe `color-contrast`)
+
+- **Estado**: 🔲 todo · **Prioridad**: media · **Área**: design / a11y
+
+El escaneo axe de TASK-0008 detectó violaciones `serious` de
+`color-contrast`: `/nosotros` (4 nodos), `/servicios` (8), `/proyectos` (1),
+`/contacto` (5). Ajustar tokens/textos afectados manteniendo el craft
+(`INV-10`), sin bajar el gate `critical`.
+
+**Criterios de aceptación**
+
+- [ ] 0 violaciones serious en las rutas tocadas o excepciones justificadas
+      aquí.
+- [ ] Revisión visual de que el look no se degrada.
+
+### TASK-0015 — Apretar umbrales Lighthouse (quitar `continue-on-error`)
 
 - **Estado**: 🔲 todo · **Prioridad**: baja · **Área**: perf
 
-Automatizar los umbrales de `INV-06` (LCP ≤ 2.5 s · INP ≤ 200 ms · CLS ≤ 0.1)
-en las rutas principales.
-
-### TASK-0011 — Dependabot para actualización de dependencias
-
-- **Estado**: 🔲 todo · **Prioridad**: baja · **Área**: mantenimiento
-
-`.github/dependabot.yml` (npm + actions), agrupando patches para reducir ruido.
-
-### TASK-0012 — Limpieza de artefactos temporales del repo
-
-- **Estado**: 🔲 todo · **Prioridad**: baja · **Área**: higiene
-
-Perfiles `.tmp-chrome-*`, scripts `tmp-*.mjs`, `tmp-shots/`, `base.md`,
-`images/`, `pilot-one.md`: decidir qué se gitignora, qué se archiva en
-`recursos/` y qué se borra. **No borrar sin confirmación del usuario.**
-
-### TASK-0013 — Pase de formato repo-wide y activar `format:check` en CI
-
-- **Estado**: 🔲 todo · **Prioridad**: media · **Área**: tooling
-
-El repo no está Prettier-clean (~100 ficheros heredados), así que CI aún no
-ejecuta `format:check`. Plan: PR dedicado solo con `npm run format` (diff
-cosmético, sin mezclar con features), verificar build + suites, y descomentar
-el paso _Format check_ en `.github/workflows/ci.yml`.
+Cuando el job `lighthouse` lleve varias runs estables en `main`: fijar
+umbrales según scores observados y caminar hacia los objetivos de `INV-06`
+(LCP ≤ 2.5 s · INP ≤ 200 ms · CLS ≤ 0.1); quitar `continue-on-error` del job
+para que bloquee PRs.
 
 **Criterios de aceptación**
 
-- [ ] Diff único de formato, sin cambios semánticos.
-- [ ] Paso _Format check_ activo en el job `quality` de CI.
-- [ ] lint-staged mantiene los archivos nuevos formateados a partir de entonces.
+- [ ] Umbrales definidos con datos (no a ojo) y documentados en la ficha.
+- [ ] Job bloqueante en `ci.yml`.

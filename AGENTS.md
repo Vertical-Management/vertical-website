@@ -184,10 +184,13 @@ explícita.
 | `npm run format` / `format:check` | Prettier write / check                    |
 | `npm run build`                   | Build de producción                       |
 
-Hooks locales (husky): pre-commit = lint-staged (ESLint+Prettier sobre staged);
-pre-push = typecheck + unit tests. CI (GitHub Actions,
-`.github/workflows/ci.yml`): lint → typecheck → unit → build → E2E en PRs y
-pushes a `main`.
+Hooks locales (husky): pre-commit = lint-staged con `--max-arg-length`
+(ESLint+Prettier sobre staged, troceado para el límite de Windows); pre-push =
+typecheck + suite Vitest completa. CI (GitHub Actions,
+`.github/workflows/ci.yml`) en PRs y pushes a `main`: job _quality_
+(format:check → lint → typecheck → unit) + job _e2e_ (build → Playwright) +
+job _lighthouse_ no bloqueante como baseline CWV. Dependabot actualiza npm y
+actions semanalmente. Regresión visual: opt-in con `PLAYWRIGHT_VISUAL=1`.
 
 ---
 
