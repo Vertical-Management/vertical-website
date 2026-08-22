@@ -29,9 +29,7 @@ test.describe("Home", () => {
     await expect(canonical).toHaveAttribute("href", /somvertical\.ad/);
   });
 
-  test("expone JSON-LD de Organization en el HTML inicial", async ({
-    page,
-  }) => {
+  test("expone JSON-LD de Organization en el HTML inicial", async ({ page }) => {
     await page.goto("/");
     const ld = page.locator('script[type="application/ld+json"]');
     const count = await ld.count();

@@ -1,9 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 test.describe("SEO files generados", () => {
-  test("sitemap.xml es un XML válido con el dominio canónico", async ({
-    request,
-  }) => {
+  test("sitemap.xml es un XML válido con el dominio canónico", async ({ request }) => {
     const res = await request.get("/sitemap.xml");
     expect(res.status()).toBe(200);
     const xml = await res.text();
@@ -23,9 +21,7 @@ test.describe("SEO files generados", () => {
     expect(txt).toMatch(/Allow: \//);
   });
 
-  test("manifest.webmanifest expone nombre y colores de marca", async ({
-    request,
-  }) => {
+  test("manifest.webmanifest expone nombre y colores de marca", async ({ request }) => {
     const res = await request.get("/manifest.webmanifest");
     expect(res.status()).toBe(200);
     const manifest = (await res.json()) as {

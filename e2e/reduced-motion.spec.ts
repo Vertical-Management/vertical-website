@@ -1,6 +1,9 @@
 import { test, expect } from "@playwright/test";
 
-test.use({ reducedMotion: "reduce" });
+// Emula prefers-reduced-motion en cada contexto
+test.beforeEach(async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+});
 
 test.describe("prefers-reduced-motion", () => {
   test("la home carga contenido útil sin animaciones", async ({ page }) => {
@@ -9,9 +12,7 @@ test.describe("prefers-reduced-motion", () => {
     await expect(page.getByRole("heading", { level: 1 }).first()).toBeVisible();
   });
 
-  test("contacto sigue siendo usable con motion reducido", async ({
-    page,
-  }) => {
+  test("contacto sigue siendo usable con motion reducido", async ({ page }) => {
     await page.goto("/contacto");
     await expect(page.getByLabel("Nombre")).toBeVisible();
     await expect(

@@ -14,9 +14,7 @@ const ERRORS = {
 };
 
 test.describe("Contacto — UI", () => {
-  test("submit vacío muestra errores por campo sin llamar a la API", async ({
-    page,
-  }) => {
+  test("submit vacío muestra errores por campo sin llamar a la API", async ({ page }) => {
     let apiCalled = false;
     await page.route("**/api/contact", async (route) => {
       apiCalled = true;
@@ -27,18 +25,14 @@ test.describe("Contacto — UI", () => {
     await page.getByRole("button", { name: LABELS.submit }).click();
 
     await expect(page.getByRole("alert").filter({ hasText: ERRORS.name })).toBeVisible();
-    await expect(
-      page.getByRole("alert").filter({ hasText: ERRORS.email }),
-    ).toBeVisible();
+    await expect(page.getByRole("alert").filter({ hasText: ERRORS.email })).toBeVisible();
     await expect(
       page.getByRole("alert").filter({ hasText: ERRORS.message }),
     ).toBeVisible();
     expect(apiCalled).toBe(false);
   });
 
-  test("happy path con API mockeada muestra confirmación de envío", async ({
-    page,
-  }) => {
+  test("happy path con API mockeada muestra confirmación de envío", async ({ page }) => {
     await page.route("**/api/contact", async (route) => {
       await route.fulfill({
         status: 200,
@@ -60,15 +54,11 @@ test.describe("Contacto — UI", () => {
     await page.getByRole("button", { name: LABELS.submit }).click();
 
     // Hay un role=status global sr-only; filtramos por el contenido del éxito
-    const confirmation = page
-      .getByRole("status")
-      .filter({ hasText: "Mensaje enviado" });
+    const confirmation = page.getByRole("status").filter({ hasText: "Mensaje enviado" });
     await expect(confirmation).toBeVisible();
   });
 
-  test("el honeypot existe en el formulario pero es invisible", async ({
-    page,
-  }) => {
+  test("el honeypot existe en el formulario pero es invisible", async ({ page }) => {
     await page.goto("/contacto");
     const honeypot = page.locator('input[name="website"]');
     await expect(honeypot).toHaveCount(1);
@@ -77,9 +67,7 @@ test.describe("Contacto — UI", () => {
 });
 
 test.describe("Contacto — API real", () => {
-  test("rechaza payload vacío con 400 y errores por campo", async ({
-    request,
-  }) => {
+  test("rechaza payload vacío con 400 y errores por campo", async ({ request }) => {
     const res = await request.post("/api/contact", { data: {} });
     expect(res.status()).toBe(400);
     const body = await res.json();
@@ -99,9 +87,7 @@ test.describe("Contacto — API real", () => {
     expect(body.mode).toBe("honeypot");
   });
 
-  test("rate limit: la sexta petición del mismo IP recibe 429", async ({
-    request,
-  }) => {
+  test("rate limit: la sexta petición del mismo IP recibe 429", async ({ request }) => {
     const ip = "203.0.113.77";
     const hit = () =>
       request.post("/api/contact", {

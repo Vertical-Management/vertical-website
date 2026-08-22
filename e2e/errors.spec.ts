@@ -6,9 +6,7 @@ test.describe("Estados de error", () => {
     expect(res?.status()).toBe(404);
 
     await expect(page.getByText("Error 404")).toBeVisible();
-    await expect(
-      page.getByRole("heading", { level: 1 }),
-    ).toContainText("no existe");
+    await expect(page.getByRole("heading", { level: 1 })).toContainText("no existe");
 
     const home = page.getByRole("link", { name: /Volver al home/ });
     await expect(home).toBeVisible();

@@ -8,9 +8,7 @@ const ROUTES = [
 ] as const;
 
 test.describe("Navegación principal", () => {
-  test("las rutas principales responden 200 y renderizan contenido", async ({
-    page,
-  }) => {
+  test("las rutas principales responden 200 y renderizan contenido", async ({ page }) => {
     for (const route of ROUTES) {
       const res = await page.goto(route.path);
       expect(res?.status(), route.path).toBe(200);
