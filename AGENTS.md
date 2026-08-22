@@ -1,148 +1,234 @@
-# Reglas del proyecto — Vertical Management
+# AGENTS.md — Reglas del proyecto · Vertical Management
 
-**Acata `.grok/rules/invariantes.md` en cada pedido, sin que el usuario lo recuerde.**  
-Son órdenes permanentes. No esperes “sigue las rules” ni “haz los INV”.
+**Acata `.grok/rules/invariantes.md` en cada pedido, sin que el usuario lo
+recuerde.** Son órdenes permanentes (`INV-01`…`INV-17`). No esperes "sigue las
+rules" ni "haz los INV".
 
-Portfolio high-craft de **Vertical Management** (Esteban Ferrer).  
-Stack: **Next.js 14 (App Router) · TypeScript · Tailwind · GSAP · Lenis · Framer Motion**.
+Portfolio high-craft de **Vertical Management** (Esteban Ferrer).
+Stack: **Next.js 14 (App Router) · TypeScript · Tailwind · GSAP · Lenis ·
+Framer Motion**.
 
-Grok carga este archivo automáticamente en cada sesión del repo.  
-Reglas extra: `.grok/rules/*.md` · skill de commit · hooks en `.grok/hooks/`.
+Este archivo define el **workflow obligatorio** como reglas numeradas
+(`RULE-001`, `RULE-002`…). Las reglas son estables: no se renumeran ni se
+retiran; si una deja de aplicar se marca obsoleta con fecha. Los agentes
+(Grok, Claude u otros) las acatan sin que el usuario las recuerde.
 
 ---
 
-## Stack y convenciones
+## 1. Fuentes de verdad
 
-- **TypeScript estricto** en todo código nuevo. Sin `any` salvo justificación breve.
-- **React**: componentes funcionales; `"use client"` solo cuando haga falta (hooks, eventos, browser APIs).
-- **Estilos**: Tailwind + tokens en `src/styles/tokens.css` / `globals.css`. Prettier con `prettier-plugin-tailwindcss`.
-- **Imports**: alias `@/` → `src/`.
-- **i18n**: textos de UI vía `src/lib/i18n/`; no hardcodear copys de producto si ya hay claves.
-- **Motion**: respetar `prefers-reduced-motion` (`usePrefersReducedMotion`, flags en Framer/GSAP).
-- **Media**: presupuesto de vídeo/loop con hooks existentes (`useMediaBudget`); no lanzar muchos `<video>` a la vez en mobile.
-- **A11y**: focus visible, labels, skip link; no romper teclado/navegación.
-- Sigue el estilo del código vecino (nombres, estructura de props, `cn()` de `@/lib/utils`).
-- Prettier: `semi: true`, comillas dobles, `trailingComma: "all"`, `printWidth: 90`, tab 2.
+| Fuente                                                      | Contenido                                  |
+| ----------------------------------------------------------- | ------------------------------------------ |
+| `.grok/rules/invariantes.md`                                | Órdenes de producto permanentes (`INV-NN`) |
+| [AGENTS.md](./AGENTS.md)                                    | Workflow y reglas de proceso (`RULE-NNN`)  |
+| [ISSUES.md](./ISSUES.md)                                    | Tablero de tareas (`TASK-XXXX`)            |
+| [ARCHITECTURE.md](./ARCHITECTURE.md)                        | Cómo está construido el sitio              |
+| [README.md](./README.md) / [DEPLOYMENT.md](./DEPLOYMENT.md) | Onboarding y deploy                        |
 
-### Estructura relevante
+`DEVELOPMENT.md` / `COMMITS.md` son históricos (era Astro): no los uses como
+referencia. Si este archivo y cualquier doc humana discrepan, manda el código
+real + este archivo, y corrige la doc (`RULE-007`).
+
+---
+
+## 2. Reglas de workflow
+
+### RULE-001 — Jerarquía inmutable
+
+Las invariantes `INV-NN` mandan sobre todo lo demás. Un cambio que viola una
+invariante es incorrecto aunque compile y pase tests. Este archivo manda sobre
+cualquier convención heredada de docs históricas.
+
+### RULE-002 — Toda tarea vive en `ISSUES.md`
+
+Todo cambio de producto o infraestructura se registra en `ISSUES.md`
+**antes o durante** su ejecución, con ID `TASK-XXXX` secuencial de 4 dígitos
+(los IDs nunca se reciclan ni reordenan). La ficha incluye: título, estado
+(`todo` / `in-progress` / `done` / `wontfix`), descripción y criterios de
+aceptación verificables. Trabajo sin tarea = trabajo mal hecho, salvo fixes
+triviales (typo) que igualmente pueden agruparse bajo una tarea existente.
+
+### RULE-003 — Cierre con trazabilidad
+
+Al terminar una tarea: marca `done` con fecha de cierre y referencia al commit
+en su ficha, en el mismo commit o en el inmediatamente siguiente. El mensaje
+de commit referencia el ID: `(TASK-0003)`. Si una tarea se abandona,
+estado `wontfix` + motivo. Nada se queda a medias en `in-progress` al cerrar
+el turno.
+
+### RULE-004 — Git: rama + commits atómicos + push frecuente
+
+1. Se trabaja en **rama de feature** (`feat/...`, `fix/...`, `chore/...`);
+   nunca en `main`/`master` salvo orden explícita del usuario.
+2. **Conventional Commits**, un propósito por commit, commits atómicos.
+3. **Push frecuente**: al cerrar cada milestone dentro del turno (docs, suite
+   nueva, fix verificado), empuja la rama al remoto. No acumules horas de
+   trabajo solo local.
+4. Nunca force-push ni merge a `main` sin orden explícita.
+
+### RULE-005 — Puertas de calidad antes de commit
+
+Antes de commitear trabajo que toca producto:
+
+```bash
+npm run lint        # ESLint (next/core-web-vitals)
+npm run typecheck   # tsc --noEmit, strict
+```
+
+Y según alcance:
+
+- Toca lógica en `src/lib` o `src/data` → `npm run test` (unit).
+- Toca páginas, flujos o UI → `npm run build`; si toca un flujo cubierto por
+  E2E (home, nav, contacto, 404, SEO files) → `npm run test:e2e`.
+- Formato → `npm run format:check` (lo aplica también lint-staged).
+
+Si algo falla, se arregla o no se commitea.
+
+### RULE-006 — Política de tests
+
+- Lógica nueva o modificada en `src/lib/**` o `src/data/**` ⇒ **tests
+  unitarios** (Vitest) en el mismo PR. Sin excepciones.
+- Página o flujo nuevo visible ⇒ **spec E2E** (Playwright) que cubra el happy
+  path y al menos un caso de error.
+- Bug fixed ⇒ primero el test que lo reproduce, después el fix.
+- No se desactiva ni salta un test sin justificarlo en el commit; un test
+  roto en `main` bloquea merges hasta arreglarse.
+- Cobertura actual y decisiones: ver [ARCHITECTURE.md §9](./ARCHITECTURE.md).
+
+### RULE-007 — Documentación sincronizada
+
+Cambios estructurales (nueva capa, provider, ruta relevante, decisión de stack,
+tooling de calidad) ⇒ actualizar `ARCHITECTURE.md` en el mismo PR. Cambios de
+proceso ⇒ actualizar este archivo. La doc desfasada es un bug silencioso.
+
+### RULE-008 — Convenciones de código
+
+- **TypeScript estricto**; sin `any` salvo justificación breve.
+- React funcional; `"use client"` solo cuando haga falta.
+- Estilos con Tailwind + tokens (`src/styles/tokens.css`); clases via `cn()`.
+- Imports con alias `@/` → `src/`. Sigue el estilo del código vecino.
+- Prettier: `semi: true`, comillas dobles, `trailingComma: "all"`,
+  `printWidth: 90`, tab 2, plugin Tailwind.
+
+### RULE-009 — i18n obligatorio para copy de producto
+
+Textos de UI/marketing vía `src/lib/i18n/` (claves en los **4 locales**:
+es, ca, en, fr). No hardcodear copys ya cubiertos por diccionario. El test de
+paridad de claves fallará si falta un idioma — eso es intencional.
+
+### RULE-010 — Motion, media y a11y (resumen operativo de INV)
+
+- Respeta `prefers-reduced-motion` (`usePrefersReducedMotion`) — `INV-12`.
+- Vídeo/loops vía presupuesto `useMediaBudget`; posters, pause fuera de
+  viewport, concurrencia limitada en móvil — `INV-11`.
+- Focus visible, teclado completo, skip link intactos — `INV-09`.
+- Cursor nativo siempre; nada de cursor custom — `INV-17`.
+- Look exclusivo de una ruta no sale de esa ruta — `INV-16`.
+
+### RULE-011 — Secretos y entorno
+
+Nunca commitear `.env`, `.env*.local`, claves Resend, tokens ni credenciales.
+Variables conocidas: `NEXT_PUBLIC_SITE_URL`, `RESEND_API_KEY`,
+`CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL` (ejemplo en `.env.example`). Staging
+limpio antes de cada commit.
+
+### RULE-012 — Dependencias y tooling
+
+Cambios de dependencias en commits propios (no mezclados con features),
+lockfile (`package-lock.json`) siempre incluido. Justifica en el mensaje qué
+añade y por qué. Los cambios de config de calidad (eslint, playwright, CI)
+también pasan por `ISSUES.md` y sus puertas (`RULE-005`).
+
+### RULE-013 — Deploy solo con orden explícita
+
+`npm run deploy:preview` / `deploy:prod` (Vercel CLI) únicamente cuando el
+usuario lo pida. Push a `main` cuenta como deploy potencial (Vercel está
+conectado al repo).
+
+### RULE-014 — Alcance acotado
+
+Haz exactamente lo pedido (`INV-02`): sin refactors colaterales, sin docs no
+pedidas, sin features extra. Si detectas algo fuera de alcance, propón una
+nueva `TASK-XXXX` en el backlog en vez de hacerlo sobre la marcha.
+
+---
+
+## 3. Stack y estructura
+
+Convenciones detalladas en [ARCHITECTURE.md](./ARCHITECTURE.md). Resumen:
 
 ```
 src/app/           # rutas App Router + SEO
 src/components/    # UI por dominio (home, servicios, proyectos, …)
-src/data/          # contenido estático (proyectos, servicios, nav)
+src/data/          # contenido estático tipado (proyectos, servicios, nav)
 src/hooks/ src/lib/ src/styles/ src/types/
-public/assets/     # assets servidos (no commitear secretos)
+e2e/               # specs Playwright (build de producción)
+public/assets/     # assets servidos (nunca secretos)
 ```
 
-`viewer/` y `recursos/` están en `.gitignore` — no trabajar ahí salvo petición explícita.
+`viewer/` y `recursos/` están gitignored — no trabajar ahí salvo petición
+explícita.
 
 ---
 
-## Build & calidad
+## 4. Comandos
 
-| Comando | Uso |
-|---------|-----|
-| `npm run dev` | Desarrollo (puerto 3000) |
-| `npm run lint` | ESLint (`next lint`) |
-| `npm run typecheck` | `tsc --noEmit` |
-| `npm run build` | Build de producción (antes de deploys serios) |
-| `npm run format` | Prettier write |
+| Comando                           | Uso                                       |
+| --------------------------------- | ----------------------------------------- |
+| `npm run dev`                     | Desarrollo (puerto 3000)                  |
+| `npm run lint`                    | ESLint                                    |
+| `npm run typecheck`               | TypeScript strict                         |
+| `npm run test`                    | Unit tests (Vitest)                       |
+| `npm run test:watch`              | Vitest watch                              |
+| `npm run test:e2e`                | E2E Playwright (compila y sirve el build) |
+| `npm run format` / `format:check` | Prettier write / check                    |
+| `npm run build`                   | Build de producción                       |
 
-- **Antes de un cambio importante o de un commit**: `npm run lint` y `npm run typecheck`.
-- No hay suite de tests automatizada hoy; si se añade, ejecutarla antes de commit.
-- Env de ejemplo: `.env.example`. Nunca commitear `.env`, `.env*.local`, claves Resend, ni tokens.
-
-Variables conocidas: `NEXT_PUBLIC_SITE_URL`, `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL`.
-
-Docs humanas (no duplicar aquí): `README.md`, `DEPLOYMENT.md`. `DEVELOPMENT.md` / `COMMITS.md` pueden estar desfasados (histórico Astro); prioriza este archivo y el código real.
+Hooks locales (husky): pre-commit = lint-staged (ESLint+Prettier sobre staged);
+pre-push = typecheck + unit tests. CI (GitHub Actions,
+`.github/workflows/ci.yml`): lint → typecheck → unit → build → E2E en PRs y
+pushes a `main`.
 
 ---
 
-## Invariantes (órdenes, no comandos)
+## 5. Git y commits (obligatorio)
 
-**Fuente de verdad:** `.grok/rules/invariantes.md`.
+Flujo: skill **`.grok/skills/commit/SKILL.md`** + hook PreToolUse
+(`.grok/hooks/scripts/pre-commit-gate.mjs`), complementado por husky local.
 
-Las invariantes son **órdenes permanentes** (no regresiones, hacer lo pedido,
-rendimiento, a11y, craft, media budget, i18n, privacidad de terceros…). Debes
-**obedecerlas** mientras trabajas y al entregar. **No** son comandos npm ni un
-ritual de “ejecutar el INV-0X”.
-
-- Herramientas (`lint`, `typecheck`, `build`, Lighthouse…) solo **comprueban**
-  partes del trabajo; no sustituyen la orden.
-- El hook de commit exige que declares **obediencia** a cada `INV-XX` del
-  archivo (`INV-01: OK` …). Eso es un juramento de cumplimiento, no un script.
-- Si al aplicar las órdenes ves una necesidad estable del producto que **no**
-  está cubierta, **añade** un nuevo `**INV-NN**` en `invariantes.md` y cúmplelo
-  en el mismo trabajo.
-
-## Git y commits (obligatorio)
-
-Flujo: skill **`.grok/skills/commit/SKILL.md`** + hook **PreToolUse**  
-(`.grok/hooks/scripts/pre-commit-gate.mjs`).
-
-### Siempre commit al cerrar trabajo
-
-Cuando termines un pedido del usuario (feature, fix, piloto, reglas, etc.),
-**debes crear un commit** con el flujo de la skill — no dejes el diff solo en
-working tree “por si acaso”. Excepciones solo si el usuario prohíbe el commit
-en ese turno, o si las invariantes no se pueden asegurar (entonces avisa y no
-marques OK en falso).
-
-- Preferir **rama de feature**; no commitear en `main`/`master` salvo orden
-  explícita del usuario.
-- Un propósito por commit cuando sea razonable; varios commits atómicos si el
-  trabajo es grande.
-
-### Antes de cualquier commit
+Cuando termines un pedido del usuario, **commit obligatorio** siguiendo
+`RULE-004` (rama propia, push frecuente). Antes:
 
 1. `git status` / `git diff` / `git log` — alcance.
-2. **Obedecer** todas las órdenes de `.grok/rules/invariantes.md` en el cambio
-   (si alguna se viola, no commitees).
-3. Comprobaciones mecánicas: `npm run lint` y `npm run typecheck`; si el staging
-   toca producto, también `npm run build` (el hook puede repetirlas).
-4. Staging limpio: sin `.env`, secretos, `node_modules`, `.next`, basura.
-5. **Conventional Commits** + mensaje con qué/por qué; commits atómicos.
-6. Declarar en el mensaje **Obedecidas:** `INV-01: OK` … `INV-N: OK`
-   (solo `Inv-OK` no basta). Mensaje con `-m` o `-F`.
-7. Nunca commit a `main`/`master` ni force-push a main sin orden explícita.
-8. Prohibido `--no-verify` / `-n`. No commitear si el usuario no lo pidió.
+2. Obedecer todas las órdenes de `.grok/rules/invariantes.md`.
+3. Puertas de `RULE-005` según alcance.
+4. Staging limpio (sin secretos, `node_modules`, `.next`, basura temporal).
+5. Conventional Commits + referencia a la tarea: `feat(hero): … (TASK-0003)`.
+6. Declarar obediencia por invariante en el mensaje (`INV-01: OK` …).
+7. Prohibido `--no-verify` / `-n`.
 
 Ejemplo:
 
 ```text
-feat(hero): reduce mobile carousel paint jank via media budget
+feat(contact): validate payload server-side with tests (TASK-0003)
 
 Obedecidas:
 INV-01: OK
 INV-02: OK
-INV-03: OK
-INV-04: OK
-INV-05: OK
-INV-06: OK
-INV-07: OK
-INV-08: OK
-INV-09: OK
-INV-10: OK
+…
+INV-17: OK
 ```
 
-### Hooks
-
-- Repo: `.grok/hooks/before-commit.json` → `pre-commit-gate.mjs`
-- Global: `~/.grok/hooks/vertical-pre-commit.json`
-- Gate: declaración de obediencia por orden + red mecánica (lint/tsc/build) +
-  main/secretos/Conventional Commits; bloquea `--no-verify`
-- Trust: `~/.grok/trusted_folders.toml` · comprobar con `grok inspect`
-
-### Push y PR
-
-- Push solo si el usuario lo pide.
-- PR: resumen en prosa, riesgos de test, no relleno de “checklist genérica”.
+El gate exige la declaración completa de invariantes; escribir `Inv-OK` suelto
+no basta.
 
 ---
 
-## Alcance del agente
+## 6. Alcance del agente
 
-- Cambios acotados al pedido; sin refactors colaterales ni docs no pedidos.
+- Cambios acotados al pedido (`RULE-014`); propuestas fuera de alcance van al
+  backlog de `ISSUES.md`.
 - No borrar assets de `public/` sin confirmación.
-- Deploy (`vercel --prod`) solo con instrucción explícita del usuario.
-- Verificar reglas/hooks: `grok inspect`. Si `Project trusted: no`, confiar con `/hooks-trust` (el gate global sigue activo igual).
+- Deploy solo con instrucción explícita (`RULE-013`).
+- Verificar reglas/hooks: `grok inspect`. Si `Project trusted: no`, confiar con
+  `/hooks-trust`.

@@ -18,26 +18,27 @@ describe aquí **antes o durante** su ejecución, con un ID estable.
 
 ## Índice
 
-| ID | Título | Estado |
-|----|--------|--------|
-| [TASK-0001](#task-0001) | Documentar la arquitectura en `ARCHITECTURE.md` | ✅ done |
-| [TASK-0002](#task-0002) | Crear tablero de tareas `ISSUES.md` con IDs `TASK-XXXX` | ✅ done |
-| [TASK-0003](#task-0003) | Suite de tests unitarios (Vitest) para lógica en `src/lib` | ✅ done |
-| [TASK-0004](#task-0004) | Tests E2E con Playwright contra build de producción | ✅ done |
+| ID                      | Título                                                        | Estado  |
+| ----------------------- | ------------------------------------------------------------- | ------- |
+| [TASK-0001](#task-0001) | Documentar la arquitectura en `ARCHITECTURE.md`               | ✅ done |
+| [TASK-0002](#task-0002) | Crear tablero de tareas `ISSUES.md` con IDs `TASK-XXXX`       | ✅ done |
+| [TASK-0003](#task-0003) | Suite de tests unitarios (Vitest) para lógica en `src/lib`    | ✅ done |
+| [TASK-0004](#task-0004) | Tests E2E con Playwright contra build de producción           | ✅ done |
 | [TASK-0005](#task-0005) | Tooling de calidad: husky + lint-staged + CI (GitHub Actions) | ✅ done |
-| [TASK-0006](#task-0006) | Workflow en `AGENTS.md` con reglas numeradas `RULE-001…N` | ✅ done |
-| [TASK-0007](#task-0007) | Tests de componentes con Testing Library (jsdom) | 🔲 todo |
-| [TASK-0008](#task-0008) | A11y E2E con `@axe-core/playwright` | 🔲 todo |
-| [TASK-0009](#task-0009) | Regresión visual con screenshots de Playwright | 🔲 todo |
-| [TASK-0010](#task-0010) | Presupuesto CWV automatizado (Lighthouse CI) | 🔲 todo |
-| [TASK-0011](#task-0011) | Dependabot para actualización de dependencias | 🔲 todo |
-| [TASK-0012](#task-0012) | Limpieza de artefactos temporales del repo | 🔲 todo |
+| [TASK-0006](#task-0006) | Workflow en `AGENTS.md` con reglas numeradas `RULE-001…N`     | ✅ done |
+| [TASK-0007](#task-0007) | Tests de componentes con Testing Library (jsdom)              | 🔲 todo |
+| [TASK-0008](#task-0008) | A11y E2E con `@axe-core/playwright`                           | 🔲 todo |
+| [TASK-0009](#task-0009) | Regresión visual con screenshots de Playwright                | 🔲 todo |
+| [TASK-0010](#task-0010) | Presupuesto CWV automatizado (Lighthouse CI)                  | 🔲 todo |
+| [TASK-0011](#task-0011) | Dependabot para actualización de dependencias                 | 🔲 todo |
+| [TASK-0012](#task-0012) | Limpieza de artefactos temporales del repo                    | 🔲 todo |
+| [TASK-0013](#task-0013) | Pase de formato repo-wide y `format:check` en CI              | 🔲 todo |
 
 ---
 
 ## TASK-0001 — Documentar la arquitectura en `ARCHITECTURE.md`
 
-- **Estado**: ✅ done · **Cierre**: 2026-08-22
+- **Estado**: ✅ done · **Cierre**: 2026-08-22 · **Commit**: `437775f`
 - **Prioridad**: alta · **Área**: docs
 
 Describir el proyecto completo: stack, rendering strategy (server components +
@@ -46,11 +47,12 @@ performance/media/a11y, arquitectura de tests, deploy y decisiones clave
 (ADR-lite).
 
 **Criterios de aceptación**
+
 - [x] Cubre todas las capas reales del repo (verificado contra el código).
 - [x] Incluye mapa de directorios y diagrama de flujo.
 - [x] Documenta el flujo `POST /api/contact` paso a paso.
 - [x] Regla de mantenimiento: actualizar en el mismo PR ante cambios
-  estructurales (enlazada desde `AGENTS.md`).
+      estructurales (enlazada desde `AGENTS.md`).
 
 **Commits**: `docs(architecture): … (TASK-0001)`
 
@@ -58,13 +60,14 @@ performance/media/a11y, arquitectura de tests, deploy y decisiones clave
 
 ## TASK-0002 — Crear tablero de tareas `ISSUES.md` con IDs `TASK-XXXX`
 
-- **Estado**: ✅ done · **Cierre**: 2026-08-22
+- **Estado**: ✅ done · **Cierre**: 2026-08-22 · **Commit**: `437775f`
 - **Prioridad**: alta · **Área**: docs / workflow
 
 Establecer el registro único de trabajo: IDs `TASK-XXXX` secuenciales no
 reciclables, estados, criterios de aceptación, commits asociados y backlog.
 
 **Criterios de aceptación**
+
 - [x] Convención documentada en la cabecera del propio archivo.
 - [x] Todas las tareas de este milestone (0001–0006) fichadas.
 - [x] Backlog futuro (0007–0012) con alcance mínimo definido.
@@ -76,19 +79,20 @@ reciclables, estados, criterios de aceptación, commits asociados y backlog.
 
 ## TASK-0003 — Suite de tests unitarios (Vitest) para lógica en `src/lib`
 
-- **Estado**: ✅ done · **Cierre**: 2026-08-22
+- **Estado**: ✅ done · **Cierre**: 2026-08-22 · **Commit**: `665a47d`
 - **Prioridad**: alta · **Área**: testing
 
 Añadir Vitest (entorno `node`, rápido y estable en Windows) y cubrir la lógica
 pura existente.
 
 **Criterios de aceptación**
+
 - [x] `npm run test` / `test:watch` en `package.json`.
 - [x] Tests de `lib/contact.ts`: validación (campos, límites, honeypot,
-  sanitización de headers) y `formatContactEmail` (asunto, escape HTML).
+      sanitización de headers) y `formatContactEmail` (asunto, escape HTML).
 - [x] Tests de `lib/routes.ts` (labels, `isInternalHref`, `normalizePath`).
 - [x] Tests i18n: paridad de claves entre los 4 locales, `getDictionary`
-  fallback, `fill()`, `localize*()` sobre `src/data`.
+      fallback, `fill()`, `localize*()` sobre `src/data`.
 - [x] Tests de `lib/utils.ts` (`cn`) y `lib/media.ts` (poster convention).
 - [x] Suite en verde y integrada en pre-push y CI.
 
@@ -98,18 +102,18 @@ pura existente.
 
 ## TASK-0004 — Tests E2E con Playwright contra build de producción
 
-- **Estado**: ✅ done · **Cierre**: 2026-08-22
+- **Estado**: ✅ done · **Cierre**: 2026-08-22 · **Commit**: `6a29c85`
 - **Prioridad**: alta · **Área**: testing
 
-Playwright con `webServer` que compila y sirve el build de producción (puerto
-3000) y specs de los flujos críticos.
+Playwright con `webServer` que compila y sirve el build de producción (puerto 3000) y specs de los flujos críticos.
 
 **Criterios de aceptación**
+
 - [x] `playwright.config.ts` + script `npm run test:e2e`.
 - [x] Spec home: render, landmarks, título.
 - [x] Spec navegación: rutas principales desde header.
 - [x] Spec contacto: 400 de validación real contra la API + happy path con
-  red mockeada.
+      red mockeada.
 - [x] Spec SEO files: `sitemap.xml`, `robots.txt`, `manifest.webmanifest`.
 - [x] Spec 404 + smoke `prefers-reduced-motion`.
 - [x] Suite en verde en local (Chromium).
@@ -124,12 +128,13 @@ Playwright con `webServer` que compila y sirve el build de producción (puerto
 - **Prioridad**: media · **Área**: tooling / CI
 
 **Criterios de aceptación**
+
 - [x] `husky` + `lint-staged`: pre-commit con ESLint --fix + Prettier sobre
-  staged.
+      staged.
 - [x] Pre-push: `typecheck` + `npm run test`.
 - [x] `npm run format:check` para verificar formato sin escribir.
 - [x] Workflow `.github/workflows/ci.yml`: lint → typecheck → unit → build →
-  E2E en PRs y pushes a `main`.
+      E2E en PRs y pushes a `main`.
 - [x] `.gitignore` con `test-results/`, `playwright-report/`, `coverage/`.
 
 **Commits**: `chore(quality): … (TASK-0005)`
@@ -147,9 +152,10 @@ con Grok (hooks/skills) y las invariantes `INV-NN` como fuente de verdad de
 producto.
 
 **Criterios de aceptación**
+
 - [x] Reglas numeradas cubren: jerarquía de docs, ciclo de vida de tareas
-  (`ISSUES.md`), git/ramas/commits/push, puertas de calidad, política de tests,
-  sincronización de `ARCHITECTURE.md`, secretos, dependencias y deploy.
+      (`ISSUES.md`), git/ramas/commits/push, puertas de calidad, política de tests,
+      sincronización de `ARCHITECTURE.md`, secretos, dependencias y deploy.
 - [x] Referencias cruzadas con `ISSUES.md` y `ARCHITECTURE.md`.
 - [x] Sin romper el gate de commit de Grok (declaración `INV-NN: OK` intacta).
 
@@ -168,6 +174,7 @@ crítica: `MobileMenu` (apertura, Escape, focus), `ContactForm` (errores
 cliente), `LanguageSwitcher` (cambio de locale + persistencia).
 
 **Criterios de aceptación**
+
 - [ ] Vitest con proyectos `node` y `jsdom` separados.
 - [ ] ≥3 componentes con tests de interacción.
 
@@ -205,3 +212,18 @@ en las rutas principales.
 Perfiles `.tmp-chrome-*`, scripts `tmp-*.mjs`, `tmp-shots/`, `base.md`,
 `images/`, `pilot-one.md`: decidir qué se gitignora, qué se archiva en
 `recursos/` y qué se borra. **No borrar sin confirmación del usuario.**
+
+### TASK-0013 — Pase de formato repo-wide y activar `format:check` en CI
+
+- **Estado**: 🔲 todo · **Prioridad**: media · **Área**: tooling
+
+El repo no está Prettier-clean (~100 ficheros heredados), así que CI aún no
+ejecuta `format:check`. Plan: PR dedicado solo con `npm run format` (diff
+cosmético, sin mezclar con features), verificar build + suites, y descomentar
+el paso _Format check_ en `.github/workflows/ci.yml`.
+
+**Criterios de aceptación**
+
+- [ ] Diff único de formato, sin cambios semánticos.
+- [ ] Paso _Format check_ activo en el job `quality` de CI.
+- [ ] lint-staged mantiene los archivos nuevos formateados a partir de entonces.
