@@ -1,0 +1,28 @@
+# Dependencias y build
+node_modules
+.next
+out
+build
+dist
+
+# Lockfile (formato gestionado por npm)
+package-lock.json
+
+# TypeScript incremental
+*.tsbuildinfo
+
+# Artefactos de test
+test-results
+playwright-report
+blob-report
+coverage
+
+# Basura local / perfiles de navegador / scripts temporales
+.tmp-*
+tmp-*
+tmp-shots
+.husky/_
+
+# Notas de trabajo sueltas
+base.md
+pilot-one.md

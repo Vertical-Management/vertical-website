@@ -1,0 +1,3 @@
+# TASK-0005 — gate rápido sobre archivos staged.
+# Puertas completas: pre-push (typecheck+unit) y CI.
+npx lint-staged

@@ -1,0 +1,2 @@
+# TASK-0005 — antes de empujar: tipos en verde y unit suite verde.
+npm run typecheck && npm run test

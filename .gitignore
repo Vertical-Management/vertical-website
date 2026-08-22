@@ -16,6 +16,9 @@
 /playwright-report
 /blob-report
 
+# husky runtime wrappers
+.husky/_
+
 # next.js
 /.next/
 /out/
