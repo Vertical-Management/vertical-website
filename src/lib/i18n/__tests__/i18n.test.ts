@@ -58,9 +58,9 @@ describe("diccionarios i18n", () => {
       const noneEmpty = lengths.every((len) => len !== 0);
       expect(
         allEmpty || noneEmpty,
-        `clave ${key}: vacía solo en [${LOCALES.filter(
-          (_, i) => lengths[i] === 0,
-        ).join(", ")}]`,
+        `clave ${key}: vacía solo en [${LOCALES.filter((_, i) => lengths[i] === 0).join(
+          ", ",
+        )}]`,
       ).toBe(true);
     }
   });
@@ -93,7 +93,9 @@ describe("localize*", () => {
     const t: Dictionary = getDictionary("ca");
     const localized = localizeServices(t);
     expect(localized.length).toBe(services.length);
-    const withCopy = localized.filter((s) => t.serviceItems[s.id]);
+    const withCopy = localized.filter(
+      (s) => t.serviceItems[s.id as keyof typeof t.serviceItems],
+    );
     expect(withCopy.length).toBeGreaterThan(0);
     for (const service of withCopy) {
       const copy = t.serviceItems[service.id as keyof typeof t.serviceItems];
@@ -111,12 +113,14 @@ describe("localize*", () => {
 
   it("localizeProject fusiona el copy si existe para el slug", () => {
     const t: Dictionary = getDictionary("es");
-    const project = projects.find((p) => t.projectItems[p.slug]);
+    const project = projects.find(
+      (p) => t.projectItems[p.slug as keyof typeof t.projectItems],
+    );
     if (!project) throw new Error("no project copy fixture");
     const localized = localizeProject(project, t);
     const copy = t.projectItems[project.slug as keyof typeof t.projectItems];
     expect(localized.subtitle).toBe(copy.subtitle);
-    expect(localized.caseStudy.outcome).toBe(copy.caseStudy.outcome);
+    expect(localized.caseStudy?.outcome).toBe(copy.caseStudy.outcome);
     // campos estructurales intactos
     expect(localized.slug).toBe(project.slug);
     expect(localized.year).toBe(project.year);
