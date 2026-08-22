@@ -1,8 +1,5 @@
 import { describe, expect, it } from "vitest";
-import {
-  formatContactEmail,
-  validateContactPayload,
-} from "@/lib/contact";
+import { formatContactEmail, validateContactPayload } from "@/lib/contact";
 
 const validPayload = {
   name: "Esteban",

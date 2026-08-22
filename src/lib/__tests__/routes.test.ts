@@ -1,10 +1,5 @@
 import { describe, expect, it } from "vitest";
-import {
-  ROUTE_LABELS,
-  getRouteLabel,
-  isInternalHref,
-  normalizePath,
-} from "@/lib/routes";
+import { ROUTE_LABELS, getRouteLabel, isInternalHref, normalizePath } from "@/lib/routes";
 
 describe("getRouteLabel", () => {
   it("devuelve la etiqueta exacta para rutas conocidas", () => {
@@ -56,9 +51,7 @@ describe("normalizePath", () => {
   });
 
   it("extrae el pathname de URLs absolutas", () => {
-    expect(normalizePath("https://somvertical.ad/proyectos?x=1#top")).toBe(
-      "/proyectos",
-    );
+    expect(normalizePath("https://somvertical.ad/proyectos?x=1#top")).toBe("/proyectos");
   });
 
   it("normaliza vacío a raíz y quita query/hash", () => {

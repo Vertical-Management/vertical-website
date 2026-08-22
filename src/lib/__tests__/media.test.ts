@@ -14,9 +14,7 @@ describe("media helpers", () => {
   });
 
   it("convierte foo.mp4 en foo-poster.webp", () => {
-    expect(posterForVideo("/assets/x/loop.mp4")).toBe(
-      "/assets/x/loop-poster.webp",
-    );
+    expect(posterForVideo("/assets/x/loop.mp4")).toBe("/assets/x/loop-poster.webp");
     expect(posterForVideo("/assets/x/cover.webp")).toBe("");
   });
 });
