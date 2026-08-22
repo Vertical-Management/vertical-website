@@ -124,7 +124,7 @@ Playwright con `webServer` que compila y sirve el build de producción (puerto 3
 
 ## TASK-0005 — Tooling de calidad: husky + lint-staged + CI (GitHub Actions)
 
-- **Estado**: ✅ done · **Cierre**: 2026-08-22
+- **Estado**: ✅ done · **Cierre**: 2026-08-22 · **Commit**: `cd66281`
 - **Prioridad**: media · **Área**: tooling / CI
 
 **Criterios de aceptación**
@@ -143,7 +143,7 @@ Playwright con `webServer` que compila y sirve el build de producción (puerto 3
 
 ## TASK-0006 — Workflow en `AGENTS.md` con reglas numeradas `RULE-001…N`
 
-- **Estado**: ✅ done · **Cierre**: 2026-08-22
+- **Estado**: ✅ done · **Cierre**: 2026-08-22 · **Commit**: `0af084e`
 - **Prioridad**: alta · **Área**: docs / workflow
 
 Reescribir `AGENTS.md` para que todo el proceso esté definido con reglas
