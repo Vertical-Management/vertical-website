@@ -1,0 +1,303 @@
+/**
+ * Home testimonials — isolated shadcn-light register (INV-16).
+ * Import only from HomeTestimonials. Tokens stay on .ht-root.
+ */
+
+.ht-root :is(h1, h2, h3, h4, h5, h6) {
+  font-family: inherit;
+}
+
+.ht-root {
+  --ht-ground: #fafafa;
+  --ht-card: #ffffff;
+  --ht-ink: #09090b;
+  --ht-muted: #71717a;
+  --ht-border: #e4e4e7;
+  --ht-accent: #4f46e5;
+  --ht-lift: 0 1px 2px rgba(9, 9, 11, 0.04);
+  --ht-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --ht-radius: 14px;
+  --ht-gap: 0.75rem;
+  --ht-play: running;
+  --ht-duration: 42s;
+  background-color: var(--ht-ground);
+  color: var(--ht-ink);
+  overflow-x: clip;
+}
+
+.ht-header {
+  padding-inline: var(--gutter);
+  max-width: var(--max-width-site);
+  margin-inline: auto;
+}
+
+.ht-eyebrow {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ht-muted);
+}
+
+.ht-title {
+  margin: 0.75rem 0 0;
+  max-width: 22ch;
+  font-size: clamp(1.5rem, 1.15rem + 1.4vw, 2rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: var(--ht-ink);
+}
+
+.ht-stage {
+  margin-top: 2rem;
+}
+
+.ht-rails {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.ht-rail {
+  overflow: hidden;
+  /* Mask fade — works on any ground, not a painted overlay */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    #000 7%,
+    #000 93%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    #000 7%,
+    #000 93%,
+    transparent 100%
+  );
+}
+
+.ht-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: ht-x var(--ht-duration) linear infinite;
+  animation-play-state: var(--ht-play);
+}
+
+.ht-track--reverse {
+  animation-direction: reverse;
+}
+
+.ht-set {
+  display: flex;
+  flex-direction: row;
+  flex-shrink: 0;
+  gap: var(--ht-gap);
+  padding-right: var(--ht-gap);
+}
+
+.ht-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  box-sizing: border-box;
+  width: 17.5rem;
+  flex: 0 0 auto;
+  padding: 1rem 1.05rem 1.05rem;
+  background: var(--ht-card);
+  border: 1px solid var(--ht-border);
+  border-radius: var(--ht-radius);
+  box-shadow: var(--ht-lift);
+  transition:
+    border-color 400ms var(--ht-ease),
+    transform 400ms var(--ht-ease);
+}
+
+.ht-card:hover {
+  border-color: var(--ht-accent);
+  transform: translateY(-1px);
+}
+
+.ht-quote {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--ht-ink);
+}
+
+.ht-quote::before {
+  content: "“";
+  color: var(--ht-accent);
+  font-weight: 700;
+  margin-right: 0.1em;
+}
+
+.ht-person {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-top: auto;
+}
+
+.ht-avatar {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  flex-shrink: 0;
+  border-radius: 9999px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+  line-height: 1;
+  user-select: none;
+}
+
+.ht-meta {
+  min-width: 0;
+}
+
+.ht-name {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--ht-ink);
+}
+
+.ht-role {
+  margin: 0.1rem 0 0;
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1.3;
+  color: var(--ht-muted);
+}
+
+/* Motion on: keep a real list for SR, not a frozen rail */
+.ht-list {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.ht-list .ht-card:hover {
+  transform: none;
+}
+
+.ht-root:hover .ht-track,
+.ht-root:focus-within .ht-track {
+  animation-play-state: paused;
+}
+
+/* Mobile: horizontal rails become vertical rails (reflow, not shrink) */
+@media (max-width: 767px) {
+  .ht-rails {
+    padding-inline: var(--gutter);
+  }
+
+  .ht-rail {
+    height: 17.5rem;
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      #000 10%,
+      #000 90%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      #000 10%,
+      #000 90%,
+      transparent 100%
+    );
+  }
+
+  .ht-track {
+    flex-direction: column;
+    width: 100%;
+    animation-name: ht-y;
+    animation-duration: 36s;
+  }
+
+  .ht-set {
+    flex-direction: column;
+    width: 100%;
+    padding-right: 0;
+    padding-bottom: var(--ht-gap);
+  }
+
+  .ht-card {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+/* Reduced motion: drop the mechanic, show a readable list */
+@media (prefers-reduced-motion: reduce) {
+  .ht-rails {
+    display: none !important;
+  }
+
+  .ht-list {
+    position: static;
+    width: auto;
+    height: auto;
+    margin: 2rem 0 0;
+    padding: 0 var(--gutter);
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+    border: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.75rem;
+    max-width: var(--max-width-site);
+    margin-inline: auto;
+  }
+
+  .ht-list .ht-card {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .ht-track {
+    animation: none !important;
+    will-change: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) and (min-width: 640px) {
+  .ht-list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@keyframes ht-x {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes ht-y {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(0, -50%, 0);
+  }
+}

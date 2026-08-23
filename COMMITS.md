@@ -17,6 +17,7 @@ Current version: **0.1.0** (initial setup)
 ## Suggested Commits (Development Phase)
 
 ### 1. Project Setup & Scaffolding
+
 ```bash
 git commit -m "chore(setup): Initialize Astro project with React components"
 git commit -m "chore(deps): Add Sass, Prettier, and core dependencies"
@@ -24,6 +25,7 @@ git commit -m "chore(config): Configure Astro for static output and GitHub Pages
 ```
 
 ### 2. Base Layouts & Components
+
 ```bash
 git commit -m "feat(layout): Create BaseLayout with head and typography"
 git commit -m "feat(components): Add Header with responsive mobile menu"
@@ -32,6 +34,7 @@ git commit -m "feat(components): Add RotatingWords component for advice block"
 ```
 
 ### 3. Pages
+
 ```bash
 git commit -m "feat(pages): Create landing page (index.astro)"
 git commit -m "feat(pages): Create About page with author bio"
@@ -41,6 +44,7 @@ git commit -m "feat(pages): Create Contact page"
 ```
 
 ### 4. Styling & Animations
+
 ```bash
 git commit -m "style(scss): Add global styles and typography system"
 git commit -m "style(animations): Add entrance animations and transitions"
@@ -49,6 +53,7 @@ git commit -m "feat(a11y): Add prefers-reduced-motion support"
 ```
 
 ### 5. Assets & Data
+
 ```bash
 git commit -m "feat(data): Add projects.json with sample portfolio entries"
 git commit -m "assets(logo): Add SVG logo placeholder for rebranding"
@@ -57,6 +62,7 @@ git commit -m "chore(sync): Add script to sync recursos/ to public/assets/"
 ```
 
 ### 6. GitHub Pages & Deployment
+
 ```bash
 git commit -m "chore(ci): Add GitHub Actions workflow for build and deploy"
 git commit -m "docs(readme): Create setup and deployment instructions"
@@ -64,6 +70,7 @@ git commit -m "chore(.gitignore): Add standard ignores (node_modules, dist, etc.
 ```
 
 ### 7. Optimization
+
 ```bash
 git commit -m "perf(images): Add image optimization script (WebP conversion)"
 git commit -m "perf(favicon): Add favicon generation script"
@@ -137,6 +144,7 @@ git commit -m "content(contact): Update contact email and social links"
 - `refactor/code-cleanup` — Code refactoring without new features
 
 Example:
+
 ```bash
 git checkout -b feat/add-testimonials
 git checkout -b fix/responsive-menu-bug
@@ -168,6 +176,7 @@ git checkout -b chore/update-dependencies
 ---
 
 Next steps after initial launch:
+
 1. Gather client feedback on portfolio design
 2. Plan v0.2.0 with additional features (e.g., blog, testimonials, advanced filtering)
 3. Set up GitHub Discussions or Issues for community feedback

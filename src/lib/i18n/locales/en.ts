@@ -9,26 +9,31 @@ const en: Dictionary = {
     contact: "Contact",
   },
   header: {
-    insertCoin: "Insert coin",
+    insertCoin: "Contact",
     language: "Language",
     selectLanguage: "Select language",
+    openMenu: "Open menu",
+    closeMenu: "Close menu",
   },
   footer: {
-    letsTalk: "Shall we talk?",
-    ctaLine1: "Let's make something",
-    ctaAccent: "vertically",
-    ctaLine2: "memorable.",
-    writeContact: "Write → Contact",
+    letsTalk: "Close",
+    ctaLine1: "Less noise.",
+    ctaAccent: "More vertical.",
+    ctaLine2: "",
+    writeContact: "Let's talk →",
     navigate: "Navigate",
     social: "Social",
     contact: "Contact",
     privacy: "Privacy",
+    legalNotice: "Legal notice",
+    cookies: "Cookies",
     highScores: "High scores reserved.",
     madeIn: "Handmade in",
   },
   menu: {
     ariaLabel: "Main navigation",
     mainNav: "Menu",
+    tagline: "No credits · Press start · Andorra",
   },
   common: {
     skipToContent: "Skip to content",
@@ -41,24 +46,25 @@ const en: Dictionary = {
     year: "Year",
     role: "Role",
     loading: "Loading…",
+    scroll: "Scroll",
+    insertCoin: "Insert coin",
+    navigatingTo: "Navigating to",
+    loadingStage: "Loading stage",
   },
   home: {
     hero: {
       creativeManagement: "Creative Management",
+      byline: "SOM VERTICAL · ESTEBAN FERRER",
       line1: "We craft",
       line2: "brands that go",
       pitch:
-        "Branding, digital, motion and strategy — from Andorra, with intent and zero generic.",
-      insertCoin: "Insert coin",
+        "Branding, digital, motion, strategy and software. We help brands and companies make real money: marketing that converts, organic audience growth, digital products and intentional vibe coding. From Andorra, no generics.",
+      insertCoin: "Contact",
       viewProjects: "View projects",
-      rotating: [
-        "further",
-        "weirder",
-        "higher",
-        "more fun",
-        "more vertical",
-      ],
+      rotating: ["further", "weirder", "higher", "more fun", "more vertical"],
       tags: ["Branding", "Digital", "Motion", "3D"],
+      locationLoading: "Detecting location…",
+      sectionLabel: "Home",
     },
     marquee: {
       rowA: [
@@ -83,12 +89,12 @@ const en: Dictionary = {
     manifesto: {
       eyebrow: "Manifesto",
       lines: [
-        "We don’t make “pretty websites”.",
-        "We design systems with character,",
-        "experiences that stick",
-        "and brands that dare to be.",
+        "We don’t sell smoke or templates.",
+        "We build brands that convert,",
+        "systems people remember",
+        "and products with real intent.",
       ],
-      body: "Vertical Management is Esteban Ferrer’s studio: concept, execution and a bit of controlled chaos — from Andorra to the world.",
+      body: "If it doesn’t move the needle — sales, audience or product — it doesn’t leave the machine. Vertical is craft with results, from Andorra to the world.",
     },
     work: {
       eyebrow: "Selected work",
@@ -108,9 +114,9 @@ const en: Dictionary = {
     },
     about: {
       eyebrow: "Who’s behind it",
-      titleLine1: "Creative by profession.",
-      titleLine2: "Arcade by vocation.",
-      body: "Vertical Management is Esteban Ferrer’s vehicle to build identities, products and campaigns that refuse to behave like generic content. Premium in execution. Fun at the core.",
+      titleLine1: "Hi, I’m Esteban.",
+      titleLine2: "This is Vertical.",
+      body: "I run the studio from Andorra: branding, digital, motion and software under one bar — you can tell who made it, and it has to help you grow for real. Premium in execution. Close in conversation. No agency posturing.",
       founder: "Founder",
       basedIn: "Based in",
       principles: [
@@ -126,17 +132,71 @@ const en: Dictionary = {
         },
         {
           index: "C",
-          title: "Play with a compass",
-          body: "Irreverent yes. Random, never.",
+          title: "Results with character",
+          body: "Pretty without conversion doesn’t count. Irreverent with a compass.",
         },
       ],
       storyCta: "Read the story →",
     },
+    testimonials: {
+      eyebrow: "High scores",
+      title: "From people who already pressed start",
+      sectionLabel: "Testimonials",
+      items: [
+        {
+          quote:
+            "At last, a studio that doesn’t drop a PDF and vanish. The brand gets used, not archived.",
+          name: "Marina Soler",
+          role: "Brand director",
+        },
+        {
+          quote:
+            "Concept first, pixel after. The motion doesn’t look like stock — it feels like the house.",
+          name: "Luca Moretti",
+          role: "Head of Growth",
+        },
+        {
+          quote:
+            "Remote, clear, and sharper than a 40-person agency. That’s insert coin.",
+          name: "Nora Pellicer",
+          role: "Founder",
+        },
+        {
+          quote:
+            "We asked for an identity. We got a system the team actually uses every day.",
+          name: "Tomás Herrera",
+          role: "CMO",
+        },
+        {
+          quote:
+            "No posturing. They talk straight, deliver weird, and conversion shows up.",
+          name: "Aina Riba",
+          role: "Product lead",
+        },
+        {
+          quote:
+            "The site doesn’t look like another site. That’s already worth pressing start.",
+          name: "Julien Marchand",
+          role: "Creative director",
+        },
+        {
+          quote:
+            "Debrief in one call. Craft in every hover. This is how it should always be.",
+          name: "Paula Mendes",
+          role: "Brand manager",
+        },
+        {
+          quote: "I thought playful high-craft was a slogan. Then I saw the work.",
+          name: "Oriol Serra",
+          role: "CEO",
+        },
+      ],
+    },
     cta: {
-      eyebrow: "Game over? No. Press start.",
-      words: ["Ready", "for", "the", "next", "screen?"],
+      eyebrow: "Next move",
+      words: ["Less", "noise.", "More", "vertical."],
       accentFrom: 2,
-      body: "Tell us about the project. If there’s a good idea (or the will to find one), we play. Andorra and remote.",
+      body: "If you have a real project (or the will to find one), let’s talk. Andorra and remote.",
       startProject: "Start a project",
     },
   },
@@ -146,7 +206,12 @@ const en: Dictionary = {
       title: "Creative by profession.",
       titleMuted: "Arcade by vocation.",
       body: "We’re not “another agency”. We’re Vertical: Esteban Ferrer’s studio — concept, execution and a little controlled chaos, from Andorra to the world.",
-      chips: ["Andorra", "Esteban Ferrer", "Playful High-Craft"],
+      watermark: "PLAYER ONE",
+      stats: [
+        { value: "AD", label: "Andorra" },
+        { value: "1P", label: "Esteban Ferrer" },
+        { value: "∞", label: "Playful High-Craft" },
+      ],
     },
     timeline: {
       eyebrow: "Origin",
@@ -307,6 +372,60 @@ const en: Dictionary = {
       startProject: "Start a project",
       viewProjects: "View projects →",
     },
+    crt: {
+      windowPath: "vertical@studio: ~/servicios",
+      available: "available for high-craft work",
+      whoami: {
+        command: "whoami --services",
+        banner: "SERVICES",
+        role: "> Creative Management Studio · Branding · Digital · Motion · 3D",
+        highlights: ["character", "studio-grade", "four fronts"],
+        checks: ["Andorra as base", "High-craft + play", "No generic work"],
+        lsCta: "$ ls ~/services ->",
+        contactCta: "./contact --brief",
+      },
+      neofetch: {
+        command: "neofetch --studio",
+        user: "vertical@studio",
+        rows: [
+          { key: "OS", value: "Vertical Studio v3.1 (Andorra build)" },
+          { key: "Host", value: "Andorra · Remote-first" },
+          { key: "Role", value: "Creative Management" },
+          { key: "Uptime", value: "high-craft mode" },
+          { key: "Shell", value: "Concept → Execution → Ship" },
+          { key: "Stack", value: "Branding · Digital · Motion · 3D" },
+          { key: "Focus", value: "Character systems, not templates" },
+        ],
+        status: "available for select projects",
+      },
+      listing: {
+        command: "ls -la ~/services # 4 selected",
+        heading: "Things we ship // drwxr-xr-x",
+        perm: "-rwxr-xr-x",
+        cases: "view work ->",
+        brief: "brief ->",
+        files: [
+          { id: "branding", name: "branding/", tag: "signature" },
+          { id: "digital", name: "digital-web/", tag: "core" },
+          { id: "motion", name: "motion-3d/", tag: "" },
+          { id: "strategy", name: "strategy/", tag: "" },
+        ],
+      },
+      process: {
+        command: "cat process.txt | sort -r",
+      },
+      contact: {
+        command: "./contact --brief",
+        headline: "Ready to insert the next coin?",
+        mailLabel: "$ mail",
+        copy: "copy",
+        copied: "copied",
+      },
+      echo: {
+        line: '$ echo "(c) 2026 Vertical · built in the terminal · shipped with character"',
+        git: "last commit: 2h ago, main@craft, uptime 99.98%",
+      },
+    },
   },
   serviceItems: {
     branding: {
@@ -328,8 +447,7 @@ const en: Dictionary = {
     digital: {
       title: "Digital & Web",
       punch: "EXPERIENCE",
-      description:
-        "Sites and products with Awwwards-level craft and arcade personality.",
+      description: "Sites and products with Awwwards-level craft and arcade personality.",
       longDescription:
         "Web and digital products with impactful type, intentional micro-interactions and real performance. Premium in execution, playful at heart.",
       tags: ["Web", "UI", "UX", "Experiences"],
@@ -381,8 +499,7 @@ const en: Dictionary = {
     },
     {
       title: "Concept",
-      description:
-        "Ideas with an edge. We test directions until one feels inevitable.",
+      description: "Ideas with an edge. We test directions until one feels inevitable.",
     },
     {
       title: "Execution",
@@ -437,8 +554,7 @@ const en: Dictionary = {
         { value: "ongoing", label: "Retainer / ongoing" },
       ],
       message: "Message",
-      messagePlaceholder:
-        "The project, the impossible deadline, the dream — anything.",
+      messagePlaceholder: "The project, the impossible deadline, the dream — anything.",
       honeypot: "Do not fill",
       privacyNote:
         "Sent to {email}. Human reply, no 2012 autoresponder. By sending you accept the",
@@ -470,8 +586,7 @@ const en: Dictionary = {
     eyebrowCases: "Cases",
     eyebrowOs: "Vertical OS",
     title: "Projects",
-    bodyMobile:
-      "Four real cases. Client, type and year up front — tap and go in.",
+    bodyMobile: "Four real cases. Client, type and year up front — tap and go in.",
     bodyDesktop:
       "Vertical OS: the classic desktop, modernized. Open windows, drag, minimize without mercy.",
     desktopMeta: "Desktop · v2.0 · {count} cases loaded",
@@ -614,53 +729,144 @@ const en: Dictionary = {
     linuxMode: "Linux mode (jk)",
   },
   privacy: {
-    eyebrow: "Legal",
-    title: "Privacy",
-    updated: "Last updated: August 2026 · {name} ({location})",
+    eyebrow: "Legal · LQPD",
+    title: "Privacy policy",
+    updated:
+      "Last updated: August 2026 · {name} / Esteban Ferrer ({location}) · Llei 29/2021 (LQPD)",
     backContact: "← Back to contact",
     sections: [
       {
-        title: "1. Controller",
-        body: "The data controller is {name}, based in {location}. Contact: {email}.",
+        title: "1. Data controller",
+        body: "The data controller is Esteban Ferrer, trading as {name} (SOM VERTICAL), based in {location}. Contact: {email}. Website: {url}.",
       },
       {
-        title: "2. What data we collect",
-        body: "Through the contact form we may process the listed data. We do not request payment data or ID documents through this site.",
+        title: "2. Legal framework",
+        body: "Processing is governed by Andorra’s Llei 29/2021 (LQPD) and its implementing regulation, and where applicable by the EU GDPR for data subjects in the Union.",
+      },
+      {
+        title: "3. Data we collect",
+        body: "Through the contact form and email we may process the listed categories. We do not request payment data or ID documents through this site.",
         list: [
           "Name or alias",
           "Email address",
           "Company (optional)",
           "Indicative budget (optional)",
           "Message and project details you share",
+          "Minimal server technical data (IP, security logs) when hosting records them",
         ],
       },
       {
-        title: "3. Purpose and legal basis",
-        body: "We use this data solely to answer your inquiry, assess the brief and, if appropriate, start a commercial relationship. Legal basis is your consent when submitting the form and, where applicable, pre-contractual steps at your request.",
+        title: "4. Purposes",
+        body: "We process data to: (a) answer inquiries; (b) assess briefs and hold pre-contractual talks; (c) run the commercial relationship if formalized; (d) meet legal duties; (e) keep the site secure.",
       },
       {
-        title: "4. Retention",
-        body: "We keep messages as long as needed to manage the conversation and applicable legal duties. Without a commercial relationship, they are deleted or limitedly archived when no longer needed.",
+        title: "5. Legal basis",
+        body: "Consent when you submit the form or write to us; pre-contractual steps at your request; contract performance when a relationship exists; and, where applicable, legitimate interest in security and legal compliance.",
       },
       {
-        title: "5. Processors and tools",
-        body: "Form emails may be sent via a transactional email provider (e.g. Resend). Site hosting may be on Vercel or another cloud provider. These act as processors under their own terms and security measures.",
+        title: "6. Retention",
+        body: "We keep messages and contact data as long as needed for the conversation, the commercial relationship and legal duties. Without a commercial relationship, data is deleted or limitedly archived when no longer needed.",
       },
       {
-        title: "6. Cookies and analytics",
-        body: "This site does not use advertising cookies or third-party trackers by default. Strictly necessary technical cookies may be used (e.g. browser session preferences). If analytics is enabled later, we will inform and, when required, request consent.",
+        title: "7. Processors",
+        body: "Form emails may go through a transactional email provider (e.g. Resend). Hosting may be on Vercel or another cloud provider. They act as processors under their terms. We do not sell personal data.",
       },
       {
-        title: "7. Your rights",
-        body: "You may request access, rectification, erasure, restriction or objection to processing, and portability where applicable, by writing to {email}. You may also lodge a complaint with the competent authority in Andorra or your EU country of residence.",
+        title: "8. International transfers",
+        body: "Some processors may process data outside Andorra or the EEA. When they do, appropriate safeguards under applicable law apply.",
       },
       {
-        title: "8. Security",
-        body: "We apply reasonable technical and organizational measures (HTTPS, form validation, send limits). No system is 100% secure; if you spot an incident, tell us.",
+        title: "9. Cookies and approximate geolocation",
+        body: "The site may use browser local/session storage for preferences (e.g. language or location cache). The hero location badge uses approximate IP geolocation, not precise GPS. See the Cookies policy.",
       },
       {
-        title: "9. Changes",
-        body: "We may update this policy. The current version will always be at this URL: {url}/privacidad.",
+        title: "10. Your rights",
+        body: "You may exercise access, rectification, erasure, objection, restriction and, where applicable, portability by writing to {email}. You may withdraw consent where processing is based on it, without affecting prior lawfulness.",
+      },
+      {
+        title: "11. Complaints",
+        body: "You may lodge a complaint with the Agència Andorrana de Protecció de Dades (APDA) or another competent authority, without prejudice to court remedies.",
+      },
+      {
+        title: "12. Security",
+        body: "We apply reasonable technical and organizational measures (HTTPS, form validation, send limits). No system is 100% secure; report incidents to {email}.",
+      },
+      {
+        title: "13. Changes",
+        body: "We may update this policy. The current version is at {url}/privacidad.",
+      },
+    ],
+  },
+  legalNotice: {
+    eyebrow: "Legal",
+    title: "Legal notice",
+    updated: "Last updated: August 2026 · {name} ({location})",
+    backContact: "← Back to contact",
+    sections: [
+      {
+        title: "1. Site owner",
+        body: "The website {url} is operated by Esteban Ferrer under the brand {name} (SOM VERTICAL), based in {location}. Contact: {email}.",
+      },
+      {
+        title: "2. Purpose",
+        body: "This site informs about studio services and enables commercial contact. Content is informational and not a binding offer unless agreed in writing.",
+      },
+      {
+        title: "3. Terms of use",
+        body: "Users must use the site lawfully, not introduce malware or attack security, and provide truthful form data. We may deny access in case of abuse.",
+      },
+      {
+        title: "4. Intellectual property",
+        body: "Texts, designs, logos, images, video and code on this site belong to {name} / Esteban Ferrer or third-party licensors. Unauthorized reproduction or transformation is prohibited except as allowed by law.",
+      },
+      {
+        title: "5. Links",
+        body: "Third-party links (social, tools) are for convenience. We do not control those sites or their policies.",
+      },
+      {
+        title: "6. Liability",
+        body: "We make reasonable efforts to keep the site available and updated, without guaranteeing zero errors or downtime. Liability is limited as allowed by Andorran law.",
+      },
+      {
+        title: "7. Governing law",
+        body: "This notice is governed by the law of the Principality of Andorra. Disputes are submitted to the competent Andorran courts, without prejudice to mandatory consumer rights where applicable.",
+      },
+    ],
+  },
+  cookies: {
+    eyebrow: "Legal",
+    title: "Cookies policy",
+    updated: "Last updated: August 2026 · {name} ({location})",
+    backContact: "← Back to contact",
+    sections: [
+      {
+        title: "1. What cookies are",
+        body: "Cookies and similar tech (localStorage, sessionStorage) store small data in your browser to remember preferences or help the site work.",
+      },
+      {
+        title: "2. What we use",
+        body: "By default we do not install ad cookies or third-party trackers. We may use:",
+        list: [
+          "Strictly necessary browser storage (e.g. UI language preference)",
+          "sessionStorage to cache the approximate visitor location shown in the hero (city/country via IP)",
+          "Hosting/CDN technical cookies required for security and delivery",
+        ],
+      },
+      {
+        title: "3. IP geolocation",
+        body: "The home location badge may call an IP geolocation service (approx. city and country). It does not request device GPS permission. You can clear session storage in your browser.",
+      },
+      {
+        title: "4. Basis and purpose",
+        body: "Technical storage supports site function and experience. Strictly necessary tech does not require consent. If non-essential analytics or marketing cookies are added later, we will inform and request consent when required.",
+      },
+      {
+        title: "5. How to manage them",
+        body: "You can delete or block cookies and site data in browser settings. Disabling technical storage may affect preferences such as language.",
+      },
+      {
+        title: "6. More information",
+        body: "For personal data processing, see the Privacy policy. Contact: {email}.",
       },
     ],
   },
@@ -678,7 +884,8 @@ const en: Dictionary = {
     retry: "Retry",
   },
   site: {
-    pitch: "We craft brands that go further, weirder and with more craft.",
+    pitch:
+      "Branding, digital, motion, strategy and software that convert — from Andorra.",
   },
 };
 

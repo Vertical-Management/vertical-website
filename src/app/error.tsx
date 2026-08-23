@@ -27,9 +27,7 @@ export default function Error({
         {isDev && error.message ? error.message : e.body}
       </p>
       {error.digest ? (
-        <p className="mt-2 font-mono text-[10px] text-ink-faint">
-          ref: {error.digest}
-        </p>
+        <p className="mt-2 font-mono text-[10px] text-ink-faint">ref: {error.digest}</p>
       ) : null}
       <button
         type="button"

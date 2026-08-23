@@ -4,8 +4,11 @@ import { motion, useReducedMotion } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { EASE_OUT_EXPO, duration } from "@/lib/motion";
 
-/** Routes that must paint immediately (no opacity:0 entrance trap) */
-const INSTANT_PATHS = new Set(["/propuestas-hero"]);
+/**
+ * Routes that must paint immediately (no opacity:0 entrance trap).
+ * Home is included so hero text is never invisible/black while waiting for FM.
+ */
+const INSTANT_PATHS = new Set(["/", "/propuestas-hero", "/nosotros", "/servicios"]);
 
 /**
  * Content enter animation for app/template.tsx (remounts each navigation).

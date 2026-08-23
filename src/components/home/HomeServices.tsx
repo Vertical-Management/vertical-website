@@ -18,9 +18,7 @@ import { EASE_OUT_EXPO, duration } from "@/lib/motion";
 export function HomeServices() {
   const { t } = useLanguage();
   const services = useMemo(() => localizeServices(t), [t]);
-  const [hovered, setHovered] = useState<string | null>(
-    services[0]?.id ?? null,
-  );
+  const [hovered, setHovered] = useState<string | null>(services[0]?.id ?? null);
   const reduced = useReducedMotion();
   const active = services.find((s) => s.id === hovered) ?? services[0];
   const s = t.home.services;
@@ -66,7 +64,7 @@ export function HomeServices() {
                   >
                     <span
                       className={cn(
-                        "font-mono text-caption tracking-label text-white/30 transition-colors duration-base",
+                        "tracking-label font-mono text-caption text-white/30 transition-colors duration-base",
                         isOn && "text-accent-lime",
                       )}
                     >
@@ -74,7 +72,7 @@ export function HomeServices() {
                     </span>
                     <span
                       className={cn(
-                        "flex-1 font-display text-[clamp(1.75rem,4vw,3.25rem)] font-bold tracking-display transition-transform duration-slow ease-out-expo",
+                        "tracking-display flex-1 font-display text-[clamp(1.75rem,4vw,3.25rem)] font-bold transition-transform duration-slow ease-out-expo",
                         isOn ? "translate-x-2 text-accent-lime" : "text-paper",
                       )}
                     >
@@ -82,10 +80,9 @@ export function HomeServices() {
                     </span>
                     <span
                       className={cn(
-                        "hidden font-mono text-[0.65rem] uppercase tracking-label text-white/30 transition-all duration-base sm:inline",
-                        isOn && "text-accent-lime translate-x-0",
-                        !isOn &&
-                          "translate-x-2 opacity-0 group-hover:opacity-100",
+                        "tracking-label hidden font-mono text-[0.65rem] uppercase text-white/30 transition-all duration-base sm:inline",
+                        isOn && "translate-x-0 text-accent-lime",
+                        !isOn && "translate-x-2 opacity-0 group-hover:opacity-100",
                       )}
                     >
                       {s.explore}
@@ -106,12 +103,10 @@ export function HomeServices() {
                   exit={reduced ? undefined : { opacity: 0, y: -8 }}
                   transition={{ duration: duration.base, ease: EASE_OUT_EXPO }}
                 >
-                  <p className="font-mono text-caption uppercase tracking-label text-accent-lime">
+                  <p className="tracking-label font-mono text-caption uppercase text-accent-lime">
                     {active.index} — {active.title}
                   </p>
-                  <p className="mt-4 text-lead text-white/75">
-                    {active.description}
-                  </p>
+                  <p className="mt-4 text-lead text-white/75">{active.description}</p>
                   {active.tags ? (
                     <div className="mt-6 flex flex-wrap gap-2">
                       {active.tags.map((tag) => (
@@ -132,7 +127,7 @@ export function HomeServices() {
             <NextLink
               href="/servicios"
               data-cursor="hover"
-              className="mt-8 inline-flex w-fit items-center gap-2 font-mono text-caption uppercase tracking-label text-paper transition-colors duration-base hover:text-accent-lime"
+              className="tracking-label mt-8 inline-flex w-fit items-center gap-2 font-mono text-caption uppercase text-paper transition-colors duration-base hover:text-accent-lime"
             >
               {s.viewAll}
             </NextLink>

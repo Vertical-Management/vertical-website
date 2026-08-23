@@ -5,9 +5,8 @@ import {
   HomeHero,
   HomeLogoCarousel,
   HomeManifesto,
-  HomeMarquee,
+  HomeTestimonials,
 } from "@/components/home";
-import { Grain } from "@/components/ui/Grain";
 import { SEO } from "@/lib/seo";
 import { SITE } from "@/lib/constants";
 
@@ -31,24 +30,16 @@ export const metadata: Metadata = {
 };
 
 /**
- * Home — immersive narrative experience.
- * Critical path: Hero wall (budgeted media) + marquee + editorial sections.
+ * Home — Club 18 wall, logo strip, manifesto, about, testimonials, close.
  */
 export default function HomePage() {
   return (
     <main id="main-content" className="relative">
-      <div
-        className="pointer-events-none fixed inset-0 z-[1] opacity-[0.03]"
-        aria-hidden
-      >
-        <Grain className="opacity-100" />
-      </div>
-
       <HomeHero />
-      <HomeMarquee />
+      <HomeLogoCarousel />
       <HomeManifesto />
       <HomeAbout />
-      <HomeLogoCarousel />
+      <HomeTestimonials />
       <HomeCTA />
     </main>
   );

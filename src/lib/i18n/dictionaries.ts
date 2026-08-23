@@ -6,12 +6,7 @@ import en from "./locales/en";
 import fr from "./locales/fr";
 
 export type { Dictionary } from "./types";
-export type {
-  ServiceCopy,
-  ProcessStepCopy,
-  FaqItem,
-  ProjectCopy,
-} from "./types";
+export type { ServiceCopy, ProcessStepCopy, FaqItem, ProjectCopy } from "./types";
 
 export const dictionaries: Record<Locale, Dictionary> = {
   es,
@@ -36,10 +31,7 @@ export const NAV_I18N_KEYS = {
 export type NavI18nKey = (typeof NAV_I18N_KEYS)[keyof typeof NAV_I18N_KEYS];
 
 /** Simple `{token}` replacement for dictionary strings. */
-export function fill(
-  template: string,
-  vars: Record<string, string | number>,
-): string {
+export function fill(template: string, vars: Record<string, string | number>): string {
   return template.replace(/\{(\w+)\}/g, (_, key: string) =>
     vars[key] !== undefined ? String(vars[key]) : `{${key}}`,
   );

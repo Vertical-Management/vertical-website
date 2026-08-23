@@ -27,8 +27,7 @@ export const services: Service[] = [
     title: "Digital & Web",
     punch: "EXPERIENCIA",
     theme: "cool",
-    description:
-      "Sitios y productos con nivel de Awwwards y personalidad de arcade.",
+    description: "Sitios y productos con nivel de Awwwards y personalidad de arcade.",
     longDescription:
       "Webs y productos digitales con tipografía de impacto, micro-interacciones intencionadas y performance real. Premium en la ejecución, divertido en el alma.",
     tags: ["Web", "UI", "UX", "Experiencias"],
@@ -65,8 +64,7 @@ export const services: Service[] = [
     title: "Estrategia creativa",
     punch: "CONCEPTO",
     theme: "ink",
-    description:
-      "Concepto primero. Luego ejecución. Humor incluido cuando suma.",
+    description: "Concepto primero. Luego ejecución. Humor incluido cuando suma.",
     longDescription:
       "Antes del pixel: el ángulo. Posicionamiento, campañas y narrativas que dan dirección al equipo y claridad al cliente.",
     tags: ["Concepto", "Campaign", "Consultoría", "Narrativa"],

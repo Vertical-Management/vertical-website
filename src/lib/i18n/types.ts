@@ -43,6 +43,8 @@ export type Dictionary = {
     insertCoin: string;
     language: string;
     selectLanguage: string;
+    openMenu: string;
+    closeMenu: string;
   };
   footer: {
     letsTalk: string;
@@ -54,12 +56,15 @@ export type Dictionary = {
     social: string;
     contact: string;
     privacy: string;
+    legalNotice: string;
+    cookies: string;
     highScores: string;
     madeIn: string;
   };
   menu: {
     ariaLabel: string;
     mainNav: string;
+    tagline: string;
   };
   common: {
     skipToContent: string;
@@ -72,10 +77,16 @@ export type Dictionary = {
     year: string;
     role: string;
     loading: string;
+    scroll: string;
+    insertCoin: string;
+    navigatingTo: string;
+    loadingStage: string;
   };
   home: {
     hero: {
       creativeManagement: string;
+      /** Small mono byline above the display headline */
+      byline: string;
       line1: string;
       line2: string;
       pitch: string;
@@ -83,6 +94,10 @@ export type Dictionary = {
       viewProjects: string;
       rotating: string[];
       tags: string[];
+      /** Geo badge while IP lookup runs */
+      locationLoading: string;
+      /** Accessible name for the hero section */
+      sectionLabel: string;
     };
     marquee: { rowA: string[]; rowB: string[] };
     manifesto: {
@@ -115,6 +130,12 @@ export type Dictionary = {
       principles: { index: string; title: string; body: string }[];
       storyCta: string;
     };
+    testimonials: {
+      eyebrow: string;
+      title: string;
+      sectionLabel: string;
+      items: { quote: string; name: string; role: string }[];
+    };
     cta: {
       eyebrow: string;
       words: string[];
@@ -129,7 +150,8 @@ export type Dictionary = {
       title: string;
       titleMuted: string;
       body: string;
-      chips: string[];
+      watermark: string;
+      stats: { value: string; label: string }[];
     };
     timeline: {
       eyebrow: string;
@@ -205,6 +227,47 @@ export type Dictionary = {
       body: string;
       startProject: string;
       viewProjects: string;
+    };
+    crt: {
+      windowPath: string;
+      available: string;
+      whoami: {
+        command: string;
+        banner: string;
+        role: string;
+        highlights: string[];
+        checks: string[];
+        lsCta: string;
+        contactCta: string;
+      };
+      neofetch: {
+        command: string;
+        user: string;
+        rows: { key: string; value: string }[];
+        status: string;
+      };
+      listing: {
+        command: string;
+        heading: string;
+        perm: string;
+        cases: string;
+        brief: string;
+        files: { id: string; name: string; tag: string }[];
+      };
+      process: {
+        command: string;
+      };
+      contact: {
+        command: string;
+        headline: string;
+        mailLabel: string;
+        copy: string;
+        copied: string;
+      };
+      echo: {
+        line: string;
+        git: string;
+      };
     };
   };
   serviceItems: {
@@ -330,6 +393,20 @@ export type Dictionary = {
     linuxMode: string;
   };
   privacy: {
+    eyebrow: string;
+    title: string;
+    updated: string;
+    backContact: string;
+    sections: { title: string; body: string; list?: string[] }[];
+  };
+  legalNotice: {
+    eyebrow: string;
+    title: string;
+    updated: string;
+    backContact: string;
+    sections: { title: string; body: string; list?: string[] }[];
+  };
+  cookies: {
     eyebrow: string;
     title: string;
     updated: string;

@@ -41,7 +41,10 @@ export default function DesignSystemPage() {
     <main id="main-content" className="relative pb-30">
       <Grain />
 
-      <Section padded={false} className="border-b border-border pt-[calc(var(--header-height)+1rem)]">
+      <Section
+        padded={false}
+        className="border-b border-border pt-[calc(var(--header-height)+1rem)]"
+      >
         <Container className="py-16 md:py-24">
           <Eyebrow index="DS" className="mb-6">
             Vertical · Living design system
@@ -54,8 +57,8 @@ export default function DesignSystemPage() {
             stagger={0.03}
           />
           <p className="mt-6 max-w-xl text-lead text-ink-soft">
-            Editorial Digital Disruptivo + Playful High-Craft. Tokens, tipo y
-            primitivos listos para Home, Servicios, Proyectos y Contacto.
+            Editorial Digital Disruptivo + Playful High-Craft. Tokens, tipo y primitivos
+            listos para Home, Servicios, Proyectos y Contacto.
           </p>
           <div className="mt-8">
             <Link href="/" mono>
@@ -80,8 +83,8 @@ export default function DesignSystemPage() {
                 <div className="overflow-hidden rounded-card border border-border bg-surface">
                   <div className={`aspect-square ${c.var}`} />
                   <div className="p-3">
-                    <p className="font-medium text-sm">{c.name}</p>
-                    <p className="mt-0.5 font-mono text-[0.65rem] uppercase tracking-label text-ink-muted">
+                    <p className="text-sm font-medium">{c.name}</p>
+                    <p className="tracking-label mt-0.5 font-mono text-[0.65rem] uppercase text-ink-muted">
                       {c.hex}
                     </p>
                   </div>
@@ -94,7 +97,9 @@ export default function DesignSystemPage() {
             className="mt-8 overflow-hidden rounded-card p-8 md:p-12"
             data-theme="inverse"
           >
-            <Eyebrow className="mb-3 !text-ink-muted">data-theme=&quot;inverse&quot;</Eyebrow>
+            <Eyebrow className="mb-3 !text-ink-muted">
+              data-theme=&quot;inverse&quot;
+            </Eyebrow>
             <Heading as="h3" size="display-sm" className="!text-ink">
               Superficies invertidas para desktop, overlays y punch sections.
             </Heading>
@@ -136,13 +141,13 @@ export default function DesignSystemPage() {
             <div className="max-w-prose">
               <p className="eyebrow mb-2">body · Manrope · lead</p>
               <p className="text-lead text-ink-soft">
-                Creatividad, branding y experiencias digitales con humor y craft.
-                No plantillas. Cada micro-interacción tiene intención.
+                Creatividad, branding y experiencias digitales con humor y craft. No
+                plantillas. Cada micro-interacción tiene intención.
               </p>
             </div>
             <div>
               <p className="eyebrow mb-2">mono · JetBrains</p>
-              <p className="font-mono text-sm uppercase tracking-label text-ink-muted">
+              <p className="tracking-label font-mono text-sm uppercase text-ink-muted">
                 01 — Branding · 02 — Digital · 03 — Motion
               </p>
             </div>
@@ -222,16 +227,12 @@ export default function DesignSystemPage() {
 
         <div className="mb-16 border-y border-border py-6">
           <Marquee speed="fast" gap="2rem">
-            {["PLAY", "CRAFT", "HUMOR", "VERTICAL", "ANDORRA", "FERRER"].map(
-              (w) => (
-                <MarqueeItem key={w}>
-                  <span className="font-display text-display-sm tracking-display">
-                    {w}
-                  </span>
-                  <span className="mx-4 text-accent-lime">●</span>
-                </MarqueeItem>
-              ),
-            )}
+            {["PLAY", "CRAFT", "HUMOR", "VERTICAL", "ANDORRA", "FERRER"].map((w) => (
+              <MarqueeItem key={w}>
+                <span className="tracking-display font-display text-display-sm">{w}</span>
+                <span className="mx-4 text-accent-lime">●</span>
+              </MarqueeItem>
+            ))}
           </Marquee>
         </div>
 

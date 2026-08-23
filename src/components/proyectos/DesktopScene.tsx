@@ -3,10 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence } from "framer-motion";
-import {
-  DesktopProvider,
-  useDesktop,
-} from "@/components/proyectos/DesktopContext";
+import { DesktopProvider, useDesktop } from "@/components/proyectos/DesktopContext";
 import { DesktopIcon } from "@/components/proyectos/DesktopIcon";
 import { DesktopWindow } from "@/components/proyectos/DesktopWindow";
 import { Taskbar } from "@/components/proyectos/Taskbar";
@@ -43,8 +40,7 @@ function DesktopInner() {
     if (id.startsWith("project:")) {
       const slug = id.replace("project:", "");
       const project = getProjectBySlug(slug);
-      if (!project)
-        return <p className="p-4 text-sm">{t.projectsPage.notFound}</p>;
+      if (!project) return <p className="p-4 text-sm">{t.projectsPage.notFound}</p>;
       return <ProjectWindowBody project={project} />;
     }
     switch (id) {
@@ -71,7 +67,7 @@ function DesktopInner() {
   return (
     <div
       ref={desktopRef}
-      className="relative h-[min(820px,calc(100dvh-var(--header-height)-2rem))] min-h-[560px] w-full overflow-hidden rounded-card border border-ink/20 shadow-lg md:h-[calc(100dvh-var(--header-height)-3rem)]"
+      className="border-ink/20 relative h-[min(820px,calc(100dvh-var(--header-height)-2rem))] min-h-[560px] w-full overflow-hidden rounded-card border shadow-lg md:h-[calc(100dvh-var(--header-height)-3rem)]"
       onClick={() => {
         setSelected(null);
         setStartOpen(false);
@@ -86,12 +82,12 @@ function DesktopInner() {
         sizes="100vw"
         priority
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-ink/25 via-transparent to-ink/50" />
+      <div className="from-ink/25 to-ink/50 absolute inset-0 bg-gradient-to-b via-transparent" />
       <Grain className="opacity-[0.06]" strong />
 
       {/* Icon grid */}
       <div
-        className="absolute inset-x-0 top-0 bottom-12 z-[1] overflow-y-auto p-3 md:p-5"
+        className="absolute inset-x-0 bottom-12 top-0 z-[1] overflow-y-auto p-3 md:p-5"
         data-lenis-prevent
       >
         <div className="flex flex-col gap-1 sm:flex-row sm:flex-wrap sm:content-start sm:gap-2">

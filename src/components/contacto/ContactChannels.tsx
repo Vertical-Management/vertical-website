@@ -38,15 +38,11 @@ export function ContactChannels() {
     <section className="border-y border-border bg-paper-warm py-12 md:py-16">
       <div className="mx-auto max-w-site px-gutter">
         <Reveal>
-          <p className="font-mono text-caption uppercase tracking-label text-ink-muted">
+          <p className="tracking-label font-mono text-caption uppercase text-ink-muted">
             {ch.eyebrow}
           </p>
         </Reveal>
-        <Stagger
-          className="mt-8 grid gap-4 sm:grid-cols-3"
-          stagger={0.08}
-          as="ul"
-        >
+        <Stagger className="mt-8 grid gap-4 sm:grid-cols-3" stagger={0.08} as="ul">
           {CHANNELS.map((item) => (
             <StaggerItem key={item.label} as="li">
               <a
@@ -61,7 +57,7 @@ export function ContactChannels() {
                   "hover:translate-x-px hover:translate-y-px hover:shadow-[2px_2px_0_0_var(--color-ink)]",
                 )}
               >
-                <span className="font-mono text-caption uppercase tracking-label text-ink-muted">
+                <span className="tracking-label font-mono text-caption uppercase text-ink-muted">
                   {item.label}
                 </span>
                 <span className="mt-3 font-display text-xl tracking-tight text-ink group-hover:text-accent">
@@ -79,14 +75,12 @@ export function ContactChannels() {
               key={s.label}
               href={s.href}
               target={s.href.startsWith("http") ? "_blank" : undefined}
-              rel={
-                s.href.startsWith("http") ? "noopener noreferrer" : undefined
-              }
+              rel={s.href.startsWith("http") ? "noopener noreferrer" : undefined}
               data-cursor="hover"
-              className="group rounded-card border border-border bg-surface p-5 transition-colors duration-base hover:border-ink/30 hover:bg-surface-elevated"
+              className="hover:border-ink/30 group rounded-card border border-border bg-surface p-5 transition-colors duration-base hover:bg-surface-elevated"
             >
               <div className="flex items-center justify-between gap-2">
-                <span className="font-mono text-caption uppercase tracking-label text-ink-muted">
+                <span className="tracking-label font-mono text-caption uppercase text-ink-muted">
                   {s.label}
                 </span>
                 {s.href.startsWith("http") ? (

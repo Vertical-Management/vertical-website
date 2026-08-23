@@ -23,6 +23,7 @@ function isActivePath(pathname: string, href: string) {
 
 /**
  * Navigation link with active state + intentional hover craft.
+ * Inverse mode uses explicit paper colors so chrome never paints body ink on dark heroes.
  */
 export function NavLink({
   href,
@@ -45,6 +46,7 @@ export function NavLink({
         className={cn(
           "group flex items-baseline gap-4 border-b border-white/10 py-5 transition-colors duration-base ease-out-expo",
           "hover:border-accent-lime/50",
+          "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-lime",
           active && "border-accent-lime/40",
           className,
         )}
@@ -53,7 +55,7 @@ export function NavLink({
         {index ? (
           <span
             className={cn(
-              "font-mono text-caption tracking-label text-white/35 transition-colors duration-base group-hover:text-accent-lime",
+              "tracking-label font-mono text-caption text-white/35 transition-colors duration-base group-hover:text-accent-lime",
               active && "text-accent-lime",
             )}
           >
@@ -62,7 +64,7 @@ export function NavLink({
         ) : null}
         <span
           className={cn(
-            "font-display text-[clamp(2.5rem,8vw,5.5rem)] font-bold leading-[0.95] tracking-display text-paper",
+            "tracking-display font-display text-[clamp(2.5rem,8vw,5.5rem)] font-bold leading-[0.95] text-paper",
             "transition-transform duration-slow ease-out-expo group-hover:translate-x-2",
             active && "text-accent-lime",
           )}
@@ -81,13 +83,14 @@ export function NavLink({
         data-cursor="hover"
         className={cn(
           "group inline-flex items-center gap-2 font-body text-sm text-ink-soft transition-colors duration-base ease-out-expo hover:text-ink",
+          "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
           active && "text-ink",
           className,
         )}
         aria-current={active ? "page" : undefined}
       >
         {index ? (
-          <span className="font-mono text-[0.6rem] tracking-label text-ink-faint">
+          <span className="tracking-label font-mono text-[0.6rem] text-ink-faint">
             {index}
           </span>
         ) : null}
@@ -106,21 +109,35 @@ export function NavLink({
         "group relative inline-flex items-center gap-2 px-1 py-2",
         "font-body text-sm font-medium tracking-tight",
         "transition-colors duration-base ease-out-expo",
-        inverse
-          ? "text-paper/70 hover:text-paper"
-          : "text-ink-soft hover:text-ink",
+        "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
+        inverse ? "text-paper/80 hover:text-paper" : "text-ink-soft hover:text-ink",
         active && (inverse ? "text-paper" : "text-ink"),
         className,
       )}
+      style={
+        inverse
+          ? {
+              // Explicit light paint — never inherit body ink over dark hero
+              color: active ? "var(--color-paper, #f4f1ea)" : "rgba(244, 241, 234, 0.82)",
+            }
+          : undefined
+      }
       aria-current={active ? "page" : undefined}
     >
       {index ? (
         <span
           className={cn(
-            "font-mono text-[0.6rem] tracking-label transition-colors duration-base group-hover:text-accent",
-            inverse ? "text-paper/40" : "text-ink-faint",
+            "tracking-label font-mono text-[0.6rem] transition-colors duration-base group-hover:text-accent",
+            inverse ? "text-paper/50" : "text-ink-faint",
             active && "text-accent",
           )}
+          style={
+            inverse && !active
+              ? { color: "rgba(244, 241, 234, 0.5)" }
+              : inverse && active
+                ? { color: "var(--color-accent, #ff3d00)" }
+                : undefined
+          }
         >
           {index}
         </span>

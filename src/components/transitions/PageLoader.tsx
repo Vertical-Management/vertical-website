@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import { asset } from "@/lib/assets";
+import { useLanguage } from "@/components/providers/LanguageProvider";
 import { cn } from "@/lib/utils";
 
 type PageLoaderProps = {
@@ -15,9 +18,11 @@ type PageLoaderProps = {
  */
 export function PageLoader({
   variant = "fullscreen",
-  label = "Cargando",
+  label,
   className,
 }: PageLoaderProps) {
+  const { t } = useLanguage();
+  const resolvedLabel = label ?? t.common.loading;
   const inverse = variant === "fullscreen"; // paper ground → black mark
 
   const inner = (
@@ -28,7 +33,7 @@ export function PageLoader({
           inverse ? "text-ink-muted" : "text-ink-muted",
         )}
       >
-        {label}
+        {resolvedLabel}
       </p>
 
       <div className="flex flex-col items-center gap-3 sm:flex-row sm:gap-3.5">
@@ -38,7 +43,7 @@ export function PageLoader({
           width={40}
           height={56}
           className="h-10 w-auto object-contain sm:h-11"
-          priority
+          priority={false}
         />
         <p className="relative font-display text-2xl font-extrabold tracking-tight text-ink md:text-3xl">
           VERTICAL
@@ -49,11 +54,11 @@ export function PageLoader({
         </p>
       </div>
 
-      <div className="relative h-px w-20 overflow-hidden bg-ink/10">
+      <div className="bg-ink/10 relative h-px w-20 overflow-hidden">
         <span className="absolute inset-y-0 left-0 w-1/2 animate-shimmer bg-accent" />
       </div>
-      <p className="font-mono text-[10px] uppercase tracking-label text-ink-faint">
-        Inserting coin…
+      <p className="tracking-label font-mono text-[10px] uppercase text-ink-faint">
+        {t.common.insertCoin}
       </p>
     </div>
   );
@@ -61,13 +66,10 @@ export function PageLoader({
   if (variant === "inline") {
     return (
       <div
-        className={cn(
-          "flex min-h-[40vh] items-center justify-center py-20",
-          className,
-        )}
+        className={cn("flex min-h-[40vh] items-center justify-center py-20", className)}
         role="status"
         aria-live="polite"
-        aria-label={label}
+        aria-label={resolvedLabel}
       >
         {inner}
       </div>
@@ -82,7 +84,7 @@ export function PageLoader({
       )}
       role="status"
       aria-live="polite"
-      aria-label={label}
+      aria-label={resolvedLabel}
     >
       {inner}
     </div>

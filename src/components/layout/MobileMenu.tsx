@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import NextLink from "next/link";
 import { useLanguage } from "@/components/providers/LanguageProvider";
@@ -20,20 +20,88 @@ export function MobileMenu() {
   const { menuOpen, closeMenu } = useNavigation();
   const { t } = useLanguage();
   const reduced = useReducedMotion();
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const restoreFocusRef = useRef<HTMLElement | null>(null);
+  const restoreFocusOnCloseRef = useRef(true);
 
   const navLabel = (href: string) => {
     const key = NAV_I18N_KEYS[href as keyof typeof NAV_I18N_KEYS];
     return key ? t.nav[key] : href;
   };
 
-  // Trap focus roughly: focus first link when open
+  // Keep keyboard focus inside the modal and restore it to the trigger on close.
   useEffect(() => {
     if (!menuOpen) return;
-    const first = document.querySelector<HTMLElement>(
-      "#mobile-navigation a[href]",
-    );
-    first?.focus({ preventScroll: true });
+
+    restoreFocusOnCloseRef.current = true;
+    restoreFocusRef.current =
+      document.activeElement instanceof HTMLElement ? document.activeElement : null;
+
+    const getFocusable = () => {
+      const selector = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+      const roots: HTMLElement[] = [];
+      const header = document.querySelector<HTMLElement>("header[role='banner']");
+      const dialog = dialogRef.current;
+      if (header) roots.push(header);
+      if (dialog) roots.push(dialog);
+
+      const seen = new Set<HTMLElement>();
+      const items: HTMLElement[] = [];
+      roots.forEach((root) => {
+        root.querySelectorAll<HTMLElement>(selector).forEach((element) => {
+          if (element.hasAttribute("disabled") || seen.has(element)) return;
+          if (element.closest("[inert]")) return;
+          seen.add(element);
+          items.push(element);
+        });
+      });
+      return items;
+    };
+
+    const focusFirst = window.requestAnimationFrame(() => {
+      const dialog = dialogRef.current;
+      const firstInDialog = dialog?.querySelector<HTMLElement>(
+        "a[href], button:not([disabled])",
+      );
+      (firstInDialog ?? getFocusable()[0])?.focus({ preventScroll: true });
+    });
+
+    const trapFocus = (event: KeyboardEvent) => {
+      if (event.key !== "Tab") return;
+      const focusable = getFocusable();
+      if (!focusable.length) return;
+
+      const currentIndex = focusable.indexOf(document.activeElement as HTMLElement);
+      const nextIndex = event.shiftKey
+        ? currentIndex <= 0
+          ? focusable.length - 1
+          : currentIndex - 1
+        : currentIndex === -1 || currentIndex === focusable.length - 1
+          ? 0
+          : currentIndex + 1;
+
+      event.preventDefault();
+      focusable[nextIndex]?.focus({ preventScroll: true });
+    };
+
+    document.addEventListener("keydown", trapFocus);
+
+    return () => {
+      window.cancelAnimationFrame(focusFirst);
+      document.removeEventListener("keydown", trapFocus);
+
+      if (!restoreFocusOnCloseRef.current) return;
+      const target = restoreFocusRef.current;
+      window.requestAnimationFrame(() => {
+        target?.isConnected && target.focus({ preventScroll: true });
+      });
+    };
   }, [menuOpen]);
+
+  const handleNavigate = () => {
+    restoreFocusOnCloseRef.current = false;
+    closeMenu();
+  };
 
   const backdrop = reduced
     ? { initial: { opacity: 0 }, animate: { opacity: 1 }, exit: { opacity: 0 } }
@@ -55,6 +123,7 @@ export function MobileMenu() {
         <motion.div
           key="mobile-menu"
           id="mobile-navigation"
+          ref={dialogRef}
           role="dialog"
           aria-modal="true"
           aria-label={t.menu.ariaLabel}
@@ -104,7 +173,7 @@ export function MobileMenu() {
                       label={navLabel(link.href)}
                       index={link.index}
                       variant="overlay"
-                      onClick={closeMenu}
+                      onClick={handleNavigate}
                     />
                   </motion.li>
                 ))}
@@ -127,7 +196,7 @@ export function MobileMenu() {
               exit={{ opacity: 0 }}
             >
               <div>
-                <p className="font-mono text-caption uppercase tracking-label text-white/40">
+                <p className="tracking-label font-mono text-caption uppercase text-white/40">
                   {SITE.location} · {SITE.founder}
                 </p>
                 <NextLink
@@ -145,12 +214,8 @@ export function MobileMenu() {
                     <a
                       href={s.href}
                       target={s.href.startsWith("http") ? "_blank" : undefined}
-                      rel={
-                        s.href.startsWith("http")
-                          ? "noopener noreferrer"
-                          : undefined
-                      }
-                      className="font-mono text-caption uppercase tracking-label text-white/45 transition-colors duration-base hover:text-accent-lime"
+                      rel={s.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                      className="tracking-label font-mono text-caption uppercase text-white/45 transition-colors duration-base hover:text-accent-lime"
                       data-cursor="hover"
                     >
                       {s.label}
@@ -162,14 +227,14 @@ export function MobileMenu() {
             </motion.div>
 
             <motion.p
-              className="mx-auto mt-6 w-full max-w-site font-mono text-[0.65rem] uppercase tracking-label text-white/25"
+              className="tracking-label mx-auto mt-6 w-full max-w-site font-mono text-[0.65rem] uppercase text-white/25"
               initial={reduced ? false : { opacity: 0 }}
               animate={{
                 opacity: 1,
                 transition: { delay: reduced ? 0 : 0.55 },
               }}
             >
-              No credits · Press start · Andorra
+              {t.menu.tagline}
             </motion.p>
           </div>
         </motion.div>

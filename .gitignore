@@ -12,6 +12,14 @@
 
 # testing
 /coverage
+/test-results
+/playwright-report
+/blob-report
+/lighthouse-report
+/.lighthouseci
+
+# husky runtime wrappers
+.husky/_
 
 # next.js
 /.next/
@@ -48,3 +56,6 @@ next-env.d.ts
 .cache
 .turbo
 public/assets/**/.DS_Store
+
+# legacy astro build artifacts (era Astro)
+/.astro

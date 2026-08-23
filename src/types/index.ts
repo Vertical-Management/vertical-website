@@ -73,11 +73,7 @@ export type ProcessStep = {
 
 /** Desktop OS window ids */
 export type DesktopWindowId =
-  | `project:${string}`
-  | "readme"
-  | "about"
-  | "trash"
-  | "system";
+  `project:${string}` | "readme" | "about" | "trash" | "system";
 
 export type DesktopWindowState = {
   id: DesktopWindowId;

@@ -88,10 +88,7 @@ const config: Config = {
           "clamp(1.2rem, 1rem + 1vw, 1.75rem)",
           { lineHeight: "1.18", letterSpacing: "-0.018em", fontWeight: "600" },
         ],
-        lead: [
-          "var(--text-lead)",
-          { lineHeight: "1.55", fontWeight: "400" },
-        ],
+        lead: ["var(--text-lead)", { lineHeight: "1.55", fontWeight: "400" }],
         caption: [
           "0.75rem",
           { lineHeight: "1.4", letterSpacing: "0.18em", fontWeight: "500" },
@@ -150,8 +147,7 @@ const config: Config = {
         loader: "90",
       },
       backgroundImage: {
-        "noise-fade":
-          "linear-gradient(to bottom, transparent, var(--color-paper))",
+        "noise-fade": "linear-gradient(to bottom, transparent, var(--color-paper))",
         "radial-glow":
           "radial-gradient(ellipse at center, var(--color-accent-soft), transparent 65%)",
       },

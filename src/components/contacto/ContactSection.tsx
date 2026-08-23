@@ -36,8 +36,8 @@ export function ContactSection() {
             <ContactForm />
           </div>
 
-          <div className="relative mt-2 lg:col-span-5 lg:sticky lg:top-28 lg:mt-0">
-            <p className="mb-5 text-center font-mono text-caption uppercase tracking-label text-ink-muted sm:mb-6 lg:text-left">
+          <div className="relative mt-2 lg:sticky lg:top-28 lg:col-span-5 lg:mt-0">
+            <p className="tracking-label mb-5 text-center font-mono text-caption uppercase text-ink-muted sm:mb-6 lg:text-left">
               {s.deviceLabel}
             </p>
             <ContactDevice />

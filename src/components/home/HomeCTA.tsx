@@ -1,18 +1,18 @@
 "use client";
 
 import { useRef } from "react";
+import NextLink from "next/link";
 import { gsap, registerGsap, useGSAP } from "@/lib/gsap";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { useLanguage } from "@/components/providers/LanguageProvider";
-import { SITE } from "@/lib/constants";
-import { CoinButton } from "@/components/home/CoinButton";
 import { Container } from "@/components/ui/Container";
 import { Grain } from "@/components/ui/Grain";
 import { Magnetic } from "@/components/ui/Magnetic";
-import NextLink from "next/link";
+import { cn } from "@/lib/utils";
 
 /**
- * Closing CTA — cinematic, playful, unmissable.
+ * Closing CTA — short manifesto line + single contact action.
+ * No email button (footer owns contact channels).
  */
 export function HomeCTA() {
   const root = useRef<HTMLElement>(null);
@@ -27,17 +27,17 @@ export function HomeCTA() {
 
       gsap.fromTo(
         "[data-cta-word]",
-        { yPercent: 80, opacity: 0.2 },
+        { yPercent: 60, opacity: 0.25 },
         {
           yPercent: 0,
           opacity: 1,
-          stagger: 0.08,
+          stagger: 0.06,
           ease: "power3.out",
-          duration: 1,
+          duration: 0.8,
           scrollTrigger: {
             trigger: root.current,
-            start: "top 70%",
-            toggleActions: "play none none reverse",
+            start: "top 75%",
+            once: true,
           },
         },
       );
@@ -46,13 +46,10 @@ export function HomeCTA() {
   );
 
   return (
-    <section
-      ref={root}
-      className="relative overflow-hidden border-t border-border bg-paper-warm py-section"
-    >
+    <section ref={root} className="relative overflow-hidden bg-paper-warm py-section">
       <Grain />
       <Container className="relative z-[1] text-center">
-        <p className="font-mono text-caption uppercase tracking-label text-ink-muted">
+        <p className="tracking-label font-mono text-caption uppercase text-ink-muted">
           {c.eyebrow}
         </p>
 
@@ -61,11 +58,7 @@ export function HomeCTA() {
             <span
               key={`${locale}-${i}-${word}`}
               data-cta-word
-              className={
-                i >= c.accentFrom
-                  ? "inline-block text-accent"
-                  : "inline-block"
-              }
+              className={i >= c.accentFrom ? "inline-block text-accent" : "inline-block"}
             >
               {word}
               {i < c.words.length - 1 ? "\u00a0" : ""}
@@ -75,21 +68,21 @@ export function HomeCTA() {
 
         <p className="mx-auto mt-6 max-w-md text-lead text-ink-soft">{c.body}</p>
 
-        <div className="mt-8 flex w-full max-w-md flex-col items-stretch justify-center gap-3 px-1 sm:mt-10 sm:max-w-none sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
-          <CoinButton
-            href="/contacto"
-            size="xl"
-            className="w-full justify-center sm:w-auto"
-          >
-            {c.startProject}
-          </CoinButton>
+        <div className="mt-8 flex justify-center sm:mt-10">
           <Magnetic strength={12}>
             <NextLink
-              href={`mailto:${SITE.email}`}
+              href="/contacto"
               data-cursor="hover"
-              className="inline-flex h-14 min-h-12 w-full items-center justify-center rounded-pill border border-border-strong px-6 text-sm font-medium transition-colors duration-base hover:border-ink hover:bg-ink hover:text-paper sm:h-16 sm:w-auto sm:px-8 sm:text-base"
+              className={cn(
+                "inline-flex h-14 min-h-12 w-full max-w-sm items-center justify-center rounded-pill border-2 border-ink bg-accent-lime px-8",
+                "font-mono text-xs uppercase tracking-[0.14em] text-ink",
+                "shadow-[4px_4px_0_0_var(--color-ink)]",
+                "transition-[transform,box-shadow] duration-base ease-out-expo",
+                "hover:translate-x-px hover:translate-y-px hover:shadow-[2px_2px_0_0_var(--color-ink)]",
+                "sm:w-auto",
+              )}
             >
-              {SITE.email}
+              {c.startProject}
             </NextLink>
           </Magnetic>
         </div>

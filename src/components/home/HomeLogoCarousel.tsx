@@ -19,10 +19,7 @@ export function HomeLogoCarousel({ className }: HomeLogoCarouselProps) {
 
   return (
     <div
-      className={cn(
-        "relative border-y border-border bg-paper-warm/60 py-6 md:py-8",
-        className,
-      )}
+      className={cn("bg-paper-warm/60 relative py-6 md:py-8", className)}
       role="region"
       aria-label="Partners & tools"
     >

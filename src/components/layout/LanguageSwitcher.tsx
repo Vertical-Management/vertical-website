@@ -17,10 +17,7 @@ type LanguageSwitcherProps = {
 /**
  * One round flag by default. Tap → all flags slide out left; pick one → collapse.
  */
-export function LanguageSwitcher({
-  inverse = false,
-  className,
-}: LanguageSwitcherProps) {
+export function LanguageSwitcher({ inverse = false, className }: LanguageSwitcherProps) {
   const { locale, setLocale, t, meta } = useLanguage();
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
@@ -65,11 +62,7 @@ export function LanguageSwitcher({
   return (
     <div
       ref={rootRef}
-      className={cn(
-        "relative flex items-center",
-        inverse && "z-[61]",
-        className,
-      )}
+      className={cn("relative flex items-center", inverse && "z-[61]", className)}
     >
       {/* Expanded strip — slides out to the left of the active flag */}
       <AnimatePresence>
@@ -78,11 +71,7 @@ export function LanguageSwitcher({
             id={listId}
             role="listbox"
             aria-label={t.header.language}
-            initial={
-              reduced
-                ? { opacity: 0 }
-                : { opacity: 0, x: 16, width: 0 }
-            }
+            initial={reduced ? { opacity: 0 } : { opacity: 0, x: 16, width: 0 }}
             animate={{
               opacity: 1,
               x: 0,
@@ -95,11 +84,10 @@ export function LanguageSwitcher({
                 : {
                     opacity: 0,
                     x: 12,
-                    width: 0,
                     transition: { duration: duration.fast, ease: EASE_OUT_EXPO },
                   }
             }
-            className="mr-1.5 flex items-center gap-1.5 overflow-hidden sm:mr-2 sm:gap-2"
+            className="absolute right-full top-1/2 z-[62] mr-1.5 flex -translate-y-1/2 items-center gap-1.5 sm:mr-2 sm:gap-2"
           >
             {others.map((code, i) => {
               const item = LOCALE_META[code];
@@ -113,11 +101,7 @@ export function LanguageSwitcher({
                   aria-label={item.label}
                   aria-selected={false}
                   onClick={() => pick(code)}
-                  initial={
-                    reduced
-                      ? false
-                      : { opacity: 0, x: 10, scale: 0.85 }
-                  }
+                  initial={reduced ? false : { opacity: 0, x: 10, scale: 0.85 }}
                   animate={{
                     opacity: 1,
                     x: 0,
@@ -139,7 +123,7 @@ export function LanguageSwitcher({
                         }
                   }
                   className={cn(
-                    "rounded-full p-0 leading-none",
+                    "flex h-11 w-11 items-center justify-center rounded-full p-0 leading-none",
                     "border-0 bg-transparent shadow-none outline-none",
                     "opacity-80 transition-transform duration-base ease-out-expo",
                     "hover:scale-110 hover:opacity-100",
@@ -161,16 +145,14 @@ export function LanguageSwitcher({
         data-cursor="hover"
         title={meta.label}
         aria-label={
-          open
-            ? t.header.language
-            : `${t.header.selectLanguage}: ${meta.label}`
+          open ? t.header.language : `${t.header.selectLanguage}: ${meta.label}`
         }
         aria-haspopup="listbox"
         aria-expanded={open}
         aria-controls={open ? listId : undefined}
         onClick={() => setOpen((v) => !v)}
         className={cn(
-          "relative rounded-full p-0 leading-none",
+          "relative flex h-11 w-11 items-center justify-center rounded-full p-0 leading-none",
           "border-0 bg-transparent shadow-none outline-none",
           "transition-transform duration-base ease-out-expo",
           "hover:scale-110",

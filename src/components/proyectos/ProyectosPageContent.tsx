@@ -12,12 +12,11 @@ import { PageLoader } from "@/components/transitions/PageLoader";
 import { fill, localizeProjects } from "@/lib/i18n";
 
 const DesktopScene = dynamic(
-  () =>
-    import("@/components/proyectos/DesktopScene").then((m) => m.DesktopScene),
+  () => import("@/components/proyectos/DesktopScene").then((m) => m.DesktopScene),
   {
     ssr: false,
     loading: () => (
-      <div className="flex h-[min(820px,calc(100dvh-var(--header-height)-2rem))] min-h-[560px] items-center justify-center rounded-card border border-border bg-ink/5">
+      <div className="bg-ink/5 flex h-[min(820px,calc(100dvh-var(--header-height)-2rem))] min-h-[560px] items-center justify-center rounded-card border border-border">
         <PageLoader variant="inline" label="Booting Vertical OS" />
       </div>
     ),
@@ -43,22 +42,20 @@ export function ProyectosPageContent() {
               <span className="md:hidden">{p.eyebrowCases}</span>
               <span className="hidden md:inline">{p.eyebrowOs}</span>
             </Eyebrow>
-            <h1 className="font-display text-display-lg tracking-display">
-              {p.title}
-            </h1>
+            <h1 className="tracking-display font-display text-display-lg">{p.title}</h1>
             <p className="mt-3 max-w-md text-base text-ink-soft md:text-[1.05rem]">
               <span className="md:hidden">{p.bodyMobile}</span>
               <span className="hidden md:inline">{p.bodyDesktop}</span>
             </p>
           </div>
-          <p className="hidden font-mono text-[0.65rem] uppercase tracking-label text-ink-muted md:block">
+          <p className="tracking-label hidden font-mono text-[0.65rem] uppercase text-ink-muted md:block">
             {fill(p.desktopMeta, { count: projects.length })}
           </p>
         </div>
 
         <div className="hidden md:block">
           <DesktopScene />
-          <p className="mt-4 text-center font-mono text-[0.65rem] uppercase tracking-label text-ink-muted">
+          <p className="tracking-label mt-4 text-center font-mono text-[0.65rem] uppercase text-ink-muted">
             {p.tip}
           </p>
         </div>
@@ -70,7 +67,7 @@ export function ProyectosPageContent() {
 
       <div className="hidden border-t border-border bg-paper py-10 md:block">
         <Container>
-          <p className="font-mono text-caption uppercase tracking-label text-ink-muted">
+          <p className="tracking-label font-mono text-caption uppercase text-ink-muted">
             {p.indexLabel}
           </p>
           <ul className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
@@ -79,9 +76,9 @@ export function ProyectosPageContent() {
                 <Link
                   href={`/proyectos/${project.slug}`}
                   data-cursor="hover"
-                  className="group flex flex-col rounded-md border border-border bg-surface px-4 py-3 transition-colors hover:border-ink/25"
+                  className="hover:border-ink/25 group flex flex-col rounded-md border border-border bg-surface px-4 py-3 transition-colors"
                 >
-                  <span className="font-mono text-[10px] uppercase tracking-label text-ink-muted">
+                  <span className="tracking-label font-mono text-[10px] uppercase text-ink-muted">
                     {project.year}
                     {project.projectType ? ` · ${project.projectType}` : ""}
                   </span>
@@ -89,9 +86,7 @@ export function ProyectosPageContent() {
                     {project.title}
                   </span>
                   {project.client ? (
-                    <span className="mt-0.5 text-xs text-ink-soft">
-                      {project.client}
-                    </span>
+                    <span className="mt-0.5 text-xs text-ink-soft">{project.client}</span>
                   ) : null}
                 </Link>
               </li>

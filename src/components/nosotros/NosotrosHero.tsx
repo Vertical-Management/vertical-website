@@ -2,29 +2,37 @@
 
 import Image from "next/image";
 import { useRef } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { gsap, registerGsap, useGSAP } from "@/lib/gsap";
 import { useLanguage } from "@/components/providers/LanguageProvider";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { asset } from "@/lib/assets";
-import { Grain } from "@/components/ui/Grain";
-import { EASE_OUT_EXPO, duration } from "@/lib/motion";
+import {
+  GlassStatCard,
+  NosotrosShell,
+  NOSOTROS_EASE,
+  useNosotrosReveal,
+} from "./primitives";
 
 /**
- * Immersive nosotros hero — NOSOTROS.png full-bleed + impact type.
+ * Immersive /nosotros hero — dark glass shell + stat stack.
  */
 export function NosotrosHero() {
   const root = useRef<HTMLElement>(null);
-  const reduced = useReducedMotion();
+  const reduced = usePrefersReducedMotion();
+  const desktop = useMediaQuery("(min-width: 768px)");
   const { t } = useLanguage();
   const h = t.nosotrosPage.hero;
+  const reveal = useNosotrosReveal();
 
   useGSAP(
     () => {
-      if (reduced || !root.current) return;
+      if (reduced || !desktop || !root.current) return;
       registerGsap();
 
       gsap.to("[data-nosotros-bg]", {
-        yPercent: 12,
+        yPercent: 10,
         ease: "none",
         scrollTrigger: {
           trigger: root.current,
@@ -34,93 +42,93 @@ export function NosotrosHero() {
         },
       });
     },
-    { scope: root, dependencies: [reduced] },
+    { scope: root, dependencies: [reduced, desktop] },
   );
 
   return (
-    <section
+    <NosotrosShell
       ref={root}
-      className="relative flex min-h-[72dvh] flex-col justify-end overflow-hidden border-b border-ink pt-header sm:min-h-[80dvh] md:min-h-[88dvh]"
+      tone="dark"
+      className="flex min-h-[calc(100dvh-var(--header-height)-1.5rem)] flex-col justify-end"
     >
-      <div className="absolute inset-0" data-nosotros-bg>
-        <Image
-          src={asset("/assets/NOSOTROS.png")}
-          alt=""
-          fill
-          className="object-cover object-center scale-110"
-          sizes="100vw"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-ink/20" />
-        <div className="absolute inset-0 bg-gradient-to-r from-ink/50 via-transparent to-ink/25" />
+      <div className="absolute inset-0">
+        <div className="absolute inset-0" data-nosotros-bg>
+          <Image
+            src={asset("/assets/NOSOTROS.png")}
+            alt=""
+            fill
+            className="object-cover object-center opacity-[0.55]"
+            sizes="(max-width: 768px) 100vw, 1600px"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/40 via-zinc-950/65 to-zinc-950/90" />
+        </div>
       </div>
-      <Grain strong className="opacity-[0.08]" />
 
-      <div className="relative z-[1] mx-auto w-full max-w-site px-gutter pb-12 pt-24 sm:pb-14 sm:pt-28 md:pb-20 md:pt-36">
-        <motion.p
-          className="mb-4 font-mono text-[0.65rem] uppercase tracking-label text-white/50 sm:mb-5 sm:text-caption"
-          initial={reduced ? false : { opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: duration.base, ease: EASE_OUT_EXPO }}
-        >
-          {h.eyebrow}
-        </motion.p>
+      <p
+        aria-hidden
+        className="pointer-events-none absolute left-1/2 top-[42%] z-[1] w-[140%] -translate-x-1/2 -translate-y-1/2 select-none text-center font-display text-[18vw] font-semibold leading-none tracking-[-0.06em] text-white/[0.04] blur-[2px] sm:text-[20vw] md:text-[22vw]"
+      >
+        {h.watermark}
+      </p>
 
-        <h1 className="max-w-[14ch] text-balance font-display text-display-2xl text-paper sm:max-w-none">
-          <span className="block overflow-hidden">
-            <motion.span
-              className="block"
-              initial={reduced ? false : { y: "110%" }}
-              animate={{ y: "0%" }}
-              transition={{ duration: duration.slow, ease: EASE_OUT_EXPO }}
-            >
-              {h.title}
-            </motion.span>
-          </span>
-          <span className="mt-1 block overflow-hidden">
-            <motion.span
-              className="block text-accent-lime"
-              initial={reduced ? false : { y: "110%" }}
-              animate={{ y: "0%" }}
-              transition={{
-                duration: duration.slow,
-                ease: EASE_OUT_EXPO,
-                delay: 0.08,
-              }}
-            >
-              {h.titleMuted}
-            </motion.span>
-          </span>
-        </h1>
+      <div className="relative z-[2] grid w-full flex-1 items-end gap-10 px-5 pb-10 pt-10 sm:px-8 sm:pb-12 sm:pt-12 md:grid-cols-12 md:gap-8 md:px-12 md:pb-16 md:pt-14 lg:px-16">
+        <div className="md:col-span-7 lg:col-span-8">
+          <motion.p
+            className="n-label mb-4 text-white/50 sm:mb-5"
+            variants={reveal}
+            initial="hidden"
+            animate="visible"
+          >
+            {h.eyebrow}
+          </motion.p>
 
-        <motion.p
-          className="mt-6 max-w-lg text-lead text-white/70 sm:mt-8"
-          initial={reduced ? false : { opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            delay: reduced ? 0 : 0.25,
-            duration: duration.base,
-            ease: EASE_OUT_EXPO,
-          }}
-        >
-          {h.body}
-        </motion.p>
+          <h1 className="n-heading max-w-[14ch] text-balance font-display text-display-xl text-white sm:max-w-none md:text-display-2xl">
+            <span className="block overflow-hidden">
+              <motion.span
+                className="block"
+                initial={reduced ? false : { y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.8, ease: NOSOTROS_EASE }}
+              >
+                {h.title}
+              </motion.span>
+            </span>
+            <span className="mt-1 block overflow-hidden">
+              <motion.span
+                className="block text-accent-lime"
+                initial={reduced ? false : { y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.8, ease: NOSOTROS_EASE, delay: 0.08 }}
+              >
+                {h.titleMuted}
+              </motion.span>
+            </span>
+          </h1>
+
+          <motion.p
+            className="n-body mt-6 max-w-lg text-lead font-light text-white/60 sm:mt-8"
+            initial={reduced ? false : { y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8, ease: NOSOTROS_EASE, delay: 0.16 }}
+          >
+            {h.body}
+          </motion.p>
+        </div>
 
         <motion.ul
-          className="mt-8 flex flex-wrap gap-2 sm:mt-10"
-          initial={reduced ? false : { opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: reduced ? 0 : 0.4 }}
+          className="grid grid-cols-1 gap-3 sm:grid-cols-3 md:col-span-5 md:grid-cols-1 md:gap-4 lg:col-span-4"
+          initial={reduced ? false : { y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8, ease: NOSOTROS_EASE, delay: 0.24 }}
         >
-          {h.chips.map((chip) => (
-            <li key={chip}>
-              <span className="inline-flex items-center rounded-pill border-2 border-paper/80 bg-accent-lime px-3 py-1.5 font-mono text-[0.65rem] uppercase tracking-label text-ink shadow-[2px_2px_0_0_rgba(244,241,234,0.85)]">
-                {chip}
-              </span>
+          {h.stats.map((stat) => (
+            <li key={stat.label}>
+              <GlassStatCard value={stat.value} label={stat.label} />
             </li>
           ))}
         </motion.ul>
       </div>
-    </section>
+    </NosotrosShell>
   );
 }

@@ -1,16 +1,7 @@
 "use client";
 
-import {
-  useRef,
-  type ReactNode,
-  type MouseEvent,
-} from "react";
-import {
-  motion,
-  useMotionValue,
-  useSpring,
-  useReducedMotion,
-} from "framer-motion";
+import { useRef, type ReactNode, type MouseEvent } from "react";
+import { motion, useMotionValue, useSpring, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 
@@ -25,11 +16,7 @@ type MagneticProps = {
  * Soft magnetic pull toward the cursor.
  * Disabled on touch / reduced-motion.
  */
-export function Magnetic({
-  children,
-  strength = 28,
-  className,
-}: MagneticProps) {
+export function Magnetic({ children, strength = 28, className }: MagneticProps) {
   const ref = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
   const isFinePointer = useMediaQuery("(pointer: fine)");

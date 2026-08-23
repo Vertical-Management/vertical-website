@@ -1,146 +1,64 @@
 "use client";
 
-import { useRef } from "react";
-import { gsap, registerGsap, useGSAP } from "@/lib/gsap";
-import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
+import { motion } from "framer-motion";
 import { useLanguage } from "@/components/providers/LanguageProvider";
-import { serviceBlockClasses } from "@/components/servicios/serviceTheme";
-import type { ServiceTheme } from "@/types";
-import { cn } from "@/lib/utils";
-
-const RULE_THEMES: ServiceTheme[] = ["lime", "hot", "cool", "ink"];
+import { NosotrosShell, useNosotrosReveal } from "./primitives";
 
 /**
- * House rules — full-bleed color blocks (same family as Services).
+ * House rules — glass cards on a clean zinc shell.
  */
 export function NosotrosRules() {
-  const root = useRef<HTMLElement>(null);
-  const reduced = usePrefersReducedMotion();
   const { t } = useLanguage();
   const r = t.nosotrosPage.rules;
-
-  useGSAP(
-    () => {
-      if (reduced || !root.current) return;
-      registerGsap();
-
-      root.current.querySelectorAll<HTMLElement>("[data-rule-block]").forEach(
-        (block) => {
-          const punch = block.querySelector<HTMLElement>("[data-punch]");
-          const content = block.querySelector<HTMLElement>("[data-content]");
-
-          if (punch) {
-            gsap.fromTo(
-              punch,
-              { xPercent: -8, opacity: 0.35 },
-              {
-                xPercent: 4,
-                opacity: 0.55,
-                ease: "none",
-                scrollTrigger: {
-                  trigger: block,
-                  start: "top bottom",
-                  end: "bottom top",
-                  scrub: true,
-                },
-              },
-            );
-          }
-
-          if (content) {
-            gsap.fromTo(
-              content,
-              { y: 36, opacity: 0 },
-              {
-                y: 0,
-                opacity: 1,
-                duration: 0.9,
-                ease: "power3.out",
-                scrollTrigger: {
-                  trigger: block,
-                  start: "top 78%",
-                  toggleActions: "play none none reverse",
-                },
-              },
-            );
-          }
-        },
-      );
-    },
-    { scope: root, dependencies: [reduced] },
-  );
+  const reveal = useNosotrosReveal();
 
   return (
-    <section ref={root} aria-label={r.ariaLabel} className="relative">
-      <div className="border-y-2 border-ink bg-paper px-gutter py-6">
-        <p className="mx-auto max-w-site font-mono text-caption uppercase tracking-label text-ink-muted">
-          02 — {r.eyebrow}
-        </p>
-      </div>
+    <NosotrosShell
+      tone="light"
+      ariaLabel={r.ariaLabel}
+      className="px-5 py-16 sm:px-8 sm:py-20 md:px-12 md:py-24 lg:px-16"
+    >
+      <motion.p
+        className="n-label mb-8 text-zinc-500 md:mb-10"
+        variants={reveal}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.5 }}
+      >
+        02 — {r.eyebrow}
+      </motion.p>
 
-      {r.items.map((rule, i) => {
-        const theme = serviceBlockClasses(RULE_THEMES[i % RULE_THEMES.length]);
-        const flip = i % 2 === 1;
-
-        return (
-          <article
+      <ul className="grid gap-3 sm:grid-cols-2 md:gap-4">
+        {r.items.map((rule, i) => (
+          <motion.li
             key={rule.code}
-            data-rule-block
-            className={cn(
-              "relative overflow-hidden border-b-2 border-ink",
-              theme.block,
-            )}
+            variants={reveal}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ delay: i * 0.05 }}
           >
-            <p
-              data-punch
-              aria-hidden
-              className={cn(
-                "pointer-events-none absolute -right-4 top-1/2 select-none font-display text-[clamp(3.5rem,18vw,12rem)] font-extrabold leading-none tracking-display",
-                theme.number,
-                "-translate-y-1/2",
-              )}
-            >
-              {rule.punch}
-            </p>
-
-            <div
-              data-content
-              className={cn(
-                "relative z-[1] mx-auto grid max-w-site gap-6 px-gutter py-16 sm:py-20 md:grid-cols-12 md:gap-10 md:py-24",
-                flip && "md:text-right",
-              )}
-            >
-              <div
-                className={cn(
-                  "md:col-span-7",
-                  flip && "md:col-start-6 md:text-right",
-                )}
+            <article className="relative h-full overflow-hidden rounded-[1.25rem] bg-gradient-to-b from-zinc-900 to-black p-6 text-white sm:p-7 md:p-8">
+              <span className="n-grain" aria-hidden />
+              <p
+                aria-hidden
+                className="pointer-events-none absolute -right-2 top-4 select-none font-display text-[4.5rem] font-semibold leading-none tracking-[-0.06em] text-white/[0.04] blur-[1px] sm:text-[5.5rem]"
               >
-                <p
-                  className={cn(
-                    "font-mono text-[0.65rem] uppercase tracking-label",
-                    theme.muted,
-                  )}
-                >
-                  {rule.code}
-                </p>
-                <h3 className="mt-3 font-display text-display-md tracking-display md:text-display-lg">
+                {rule.punch}
+              </p>
+              <div className="n-glass n-glass--lg relative z-[1] h-full rounded-[1.25rem] border border-white/10 bg-white/5 p-5 sm:p-6 md:backdrop-blur-[20px]">
+                <p className="n-label text-accent-lime">{rule.code}</p>
+                <h3 className="n-heading mt-4 font-display text-display-sm text-white md:text-display-md">
                   {rule.title}
                 </h3>
-                <p
-                  className={cn(
-                    "mt-5 max-w-xl text-lead",
-                    theme.muted,
-                    flip && "md:ml-auto",
-                  )}
-                >
+                <p className="n-body mt-4 max-w-md text-base font-light leading-relaxed text-white/60">
                   {rule.body}
                 </p>
               </div>
-            </div>
-          </article>
-        );
-      })}
-    </section>
+            </article>
+          </motion.li>
+        ))}
+      </ul>
+    </NosotrosShell>
   );
 }

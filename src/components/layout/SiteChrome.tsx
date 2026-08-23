@@ -10,7 +10,7 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
     <>
       <Header />
       <ScrollProgress />
-      <div className="flex min-h-dvh flex-col">
+      <div className="flex min-h-dvh flex-col" data-nav-inert>
         <div className="flex-1">{children}</div>
         <Footer />
       </div>

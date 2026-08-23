@@ -100,11 +100,7 @@ type StaggerItemProps = {
   as?: "div" | "li" | "article" | "span";
 };
 
-export function StaggerItem({
-  children,
-  className,
-  as = "div",
-}: StaggerItemProps) {
+export function StaggerItem({ children, className, as = "div" }: StaggerItemProps) {
   const reduced = useReducedMotion();
   const Comp = motion[as];
 

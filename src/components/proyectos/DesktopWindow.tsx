@@ -24,14 +24,8 @@ type DesktopWindowProps = {
  * Position is relative to the desktop container (not the viewport).
  */
 export function DesktopWindow({ win, children, accent }: DesktopWindowProps) {
-  const {
-    focusedId,
-    focusWindow,
-    closeWindow,
-    minimizeWindow,
-    moveWindow,
-    getBounds,
-  } = useDesktop();
+  const { focusedId, focusWindow, closeWindow, minimizeWindow, moveWindow, getBounds } =
+    useDesktop();
   const reduced = useReducedMotion();
   const panelRef = useRef<HTMLDivElement>(null);
   const drag = useRef<{
@@ -109,7 +103,7 @@ export function DesktopWindow({ win, children, accent }: DesktopWindowProps) {
       tabIndex={-1}
       className={cn(
         "absolute flex flex-col overflow-hidden rounded-xl border border-white/20 bg-[#1a1a1c]/95 shadow-lg backdrop-blur-xl",
-        focused ? "ring-1 ring-accent-lime/40" : "opacity-95",
+        focused ? "ring-accent-lime/40 ring-1" : "opacity-95",
       )}
       style={{
         left: win.x,
@@ -159,7 +153,7 @@ export function DesktopWindow({ win, children, accent }: DesktopWindowProps) {
             title="Maximizar no disponible"
           />
         </div>
-        <p className="min-w-0 flex-1 truncate text-center font-mono text-[11px] uppercase tracking-label text-white/70">
+        <p className="tracking-label min-w-0 flex-1 truncate text-center font-mono text-[11px] uppercase text-white/70">
           {win.title}
         </p>
         <span className="w-14" aria-hidden />

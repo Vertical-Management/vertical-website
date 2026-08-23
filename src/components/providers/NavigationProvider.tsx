@@ -40,23 +40,41 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
     setMenuOpen(false);
   }, [pathname]);
 
-  // Lock scroll while menu is open
+  // Lock scroll and isolate background while the modal menu is open
   useEffect(() => {
     const root = document.documentElement;
+    const isolated = Array.from(
+      document.querySelectorAll<HTMLElement>("[data-nav-inert]"),
+    );
+
+    const setIsolated = (on: boolean) => {
+      isolated.forEach((el) => {
+        if (on) {
+          el.setAttribute("inert", "");
+          el.setAttribute("aria-hidden", "true");
+        } else {
+          el.removeAttribute("inert");
+          el.removeAttribute("aria-hidden");
+        }
+      });
+    };
 
     if (menuOpen) {
       root.classList.add("nav-menu-open");
       lenis?.stop();
       document.body.style.overflow = "hidden";
+      setIsolated(true);
     } else {
       root.classList.remove("nav-menu-open");
       lenis?.start();
       document.body.style.overflow = "";
+      setIsolated(false);
     }
 
     return () => {
       root.classList.remove("nav-menu-open");
       document.body.style.overflow = "";
+      setIsolated(false);
       // Ensure scroll is not left stopped if provider unmounts with menu open
       lenis?.start();
     };
@@ -84,9 +102,7 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
   );
 
   return (
-    <NavigationContext.Provider value={value}>
-      {children}
-    </NavigationContext.Provider>
+    <NavigationContext.Provider value={value}>{children}</NavigationContext.Provider>
   );
 }
 

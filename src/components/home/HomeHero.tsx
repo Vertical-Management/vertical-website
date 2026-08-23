@@ -5,8 +5,7 @@ import type { HeroVariantId } from "@/components/home/hero";
 import { HeroCinematic } from "@/components/home/hero/HeroCinematic";
 
 const AltHero = dynamic(
-  () =>
-    import("@/components/home/hero/AltHero").then((m) => m.AltHero),
+  () => import("@/components/home/hero/AltHero").then((m) => m.AltHero),
   { ssr: false },
 );
 
@@ -20,10 +19,7 @@ type HomeHeroProps = {
  * Production home hero: cinematic wall only.
  * Alternate variants lazy-load for internal review.
  */
-export function HomeHero({
-  variant = "cinematic",
-  preview = false,
-}: HomeHeroProps = {}) {
+export function HomeHero({ variant = "cinematic", preview = false }: HomeHeroProps = {}) {
   if (variant === "cinematic") {
     return <HeroCinematic preview={preview} />;
   }

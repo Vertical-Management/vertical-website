@@ -1,15 +1,14 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { createLenis, type LenisInstance } from "@/lib/lenis";
+import { createLenis, shouldEnableSmoothScroll, type LenisInstance } from "@/lib/lenis";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { gsap, registerGsap, ScrollTrigger } from "@/lib/gsap";
 import { useNavigation } from "@/components/providers/NavigationProvider";
 
 /**
  * Mount Lenis smooth scroll and sync with GSAP ScrollTrigger.
- * Registers instance on NavigationProvider for menu lock.
- * Disabled when prefers-reduced-motion is set.
+ * Disabled on reduced-motion, touch devices and narrow viewports (native scroll).
  */
 export function useLenis() {
   const lenisRef = useRef<LenisInstance | null>(null);
@@ -17,8 +16,9 @@ export function useLenis() {
   const { setLenis } = useNavigation();
 
   useEffect(() => {
-    if (reduced) {
+    if (reduced || !shouldEnableSmoothScroll()) {
       setLenis(null);
+      document.documentElement.classList.remove("lenis", "lenis-smooth");
       return;
     }
 
@@ -34,18 +34,26 @@ export function useLenis() {
     };
 
     gsap.ticker.add(ticker);
-    gsap.ticker.lagSmoothing(0);
+    // Restore lag smoothing so long frames don't cascade into sticky scroll
+    gsap.ticker.lagSmoothing(500, 33);
 
     document.documentElement.classList.add("lenis", "lenis-smooth");
 
-    // Reset scroll on route transitions (custom event from TransitionProvider optional)
     const onReset = () => {
       lenis.scrollTo(0, { immediate: true });
     };
     window.addEventListener("vertical:scroll-reset", onReset);
 
+    const onResize = () => {
+      if (!shouldEnableSmoothScroll()) {
+        window.dispatchEvent(new Event("vertical:lenis-disable"));
+      }
+    };
+    window.addEventListener("resize", onResize, { passive: true });
+
     return () => {
       window.removeEventListener("vertical:scroll-reset", onReset);
+      window.removeEventListener("resize", onResize);
       gsap.ticker.remove(ticker);
       lenis.destroy();
       lenisRef.current = null;

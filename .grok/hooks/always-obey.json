@@ -1,0 +1,26 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${GROK_WORKSPACE_ROOT}/.grok/hooks/scripts/inject-standing-orders.mjs\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${GROK_WORKSPACE_ROOT}/.grok/hooks/scripts/inject-standing-orders.mjs\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

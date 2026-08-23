@@ -23,12 +23,7 @@ const FLAG_SRC: Record<Locale, string> = {
  * Circular country flags (assets are already round).
  * ES → España · CA → Andorra · EN → USA · FR → Francia
  */
-export function FlagIcon({
-  locale,
-  className,
-  title,
-  size = 28,
-}: FlagIconProps) {
+export function FlagIcon({ locale, className, title, size = 28 }: FlagIconProps) {
   const src = FLAG_SRC[locale];
   if (!src) return null;
 

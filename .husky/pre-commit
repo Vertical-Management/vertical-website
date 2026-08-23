@@ -1,0 +1,4 @@
+# TASK-0005 — gate rápido sobre archivos staged.
+# Puertas completas: pre-push (typecheck+unit) y CI.
+# max-arg-length evita el límite de longitud de comando de Windows.
+npx lint-staged --max-arg-length 2000

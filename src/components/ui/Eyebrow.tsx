@@ -9,13 +9,7 @@ type EyebrowProps = HTMLAttributes<HTMLParagraphElement> & {
 };
 
 /** Mono editorial label — section markers, meta, system voice. */
-export function Eyebrow({
-  children,
-  className,
-  index,
-  accent,
-  ...rest
-}: EyebrowProps) {
+export function Eyebrow({ children, className, index, accent, ...rest }: EyebrowProps) {
   return (
     <p
       className={cn(
@@ -27,10 +21,7 @@ export function Eyebrow({
     >
       {index ? (
         <span
-          className={cn(
-            "tabular-nums opacity-50",
-            accent && "text-accent opacity-80",
-          )}
+          className={cn("tabular-nums opacity-50", accent && "text-accent opacity-80")}
           aria-hidden
         >
           {index}

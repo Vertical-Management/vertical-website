@@ -32,12 +32,12 @@ git push origin main
 
 ### C. Variables de entorno (Vercel → Project → Settings → Environment Variables)
 
-| Name | Value | Environments |
-|------|--------|--------------|
-| `NEXT_PUBLIC_SITE_URL` | `https://somvertical.ad` (o la URL `.vercel.app` temporal) | Production, Preview |
-| `RESEND_API_KEY` | `re_xxxxxxxx` | **Production (obligatorio)** — sin esta key el form devuelve error 500 en prod |
-| `CONTACT_TO_EMAIL` | `sales@somvertical.ad` | Production |
-| `CONTACT_FROM_EMAIL` | `Vertical <sales@somvertical.ad>` | Production |
+| Name                   | Value                                                      | Environments                                                                   |
+| ---------------------- | ---------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| `NEXT_PUBLIC_SITE_URL` | `https://somvertical.ad` (o la URL `.vercel.app` temporal) | Production, Preview                                                            |
+| `RESEND_API_KEY`       | `re_xxxxxxxx`                                              | **Production (obligatorio)** — sin esta key el form devuelve error 500 en prod |
+| `CONTACT_TO_EMAIL`     | `sales@somvertical.ad`                                     | Production                                                                     |
+| `CONTACT_FROM_EMAIL`   | `Vertical <sales@somvertical.ad>`                          | Production                                                                     |
 
 > En producción el formulario **no finge éxito** si falta `RESEND_API_KEY`. En local/dev sin key solo loguea el mensaje.
 
@@ -54,10 +54,10 @@ Luego **Redeploy** (Deployments → ⋮ → Redeploy).
    - Espera a que ambos muestren **Valid Configuration** y certificado SSL **Issued** (sin “Certificate mismatch”).
 2. En tu DNS (registrar) — usa los records exactos que muestre Vercel:
 
-| Type | Name | Value (típico Vercel) |
-|------|------|--------|
-| A | `@` | `76.76.21.21` (o los IPs que indique Vercel) |
-| CNAME | `www` | `cname.vercel-dns.com` |
+| Type  | Name  | Value (típico Vercel)                        |
+| ----- | ----- | -------------------------------------------- |
+| A     | `@`   | `76.76.21.21` (o los IPs que indique Vercel) |
+| CNAME | `www` | `cname.vercel-dns.com`                       |
 
 3. Env de producción: `NEXT_PUBLIC_SITE_URL=https://somvertical.ad` (**sin** `www`, **sin** barra final) y redeploy.
 
@@ -104,9 +104,9 @@ O usa el dashboard de Vercel (más cómodo).
 
 ## 4. Resend (emails del formulario)
 
-1. [resend.com/api-keys](https://resend.com/api-keys) → Create API Key  
-2. [resend.com/domains](https://resend.com/domains) → Add `somvertical.ad`  
-3. Añade los DNS que indique Resend (SPF/DKIM)  
+1. [resend.com/api-keys](https://resend.com/api-keys) → Create API Key
+2. [resend.com/domains](https://resend.com/domains) → Add `somvertical.ad`
+3. Añade los DNS que indique Resend (SPF/DKIM)
 4. Cuando el dominio esté **Verified**:
 
 ```env
@@ -129,13 +129,13 @@ Sin `RESEND_API_KEY`, el form **sigue funcionando**: la API loguea el mensaje en
 
 ## 5. Checklist post-deploy
 
-- [ ] Home carga en la URL de producción  
-- [ ] `/servicios`, `/proyectos`, `/contacto` OK  
-- [ ] `/sitemap.xml` y `/robots.txt` accesibles  
-- [ ] Formulario de contacto → 200 y mail (o log)  
-- [ ] OG: compartir un link y ver `/og.svg`  
-- [ ] Dominio custom + HTTPS  
-- [ ] `NEXT_PUBLIC_SITE_URL` = dominio final  
+- [ ] Home carga en la URL de producción
+- [ ] `/servicios`, `/proyectos`, `/contacto` OK
+- [ ] `/sitemap.xml` y `/robots.txt` accesibles
+- [ ] Formulario de contacto → 200 y mail (o log)
+- [ ] OG: compartir un link y ver `/og.svg`
+- [ ] Dominio custom + HTTPS
+- [ ] `NEXT_PUBLIC_SITE_URL` = dominio final
 
 ### Probar form en prod
 
@@ -160,6 +160,6 @@ npx vercel --prod    # production
 
 ## Notas
 
-- Región por defecto en `vercel.json`: **cdg1** (París) — cercana a Andorra/ES.  
-- El workflow antiguo de GitHub Pages (Astro) no aplica a este stack Next.js; usa Vercel.  
+- Región por defecto en `vercel.json`: **cdg1** (París) — cercana a Andorra/ES.
+- El workflow antiguo de GitHub Pages (Astro) no aplica a este stack Next.js; usa Vercel.
 - Nunca commitees `.env.local` (ya está en `.gitignore`).

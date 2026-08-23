@@ -20,7 +20,7 @@ export function ProjectsMobileList() {
   return (
     <section className="bg-paper pb-14 pt-2" aria-label={p.mobileAria}>
       <div className="px-gutter">
-        <p className="font-mono text-caption uppercase tracking-label text-ink-muted">
+        <p className="tracking-label font-mono text-caption uppercase text-ink-muted">
           {fill(p.mobileCount, { count: projects.length })}
         </p>
         <Stagger className="mt-5 space-y-3" as="ul" stagger={0.05}>
@@ -29,7 +29,7 @@ export function ProjectsMobileList() {
               <NextLink
                 href={`/proyectos/${project.slug}`}
                 data-cursor="hover"
-                className="flex min-h-[5.5rem] gap-3.5 overflow-hidden rounded-card border border-border bg-surface transition-colors active:border-ink/30 active:bg-surface-elevated"
+                className="active:border-ink/30 flex min-h-[5.5rem] gap-3.5 overflow-hidden rounded-card border border-border bg-surface transition-colors active:bg-surface-elevated"
               >
                 <div className="relative h-auto w-[5.5rem] shrink-0 self-stretch bg-paper-dim sm:w-28">
                   <Image
@@ -43,7 +43,7 @@ export function ProjectsMobileList() {
                   />
                 </div>
                 <div className="flex min-w-0 flex-1 flex-col justify-center py-3.5 pr-4">
-                  <p className="font-mono text-[10px] uppercase tracking-label text-ink-muted">
+                  <p className="tracking-label font-mono text-[10px] uppercase text-ink-muted">
                     {project.year}
                     {project.client ? ` · ${project.client}` : ""}
                     {project.projectType ? ` · ${project.projectType}` : ""}
@@ -54,7 +54,7 @@ export function ProjectsMobileList() {
                   <p className="mt-1 line-clamp-2 text-sm leading-snug text-ink-soft">
                     {project.excerpt}
                   </p>
-                  <span className="mt-2 inline-flex font-mono text-[10px] uppercase tracking-label text-accent">
+                  <span className="tracking-label mt-2 inline-flex font-mono text-[10px] uppercase text-accent">
                     {t.common.viewCase}
                   </span>
                 </div>
@@ -63,7 +63,7 @@ export function ProjectsMobileList() {
           ))}
         </Stagger>
 
-        <p className="mt-8 text-center font-mono text-[0.6rem] uppercase tracking-label text-ink-faint">
+        <p className="tracking-label mt-8 text-center font-mono text-[0.6rem] uppercase text-ink-faint">
           {p.mobileDesktopHint}
         </p>
       </div>

@@ -20,12 +20,34 @@ const DELTA = 6;
  * Scroll position + direction for header hide/show and solid state.
  * Works with Lenis (listens to window scroll + lenis scroll events via native scroll).
  */
+function readScrollState(lastY: number): ScrollState & { lastY: number } {
+  const y = typeof window !== "undefined" ? window.scrollY : 0;
+  const diff = y - lastY;
+  let direction: ScrollState["direction"] = null;
+  let nextLast = lastY;
+
+  if (Math.abs(diff) > DELTA) {
+    direction = diff > 0 ? "down" : "up";
+    nextLast = y;
+  }
+
+  return {
+    y,
+    direction,
+    solid: y > SOLID_AT,
+    atTop: y < 8,
+    lastY: nextLast,
+  };
+}
+
 export function useScrollDirection(): ScrollState {
-  const [state, setState] = useState<ScrollState>({
-    y: 0,
-    direction: null,
-    solid: false,
-    atTop: true,
+  // Lazy init from real scrollY so restore / mid-page load doesn't flash wrong chrome
+  const [state, setState] = useState<ScrollState>(() => {
+    if (typeof window === "undefined") {
+      return { y: 0, direction: null, solid: false, atTop: true };
+    }
+    const { lastY: _l, ...s } = readScrollState(window.scrollY);
+    return s;
   });
 
   useEffect(() => {
@@ -33,20 +55,13 @@ export function useScrollDirection(): ScrollState {
     let ticking = false;
 
     const update = () => {
-      const y = window.scrollY;
-      const diff = y - lastY;
-      let direction: ScrollState["direction"] = null;
-
-      if (Math.abs(diff) > DELTA) {
-        direction = diff > 0 ? "down" : "up";
-        lastY = y;
-      }
-
+      const next = readScrollState(lastY);
+      lastY = next.lastY;
       setState({
-        y,
-        direction,
-        solid: y > SOLID_AT,
-        atTop: y < 8,
+        y: next.y,
+        direction: next.direction,
+        solid: next.solid,
+        atTop: next.atTop,
       });
       ticking = false;
     };

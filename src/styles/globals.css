@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Hero resource wall — continuous left marquee (translate -50% of doubled track) */
+/* Hero resource wall — continuous left marquee (transform only, GPU layer) */
 @keyframes hero-wall-marquee {
   from {
     transform: translate3d(0, 0, 0);
@@ -15,6 +15,7 @@
 .hero-wall-track {
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
+  /* Avoid permanent will-change when paused — only while running */
 }
 
 .hero-wall-track--running {
@@ -22,9 +23,46 @@
   will-change: transform;
 }
 
+.hero-wall-tile {
+  aspect-ratio: 1 / 1;
+  height: 100%;
+  width: auto;
+  flex: 0 0 auto;
+  /* Isolate each cell so wall motion doesn't dirty page scroll paints */
+  contain: paint style;
+  transform: translateZ(0);
+}
+
+/* Video crossfade over poster — no hard pop */
+.hero-wall-video {
+  opacity: 0;
+  transition: opacity 420ms var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
+  will-change: opacity;
+}
+
+.hero-wall-video--boot {
+  opacity: 0;
+}
+
+.hero-wall-video--ready {
+  opacity: 1;
+}
+
+/* Hero copy contrast helper */
+.hero-copy-legible {
+  text-shadow:
+    0 1px 2px rgb(0 0 0 / 0.4),
+    0 6px 28px rgb(0 0 0 / 0.28);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hero-wall-track--running {
     animation: none !important;
+    will-change: auto;
+  }
+
+  .hero-wall-video {
+    transition: none;
     will-change: auto;
   }
 }
@@ -150,6 +188,15 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    overflow-x: clip;
+    max-width: 100%;
+    scrollbar-width: none;
+  }
+
+  html::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;
   }
 
   html.lenis,
@@ -198,9 +245,17 @@
     font-size: 1rem;
     line-height: 1.6;
     overflow-x: clip;
+    max-width: 100%;
+    scrollbar-width: none;
     /* Safe area for notched iPhones */
     padding-left: env(safe-area-inset-left, 0);
     padding-right: env(safe-area-inset-right, 0);
+  }
+
+  body::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;
   }
 
   /* Avoid accidental horizontal rubber-band revealing layout overflow */
@@ -435,24 +490,10 @@
     transform: scale(0.97);
   }
 
-  /*
-   * Custom cursor — matches production (somvertical.ad).
-   * JS only adds .has-custom-cursor when dual-ring is active (fine + md+).
-   */
-  @media (pointer: fine) and (min-width: 768px) {
-    html.has-custom-cursor,
-    html.has-custom-cursor * {
-      cursor: none !important;
-    }
-
-    html.has-custom-cursor input,
-    html.has-custom-cursor textarea,
-    html.has-custom-cursor select,
-    html.has-custom-cursor [contenteditable="true"],
-    html.has-custom-cursor input *,
-    html.has-custom-cursor textarea * {
-      cursor: text !important;
-    }
+  /* Focus ring helper for arcade CTAs on dark surfaces */
+  .focus-ring-arcade:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
   }
 
   /* High contrast / forced colors support */

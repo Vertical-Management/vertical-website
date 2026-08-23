@@ -7,6 +7,8 @@ export const ROUTE_LABELS: Record<string, string> = {
   "/proyectos": "Proyectos",
   "/contacto": "Contacto",
   "/privacidad": "Privacidad",
+  "/aviso-legal": "Aviso legal",
+  "/cookies": "Cookies",
   "/design-system": "Design System",
   "/propuestas-hero": "Propuestas hero",
 };

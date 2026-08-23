@@ -19,10 +19,7 @@ type ReviewClientProps = {
  */
 export function ReviewClient({ initialVariant }: ReviewClientProps) {
   const initial = useMemo(() => {
-    if (
-      initialVariant &&
-      HERO_VARIANTS.some((v) => v.id === initialVariant)
-    ) {
+    if (initialVariant && HERO_VARIANTS.some((v) => v.id === initialVariant)) {
       return initialVariant as HeroVariantId;
     }
     return DEFAULT_HERO_VARIANT;
@@ -39,21 +36,21 @@ export function ReviewClient({ initialVariant }: ReviewClientProps) {
         <div className="mx-auto flex max-w-site flex-col gap-3 px-gutter py-3">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
-              <p className="font-mono text-[0.6rem] uppercase tracking-label text-accent-lime">
+              <p className="tracking-label font-mono text-[0.6rem] uppercase text-accent-lime">
                 Review interno · no index
               </p>
-              <h1 className="font-display text-lg tracking-display md:text-xl">
+              <h1 className="tracking-display font-display text-lg md:text-xl">
                 Hero home con ARINSAL
               </h1>
             </div>
             <div className="flex flex-wrap items-center gap-2">
               <Link
                 href="/"
-                className="rounded-pill border border-paper/25 bg-paper/5 px-3 py-1.5 font-mono text-[0.6rem] uppercase tracking-label text-paper transition-colors hover:border-accent-lime hover:text-accent-lime"
+                className="border-paper/25 bg-paper/5 tracking-label rounded-pill border px-3 py-1.5 font-mono text-[0.6rem] uppercase text-paper transition-colors hover:border-accent-lime hover:text-accent-lime"
               >
                 ← Home live
               </Link>
-              <span className="rounded-pill border border-accent-lime/40 bg-accent-lime/10 px-3 py-1.5 font-mono text-[0.6rem] uppercase tracking-label text-accent-lime">
+              <span className="border-accent-lime/40 bg-accent-lime/10 tracking-label rounded-pill border px-3 py-1.5 font-mono text-[0.6rem] uppercase text-accent-lime">
                 Live = {DEFAULT_HERO_VARIANT}
               </span>
             </div>
@@ -80,7 +77,7 @@ export function ReviewClient({ initialVariant }: ReviewClientProps) {
                     window.history.replaceState({}, "", url.toString());
                   }}
                   className={cn(
-                    "shrink-0 rounded-pill border px-3 py-2 font-mono text-[0.65rem] uppercase tracking-label transition-colors",
+                    "tracking-label shrink-0 rounded-pill border px-3 py-2 font-mono text-[0.65rem] uppercase transition-colors",
                     isActive
                       ? "border-accent-lime bg-accent-lime text-ink"
                       : "border-paper/25 text-paper/80 hover:border-paper/60 hover:text-paper",
@@ -101,7 +98,7 @@ export function ReviewClient({ initialVariant }: ReviewClientProps) {
       {/* Active meta */}
       <div className="border-b border-border bg-surface-elevated px-gutter py-4">
         <div className="mx-auto max-w-site">
-          <p className="font-mono text-[0.6rem] uppercase tracking-label text-ink-muted">
+          <p className="tracking-label font-mono text-[0.6rem] uppercase text-ink-muted">
             Propuesta {String(index).padStart(2, "0")}
             {meta.recommended ? " · recomendada (live)" : ""}
           </p>
@@ -117,7 +114,7 @@ export function ReviewClient({ initialVariant }: ReviewClientProps) {
 
       <footer className="border-t border-border bg-paper-warm px-gutter py-10">
         <div className="mx-auto max-w-site space-y-4">
-          <p className="font-mono text-caption uppercase tracking-label text-ink-muted">
+          <p className="tracking-label font-mono text-caption uppercase text-ink-muted">
             Cómo elegir
           </p>
           <ul className="max-w-2xl space-y-2 text-sm text-ink-soft">
@@ -136,11 +133,11 @@ export function ReviewClient({ initialVariant }: ReviewClientProps) {
           </ul>
           <p className="text-sm text-ink-muted">
             Para fijar la del home, cambia{" "}
-            <code className="rounded bg-ink/5 px-1.5 py-0.5 font-mono text-xs">
+            <code className="bg-ink/5 rounded px-1.5 py-0.5 font-mono text-xs">
               DEFAULT_HERO_VARIANT
             </code>{" "}
             en{" "}
-            <code className="rounded bg-ink/5 px-1.5 py-0.5 font-mono text-xs">
+            <code className="bg-ink/5 rounded px-1.5 py-0.5 font-mono text-xs">
               src/components/home/hero/constants.ts
             </code>
             .

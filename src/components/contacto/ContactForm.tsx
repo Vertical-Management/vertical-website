@@ -38,9 +38,7 @@ export function ContactForm() {
   const f = t.contactPage.form;
   const [data, setData] = useState<FormState>(INITIAL);
   const [errors, setErrors] = useState<FormErrors>({});
-  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
-    "idle",
-  );
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [serverMessage, setServerMessage] = useState("");
   const reduced = useReducedMotion();
 
@@ -61,9 +59,7 @@ export function ContactForm() {
   const set =
     (key: keyof FormState) =>
     (
-      e: React.ChangeEvent<
-        HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-      >,
+      e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
     ) => {
       setData((d) => ({ ...d, [key]: e.target.value }));
       if (errors[key]) setErrors((err) => ({ ...err, [key]: undefined }));
@@ -102,9 +98,7 @@ export function ContactForm() {
       if (!res.ok || !json?.ok) {
         if (json?.errors) setErrors(json.errors);
         setServerMessage(
-          json?.error ||
-            json?.errors?.form ||
-            fill(f.errGeneric, { email: SITE.email }),
+          json?.error || json?.errors?.form || fill(f.errGeneric, { email: SITE.email }),
         );
         setStatus("error");
         return;
@@ -133,15 +127,13 @@ export function ContactForm() {
             role="status"
             aria-live="polite"
           >
-            <p className="font-mono text-caption uppercase tracking-label text-ink/60">
+            <p className="tracking-label text-ink/60 font-mono text-caption uppercase">
               {f.successEyebrow}
             </p>
             <h3 className="mt-3 font-display text-display-md text-ink">
               {f.successTitle}
             </h3>
-            <p className="mt-4 max-w-md text-ink/80">
-              {serverMessage || f.successBody}
-            </p>
+            <p className="text-ink/80 mt-4 max-w-md">{serverMessage || f.successBody}</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button
                 variant="primary"
@@ -223,7 +215,7 @@ export function ContactForm() {
                 maxLength={120}
               />
               <label className="group flex w-full flex-col gap-2">
-                <span className="font-mono text-caption uppercase tracking-label text-ink-muted transition-colors duration-base group-focus-within:text-ink">
+                <span className="tracking-label font-mono text-caption uppercase text-ink-muted transition-colors duration-base group-focus-within:text-ink">
                   {f.budget}
                 </span>
                 <select
@@ -232,7 +224,7 @@ export function ContactForm() {
                   onChange={set("budget")}
                   className={cn(
                     "w-full appearance-none border-0 border-b border-border-strong bg-transparent py-3 text-base text-ink",
-                    "focus:border-ink focus:outline-none focus:shadow-[0_1px_0_0_var(--color-ink)]",
+                    "focus:border-ink focus:shadow-[0_1px_0_0_var(--color-ink)] focus:outline-none",
                     !data.budget && "text-ink-faint",
                   )}
                 >
@@ -260,7 +252,7 @@ export function ContactForm() {
 
             {status === "error" && serverMessage ? (
               <p
-                className="rounded-md border border-danger/30 bg-danger/5 px-4 py-3 text-sm text-danger"
+                className="border-danger/30 bg-danger/5 rounded-md border px-4 py-3 text-sm text-danger"
                 role="alert"
               >
                 {serverMessage}
@@ -272,7 +264,7 @@ export function ContactForm() {
                 {fill(f.privacyNote, { email: SITE.email })}{" "}
                 <a
                   href="/privacidad"
-                  className="underline decoration-ink/30 underline-offset-2 hover:decoration-ink"
+                  className="decoration-ink/30 underline underline-offset-2 hover:decoration-ink"
                 >
                   {f.privacyLink}
                 </a>

@@ -77,9 +77,7 @@ export function LazyGallery({
   initialCount = 3,
   loadMoreLabel = "Load more",
 }: LazyGalleryProps) {
-  const [visibleCount, setVisibleCount] = useState(
-    Math.min(initialCount, images.length),
-  );
+  const [visibleCount, setVisibleCount] = useState(Math.min(initialCount, images.length));
   const sentinelRef = useRef<HTMLDivElement>(null);
 
   const shown = images.slice(0, visibleCount);
@@ -110,18 +108,10 @@ export function LazyGallery({
           const gif = isGifSrc(src);
           const wide = i % 5 === 0;
           return (
-            <li
-              key={`${src}-${i}`}
-              className={cn(wide && "sm:col-span-2 lg:col-span-2")}
-            >
+            <li key={`${src}-${i}`} className={cn(wide && "sm:col-span-2 lg:col-span-2")}>
               <div className="relative aspect-[4/3] overflow-hidden rounded-card border border-border bg-paper-dim">
                 {video ? (
-                  <GalleryVideo
-                    src={src}
-                    title={title}
-                    index={i}
-                    priority={i < 2}
-                  />
+                  <GalleryVideo src={src} title={title} index={i} priority={i < 2} />
                 ) : (
                   <Image
                     src={asset(src)}
@@ -145,16 +135,14 @@ export function LazyGallery({
 
       {hasMore ? (
         <div ref={sentinelRef} className="mt-8 flex flex-col items-center gap-3">
-          <p className="font-mono text-[0.65rem] uppercase tracking-label text-ink-muted">
+          <p className="tracking-label font-mono text-[0.65rem] uppercase text-ink-muted">
             {visibleCount} / {images.length} frames
           </p>
           <button
             type="button"
             data-cursor="hover"
-            onClick={() =>
-              setVisibleCount((c) => Math.min(c + 3, images.length))
-            }
-            className="inline-flex h-11 items-center rounded-pill border border-border-strong px-6 font-mono text-xs uppercase tracking-label transition-colors hover:border-ink hover:bg-ink hover:text-paper"
+            onClick={() => setVisibleCount((c) => Math.min(c + 3, images.length))}
+            className="tracking-label inline-flex h-11 items-center rounded-pill border border-border-strong px-6 font-mono text-xs uppercase transition-colors hover:border-ink hover:bg-ink hover:text-paper"
           >
             {loadMoreLabel}
           </button>

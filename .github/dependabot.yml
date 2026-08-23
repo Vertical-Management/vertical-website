@@ -1,0 +1,29 @@
+# TASK-0011 — actualización automática de dependencias.
+# Patches agrupados para reducir ruido; majors siempre PRs separados.
+
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      patch-and-minor:
+        update-types:
+          - "patch"
+          - "minor"
+    labels:
+      - dependencies
+    open-pull-requests-limit: 5
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      actions:
+        patterns:
+          - "*"
+    labels:
+      - dependencies
+    open-pull-requests-limit: 5

@@ -20,7 +20,7 @@ export function ContactCTA() {
     >
       <Grain strong />
       <Container className="relative z-[1] text-center">
-        <p className="font-mono text-caption uppercase tracking-label text-white/40">
+        <p className="tracking-label font-mono text-caption uppercase text-white/40">
           {c.eyebrow}
         </p>
         <h2 className="mx-auto mt-4 max-w-2xl font-display text-display-md text-paper">

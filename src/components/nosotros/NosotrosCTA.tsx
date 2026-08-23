@@ -1,61 +1,74 @@
 "use client";
 
 import NextLink from "next/link";
-import { CoinButton } from "@/components/home/CoinButton";
+import { motion } from "framer-motion";
 import { useLanguage } from "@/components/providers/LanguageProvider";
-import { Container } from "@/components/ui/Container";
-import { Grain } from "@/components/ui/Grain";
-import { Magnetic } from "@/components/ui/Magnetic";
 import { SITE } from "@/lib/constants";
+import { InteractiveActionButton, NosotrosShell, useNosotrosReveal } from "./primitives";
 
 /**
- * Nosotros closing CTA — press start.
+ * Closing CTA — next screen + interactive action button.
  */
 export function NosotrosCTA() {
   const { t } = useLanguage();
   const c = t.nosotrosPage.cta;
+  const reveal = useNosotrosReveal();
 
   return (
-    <section
-      className="relative overflow-hidden bg-surface-inverse py-section text-paper"
-      data-theme="inverse"
+    <NosotrosShell
+      tone="dark"
+      className="px-5 py-16 sm:px-8 sm:py-20 md:px-12 md:py-24 lg:px-16"
     >
-      <Grain strong />
-      <Container className="relative z-[1]">
-        <div className="grid items-end gap-10 lg:grid-cols-12">
-          <div className="lg:col-span-8">
-            <p className="font-mono text-caption uppercase tracking-label text-white/40">
-              {c.eyebrow}
-            </p>
-            <h2 className="mt-4 font-display text-display-lg text-paper">
-              {c.titleLine1}{" "}
-              <span className="text-accent-lime">{c.titleAccent}</span>
-            </h2>
-            <p className="mt-6 max-w-md text-lead text-white/55">{c.body}</p>
-          </div>
-          <div className="flex flex-col items-start gap-4 lg:col-span-4 lg:items-end">
-            <CoinButton href="/contacto" size="xl">
-              {c.startProject}
-            </CoinButton>
-            <Magnetic strength={10}>
-              <NextLink
-                href="/proyectos"
-                data-cursor="hover"
-                className="inline-flex h-14 items-center rounded-pill border border-white/25 px-7 text-sm font-medium text-paper transition-colors duration-base hover:border-accent-lime hover:text-accent-lime"
-              >
-                {c.viewProjects}
-              </NextLink>
-            </Magnetic>
-            <a
-              href={`mailto:${SITE.email}`}
-              className="font-mono text-caption uppercase tracking-label text-white/40 transition-colors hover:text-paper"
-              data-cursor="hover"
-            >
-              {SITE.email}
-            </a>
-          </div>
+      <div className="relative z-[1] grid items-end gap-10 lg:grid-cols-12">
+        <div className="lg:col-span-8">
+          <motion.p
+            className="n-label text-white/40"
+            variants={reveal}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+          >
+            {c.eyebrow}
+          </motion.p>
+          <motion.h2
+            className="n-heading mt-4 font-display text-display-lg text-white"
+            variants={reveal}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.4 }}
+          >
+            {c.titleLine1} <span className="text-accent-lime">{c.titleAccent}</span>
+          </motion.h2>
+          <motion.p
+            className="n-body mt-6 max-w-md text-lead font-light text-white/55"
+            variants={reveal}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.4 }}
+          >
+            {c.body}
+          </motion.p>
         </div>
-      </Container>
-    </section>
+        <div className="flex flex-col items-start gap-4 lg:col-span-4 lg:items-end">
+          <InteractiveActionButton href="/contacto">
+            {c.startProject}
+          </InteractiveActionButton>
+          <NextLink
+            href="/proyectos"
+            data-cursor="hover"
+            className="n-label text-white/45 transition-colors duration-300 hover:text-accent-lime focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-lime"
+          >
+            {c.viewProjects}
+          </NextLink>
+          <a
+            href={`mailto:${SITE.email}`}
+            className="tracking-label font-mono text-caption uppercase text-white/35 transition-colors hover:text-white"
+            data-cursor="hover"
+          >
+            {SITE.email}
+          </a>
+        </div>
+      </div>
+    </NosotrosShell>
   );
 }

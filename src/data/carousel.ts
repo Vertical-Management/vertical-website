@@ -57,10 +57,7 @@ export const CLUB_18_PIECES: CarouselTile[] = [
   video("e138a9127894877-614ca7a66e042", "Pieza 15"),
   video("f05f09242567723-696fc122ab5e1", "Pieza 16"),
   video("menu-1080p", "Menu 1080p"),
-  video(
-    "process-tecnica-recycle-your-boots-compositing-1080p",
-    "Recycle your boots",
-  ),
+  video("process-tecnica-recycle-your-boots-compositing-1080p", "Recycle your boots"),
 ];
 
 /** Three rows of 6 — full club of 18, all scroll left */

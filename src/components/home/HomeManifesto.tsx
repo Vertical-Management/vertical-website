@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 
 /**
  * Manifesto block — line-by-line scroll reveal (GSAP).
+ * Play once (no reverse) to avoid sticky jank on slow scroll.
  */
 export function HomeManifesto() {
   const root = useRef<HTMLElement>(null);
@@ -32,11 +33,11 @@ export function HomeManifesto() {
           {
             yPercent: 0,
             ease: "power3.out",
-            duration: 1,
+            duration: 0.85,
             scrollTrigger: {
               trigger: line,
-              start: "top 88%",
-              toggleActions: "play none none reverse",
+              start: "top 90%",
+              once: true,
             },
           },
         );
@@ -58,14 +59,18 @@ export function HomeManifesto() {
               key={`${locale}-${i}-${text}`}
               data-line
               className={cn(
-                "overflow-hidden text-balance font-display tracking-display text-ink",
+                "tracking-display overflow-hidden text-balance font-display text-ink",
                 i === 0
                   ? "text-display-lg"
                   : "text-display-md text-ink-soft md:text-display-lg",
                 i > 0 && "mt-1.5 md:mt-2",
               )}
             >
-              <span data-line-inner className="block will-change-transform">
+              <span
+                data-line-inner
+                className="block"
+                style={{ willChange: reduced ? undefined : "transform" }}
+              >
                 {text}
               </span>
             </p>
