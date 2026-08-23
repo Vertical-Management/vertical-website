@@ -16,6 +16,7 @@
 /playwright-report
 /blob-report
 /lighthouse-report
+/.lighthouseci
 
 # husky runtime wrappers
 .husky/_
